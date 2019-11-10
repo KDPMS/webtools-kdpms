@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-//$config['base_url'] = 'http://103.31.232.30/kdpms-business/';
-$config['base_url'] = 'http://localhost/kdpms-business/';
+//$config['base_url'] = 'http://103.31.232.30/webtools-kdpms//';
+$config['base_url'] = 'http://localhost/webtools-kdpms//';
 
 /*
 |--------------------------------------------------------------------------

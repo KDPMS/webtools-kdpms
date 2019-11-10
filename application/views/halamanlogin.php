@@ -29,7 +29,7 @@
             <div class="auto-form-wrapper">
               <?php if ($this->session->userdata('id')) { ?> 
               <div class="text-danger animated shake" style="background:#fff;height:10%;width:100%;border-radius:2px 2px;margin-bottom:2%;padding: 2%;">
-              <p>Hallo <?php echo $this->session->userdata('username') ?>, kamu masih mempunyai sesi, <a href="<?php echo base_url('Home'); ?>"> Kembali</a> , <a href="<?php echo base_url('Login/Logout'); ?>" style="color:red;"> Akhiri sesi!</a></p>
+              <p>Hallo <?php echo $this->session->userdata('username') ?>, kamu masih mempunyai sesi, <a href="<?php echo base_url('Tools'); ?>"> Kembali</a> , <a href="<?php echo base_url('Login/Logout'); ?>" style="color:red;"> Akhiri sesi!</a></p>
               </div>
               <?php }?>
               <h3>Silahkan Login</h3><br>
@@ -70,12 +70,12 @@
                   <button class="btn btn-primary submit-btn btn-block" id="kliklogin" onclick="Login()">Login</button>
                 </div>
                 <div class="text-block text-center my-3">
-                  <span class="text-small font-weight-semibold">Aplikasi bisnis</span>
-                  <a href="javascript:void(0)" class="text-black text-small" target="_blank">KDPMS V.1.0.8</a>
+                  <span class="text-small font-weight-semibold">Web Tools KDPMS</span>
+                  <a href="javascript:void(0)" class="text-black text-small" target="_blank">V.1.0.8</a>
                 </div>
               </form>
             </div><br>
-            <p class="footer-text text-center">copyright © 2018 Koperasi Dana Pinjaman Mandiri Sejahtera. All rights reserved. fahmi dwi& fahmi dion</p>
+            <p class="footer-text text-center">copyright © 2018 Koperasi Dana Pinjaman Mandiri Sejahtera. All rights reserved</p>
           </div>
         </div>
       </div>

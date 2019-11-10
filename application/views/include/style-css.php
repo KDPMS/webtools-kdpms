@@ -1,4 +1,5 @@
-<title id="title">Web Bisnis KDPMS</title>
+<title id="title">Web Tools KDPMS</title>
+  <meta author="Fahmi, dion, ridho, ernand" description="Web tools KDPMS 2018"> 
   <!-- plugins:css -->
 <!--   <link rel="preload" as="style" href="<?php echo base_url('lib/vendors/iconfonts/mdi/css/materialdesignicons.min.css'); ?>" onload="this.rel='stylesheet'"> -->
   

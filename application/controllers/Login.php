@@ -58,7 +58,7 @@ class Login extends CI_Controller {
 			//print_r($data_session);die();
 			$this->session->set_userdata($data_session);
 			$this->session->set_flashdata('suksesLog','Selamat datang <n style="font-weight:bold;">'.$this->session->userdata('username').'</n>, berdoa lah sebelum melakukan pekerjaan');
-			redirect(base_url('Home'));
+			redirect(base_url('tools'));
 		}else{
 			$this->session->set_flashdata('errLog','Anda tidak mempunyai akses atau username dan password salah');
 			redirect(base_url('login'));
