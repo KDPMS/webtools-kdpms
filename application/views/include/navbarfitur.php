@@ -8,7 +8,7 @@
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
     <a class="navbar-brand" style="padding:18px;">
-      <h3 style="color:#f0134d;font-family:'Play';">Web tools KDPMS</h3>
+      <h3 style="color:#f0134d;font-family:'Play';">Web tools KDPMS test</h3>
     </a>
     <a class="navbar-brand brand-logo-mini">
       <img src="<?php echo base_url('assets/images/logo1.png'); ?>" alt="logo" />
