@@ -21,7 +21,7 @@ class Report extends CI_Controller {
         $pdf = new FPDF('P','mm','A4',true,'UTF-8',false);
 
         //print_r($data);die();
-        $gambar = 'http://localhost/kdpms-business/assets/images/logoborder.png';
+        $gambar = 'http://localhost/webtools-kdpms/assets/images/logoborder.png';
         // membuat halaman baru
         $pdf->AddPage();
         $pdf->Image($gambar,11,5,25,25);
