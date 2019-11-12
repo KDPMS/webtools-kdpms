@@ -21,7 +21,7 @@ class Report extends CI_Controller {
         $pdf = new FPDF('P','mm','A4',true,'UTF-8',false);
 
         //print_r($data);die();
-        $gambar = 'http://localhost/webtools-kdpms/assets/images/logoborder.png';
+        $gambar = 'http://103.31.232.30/webtools-kdpms/assets/images/logoborder.png';
         // membuat halaman baru
         $pdf->AddPage();
         $pdf->Image($gambar,11,5,25,25);
@@ -267,7 +267,7 @@ class Report extends CI_Controller {
 		$debitur = $this->business->DataReportMemoAo($id_order)->row();
 		//print_r($debitur);die();
         $pdf = new FPDF('P','mm','A4',true,'UTF-8',false);
-        $gambar = 'http://103.31.232.30/kdpms-business/assets/images/logoborder.png';
+        $gambar = 'http://103.31.232.30/webtools-kdpms/assets/images/logoborder.png';
         // membuat halaman baru
         $pdf->AddPage();
         $pdf->Image($gambar,11,5,25,25);
