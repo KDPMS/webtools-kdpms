@@ -51,12 +51,13 @@
                   Web Bisnis
                 </button></a>
 
-                <?php
-                  $jabatan = $this->session->userdata('jabatan');
-                  if($jabatan == 'ketua' || $jabatan == 'manager') {
-                ?>
+                
               <!-- DI ARAHKAN SETIAP USER NYA KALAU AO KEHALAMAN AO, SESUAI AKSES NYA AJA GIMANA -->
-                <!-- <a href="<?php echo base_url('kpi/dashboard_kpi'); ?>"
+              <!-- <?php
+                $jabatan = $this->session->userdata('jabatan');
+                if($jabatan == 'ketua' || $jabatan == 'manager') {
+              ?>
+                <a href="<?php echo base_url('kpi/dashboard_kpi'); ?>"
                 style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
                   style="box-shadow: 1px 1px 10px gray; width: 300px; height: 150px;">Dashboard Kpi</button></a>
                 <?php
@@ -65,7 +66,7 @@
                 <a href="<?php echo base_url('kpi/dashboard_kpi_ao'); ?>"
                 style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
                   style="box-shadow: 1px 1px 10px gray; width: 300px; height: 150px;">Dashboard Kpi</button></a>
-                <?php } ?> -->
+              <?php } ?> -->
 
               <a onclick="return alert('Fitur masih dalam pengembangan')"
                 style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
