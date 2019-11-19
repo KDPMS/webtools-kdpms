@@ -12,7 +12,7 @@ class Tools extends CI_Controller {
 	public function index()
 	{
 		if (!$this->session->userdata('status')) {
-      return redirect(base_url('Login'));
+      		return redirect(base_url('Login'));
 		}else{
 			$this->load->view('halamantool');
 		}

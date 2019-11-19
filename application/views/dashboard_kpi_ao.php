@@ -307,7 +307,7 @@
 							<div class="row">
 								<div class="col-md-4 text-lg-left text-md-center text-sm-center text-center">
 									<p>
-										Nama User | AO
+										Nama User | <?php echo $this->session->userdata('username'); ?>
 									</p>
 								</div>
 								<div class="col-md-4 text-lg-center text-md-center text-sm-center text-center">
@@ -331,7 +331,7 @@
 									</p>
 								</div>
 								<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
-									<p>Kantor : Pusat</p>
+									<p>Kantor : <?php if ($this->session->userdata('kantor') == '01'){echo "Kantor Pusat";}else{echo "Cabang Cilodong";} ?></p>
 								</div>
 							</div>
 						</div>

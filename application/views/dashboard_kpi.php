@@ -304,36 +304,53 @@
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-6 text-lg-left text-md-center text-sm-center text-center">
-                  <p>
-                    Filter Data :
-                    <select name="bulan" id="bulan">
-                      <option value="" selected disabled>Pilih Bulan</option>
-                      <option value="">Bulan 1</option>
-                      <option value="">Bulan 2</option>
-                      <option value="">Bulan 3</option>
-                      <option value="">Bulan 4</option>
-                    </select>
-                    <select name="tahun" id="tahun">
-                      <option value="" selected disabled>Pilih Tahun</option>
-                      <option value="">Tahun 1</option>
-                      <option value="">Tahun 2</option>
-                      <option value="">Tahun 3</option>
-                      <option value="">Tahun 4</option>
-                    </select>
-                    <button class="btn-primary">Filter</button>
-                  </p>
+                  <form action="<?php echo site_url('kpi/dashboard_kpi'); ?>" method="post">
+                    <p>
+                      Filter Data :
+                      <select name="bulan" id="bulan">
+                        <option value="" selected disabled><?= $ubahBulan[$bulan]; ?></option>
+                        <?php 
+                          for ($i=1; $i<=12; $i++ ){
+                            if ($i < 10){
+                              $i = '0'.$i;
+                            }
+                        ?>
+                        <option value="<?php echo $i; ?>"> <?php echo $ubahBulan[$i]; ?></option>
+                        <?php } ?>
+                      </select>
+                      <select name="tahun" id="tahun">
+                        <option value="" selected disabled><?= $tahun; ?></option>
+                        <?php 
+                          for ($thn = 2019; $thn <= date('Y'); $thn++){
+                        ?>
+                        <option value="<?= $thn; ?>"><?= $thn; ?></option>
+                        <?php } ?>
+                      </select>
+                      <button type="submit"class="btn-primary">Filter</button>
+                    </p>
+                  </form>
                 </div>
                 <div class="col-md-6 text-lg-right text-md-center text-sm-center text-center">
-                  <p>Kantor : Pusat</p>
+                  <form action="<?php echo site_url('kpi/dashboard_kpi'); ?>" method="post">
+                    <p><b>Kantor : <?= $kantor; ?></b></p>
+                    <select name="kantor" id="kantor">
+                      <option value="" selected disabled>Pilih Kantor</option>
+                      <option value="01">Pusat</option>
+                      <option value="02">Cabang Cilodong</option>
+                    </select>
+                    <button type="submit"class="btn-primary">Filter</button>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
           <hr>
           <div class="row justify-content-center">
+          <?php if($dataKpiLending && $dataKpiNpl && $dataKpiCR && $dataKpiBZ != null){ ?>
             <!-- Lending -->
+            <?php if($dataKpiLending != null){ ?>
             <span class="rounded-circle" data-popover="popover"
-              data-content='<center><b>Lending : 30% <br> Status : Tidak Tercapai</b></center>' data-html='true'
+              data-content='<center><b>Lending : <?php echo number_format($dataKpiLending[0]->lending, 2) .' %'; ?>  <br> <!--Status : Tidak Tercapai--></b></center>' data-html='true'
               data-placement='top' data-trigger='hover'>
               <a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_lending">
                 <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="lending" data-type="radial-gauge" data-width="300"
@@ -350,9 +367,11 @@
                 </canvas>
               </a>
             </span>
+            <?php }else{echo "";}?>
             <!-- /Lending -->
 
             <!-- NPL -->
+            <?php if($dataKpiNpl != null){ ?>
             <span class="rounded-circle" data-popover="popover" id="popovernpl"
               data-content='<b>NPL : <?php echo $dataKpiNpl[0]->jml_value; ?> <br><br> Baki debet NPL : <?php echo $dataKpiNpl[0]->jml_bd_npl ?> </b><br><br><b> Total Baki debet : <?php echo $dataKpiNpl[0]->jml_bd ?> </b>'
               data-html='true' data-placement='top' data-trigger='hover'>
@@ -371,9 +390,11 @@
                 </canvas>
               </a>
             </span>
+            <?php }else{echo "";}?>
             <!-- /NPL -->
 
             <!-- Collection Ratio -->
+            <?php if($dataKpiCR != null){ ?>
             <span class="rounded-circle" data-popover="popover"
               data-content='<center><b>NPL : 1 <br> Status : Bagus</b></center>' data-html='true' data-placement='top'
               data-trigger='hover'>
@@ -392,9 +413,11 @@
                 </canvas>
               </a>
             </span>
+            <?php }else{echo "";}?>
             <!-- /Collection Ratio -->
 
             <!-- Bucket Zero -->
+            <?php if($dataKpiBZ != null){ ?>
             <span class="rounded-circle" data-popover="popover"
               data-content='<center><b>BZ : 50% <br> Status : Tercapai</b></center>' data-html='true'
               data-placement='top' data-trigger='hover'>
@@ -413,8 +436,21 @@
                 </canvas>
               </a>
             </span>
+            <?php }else{echo "";}?>
             <!-- /Bucket Zero -->
+          <?php }else{?>
+            <div class="row align-content-center align-items-center justify-content-center text-center">
+              <h2 class="text-danger">
+                <b><i class="mdi mdi-alert"></i> 204</b> <br>
+                <hr>
+                Data Dengan Filter : <br>
+                <b><?= $ubahBulan[$bulan].'-'.$tahun; ?></b> <br>
+                Tidak Ditemukan
+              </h2>
+            </div>
+          <?php }; ?>
           </div>
+          
 
           <!-- Modal Lending -->
           <div class="modal fade" id="modal_lending" tabindex="1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
@@ -431,7 +467,7 @@
                   <div class="row justify-content-center">
                     <?php foreach ($datakpilendingAO as $res) { ?>
                     <span class="rounded-circle" data-popover="popover"
-                      data-content='<center><b>Belum dinamis</b></center>' data-html='true' data-placement='top'
+                      data-content='<center><b>Lending : <?= substr($res->lending, 0, -4).' %'; ?></b><br><br><b>Persentase : <?= number_format($res->jml_value / $res->jml_max_value * 100, 2) .'%'; ?></b></center>' data-html='true' data-placement='top'
                       data-trigger='hover'>
                       <a class="rounded-circle" href="#detail_lending_ao" data-toggle="modal"
                         data-target="#detail_lending_ao<?php echo $res->kode_group2; ?>" data-backdrop="false">
@@ -451,7 +487,8 @@
                     </span>
                     <!-- Modal Detail Per AO -->
                     <?php 
-                      $date = '2019-09-30'; //NANTI DI SESUAIKAN SESSUAI DENGAN FILTER TANGGAL NYA
+
+                      $date = "$tahun-$bulan-".date('d'); //NANTI DI SESUAIKAN SESSUAI DENGAN FILTER TANGGAL NYA
                       $this->db->query("SELECT '$date' INTO @pv_per_tgl");
                       $this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
                       $dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending")->result();
@@ -519,7 +556,7 @@
             <div class="modal-dialog modal-xl modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header bg-light">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Detail NPL</h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle">Data NPL per Collector</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -605,7 +642,7 @@
         <footer class="footer">
           <div class="container-fluid clearfix">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
-              <a href="https://dpmsejahtera.com" target="_blank">Koperasi dana pinjaman mandiri sejahtera</a>. All
+              <a href="https://kdpms.id/" target="_blank">Koperasi dana pinjaman mandiri sejahtera</a>. All
               rights reserved.</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">KDPMS BISNIS V.1.0.6
             </span>

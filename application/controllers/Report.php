@@ -194,7 +194,7 @@ class Report extends CI_Controller {
 
         $pdf = new FPDF('P','mm','A4',true,'UTF-8',false);
         //print_r($dataorder);die();
-        $gambar = 'http://localhost/kdpms-business/assets/images/logoborder.png';
+        $gambar = 'http://103.31.232.30/webtools-kdpms/assets/images/logoborder.png';
         // membuat halaman baru
         $pdf->AddPage();
         $pdf->Image($gambar,11,5,25,25);
@@ -254,7 +254,7 @@ class Report extends CI_Controller {
         $pdf->SetFont('times','B',10);
         $pdf->MultiCell(0,0,'Lampiran',0,'L',false);
         foreach ($datafile->file as $h) {
-            $gambar = 'http://103.31.232.30/kdpms-business/assets/lampiran/'.$h;
+            $gambar = 'http://103.31.232.30/webtools-kdpms/assets/lampiran/'.$h;
             $pdf->Image($gambar,33,30,150,100);
             $pdf->Cell(10,6,'',0,1);
             $pdf->AddPage();
@@ -267,7 +267,7 @@ class Report extends CI_Controller {
 		$debitur = $this->business->DataReportMemoAo($id_order)->row();
 		//print_r($debitur);die();
         $pdf = new FPDF('P','mm','A4',true,'UTF-8',false);
-        $gambar = 'http://103.31.232.30/kdpms-business/assets/images/logoborder.png';
+        $gambar = 'http://103.31.232.30/webtools-kdpms/assets/images/logoborder.png';
         // membuat halaman baru
         $pdf->AddPage();
         $pdf->Image($gambar,11,5,25,25);
@@ -561,7 +561,7 @@ class Report extends CI_Controller {
         $pdf = new FPDF('P','mm','A4',true,'UTF-8',false);
         $ca = $this->business->DataReportMemoCA($id_order)->row();
         //print_r($ca);die();
-        $gambar = 'http://103.31.232.30/kdpms-business/assets/images/logoborder.png';
+        $gambar = 'http://103.31.232.30/webtools-kdpms/assets/images/logoborder.png';
         // membuat halaman baru
         $pdf->AddPage();
         $pdf->Image($gambar,11,5,25,25);
@@ -1227,7 +1227,7 @@ class Report extends CI_Controller {
         $fisikkendaraan = $this->business->get_where('los_memo_kredit_ca_fisik_kendaraan',null,null,array('id_order' => $id_order))->row();
         $sumberharga = $this->business->get_where('los_memo_kredit_ca_penilaian_jaminan_kendaraan',null,null,array('id_order' => $id_order))->row();
         //print_r(json_encode($data));die();
-        $gambar = 'http://103.31.232.30/kdpms-business/assets/images/logoborder.png';
+        $gambar = 'http://103.31.232.30/webtools-kdpms/assets/images/logoborder.png';
         // membuat halaman baru
         $pdf->AddPage();
         $pdf->Image($gambar,11,5,25,25);

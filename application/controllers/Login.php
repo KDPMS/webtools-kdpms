@@ -31,6 +31,7 @@ class Login extends CI_Controller {
 
 		foreach ($get as $h) {
 			$id = $h->user_id;
+			$nama = $h->nama;
 			$username = $h->user;
 			$kantor = $h->kd_cabang;
 			$jabatan = $h->jabatan;
@@ -49,6 +50,7 @@ class Login extends CI_Controller {
 			$data_session = array(
 				'id' => $id,
 				'username' => $username,
+				'nama' => $nama,
 				'jabatan' => $jabatan,
 				'kantor' => $kantor,
 				'status' => 'login',
