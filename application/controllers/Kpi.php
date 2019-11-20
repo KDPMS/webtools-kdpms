@@ -44,13 +44,10 @@ class Kpi extends CI_Controller {
 			$kantor = "01";
 		}
 
-		if($kantor == "01") {
-			$data['kantor'] = "Pusat";	
-		}else{
-			$data['kantor'] = "Cabang Cilodong";
-		}
 		$data['bulan'] = $bulan;
 		$data['tahun'] = $tahun;
+		$data['kantor'] = $kantor;
+		$data['namaKantor'] = array('01' => "Pusat", '02' => "Cabang Cilodong");
 		$data['ubahBulan'] = array('01'=>"Januari",'02'=>"Februari",'03'=>"Maret", '04'=>"April", '05'=>"Mei",'06'=>"Juni",'07'=>"Juli",'08'=>"Agustus",'09'=>"September",'10'=>"Oktober", '11'=>"November",'12'=>"Desember");
 		
 		$data['dataKpiNpl'] = $this->kpi->datakpinpl($tahun, $bulan, $tanggal, $kantor)->result();

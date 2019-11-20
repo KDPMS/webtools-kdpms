@@ -1855,7 +1855,7 @@ class Home extends CI_Controller {
        	$plafond = number_format($dataToemail->plafond, 2, ".", ".");
        	$message = "
 	    <div style='padding:2%;background-color:white;'>
-		<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+		<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 		</div>
 		<br>
 		<center><h2 style='font-family: arial;'>DATA KREDIT CHECKING MASUK </h2></center>
@@ -2143,7 +2143,7 @@ class Home extends CI_Controller {
 	       	$subject = 'KREDIT CHECKING TELAH DISETUJUI';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<br>
 			<center><h2 style='font-family: arial;'>DATA KREDIT CHECKING DISETUJUI </h2></center>
@@ -2167,7 +2167,7 @@ class Home extends CI_Controller {
 	       	$subject = 'DATA SURVEY';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<br>
 			<center><h2 style='font-family: arial;'>DATA SURVEY </h2></center>
@@ -2245,7 +2245,7 @@ class Home extends CI_Controller {
        	$subject = 'PENOLAKAN KREDIT CHECKING';
        	$message = "
 	    <div style='padding:2%;background-color:white;'>
-		<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+		<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 		</div>
 		<br>
 		<center><h2 style='font-family: arial;'>DATA KREDIT CHECKING DITOLAK </h2></center>
@@ -2459,7 +2459,7 @@ class Home extends CI_Controller {
 	       	$subject = 'DATA KREDIT CHECKING';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<br>
 			<center><h2 style='font-family: arial;'>DATA SURVEY </h2></center>
@@ -2556,7 +2556,7 @@ class Home extends CI_Controller {
 	       	$subject = 'DATA KREDIT CHECKING';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<br>
 			<center><h2 style='font-family: arial;'>DATA SURVEY </h2></center>
@@ -2661,7 +2661,7 @@ class Home extends CI_Controller {
 	       	$subject = 'SURVEY DI PENDING';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<br>
 			<center><h2 style='font-family: arial;'>DATA SURVEY DI PEMDING </h2></center>
@@ -2735,7 +2735,7 @@ class Home extends CI_Controller {
 	       	$subject = 'DATA SURVEY DI SETUJUI';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<br>
 			<center><h2 style='font-family: arial;'>DATA SURVEY DI SETUJUI </h2></center>
@@ -2814,7 +2814,7 @@ class Home extends CI_Controller {
 	       	$subject = 'DATA SURVEY DI TOLAK';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<br>
 			<center><h2 style='font-family: arial;'>DATA SURVEY DI TOLAK </h2></center>
@@ -3573,7 +3573,7 @@ class Home extends CI_Controller {
 	       	$subject = 'PERSETUJUAN';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<br>
 			<center><h2 style='font-family: arial;'>DATA PERSETUJUAN </h2></center>
@@ -3842,7 +3842,7 @@ class Home extends CI_Controller {
        	$subject = 'PERSETUJUAN';
        	$message = "
 	    <div style='padding:2%;background-color:white;'>
-		<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+		<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 		</div>
 		<br>
 		<center><h2 style='font-family: arial;'>DATA PERSETUJUAN </h2></center>
@@ -4495,7 +4495,7 @@ class Home extends CI_Controller {
 	       	$subject = 'INFO PERSETUJUAN';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<h4 style='font-family: verdana'>Calon nasabah $ao_to_email telah disetujui manager</h4>
 			<p>MARKETING : $ao_to_email</p>
@@ -4523,7 +4523,7 @@ class Home extends CI_Controller {
 	       	$subject = 'PERSETUJUAN';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<br>
 			<center><h2 style='font-family: arial;'>DATA PERSETUJUAN </h2></center>
@@ -4595,7 +4595,7 @@ class Home extends CI_Controller {
 	       	$subject = 'INFO PERSETUJUAN';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<h4 style='font-family: verdana'>Calon nasabah $ao_to_email telah disetujui ketua</h4>
 			<p>MARKETING : $ao_to_email</p>
@@ -4620,7 +4620,7 @@ class Home extends CI_Controller {
 			$subject = 'LEGAL';
 			$message = "
 			<div style='padding:2%;background-color:white;'>
-				<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+				<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 				</div>
 				<h4 style='font-family: verdana'>Calon nasabah $ao_to_email telah disetujui ketua, silahkan masukan biaya biaya</h4>
 				<p>MARKETING : $ao_to_email</p>
@@ -4736,7 +4736,7 @@ class Home extends CI_Controller {
 	       	$subject = 'INFO PENOLAKAN';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<h4 style='font-family: verdana'>Permohonan Pinjaman dibawah ini tidak dapat di proses / di tolak </h4>
 			<p>MARKETING : $ao_to_email</p>
@@ -4785,7 +4785,7 @@ class Home extends CI_Controller {
 	       	$subject = 'INFO PENOLAKAN';
 	       	$message = "
 		    <div style='padding:2%;background-color:white;'>
-			<center><img src='http://103.31.232.30/kdpms-business/assets/images/bussines.png' margin-left:2%;></center>
+			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
 			<h4 style='font-family: verdana'>Calon nasabah $ao_to_email ditolak manager</h4>
 			<p>MARKETING : $ao_to_email</p>

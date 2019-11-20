@@ -308,7 +308,7 @@
                     <p>
                       Filter Data :
                       <select name="bulan" id="bulan">
-                        <option value="" selected disabled><?= $ubahBulan[$bulan]; ?></option>
+                        <option value="<?= $bulan; ?>" selected><?= $ubahBulan[$bulan]; ?></option>
                         <?php 
                           for ($i=1; $i<=12; $i++ ){
                             if ($i < 10){
@@ -319,7 +319,7 @@
                         <?php } ?>
                       </select>
                       <select name="tahun" id="tahun">
-                        <option value="" selected disabled><?= $tahun; ?></option>
+                        <option value="<?= $tahun; ?>" selected><?= $tahun; ?></option>
                         <?php 
                           for ($thn = 2019; $thn <= date('Y'); $thn++){
                         ?>
@@ -328,13 +328,11 @@
                       </select>
                       <button type="submit"class="btn-primary">Filter</button>
                     </p>
-                  </form>
                 </div>
                 <div class="col-md-6 text-lg-right text-md-center text-sm-center text-center">
-                  <form action="<?php echo site_url('kpi/dashboard_kpi'); ?>" method="post">
-                    <p><b>Kantor : <?= $kantor; ?></b></p>
+                    <p><b>Kantor : <?= $namaKantor[$kantor]; ?></b></p>
                     <select name="kantor" id="kantor">
-                      <option value="" selected disabled>Pilih Kantor</option>
+                      <option value="<?= $kantor; ?>" selected>Pilih Kantor</option>
                       <option value="01">Pusat</option>
                       <option value="02">Cabang Cilodong</option>
                     </select>
