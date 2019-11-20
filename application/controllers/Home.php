@@ -1850,7 +1850,7 @@ class Home extends CI_Controller {
 								->get()
 								->row();
 
-       	$toemail = 'fahmidwi45@gmail.com, fahmidion1@gmail.com, yusufdroider@gmail.com'; //TOKREDITCHECKING
+       	$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, fahmidion1@gmail.com, yusufdroider@gmail.com'; //TOKREDITCHECKING
        	$subject = 'KREDIT CHECKING';
        	$plafond = number_format($dataToemail->plafond, 2, ".", ".");
        	$message = "
@@ -2124,7 +2124,7 @@ class Home extends CI_Controller {
 
 		if ($queryVerifKredti) {
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'fahmidwi45@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
+				$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Adi suyadi') {
 				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Budiawan') {
@@ -2225,7 +2225,7 @@ class Home extends CI_Controller {
 								->get()->row();
 
 		if ($dataToemail->AO_ORDER == 'Kantor') {
-			$toemail = 'fahmidwi45@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
+			$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
 		}else if ($dataToemail->AO_ORDER == 'Adi suyadi') {
 			$toemail = 'adisuyadi.kdpms@gmail.com';//TO AO
 		}else if ($dataToemail->AO_ORDER == 'Budiawan') {
@@ -2238,7 +2238,7 @@ class Home extends CI_Controller {
 			$toemail = 'lukmanubay16@gmail.com';//TO AO
 		}else if ($dataToemail->AO_ORDER == 'Putra Nia') {
 			$toemail = 'putrania1972@gmail.com';//TO AO
-		}else if ($ao_to_email == 'Amirudin') {
+		}else if ($dataToemail->AO_ORDER == 'Amirudin') {
 			$toemail = 'muhamadamirudin78@gmail.com';//TO AO
 		}
 
@@ -2452,9 +2452,9 @@ class Home extends CI_Controller {
 	        $dataToemail = $this->db->select('los_calon_nasabah.kode_kantor')->from('los_calon_nasabah')->join('los_order','los_calon_nasabah.id_calon_debitur = los_order.id_calon_debitur')->where(array('los_order.id' => $this->input->post('id_order')))->get()->row();
 
 	        if ($dataToemail->kode_kantor == '01') {
-		        $toemail = 'fahmidwi45@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com ';// TO MANAGER OR KETUA
+		        $toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com ';// TO MANAGER OR KETUA
 	        }else if ($dataToemail->kode_kantor == '02') {
-		        $toemail = 'fahmidwi45@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com ';// TO MANAGER OR KETUA
+		        $toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com ';// TO MANAGER OR KETUA
 	        }
 	       	$subject = 'DATA KREDIT CHECKING';
 	       	$message = "
@@ -2640,7 +2640,7 @@ class Home extends CI_Controller {
 
 		if ($querySudahSurvey) {
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'fahmidwi45@gmail.com';//TO AO
+				$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Adi suyadi') {
 				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Budiawan') {
@@ -2714,7 +2714,7 @@ class Home extends CI_Controller {
 		$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
 		if ($querySudahSurvey) {
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'fahmidwi45@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
+				$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Adi suyadi') {
 				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Budiawan') {
@@ -2793,7 +2793,7 @@ class Home extends CI_Controller {
 		$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
 		if ($querySudahSurvey) {
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'fahmidwi45@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
+				$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Adi suyadi') {
 				$toemail = 'adisuyadi.kdpms@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Budiawan') {
@@ -3551,7 +3551,7 @@ class Home extends CI_Controller {
 
 		if ($queryMemoCa && $queryMemoCaVerifData && $queryMemoCaCeklisSurvey && $queryKondisiLokasiJaminanCa && $querylainLainCa && $queryCaa) {
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'fahmidwi45@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
+				$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Adi suyadi') {
 				$toemail = 'fahmidwi45@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Budiawan') {
@@ -3821,7 +3821,7 @@ class Home extends CI_Controller {
 		die();*/
 		//$toemail = 'fahmidwi45@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com ';
 		if ($ao_to_email == 'Kantor') {
-			$toemail = 'fahmidwi45@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
+			$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
 		}else if ($ao_to_email == 'Adi suyadi') {
 			$toemail = 'fahmidwi45@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
 		}else if ($ao_to_email == 'Budiawan') {
@@ -4474,7 +4474,7 @@ class Home extends CI_Controller {
 			$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
 			/*TO AO*/
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'fahmidwi45@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
+				$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Adi suyadi') {
 				$toemail = 'adisuyadi.kdpms@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Budiawan') {
@@ -4574,7 +4574,7 @@ class Home extends CI_Controller {
 			$notes = $this->input->post('notes');
 
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'fahmidwi45@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
+				$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Adi suyadi') {
 				$toemail = 'adisuyadi.kdpms@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Budiawan') {
@@ -4616,7 +4616,7 @@ class Home extends CI_Controller {
 			</div>
 		    ";
 			$this->sendEmail($toemail,$subject,$message);
-			$toemaillegal = 'fahmidwi45@gmail.com,mulyanapermana.mp@gmail.com';
+			$toemaillegal = 'fahmidwi45@gmail.com,arsyandi.ridho@gmail.com,mulyanapermana.mp@gmail.com';
 			$subject = 'LEGAL';
 			$message = "
 			<div style='padding:2%;background-color:white;'>
@@ -4715,7 +4715,7 @@ class Home extends CI_Controller {
 			);
 
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'fahmidwi45@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
+				$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Adi suyadi') {
 				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Budiawan') {
@@ -4764,7 +4764,7 @@ class Home extends CI_Controller {
 			);
 
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'fahmidwi45@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
+				$toemail = 'fahmidwi45@gmail.com, arsyandi.ridho@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Adi suyadi') {
 				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
 			}else if ($ao_to_email == 'Budiawan') {
