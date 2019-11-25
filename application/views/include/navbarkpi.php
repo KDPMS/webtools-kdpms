@@ -7,7 +7,7 @@
 </style>
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-    <a class="navbar-brand" style="padding:18px;">
+    <a class="navbar-brand" style="padding:18px;" href="<?php echo base_url('Tools'); ?>">
       <h3 style="color:#f0134d;font-family:'Play';">KPI KDPMS</h3>
     </a>
     <a class="navbar-brand brand-logo-mini">
@@ -17,7 +17,7 @@
   <input type="hidden" id="session_jabatan" value="<?php echo $this->session->userdata('jabatan'); ?>">
   <div class="navbar-menu-wrapper d-flex align-items-center">
     
-    <span class="profile-text" style="font-weight:bold;color:#ffff32;"><?php if ($this->session->userdata('kantor') == '01'){echo "Kantor Pusat";}else{echo "Cabang Cilodong";} ?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="profile-text" style="font-weight:bold;color:#ffff32;"><?php if ($this->session->userdata('kantor') == '01'){echo "Kantor Pusat";}elseif($this->session->userdata('kantor') == '02'){echo "Cabang Cilodong";}else{echo "Anda belum login";} ?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <ul class="navbar-nav navbar-nav-right">
       <li class="nav-item dropdown d-none d-xl-inline-block">
         <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">

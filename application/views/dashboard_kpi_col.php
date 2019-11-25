@@ -551,9 +551,9 @@
 						</span>
 					</div>
 				</footer>
-				<script type="text/javascript" src="lib/js/formatRupiah.js"></script>
-				<script type="text/javascript" src="lib/js/changedate.js"></script>
-				<script type="text/javascript" src="lib/js/url.js"></script>
+				<script type="text/javascript" src="<?= base_url('lib/js/formatRupiah.js');?>"></script>
+				<script type="text/javascript" src="<?= base_url('lib/js/changedate.js'); ?>"></script>
+				<script type="text/javascript" src="<?= base_url('lib/js/url.js'); ?>"></script>
 
 				<!-- Highcharts CDN -->
 				<!-- <script src="https://code.highcharts.com/highcharts.js"></script>

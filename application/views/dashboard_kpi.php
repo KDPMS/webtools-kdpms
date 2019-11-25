@@ -301,58 +301,57 @@
           <input type="hidden" id="NowDate" value="<?php echo date('Y-m-d'); ?>">
           <input type="hidden" id="load_page" value="false">
           <div class="clearfix mt-5">
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-6 text-lg-left text-md-center text-sm-center text-center">
-                  <form action="<?php echo site_url('kpi/dashboard_kpi'); ?>" method="post">
-                    <p>
-                      Filter Data :
-                      <select name="bulan" id="bulan">
-                        <option value="<?= $bulan; ?>" selected><?= $ubahBulan[$bulan]; ?></option>
-                        <?php 
-                          for ($i=1; $i<=12; $i++ ){
-                            if ($i < 10){
-                              $i = '0'.$i;
-                            }
-                        ?>
-                        <option value="<?php echo $i; ?>"> <?php echo $ubahBulan[$i]; ?></option>
-                        <?php } ?>
-                      </select>
-                      <select name="tahun" id="tahun">
-                        <option value="<?= $tahun; ?>" selected><?= $tahun; ?></option>
-                        <?php 
-                          for ($thn = 2019; $thn <= date('Y'); $thn++){
-                        ?>
-                        <option value="<?= $thn; ?>"><?= $thn; ?></option>
-                        <?php } ?>
-                      </select>
-                      <button type="submit"class="btn-primary">Filter</button>
-                    </p>
-                </div>
-                <div class="col-md-6 text-lg-right text-md-center text-sm-center text-center">
-                    <p><b>Kantor : <?= $namaKantor[$kantor]; ?></b></p>
-                    <select name="kantor" id="kantor">
-                      <option value="<?= $kantor; ?>" selected>Pilih Kantor</option>
-                      <option value="01">Pusat</option>
-                      <option value="02">Cabang Cilodong</option>
-                    </select>
-                    <button type="submit"class="btn-primary">Filter</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-6 text-lg-left text-md-center text-sm-center text-center">
+										<form action="<?php echo site_url('kpi/dashboard_kpi'); ?>" method="post">
+											<p>
+												Filter Data :
+												<select name="bulan" id="bulan">
+													<?php 
+														for ($i=1; $i<=12; $i++ ){
+															if ($i < 10){
+																$i = '0'.$i;
+															}
+													?>
+													<option value="<?php echo $i; ?>" <?php if($bulan == $i){ echo('selected'); } ?>> <?php echo ubahBulan($i); ?></option>
+													<?php } ?>
+												</select>
+												<select name="tahun" id="tahun">
+													<?php 
+														for ($thn = 2019; $thn <= date('Y'); $thn++){
+													?>
+													<option value="<?= $thn; ?>" <?php if($tahun == $thn){ echo('selected'); } ?>><?= $thn; ?></option>
+													<?php } ?>
+												</select>
+												<button type="submit"class="btn-primary">Filter</button>
+											</p>
+									</div>
+									<div class="col-md-6 text-lg-right text-md-center text-sm-center text-center">
+											<p>
+												<b>Kantor :
+												<select name="kantor" id="kantor">
+													<option value="01" <?php if($kantor == '01'){ echo('selected'); } ?>>Pusat</option>
+													<option value="02" <?php if($kantor == '02'){ echo('selected'); } ?>>Cabang Cilodong</option>
+												</select>
+											<button type="submit"class="btn-primary">Filter</button>
+										  </p>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
           <hr>
           <div class="row justify-content-center">
           <?php if($dataKpiLending && $dataKpiNpl && $dataKpiCR && $dataKpiBZ != null){ ?>
             <!-- Lending -->
             <?php if($dataKpiLending != null){ ?>
             <span class="rounded-circle" data-popover="popover"
-              data-content='<center><b>Lending : <?php echo number_format($dataKpiLending[0]->lending, 2) .' %'; ?>  <br> <!--Status : Tidak Tercapai--></b></center>' data-html='true'
+              data-content='<center><b>Lending : <?php echo number_format($dataKpiLending[0]->lending, 2) .' %'; ?> <br>Persentase : <?= number_format($dataKpiLending[0]->jml_value / $dataKpiLending[0]->jml_max_value * 100, 2) .' %' ; ?> <!--Status : Tidak Tercapai--></></center>' data-html='true'
               data-placement='top' data-trigger='hover'>
               <a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_lending">
                 <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="lending" data-type="radial-gauge" data-width="300"
-                  data-height="300" data-units="<?php echo $dataKpiLending[0]->unit; ?>" data-title="Lending"
+                  data-height="300" data-units="<?php echo $dataKpiLending[0]->unit; ?>" data-title="<?= $dataKpiLending[0]->title; ?>"
                   data-value="<?php echo $dataKpiLending[0]->jml_value; ?>" data-min-value="0"
                   data-max-value="<?php echo $dataKpiLending[0]->jml_max_value; ?>"
                   data-major-ticks="<?php echo $dataKpiLending[0]->mayor_ticks; ?>"
@@ -375,7 +374,7 @@
               data-html='true' data-placement='top' data-trigger='hover'>
               <a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
                 <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="nplkantor" data-type="radial-gauge" data-width="300"
-                  data-height="300" data-units="<?php echo $dataKpiNpl[0]->unit; ?>" data-title="NPL"
+                  data-height="300" data-units="<?php echo $dataKpiNpl[0]->unit; ?>" data-title="<?= $dataKpiNpl[0]->title; ?>"
                   data-value="<?php echo $dataKpiNpl[0]->jml_value; ?>" data-min-value="0"
                   data-max-value="<?php echo $dataKpiNpl[0]->jml_max_value; ?>"
                   data-major-ticks="<?php echo $dataKpiNpl[0]->mayor_ticks; ?>"
@@ -398,7 +397,7 @@
               data-trigger='hover'>
               <a href="" data-toggle="modal" data-target="#modal_cr">
                 <canvas class="mt-2 mb-2 mx-2" id="cr" data-type="radial-gauge" data-width="300" data-height="300"
-                  data-units="<?php echo $dataKpiCR[0]->unit; ?>" data-title="CR"
+                  data-units="<?php echo $dataKpiCR[0]->unit; ?>" data-title="<?= $dataKpiCR[0]->title; ?>"
                   data-value="<?php echo $dataKpiCR[0]->jml_value; ?>" data-min-value="0"
                   data-max-value="<?php echo $dataKpiCR[0]->jml_max_value; ?>"
                   data-major-ticks="<?php echo $dataKpiCR[0]->mayor_ticks; ?>"
@@ -421,7 +420,7 @@
               data-placement='top' data-trigger='hover'>
               <a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
                 <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300"
-                  data-height="300" data-units="<?php echo $dataKpiBZ[0]->unit; ?>" data-title="BZ"
+                  data-height="300" data-units="<?php echo $dataKpiBZ[0]->unit; ?>" data-title="<?= $dataKpiBZ[0]->title; ?>"
                   data-value="<?php echo $dataKpiBZ[0]->jml_value; ?>" data-min-value="0"
                   data-max-value="<?php echo $dataKpiBZ[0]->jml_max_value; ?>"
                   data-major-ticks="<?php echo $dataKpiBZ[0]->mayor_ticks; ?>"
@@ -442,7 +441,7 @@
                 <b><i class="mdi mdi-alert"></i> 204</b> <br>
                 <hr>
                 Data Dengan Filter : <br>
-                <b><?= $ubahBulan[$bulan].'-'.$tahun; ?></b> <br>
+                <b><?= ubahBulan($bulan).'-'.$tahun; ?></b> <br>
                 Tidak Ditemukan
               </h2>
             </div>
@@ -465,7 +464,7 @@
                   <div class="row justify-content-center">
                     <?php foreach ($datakpilendingAO as $res) { ?>
                     <span class="rounded-circle" data-popover="popover"
-                      data-content='<center><b>Lending : <?= substr($res->lending, 0, -4).' %'; ?></b><br><br><b>Persentase : <?= number_format($res->jml_value / $res->jml_max_value * 100, 2) .'%'; ?></b></center>' data-html='true' data-placement='top'
+                      data-content='<center><b>Lending : <?= number_format($res->lending, 2).' %'; ?></b><br><br><b>Persentase : <?= number_format($res->jml_value / $res->jml_max_value * 100, 2) .'%'; ?></b></center>' data-html='true' data-placement='top'
                       data-trigger='hover'>
                       <a class="rounded-circle" href="#detail_lending_ao" data-toggle="modal"
                         data-target="#detail_lending_ao<?php echo $res->kode_group2; ?>" data-backdrop="false">
@@ -507,25 +506,25 @@
                             <table class="table table-bordered table-hover">
                               <thead class="bg-light">
                                 <tr>
-                                  <th>Nasabah_id</th>
+                                  <th>Nasabah id</th>
                                   <th>Nama Nasabah</th>
                                   <th>Alamat</th>
-                                  <th>tgl_jatuh_tempo</th>
-                                  <th>baki_debet</th>
-                                  <th>jml_pinjaman</th>
-                                  <th>jml_lending</th>
+                                  <th>Tanggal jatuh tempo</th>
+                                  <th>Baki debet</th>
+                                  <th>Jumlah pinjaman</th>
+                                  <th>Jumlah lending</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <?php foreach ($dataDetail as $resDetail) { ?>
                                 <tr>
-                                  <td><?php echo $resDetail->nasabah_id ?></td>
-                                  <td><?php echo $resDetail->nama_nasabah ?></td>
-                                  <td><?php echo $resDetail->alamat ?></td>
-                                  <td><?php echo $resDetail->tgl_jatuh_tempo ?></td>
-                                  <td><?php echo $resDetail->baki_debet ?></td>
-                                  <td><?php echo $resDetail->jml_pinjaman ?></td>
-                                  <td><?php echo $resDetail->jml_lending ?></td>
+                                  <td><?php echo $resDetail->nasabah_id; ?></td>
+                                  <td><?php echo $resDetail->nama_nasabah; ?></td>
+                                  <td><?php echo $resDetail->alamat; ?></td>
+                                  <td><?php echo $resDetail->tgl_jatuh_tempo; ?></td>
+                                  <td><?php echo rupiah($resDetail->baki_debet); ?></td>
+                                  <td><?php echo rupiah($resDetail->jml_pinjaman); ?></td>
+                                  <td><?php echo rupiah($resDetail->jml_lending); ?></td>
                                 </tr>
                                 <?php } ?>
                               </tbody>
@@ -548,6 +547,7 @@
             </div>
           </div>
           <!-- /Modal Lending -->
+
           <!-- Modal NPL -->
           <div class="modal fade" id="modal_npl" tabindex="2" role="dialog" aria-labelledby="myExtraLargeModalLabel"
             aria-hidden="true">
@@ -560,7 +560,29 @@
                   </button>
                 </div>
                 <div class="modal-body">
-
+                  <div class="row justify-content-center">
+                  <?php foreach ($dataKpiNplKol as $res) { ?>
+                    <span class="rounded-circle" data-popover="popover"
+                      data-content='<b>NPL : <?= $res->jml_value; ?></b><br><br><b>Baki debet NPL : <?= $res->jml_bd_npl; ?></b><br><br><b>Total Baki debet : <?= $res->jml_bd; ?></b>' data-html='true' data-placement='top'
+                      data-trigger='hover'>
+                      <a class="rounded-circle" href="#detail_npl_kol" data-toggle="modal"
+                        data-target="#detail_npl_kol<?php echo $res->kode_group3; ?>" data-backdrop="false">
+                        <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300"
+                          data-height="300" data-units="<?php echo $res->unit; ?>"
+                          data-title="<?php echo $res->deskripsi_group3; ?>" data-value="<?php echo $res->jml_value; ?>"
+                          data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>"
+                          data-major-ticks="<?php echo $res->mayor_ticks; ?>"
+                          data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true"
+                          data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101"
+                          data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff"
+                          data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)"
+                          data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true"
+                          data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
+                        </canvas>
+                      </a>
+                    </span>
+                  <?php } ?>
+                  </div>
                 </div>
                 <div class="modal-footer bg-light">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -582,7 +604,29 @@
                   </button>
                 </div>
                 <div class="modal-body">
-
+                  <div class="row justify-content-center">
+                  <?php foreach ($dataKpiCRKol as $res) { ?>
+                    <span class="rounded-circle" data-popover="popover"
+                      data-content='<b>CR : <?= $res->jml_value; ?></b><br><br><b>Jumlah Tagihan : <?= $res->jml_tagihan; ?></b><br><br><b>Jumlah Bayar : <?= $res->jml_bayar; ?></b>' data-html='true' data-placement='top'
+                      data-trigger='hover'>
+                      <a class="rounded-circle" href="#detail_npl_kol" data-toggle="modal"
+                        data-target="#detail_npl_kol<?php echo $res->kode_group3; ?>" data-backdrop="false">
+                        <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300"
+                          data-height="300" data-units="<?php echo $res->unit; ?>"
+                          data-title="<?php echo $res->deskripsi_group3; ?>" data-value="<?php echo $res->jml_value; ?>"
+                          data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>"
+                          data-major-ticks="<?php echo $res->mayor_ticks; ?>"
+                          data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true"
+                          data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101"
+                          data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff"
+                          data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)"
+                          data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true"
+                          data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
+                        </canvas>
+                      </a>
+                    </span>
+                  <?php } ?>
+                  </div>
                 </div>
                 <div class="modal-footer bg-light">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -604,7 +648,29 @@
                   </button>
                 </div>
                 <div class="modal-body">
-
+                  <div class="row justify-content-center">
+                  <?php foreach ($dataKpiBZKol as $res) { ?>
+                    <span class="rounded-circle" data-popover="popover"
+                      data-content='<b>BZ : <?= $res->jml_value; ?></b><br><br><b>Jumlah Tagihan : <?= $res->jml_tagihan; ?></b><br><br><b>Jumlah Bayar : <?= $res->jml_bayar; ?></b>' data-html='true' data-placement='top'
+                      data-trigger='hover'>
+                      <a class="rounded-circle" href="#detail_bz_kol" data-toggle="modal"
+                        data-target="#detail_bz_kol<?php echo $res->kode_group3; ?>" data-backdrop="false">
+                        <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300"
+                          data-height="300" data-units="<?php echo $res->unit; ?>"
+                          data-title="<?php echo $res->deskripsi_group3; ?>" data-value="<?php echo $res->jml_value; ?>"
+                          data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>"
+                          data-major-ticks="<?php echo $res->mayor_ticks; ?>"
+                          data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true"
+                          data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101"
+                          data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff"
+                          data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)"
+                          data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true"
+                          data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
+                        </canvas>
+                      </a>
+                    </span>
+                  <?php } ?>
+                  </div>
                 </div>
                 <div class="modal-footer bg-light">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -646,9 +712,9 @@
             </span>
           </div>
         </footer>
-        <script type="text/javascript" src="lib/js/formatRupiah.js"></script>
-        <script type="text/javascript" src="lib/js/changedate.js"></script>
-        <script type="text/javascript" src="lib/js/url.js"></script>
+        <script type="text/javascript" src="<?= base_url('lib/js/formatRupiah.js'); ?>"></script>
+        <script type="text/javascript" src="<?= base_url('lib/js/changedate.js'); ?>"></script>
+        <script type="text/javascript" src="<?= base_url('lib/js/url.js'); ?>"></script>
 
         <!-- Highcharts CDN -->
         <!-- <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -675,6 +741,8 @@
             $('[data-popover="popover"]').popover();
           }
         }
+
+        
 
         // $(document).ready(function() {
         //   $('#popovernpl').attr('data-content', '<center><b>NPL : ' + res[0].jml_value +

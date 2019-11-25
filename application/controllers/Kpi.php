@@ -47,16 +47,22 @@ class Kpi extends CI_Controller {
 		$data['bulan'] = $bulan;
 		$data['tahun'] = $tahun;
 		$data['kantor'] = $kantor;
-		$data['namaKantor'] = array('01' => "Pusat", '02' => "Cabang Cilodong");
-		$data['ubahBulan'] = array('01'=>"Januari",'02'=>"Februari",'03'=>"Maret", '04'=>"April", '05'=>"Mei",'06'=>"Juni",'07'=>"Juli",'08'=>"Agustus",'09'=>"September",'10'=>"Oktober", '11'=>"November",'12'=>"Desember");
 		
-		$data['dataKpiNpl'] = $this->kpi->datakpinpl($tahun, $bulan, $tanggal, $kantor)->result();
-		$data['dataKpiLending'] = $this->kpi->datakpilending($tahun, $bulan, $tanggal, $kantor)->result();
-		$data['dataKpiCR'] = $this->kpi->datakpiCR($tahun, $bulan, $tanggal, $kantor)->result();
-		$data['dataKpiBZ'] = $this->kpi->datakpiBZ($tahun, $bulan, $tanggal, $kantor)->result();
-		$data['datakpilendingAO'] = $this->kpi->datakpilendingAO($tahun, $bulan, $tanggal, $kantor)->result();
-		$data['datakpilendingAOdetail'] = $this->kpi->datakpilendingAOdetail($tahun, $bulan, $tanggal, '15')->result();
+		$data['dataKpiNpl'] = $this->kpi->datakpi_npl($tahun, $bulan, $tanggal, $kantor)->result();
+		$data['dataKpiNplKol'] = $this->kpi->datakpi_npl_Kol($tahun, $bulan, $tanggal, $kantor)->result();
+		$data['dataKpiNplKoldetail'] = $this->kpi->datakpi_npl_Kol_detail()->result();
+		$data['dataKpiLending'] = $this->kpi->datakpi_lending($tahun, $bulan, $tanggal, $kantor)->result();
+		$data['datakpilendingAO'] = $this->kpi->datakpi_lending_AO($tahun, $bulan, $tanggal, $kantor)->result();
+		$data['datakpilendingAOdetail'] = $this->kpi->datakpi_lending_AOdetail($tahun, $bulan, $tanggal, '15')->result();
+		$data['dataKpiCR'] = $this->kpi->datakpi_CR($tahun, $bulan, $tanggal, $kantor)->result();
+		$data['dataKpiCRKol'] = $this->kpi->datakpi_CR_Kol($tahun, $bulan, $tanggal, $kantor)->result();
+		$data['dataKpiCRKoldetail'] = $this->kpi->datakpi_CR_Kol_detail()->result();
+		$data['dataKpiBZ'] = $this->kpi->datakpi_BZ($tahun, $bulan, $tanggal, $kantor)->result();
+		$data['dataKpiBZKol'] = $this->kpi->datakpi_BZ_Kol($tahun, $bulan, $tanggal, $kantor)->result();
+		$data['dataKpiBZKoldetail'] = $this->kpi->datakpi_BZ_Kol_detail()->result();
 		
+		
+		$this->load->helper('data');
 		$this->load->view('dashboard_kpi',$data);
 	}
 
