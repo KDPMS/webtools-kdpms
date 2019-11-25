@@ -609,8 +609,8 @@
                     <span class="rounded-circle" data-popover="popover"
                       data-content='<b>CR : <?= $res->jml_value; ?></b><br><br><b>Jumlah Tagihan : <?= $res->jml_tagihan; ?></b><br><br><b>Jumlah Bayar : <?= $res->jml_bayar; ?></b>' data-html='true' data-placement='top'
                       data-trigger='hover'>
-                      <a class="rounded-circle" href="#detail_npl_kol" data-toggle="modal"
-                        data-target="#detail_npl_kol<?php echo $res->kode_group3; ?>" data-backdrop="false">
+                      <a class="rounded-circle" href="#detail_npl_kolektor" data-toggle="modal"
+                        data-target="#detail_npl_kolektor" data-backdrop="false">
                         <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300"
                           data-height="300" data-units="<?php echo $res->unit; ?>"
                           data-title="<?php echo $res->deskripsi_group3; ?>" data-value="<?php echo $res->jml_value; ?>"
@@ -681,11 +681,11 @@
           <!-- /Modal Bucket Zero -->
 
           <!-- Modal Detail Nasabah -->
-          <div class="modal fade" id="detail_nasabah" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
+          <div class="modal fade" id="detail_npl_kolektor" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
               <div class="modal-content">
                 <div class="modal-header bg-light">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Detail Data Nasabah</h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle">Detail Data NPL</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>

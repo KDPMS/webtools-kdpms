@@ -73,5 +73,6 @@ class Kpi extends CI_Controller {
 	public function dashboard_kpi_col(){
 		$this->load->view('dashboard_kpi_col');
 	}
+	
 
 }

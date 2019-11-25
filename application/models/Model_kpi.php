@@ -52,10 +52,10 @@ class Model_kpi extends CI_Model {
 		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_cr_kolektor WHERE kode_kantor = '$kode_kantor'");
 	}
 
-	public function datakpi_CR_Kol_detail(){ //GET VIEW COLLECTION RATIO PER KOLEKTOR-DETAIL
-		$this->db->query("SELECT '2019-10-31' INTO @pv_per_tgl");
-		$this->db->query("SELECT '01' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM `kms_kpi`.`v_kpi_kolektor_cr`");
+	public function datakpi_CR_Kol_detail($tahun = '2019', $bulan = '11', $tanggal = '01', $kode_group3 = '01'){ //GET VIEW COLLECTION RATIO PER KOLEKTOR-DETAIL
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr");
 	}
 	//END KPI COLLECTION RATIO
 
