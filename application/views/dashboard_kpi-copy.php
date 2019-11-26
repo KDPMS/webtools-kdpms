@@ -291,6 +291,10 @@
       <div class="main-panel" style="width: 100%;">
         <div class="content-wrapper">
           <input type="hidden" id="tamplate" value="">
+
+          <input type="hidden" id="paramsID1" value="">
+          <input type="hidden" id="paramsID2" value="">
+          <input type="hidden" id="paramsID3" value="">
           <input type="hidden" id="session_kantor" value="<?php echo $this->session->userdata('kantor'); ?>">
           <input type="hidden" id="session_jabatan" value="<?php echo $this->session->userdata('jabatan'); ?>">
           <input type="hidden" id="session_id_user" value="<?php echo $this->session->userdata('id'); ?>">
@@ -342,9 +346,9 @@
           <?php if($dataKpiLending && $dataKpiNpl && $dataKpiCR && $dataKpiBZ != null){ ?>
             <!-- Lending -->
             <?php if($dataKpiLending != null){ ?>
-              <span class="rounded-circle" data-popover="popover"
-              data-content='<b>Lending : <?php echo $dataKpiLending[0]->jml_value; ?> <br><br> Lending : <?php echo number_format($dataKpiLending[0]->lending, 2) .' %'; ?> </b>'
-              data-html='true' data-placement='top' data-trigger='hover'>
+            <span class="rounded-circle" data-popover="popover"
+              data-content='<center><b>Lending : <?php echo number_format($dataKpiLending[0]->lending, 2) .' %'; ?> <br>Persentase : <?= number_format($dataKpiLending[0]->jml_value / $dataKpiLending[0]->jml_max_value * 100, 2) .' %' ; ?> <!--Status : Tidak Tercapai--></></center>' data-html='true'
+              data-placement='top' data-trigger='hover'>
               <a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_lending">
                 <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="lending" data-type="radial-gauge" data-width="300"
                   data-height="300" data-units="<?php echo $dataKpiLending[0]->unit; ?>" data-title="<?= $dataKpiLending[0]->title; ?>"
@@ -365,7 +369,7 @@
 
             <!-- NPL -->
             <?php if($dataKpiNpl != null){ ?>
-            <span class="rounded-circle" data-popover="popover"
+            <span class="rounded-circle" data-popover="popover" id="popovernpl"
               data-content='<b>NPL : <?php echo $dataKpiNpl[0]->jml_value; ?> <br><br> Baki debet NPL : <?php echo $dataKpiNpl[0]->jml_bd_npl ?> </b><br><br><b> Total Baki debet : <?php echo $dataKpiNpl[0]->jml_bd ?> </b>'
               data-html='true' data-placement='top' data-trigger='hover'>
               <a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
@@ -388,9 +392,9 @@
 
             <!-- Collection Ratio -->
             <?php if($dataKpiCR != null){ ?>
-              <span class="rounded-circle" data-popover="popover"
-              data-content='<b>NPL : 1 <br> Status : Bagus</b>'
-              data-html='true' data-placement='top' data-trigger='hover'>
+            <span class="rounded-circle" data-popover="popover"
+              data-content='<center><b>NPL : 1 <br> Status : Bagus</b></center>' data-html='true' data-placement='top'
+              data-trigger='hover'>
               <a href="" data-toggle="modal" data-target="#modal_cr">
                 <canvas class="mt-2 mb-2 mx-2" id="cr" data-type="radial-gauge" data-width="300" data-height="300"
                   data-units="<?php echo $dataKpiCR[0]->unit; ?>" data-title="<?= $dataKpiCR[0]->title; ?>"
@@ -411,9 +415,9 @@
 
             <!-- Bucket Zero -->
             <?php if($dataKpiBZ != null){ ?>
-              <span class="rounded-circle" data-popover="popover"
-              data-content='<b>BZ : 50% <br> Status : Tercapai</b>'
-              data-html='true' data-placement='top' data-trigger='hover'>
+            <span class="rounded-circle" data-popover="popover"
+              data-content='<center><b>BZ : 50% <br> Status : Tercapai</b></center>' data-html='true'
+              data-placement='top' data-trigger='hover'>
               <a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
                 <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300"
                   data-height="300" data-units="<?php echo $dataKpiBZ[0]->unit; ?>" data-title="<?= $dataKpiBZ[0]->title; ?>"
@@ -460,7 +464,7 @@
                   <div class="row justify-content-center">
                     <?php foreach ($datakpilendingAO as $res) { ?>
                     <span class="rounded-circle" data-popover="popover"
-                      data-content='<b>Lending : <?= number_format($res->lending, 2).' %'; ?></b><br><br><b>Persentase : <?= number_format($res->jml_value / $res->jml_max_value * 100, 2) .'%'; ?></b>' data-html='true' data-placement='top'
+                      data-content='<center><b>Lending : <?= number_format($res->lending, 2).' %'; ?></b><br><br><b>Persentase : <?= number_format($res->jml_value / $res->jml_max_value * 100, 2) .'%'; ?></b></center>' data-html='true' data-placement='top'
                       data-trigger='hover'>
                       <a class="rounded-circle" href="#detail_lending_ao" data-toggle="modal"
                         data-target="#detail_lending_ao<?php echo $res->kode_group2; ?>" data-backdrop="false">
@@ -558,11 +562,10 @@
                 <div class="modal-body">
                   <div class="row justify-content-center">
                   <?php foreach ($dataKpiNplKol as $res) { ?>
-                    
                     <span class="rounded-circle" data-popover="popover"
                       data-content='<b>NPL : <?= $res->jml_value; ?></b><br><br><b>Baki debet NPL : <?= $res->jml_bd_npl; ?></b><br><br><b>Total Baki debet : <?= $res->jml_bd; ?></b>' data-html='true' data-placement='top'
                       data-trigger='hover'>
-                      <a class="rounded-circle" onclick="getDetailNPL()" href="#detail_npl_kol" data-toggle="modal"
+                      <a class="rounded-circle" onclick="getDetailNpl()" href="#detail_npl_kol" data-toggle="modal"
                         data-target="#detail_npl_kol<?php echo $res->kode_group3; ?>" data-backdrop="false">
                         <canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300"
                           data-height="300" data-units="<?php echo $res->unit; ?>"
@@ -578,7 +581,7 @@
                         </canvas>
                       </a>
                     </span>
-                    <input type="hidden" id="kode_group3" value="<?php echo $res->kode_group3; ?>" selected>
+                    <input type="hidden" id="kodeGroup3" value="<?php echo $res->kode_group3; ?>">
                   <?php } ?>
                   </div>
                 </div>
@@ -679,9 +682,30 @@
           <!-- /Modal Bucket Zero -->
 
           <!-- Modal Detail NPL -->
-          <div id="detailNPL">
+          <div id="dataDetailNpl">
 
           </div>
+          <div class="modal fade" id="detail_npl_kolektor" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-light">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Detail Data NPL</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer bg-light">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Modal Detail NPL -->
+
+          <!-- Modal Detail NPL -->
           <div class="modal fade" id="detail_npl_kolektor" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
               <div class="modal-content">
@@ -713,9 +737,9 @@
             </span>
           </div>
         </footer>
-        <script type="text/javascript" src="<?= base_url('lib/js/formatRupiah.js'); ?>"></script>
+        <!-- <script type="text/javascript" src="<?= base_url('lib/js/formatRupiah.js'); ?>"></script>
         <script type="text/javascript" src="<?= base_url('lib/js/changedate.js'); ?>"></script>
-        <script type="text/javascript" src="<?= base_url('lib/js/url.js'); ?>"></script>
+        <script type="text/javascript" src="<?= base_url('lib/js/url.js'); ?>"></script> -->
 
         <!-- Highcharts CDN -->
         <!-- <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -724,12 +748,12 @@
 
 
         <!-- Bootstrap 4.3.1 JS -->
-        <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+          integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
         <!-- /Bootstrap 4.3.1 JS -->
         <!-- Popover -->
         <script>
@@ -742,15 +766,18 @@
             $('[data-popover="popover"]').popover();
           }
         }
-        
-        function getDetailNPL() {
-          var handler = $('#detailNPL');
-          var id = $('#kode_group3').val();
 
-          console.log(id);
-        }
+        $(document).ready(function(){
+          
+          function getDetailNPL(){
+            var detailNPL = $('#dataDetailNpl');
+            var id = $('#kodeGroup3').val();
+            console.log(id);
+          }
 
-        
+        });
+
+
         // $(document).ready(function() {
         //   $('#popovernpl').attr('data-content', '<center><b>NPL : ' + res[0].jml_value +
         //     ' <br> Status : Bagus Bagus Bagus Bagus</b></center>');

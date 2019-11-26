@@ -20,6 +20,5 @@
   <!-- Custom js for this page-->
   <script src="<?php echo base_url('lib/js/notif.js') ?>"></script>
   <script src="<?php echo base_url('lib/js/dashboard.js') ?>"></script>
-  <script src="<?php echo base_url('lib/js/appnpl.js') ?>"></script>
 
   <!-- End custom js for this page-->
