@@ -316,35 +316,42 @@
 										</p>
 									</div>
 									<div class="col-md-4 text-lg-center text-md-center text-sm-center text-center">
-										<p>
-											Filter Data :
-											<select name="bulan" id="bulan">
-												<option value="" selected disabled>Pilih Bulan</option>
-												<option value="">Bulan 1</option>
-												<option value="">Bulan 2</option>
-												<option value="">Bulan 3</option>
-												<option value="">Bulan 4</option>
-											</select>
-											<select name="tahun" id="tahun">
-												<option value="" selected disabled>Pilih Tahun</option>
-												<option value="">Tahun 1</option>
-												<option value="">Tahun 2</option>
-												<option value="">Tahun 3</option>
-												<option value="">Tahun 4</option>
-											</select>
-											<button class="btn-primary">Filter</button>
-										</p>
+										<form action="<?php echo site_url('kpi/dashboard_kpi_ao'); ?>" method="post">
+											<p>
+												Filter Data :
+												<select name="bulan" id="bulan">
+													<?php 
+														for ($i=1; $i<=12; $i++ ){
+															if ($i < 10){
+																$i = '0'.$i;
+															}
+													?>
+													<option value="<?php echo $i; ?>" <?php if($bulan == $i){ echo('selected'); } ?>> <?php echo ubahBulan($i); ?></option>
+													<?php } ?>
+												</select>
+												<select name="tahun" id="tahun">
+													<?php 
+														for ($thn = 2019; $thn <= date('Y'); $thn++){
+													?>
+													<option value="<?= $thn; ?>" <?php if($tahun == $thn){ echo('selected'); } ?>><?= $thn; ?></option>
+													<?php } ?>
+												</select>
+												<button class="btn-primary" type="submit">Filter</button>
+											</p>
+										</form>
 									</div>
 									<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
 										<p>
 											<b>
 												Kantor :
 												<?php 
-												if ($this->session->userdata('kantor') == '01'){
-													echo "Pusat";
-												}else{
-													echo "Cabang Cilodong";
-												}
+													if ($this->session->userdata('kantor') == '01'){
+														echo "Pusat";
+													}elseif($this->session->userdata('kantor') == '02'){
+														echo "Cabang Cilodong";
+													}else{
+														echo "Anda Harus Login Kembali <a href= ".base_url("login").">Login Kembali</a>";
+													}
 												?>
 											</b>
 										</p>
@@ -354,8 +361,10 @@
 						</div>
 						<hr />
 						<div class="row justify-content-center">
+
 							<!-- Lending -->
-							<span class="rounded-circle" data-popover="popover" data-content="<center><b>Lending : 30% <br> Status : Tidak Tercapai</b></center>" data-html="true" data-placement="top" data-trigger="hover">
+							<?php if($dataKpiLendingAO != null){ ?>
+							<span class="rounded-circle" data-popover="popover" data-content="<center><b>Lending : <?= $dataKpiLendingAO[0]->lending; ?> <br> Status : Tidak Tercapai</b></center>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_lending">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -363,20 +372,15 @@
 										data-type="radial-gauge"
 										data-width="300"
 										data-height="300"
-										data-units="%"
-										data-title="Lending"
-										data-value="65"
+										data-units="<?= $dataKpiLendingAO[0]->unit; ?>"
+										data-title="<?= $dataKpiLendingAO[0]->title; ?>"
+										data-value="<?= $dataKpiLendingAO[0]->jml_value; ?>"
 										data-min-value="0"
-										data-max-value="100"
-										data-major-ticks="0,10,20,30,40,50,60,70,80,90,100"
-										data-minor-ticks="5"
+										data-max-value="<?= $dataKpiLendingAO[0]->jml_max_value; ?>"
+										data-major-ticks="<?= $dataKpiLendingAO[0]->mayor_ticks; ?>"
+										data-minor-ticks="<?= $dataKpiLendingAO[0]->minor_ticks; ?>"
 										data-stroke-ticks="true"
-										data-highlights='[
-													{ "from": 0, "to": 25, "color": "#ef4b4b" },
-													{ "from": 25, "to": 50, "color": "yellow" },
-													{ "from": 50, "to": 75, "color": "green" },
-													{ "from": 75, "to": 100, "color": "#0066d6" }
-												]'
+										data-highlights='<?= $dataKpiLendingAO[0]->data_spedo; ?>'
 										data-color-plate="#010101"
 										data-color-major-ticks="#000000"
 										data-color-minor-ticks="#000000"
@@ -392,6 +396,7 @@
 									></canvas>
 								</a>
 							</span>
+							<?php }else{echo "";}?>
 							<!-- /Lending -->
 
 							<!-- Map -->
@@ -560,7 +565,9 @@
 							<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
 								<div class="modal-content">
 									<div class="modal-header bg-light">
-										<h5 class="modal-title" id="exampleModalLongTitle">Detail Lending</h5>
+										<h5 class="modal-title" id="exampleModalLongTitle">Detail Lending
+											<p><?= "Date : &nbsp" . ubahDate($date);?></p>
+										</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
@@ -570,28 +577,31 @@
 											<table id="dt_tables_lending" class="dt_tables table table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
 												<thead class="bg-light">
 													<tr>
-														<th>First</th>
-														<th>Last</th>
-														<th>Handle</th>
-														<th>Action</th>
+														<th>Nasabah ID</th>
+														<th>Nama Nasabah</th>
+														<th>Alamat</th>
+														<th>Tanggal Realisasi</th>
+														<th>JKW</th>
+														<th>Tanggal Jatuh Tempo</th>
+														<th>Baki Debet</th>
+														<th>Jumlah Pinjaman</th>
+														<th>Jumlah Lending</th>
 													</tr>
 												</thead>
 												<tbody>
+												<?php foreach($dataKpiLendingAOdetail as $resDetail) { ?>
 													<tr>
-														<td>Mark</td>
-														<td>Otto</td>
-														<td>@mdo</td>
-															<td>
-															<button
-																class="btn btn-sm btn-primary"
-																data-toggle="modal"
-																data-target="#detail_nasabah"
-																data-backdrop="false"
-															>
-																Detail
-															</button>
-														</td>
+														<td><?= $resDetail->nasabah_id; ?></td>
+														<td><?= $resDetail->nama_nasabah; ?></td>
+														<td><?= $resDetail->alamat; ?></td>
+														<td><?= $resDetail->tgl_realisasi; ?></td>
+														<td><?= $resDetail->jkw; ?></td>
+														<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+														<td><?= rupiah($resDetail->baki_debet); ?></td>
+														<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
+														<td><?= rupiah($resDetail->jml_lending); ?></td>
 													</tr>
+												<?php } ?>
 												</tbody>
 											</table>
 										</div>
@@ -672,28 +682,47 @@
 											<table id="dt_tables_bz" class="dt_tables table table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
 												<thead class="bg-light">
 													<tr>
-														<th>First</th>
-														<th>Last</th>
-														<th>Handle</th>
-														<th>Action</th>
+														<th>Nasabah ID</th>
+														<th>Nama Nasabah</th>
+														<th>Alamat</th>
+														<th>Tanggal Realisasi</th>
+														<th>JKW</th>
+														<th>Tanggal Jatuh Tempo</th>
+														<th>Baki Debet</th>
+														<th>Jumlah Pinjaman</th>
+														<th>Jumlah Lending</th>
+														<th>Jumlah Tagihan Turun</th>
+														<th>Jumlah Tagihan Bayar</th>
+														<th>Jumlah Tunggakan</th>
+														<th>Jumlah Denda</th>
+														<th>FT Pokok</th>
+														<th>FT Bunga</th>
+														<th>FT Hari</th>
+														<th>Kolektibilitas</th>
 													</tr>
 												</thead>
 												<tbody>
+												<?php foreach($dataKpiBZ_AOdetail as $resDetail) { ?>	
 													<tr>
-														<td>Mark</td>
-														<td>Otto</td>
-														<td>@mdo</td>
-															<td>
-															<button
-																class="btn btn-sm btn-primary"
-																data-toggle="modal"
-																data-target="#detail_nasabah"
-																data-backdrop="false"
-															>
-																Detail
-															</button>
-														</td>
+														<td><?= $resDetail->nasabah_id; ?></td>
+														<td><?= $resDetail->nama_nasabah; ?></td>
+														<td><?= $resDetail->alamat; ?></td>
+														<td><?= $resDetail->tgl_realisasi; ?></td>
+														<td><?= $resDetail->jkw; ?></td>
+														<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+														<td><?= $resDetail->baki_debet; ?></td>
+														<td><?= $resDetail->jml_pinjaman; ?></td>
+														<td><?= $resDetail->jml_lending; ?></td>
+														<td><?= $resDetail->jml_tagihan_turun; ?></td>
+														<td><?= $resDetail->jml_tagihan_bayar; ?></td>
+														<td><?= $resDetail->jml_tunggakan; ?></td>
+														<td><?= $resDetail->jml_denda; ?></td>
+														<td><?= $resDetail->ft_pokok; ?></td>
+														<td><?= $resDetail->ft_bunga; ?></td>
+														<td><?= $resDetail->ft_hari; ?></td>
+														<td><?= $resDetail->kolektibilitas; ?></td>
 													</tr>
+												<?php } ?>
 												</tbody>
 											</table>
 										</div>
@@ -850,7 +879,24 @@
 								return $(id_modal).on('shown.bs.modal', function () {
 									if ( ! $.fn.DataTable.isDataTable(id_table) ) {
 										var tbtb = $(id_table).DataTable( {
-											responsive: true,
+											responsive: {
+												details: {
+													renderer: function ( api, rowIdx, columns ) {
+														var data = $.map( columns, function ( col, i ) {
+															return col.hidden ?
+																'<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+																	'<td><b>'+col.title+'</b></td> '+
+																	'<td>'+col.data+'</td>'+
+																'</tr>' :
+																'';
+														} ).join('');
+									
+														return data ?
+															$('<table/>').append( data ) :
+															false;
+													}
+												}
+											},
 											order: [
 												[ 0, "desc" ]
 											],

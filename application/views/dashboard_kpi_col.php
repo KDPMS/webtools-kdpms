@@ -338,7 +338,6 @@
 													<option value="<?= $thn; ?>" <?php if($tahun == $thn){ echo('selected'); } ?>><?= $thn; ?></option>
 													<?php } ?>
 												</select>
-												<input type="hidden" name="kantor" value="<?= $this->session->userdata('kantor'); ?>">
 												<button class="btn-primary" type="submit">Filter</button>
 											</p>
 										</form>
@@ -365,8 +364,8 @@
 						<hr />
 						<div class="row justify-content-center">
 							
-							<!-- <?php var_dump($dataKpiCRKoldetail); ?> -->
 							<!-- Bucket Zero -->
+							<?php if($dataKpiBZKol != null){ ?>
 							<span class="rounded-circle" data-popover="popover" data-content="<center><b>Bucket Zero : 100% <br> Status : Tercapai <br> Jumlah Tagihan : <?= rupiah($dataKpiBZKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZKol[0]->jml_bayar); ?> </b></center>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
 									<canvas
@@ -398,9 +397,11 @@
 									></canvas>
 								</a>
 							</span>
+							<?php }else{echo "";}?>
 							<!-- /Bucket Zero -->
 
 							<!-- Collection Ratio -->
+							<?php if($dataKpiCRKol != null){ ?>
 							<span class="rounded-circle" data-popover="popover" data-content="<center><b>Collection Ratio : 1% <br> Status : Tidak Tercapai <br> Jumlah Tagihan : <?= rupiah($dataKpiCRKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiCRKol[0]->jml_bayar); ?></b></center>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_cr">
 									<canvas
@@ -433,10 +434,12 @@
 									></canvas>
 								</a>
 							</span>
+							<?php }else{echo "";}?>
 							<!-- /Collection Ratio -->
 
 							<!-- NPL -->
-							<span class="rounded-circle" data-popover="popover" data-content="<b>NPL : <?= $dataKpiNplKol[0]->jml_value; ?> <br> Status : Bagus <br> Baki Debet NPL : <?= $dataKpiNplKol[0]->jml_bd_npl; ?> <br> Total Baki Debet : <?= $dataKpiNplKol[0]->jml_bd; ?></b>" data-html="true" data-placement="top" data-trigger="hover">
+							<?php if($dataKpiNplKol != null){ ?>
+							<span class="rounded-circle" data-popover="popover" data-content="<b>NPL : <?= $dataKpiNplKol[0]->jml_value; ?> <br> Status : Bagus <br> Baki Debet NPL : <?= rupiah($dataKpiNplKol[0]->jml_bd_npl); ?> <br> Tot Baki Debet : <?= rupiah($dataKpiNplKol[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -468,6 +471,7 @@
 									></canvas>
 								</a>
 							</span>
+							<?php }else{echo "";}?>
 							<!-- /NPL -->
 
 							<!-- SP Return -->
