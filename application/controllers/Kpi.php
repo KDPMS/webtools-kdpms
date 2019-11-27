@@ -143,6 +143,8 @@ class Kpi extends CI_Controller {
 
 			$data['dataKpiNplKol'] = $this->kpi->datakpi_npl_Per_Kol($tahun, $bulan, $tanggal, $kode_group3, $kantor)->result();
 			$data['dataKpiNplKoldetail'] = $this->kpi->datakpi_npl_Kol_detail($tahun, $bulan, $tanggal, $kode_group3, $kantor)->result();
+			
+			$data['dataKpiSpReturnKoldetail'] = $this->kpi->datakpi_SPreturn_Kol_detail($tahun, $bulan, $tanggal, $kode_group3, $kantor)->result();
 
 			
 			$this->load->view('dashboard_kpi_col', $data);

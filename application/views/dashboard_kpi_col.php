@@ -748,7 +748,9 @@
 							<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
 								<div class="modal-content">
 									<div class="modal-header bg-light">
-										<h5 class="modal-title" id="exampleModalLongTitle">Detail SP Return</h5>
+										<h5 class="modal-title" id="exampleModalLongTitle">Detail SP Return
+											<p><?= "Date : &nbsp" . ubahDate($date);?></p>
+										</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
@@ -757,28 +759,51 @@
 										<table id="dt_tables_spr" class="table table-bordered table-hover">
 											<thead class="bg-light">
 												<tr>
-													<th>First</th>
-													<th>Last</th>
-													<th>Handle</th>
-													<th>Action</th>
+													<th>Nasabah ID</th>
+													<th>Nama Nasabah</th>
+													<th>Alamat</th>
+													<th>Tanggal Realisasi</th>
+													<th>JKW</th>
+													<th>Tanggal Jatuh Tempo</th>
+													<th>Baki Debet</th>
+													<th>Jumlah Pinjaman</th>
+													<th>Jumlah Lending</th>
+													<th>Jumlah Tagihan Turun</th>
+													<th>Jumlah Tagihan Bayar</th>
+													<th>Jumlah Tunggakan</th>
+													<th>Jumlah Denda</th>
+													<th>Jumlah SP Assign</th>
+													<th>Jumlah SP Return</th>
+													<th>FT Pokok</th>
+													<th>FT Bunga</th>
+													<th>FT Hari</th>
+													<th>Kolektibilitas</th>
 												</tr>
 											</thead>
 											<tbody>
+											<?php foreach($dataKpiSpReturnKoldetail as $resDetail) { ?>
 												<tr>
-													<td>Mark</td>
-													<td>Otto</td>
-													<td>@mdo</td>
-													<td>
-														<button
-															class="btn btn-sm btn-primary"
-															data-toggle="modal"
-															data-target="#detail_nasabah"
-															data-backdrop="false"
-														>
-															Detail
-														</button>
-													</td>
+													<td><?= $resDetail->nasabah_id; ?></td>
+													<td><?= $resDetail->nama_nasabah; ?></td>
+													<td><?= $resDetail->alamat; ?></td>
+													<td><?= $resDetail->tgl_realisasi; ?></td>
+													<td><?= $resDetail->jkw; ?></td>
+													<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+													<td><?= $resDetail->baki_debet; ?></td>
+													<td><?= $resDetail->jml_pinjaman; ?></td>
+													<td><?= $resDetail->jml_lending; ?></td>
+													<td><?= $resDetail->jml_tagihan_turun; ?></td>
+													<td><?= $resDetail->jml_tagihan_bayar; ?></td>
+													<td><?= $resDetail->jml_tunggakan; ?></td>
+													<td><?= $resDetail->jml_denda; ?></td>
+													<td><?= $resDetail->jml_sp_assign; ?></td>
+													<td><?= $resDetail->jml_sp_return; ?></td>
+													<td><?= $resDetail->ft_pokok; ?></td>
+													<td><?= $resDetail->ft_bunga; ?></td>
+													<td><?= $resDetail->ft_hari; ?></td>
+													<td><?= $resDetail->kolektibilitas; ?></td>
 												</tr>
+											<?php } ?>
 											</tbody>
 										</table>
 									</div>

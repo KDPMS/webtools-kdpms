@@ -17,13 +17,13 @@ class Model_kpi extends CI_Model {
 	public function datakpi_npl_Per_Kol($tahun = '', $bulan = '', $tanggal = '', $kode_group3 = '', $kode_kantor = ''){ // GET VIEW NPL Per KOLEKTOR
 		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
 		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_npl_kolektor WHERE kode_kantor = '$kode_kantor'");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_npl_kolektor WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
 	}
 
 	public function datakpi_npl_Kol_detail($tahun = '', $bulan = '', $tanggal = '', $kode_group3 = '', $kode_kantor = ''){	// GET VIEW NPL PER KOLEKTOR-DETAIL
 		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
 		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_npl WHERE kode_kantor = '$kode_kantor'");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_npl WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
 	}
 	//END KPI NPL
 	
@@ -67,13 +67,13 @@ class Model_kpi extends CI_Model {
 	public function datakpi_CR_Per_Kol($tahun = '', $bulan = '', $tanggal = '', $kode_group3 = '', $kode_kantor = ''){ //GET VIEW COLLECTION RATIO Per KOLEKTOR
 		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
 		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_cr_kolektor WHERE kode_kantor = '$kode_kantor'");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_cr_kolektor WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
 	}
 
 	public function datakpi_CR_Kol_detail($tahun = '', $bulan = '', $tanggal = '', $kode_group3 = '', $kode_kantor = ''){ //GET VIEW COLLECTION RATIO PER KOLEKTOR-DETAIL
 		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
 		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr WHERE kode_kantor = '$kode_kantor'");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
 	}
 	//END KPI COLLECTION RATIO
 
@@ -92,13 +92,13 @@ class Model_kpi extends CI_Model {
 	public function datakpi_BZ_Per_Kol($tahun = '', $bulan = '', $tanggal = '', $kode_group3 = '', $kode_kantor = ''){ //GET VIEW BUCKET ZERO Per KOLEKTOR
 		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
 		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_bz_kolektor WHERE kode_kantor = '$kode_kantor'");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_bz_kolektor WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
 	}
 	
 	public function datakpi_BZ_Kol_detail($tahun = '', $bulan = '', $tanggal = '', $kode_group3 = '', $kode_kantor = ''){ //GET VIEW BUCKET ZERO PER KOLEKTOR-DETAIL
 		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
 		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_bucket_zero WHERE kode_kantor = $kode_kantor");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_bucket_zero  WHERE kode_group3 = '$kode_group3' AND kode_kantor = $kode_kantor");
 	}
 
 	public function datakpi_BZ_AO_detail($tahun = '', $bulan = '', $tanggal = '', $kode_group2 = '', $kode_kantor = ''){ //GET VIEW BUCKET ZERO PER AO-DETAIL
@@ -117,11 +117,12 @@ class Model_kpi extends CI_Model {
 	// //END KPI MITRA
 
 
-	// //KPI SP RETURN
-	// public function datakpi_spreturn_Kol(){
-	// 	$this->db->query("SELECT '2019-11-01' INTO @pv_per_tgl");
-	// 	return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_sp_return WHERE kode_group3 = '09'");
-	// }
-	// //END KPI SP RETURN
+	//KPI SP RETURN
+	public function datakpi_SPreturn_Kol_detail($tahun = '', $bulan = '', $tanggal = '', $kode_group3 = '', $kode_kantor = ''){ //GET VIEW SP-RETURN PER KOLEKTOR-DETAIL
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_sp_return WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
+	}
+	//END KPI SP RETURN
 
 }
