@@ -4616,7 +4616,7 @@ class Home extends CI_Controller {
 			</div>
 		    ";
 			$this->sendEmail($toemail,$subject,$message);
-			$toemaillegal = 'fahmidwi45@gmail.com,arsyandi.ridho@gmail.com,mulyanapermana.mp@gmail.com';
+			$toemaillegal = 'arsyandi.ridho@gmail.com,mulyanapermana.mp@gmail.com';
 			$subject = 'LEGAL';
 			$message = "
 			<div style='padding:2%;background-color:white;'>
