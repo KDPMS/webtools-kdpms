@@ -49,10 +49,12 @@ class Kpi extends CI_Controller {
 			if(empty($kantor)){
 				$kantor = "01";
 			}
-
-			$data['bulan']  = $bulan;
-			$data['tahun']  = $tahun;
-			$data['kantor'] = $kantor;
+			
+			$data['bulan']   = $bulan;
+			$data['tahun']   = $tahun;
+			$data['tanggal'] = $tanggal;
+			$data['date'] = $tahun."-".$bulan."-".$tanggal;
+			$data['kantor']  = $kantor;
 			
 			$data['dataKpiNpl'] = $this->kpi->datakpi_npl($tahun, $bulan, $tanggal, $kantor)->result();
 			$data['dataKpiNplKol'] = $this->kpi->datakpi_npl_Kol($tahun, $bulan, $tanggal, $kantor)->result();
@@ -103,7 +105,13 @@ class Kpi extends CI_Controller {
 			$data['dataKpiLendingAO'] = $this->kpi->datakpi_lending_Per_AO($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
 			$data['dataKpiLendingAOdetail'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
 
+			$data['dataKpiBZ_AO'] = $this->kpi->datakpi_BZ_Per_AO($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
 			$data['dataKpiBZ_AOdetail'] = $this->kpi->datakpi_BZ_AO_detail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+
+			$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+
+			$data['dataKpiMitra_AOdetail'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+
 
 			$this->load->view('dashboard_kpi_ao', $data);
 		}

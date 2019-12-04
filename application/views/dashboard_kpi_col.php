@@ -264,6 +264,27 @@
 			margin-right: -4px;
 			text-align: center;
 		}
+
+		#loader {
+			border: 16px solid #f3f3f3;
+			border-radius: 50%;
+			border-top: 16px solid #3498db;
+			width: 120px;
+			height: 120px;
+			-webkit-animation: spin 2s linear infinite; /* Safari */
+			animation: spin 2s linear infinite;
+		}
+
+		/* Safari */
+		@-webkit-keyframes spin {
+			0% { -webkit-transform: rotate(0deg); }
+			100% { -webkit-transform: rotate(360deg); }
+		}
+
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
 	</style>
 
 	<body>
@@ -293,9 +314,9 @@
 				load->view('include/sidebar.php') ?>
 				<!-- partial -->
 				<div class="main-panel" style="width: 100%;">
-					<div id="myProgress" style="position:fixed;z-index:5;">
+					<!-- <div id="myProgress" style="position:fixed;z-index:5;">
 						<div id="myBar"></div>
-					</div>
+					</div> -->
 					<div class="content-wrapper">
 						<input type="hidden" id="tamplate" value="" />
 						<input type="hidden" id="paramsID1" value="" />
@@ -362,11 +383,12 @@
 							</div>
 						</div>
 						<hr />
+						<center><div id="loader"></div></center>
 						<div class="row justify-content-center">
 							
 							<!-- Bucket Zero -->
 							<?php if($dataKpiBZKol != null){ ?>
-							<span class="rounded-circle" data-popover="popover" data-content="<center><b>Bucket Zero : 100% <br> Status : Tercapai <br> Jumlah Tagihan : <?= rupiah($dataKpiBZKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZKol[0]->jml_bayar); ?> </b></center>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<center><b>Bucket Zero : <?php echo number_format($dataKpiBZKol[0]->jml_value, 2); ?> % <br> Status : Tercapai <br> Jumlah Tagihan : <?= rupiah($dataKpiBZKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZKol[0]->jml_bayar); ?> </b></center>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -402,7 +424,7 @@
 
 							<!-- Collection Ratio -->
 							<?php if($dataKpiCRKol != null){ ?>
-							<span class="rounded-circle" data-popover="popover" data-content="<center><b>Collection Ratio : 1% <br> Status : Tidak Tercapai <br> Jumlah Tagihan : <?= rupiah($dataKpiCRKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiCRKol[0]->jml_bayar); ?></b></center>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<center><b>Collection Ratio : <?php echo number_format($dataKpiCRKol[0]->jml_value, 2); ?> % <br> Status : Tidak Tercapai <br> Jumlah Tagihan : <?= rupiah($dataKpiCRKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiCRKol[0]->jml_bayar); ?></b></center>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_cr">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -439,7 +461,7 @@
 
 							<!-- NPL -->
 							<?php if($dataKpiNplKol != null){ ?>
-							<span class="rounded-circle" data-popover="popover" data-content="<b>NPL : <?= $dataKpiNplKol[0]->jml_value; ?> <br> Status : Bagus <br> Baki Debet NPL : <?= rupiah($dataKpiNplKol[0]->jml_bd_npl); ?> <br> Tot Baki Debet : <?= rupiah($dataKpiNplKol[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<b>NPL : <?php echo number_format($dataKpiNplKol[0]->jml_value, 2); ?> % <br> Status : Bagus <br> Baki Debet NPL : <?= rupiah($dataKpiNplKol[0]->jml_bd_npl); ?> <br> Tot Baki Debet : <?= rupiah($dataKpiNplKol[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -475,7 +497,7 @@
 							<!-- /NPL -->
 
 							<!-- SP Return -->
-							<span class="rounded-circle" data-popover="popover" data-content="<center><b>SP Return : 70% <br> Status : Cukup Tercapai</b></center>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<center><b>SP Return : 70% <br> Status : Cukup Tercapai</b></center>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_spr">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -901,173 +923,18 @@
 							new cchart('#modal_cr','#dt_tables_cr');
 							new cchart('#modal_npl','#dt_tables_npl');
 							new cchart('#modal_spr','#dt_tables_spr');
+
+							//loader
+							$('#loader').hide('slow', 'linear');
+							$('span.spedo').show();
+
+							$('form').submit(function(){
+								$('#loader').show();
+								$('span.spedo').hide('slow', 'linear');
+							});
+							//loader
 						} );
 					</script>
-
-					<!-- Gauge HighCharts -->
-					<!-- <script>
-						function chart(id, value, target) {
-							return Highcharts.chart(id, {
-									chart: {
-										type: 'gauge',
-										plotBackgroundColor: null,
-										plotBackgroundImage: null,
-										plotBorderWidth: 0,
-										plotShadow: false
-									},
-
-									title: {
-										text: ''
-									},
-									credits: {
-										enabled: false
-									},
-									exporting: {
-										enabled: false
-									},
-									pane: {
-										startAngle: -140,
-										endAngle: 140,
-										background: [{
-											backgroundColor: {
-												linearGradient: {
-													x1: 0,
-													y1: 0,
-													x2: 0,
-													y2: 1
-												},
-												stops: [
-													[0, '#FFF'],
-													[1, '#333']
-												]
-											},
-											borderWidth: 0,
-											outerRadius: '100%'
-										}, {
-											backgroundColor: {
-												linearGradient: {
-													x1: 0,
-													y1: 0,
-													x2: 0,
-													y2: 1
-												},
-												stops: [
-													[0, '#333'],
-													[1, '#FFF']
-												]
-											},
-											borderWidth: 1,
-											outerRadius: '107%'
-										}, {
-											// default background
-										}, {
-											backgroundColor: '#DDD',
-											borderWidth: 0,
-											outerRadius: '105%',
-											innerRadius: '103%'
-										}]
-									},
-
-									// the value axis
-									yAxis: {
-										min: 0,
-										max: target,
-
-										minorTickInterval: 'auto',
-										minorTickWidth: 1,
-										minorTickLength: 5,
-										minorTickPosition: 'inside',
-										minorTickColor: '#666',
-
-										tickPixelInterval: 30,
-										tickWidth: 2,
-										tickPosition: 'inside',
-										tickLength: 10,
-										tickColor: '#666',
-										labels: {
-											step: 2,
-											rotation: 'auto'
-										},
-										title: {
-											text: '%'
-										},
-										plotBands: [{
-											from: 0,
-											to: 30,
-											color: '#DF5353' // green
-										}, {
-											from: 30,
-											to: 50,
-											color: '#DDDF0D' // yellow
-										}, {
-											from: 50,
-											to: 70,
-											color: '#55BF3B' // red
-										}, {
-											from: 70,
-											to: 100,
-											color: '#3e64ff' // red
-										}, {
-											from: 100,
-											to: 9999,
-											color: '#3e64ff' // red
-										}]
-									},
-
-									plotOptions: {
-										gauge: {
-											dial: {
-												radius: '95%',
-												backgroundColor: 'black',
-												borderColor: 'black',
-												borderWidth: 1,
-												baseWidth: 3,
-												topWidth: 0,
-												baseLength: '0%', // of radius
-												rearLength: '10%'
-											}
-										}
-									},
-
-									series: [{
-										name: '',
-										data: [value],
-										tooltip: {
-											valueSuffix: ' %'
-										}
-									}]
-
-								},
-								// Add some life
-								function(chart) {
-									if (!chart.renderer.forExport) {
-										setInterval(function() {
-											var point = chart.series[0].points[0],
-												newVal,
-												inc = Math.round((Math.random() - 0.5) * 20);
-
-											newVal = point.y + inc;
-											if (newVal < 0 || newVal > 100) {
-												newVal = point.y - inc;
-											}
-
-											point.update(newVal);
-
-										}, 3000);
-									}
-								});
-						}
-
-						new chart('lending', 20, 100);
-						new chart('map', 50, 100);
-						new chart('collection_ratio', 60, 100);
-						new chart('bucket_zero', 40, 100);
-
-						new chart('ao1', 40, 100);
-						new chart('ao2', 40, 100);
-						new chart('ao3', 40, 100);
-						new chart('ao4', 40, 100);
-					</script> -->
 
 					<!-- Popover -->
 					<script>
@@ -1081,68 +948,6 @@
 							}
 						}
 					</script>
-
-					<!-- Gauge JS Version -->
-					<!-- <script>
-						function hchart(id, value, target, title) {
-							return new RadialGauge({
-								renderTo: document.getElementById(id),
-								units: '%',
-								title: title,
-								value: value,
-								minValue: 0,
-								maxValue: target,
-								majorTicks: [
-									'0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'
-								],
-								minorTicks: 5,
-								strokeTicks: false,
-								highlights: [{
-										from: 0,
-										to: target / 4,
-										color: '#ef4b4b'
-									},
-									{
-										from: target / 4,
-										to: target / 3,
-										color: 'yellow'
-									},
-									{
-										from: target / 3,
-										to: target / 2,
-										color: 'green'
-									},
-									{
-										from: target / 2,
-										to: target / 1,
-										color: '#0066d6'
-									}
-								],
-								colorPlate: '#222',
-								colorMajorTicks: '#000000',
-								colorMinorTicks: '#000000',
-								colorTitle: '#fff',
-								colorUnits: '#ccc',
-								colorNumbers: '#eee',
-								colorNeedle: 'rgba(240, 128, 128, 1)',
-								colorNeedleEnd: 'rgba(255, 160, 122, .9)',
-								valueBox: true,
-								animateOnInit: true,
-								animationRule: 'linear',
-								animationDuration: 500
-							});
-						}
-
-						var lending = hchart('lending', 30, 100, 'Lending').draw();
-						var map = hchart('map', 50, 100, 'map').draw();
-						var cr = hchart('cr', 70, 100, 'Collection Ratio').draw();
-						var bz = hchart('bz', 80, 100, 'Bucket Zero').draw();
-
-						var ao1 = hchart('radial-one', 80, 100, 'AO 1').draw();
-						var ao2 = hchart('ao2', 80, 100, 'AO 2').draw();
-						var ao3 = hchart('ao3', 80, 100, 'AO 3').draw();
-						var ao4 = hchart('ao4', 80, 100, 'AO 4').draw();
-					</script> -->
 
 					<!-- partial -->
 				</div>
