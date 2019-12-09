@@ -72,8 +72,9 @@ class Kpi extends CI_Controller {
 			$data['dataKpiBZKol'] = $this->kpi->datakpi_BZ_Kol($tahun, $bulan, $tanggal, $kantor)->result();
 			$data['dataKpiBZKoldetail'] = $this->kpi->datakpi_BZ_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
 			
-			
+			$this->load->view('include/headerkpi');
 			$this->load->view('dashboard_kpi',$data);
+			$this->load->view('include/footerkpi');
 		}
 	}
 
@@ -112,8 +113,9 @@ class Kpi extends CI_Controller {
 
 			$data['dataKpiMitra_AOdetail'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
 
-
+			$this->load->view('include/headerkpi');
 			$this->load->view('dashboard_kpi_ao', $data);
+			$this->load->view('include/footerkpi');
 		}
 	}
 
@@ -154,8 +156,9 @@ class Kpi extends CI_Controller {
 			
 			$data['dataKpiSpReturnKoldetail'] = $this->kpi->datakpi_SPreturn_Kol_detail($tahun, $bulan, $tanggal, $kode_group3, $kantor)->result();
 
-			
+			$this->load->view('include/headerkpi');
 			$this->load->view('dashboard_kpi_col', $data);
+			$this->load->view('include/footerkpi');
 		}
 	}
 
