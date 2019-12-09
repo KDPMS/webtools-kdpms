@@ -1055,7 +1055,7 @@
 									$('[data-popover="popover"]').popover();
 								}
 							}
-							//popover
+							//tutup popover
 							
 							//datatable
 							function cchart(id_modal,id_table){
@@ -1104,7 +1104,7 @@
 							<?php foreach ($dataKpiBZKol as $res) { ?>
 								new cchart('#detail_bz_kol<?php echo $res->kode_group3; ?>','#dt_tables_bz<?php echo $res->kode_group3; ?>');
 							<?php } ?>
-							//datatable
+							//tutup datatable
 
 
 							//loader
@@ -1115,7 +1115,7 @@
 								$('#loader').fadeIn('slow');
 								$('span.spedo').fadeOut('slow');
 							});
-							//loader
+							//tutup loader
 
 							//alert data tidak ada
 							var isiLending = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Lending</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
