@@ -323,6 +323,19 @@
 							</div>
 						</div>
 						<hr />
+						
+						<!-- loading -->
+						<center>
+							<div id="loader" style="position: absolute; left: 50%;">
+								<div class="text-center" style="position: relative; left: -50%; z-index:1000;">
+									<div class="spinner-border text-facebook" role="status" style="width: 2rem; height: 2rem;">
+										<span class="sr-only">Loading...</span>
+									</div><br>
+									<b>LOADING...</b>
+								</div>
+							</div>
+						</center>
+						<!-- end loading -->
 
 						<!-- handle data jika null -->
 						<span class="spedo">
@@ -344,17 +357,6 @@
 							</div>
 						</span>
 						<!-- end handle data jika null -->
-
-						<center>
-							<div id="loader" style="position: absolute; left: 50%;">
-								<div class="text-center" style="position: relative; left: -50%; z-index:1000;">
-									<div class="spinner-border text-facebook" role="status" style="width: 2rem; height: 2rem;">
-										<span class="sr-only">Loading...</span>
-									</div><br>
-									<b>LOADING...</b>
-								</div>
-							</div>
-						</center>
 
 						<div class="row justify-content-center">
 						<?php if($dataKpiBZKol || $dataKpiCRKol || $dataKpiNplKol){ ?>

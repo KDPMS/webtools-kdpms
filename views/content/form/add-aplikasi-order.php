@@ -5,7 +5,7 @@
 	<?php include '../component/info-detail-cnasabah.php'; ?>
 		<div class="card" style="margin-top: 1%;">
 			<div class="card-body">
-			 <h4 style="">FORM ORDER CALON NASABAH</h4><hr><br>
+			 <h4>FORM ORDER CALON NASABAH</h4><hr><br>
 				<div class="col-12 grid-margin">
 					<div class="card">
 						<div class="card-body">
