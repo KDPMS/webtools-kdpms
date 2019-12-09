@@ -1,7 +1,7 @@
 <div class="card" style="margin-top: 1%;" id="card-kend"">
 	<div class="card-body">
 	 <a href="javascript:void(0)" class="Buttoggle" from="ca"><i class="mdi mdi-dots-horizontal" style="float:right;"></i></a>
-	 <h4 style="">Detail Data Memo CA</h4><hr><br>
+	 <h4>Detail Data Memo CA</h4><hr><br>
 		<div class="col-12 grid-margin" id="conCa">
 			<div class="card">
 				<div class="card-body">

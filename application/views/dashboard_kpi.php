@@ -710,7 +710,7 @@
 									<div class="modal-content">
 										<div class="modal-header bg-light">
 											<h5 class="modal-title" id="exampleModalLongTitle">Data Nasabah Lending
-												<small><?php echo $res->deskripsi_group2; ?>, <?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></small>
+												<p><?php echo $res->deskripsi_group2; ?>, <?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 											</h5>
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
