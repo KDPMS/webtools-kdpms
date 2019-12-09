@@ -158,6 +158,5 @@ class Kpi extends CI_Controller {
 			$this->load->view('dashboard_kpi_col', $data);
 		}
 	}
-	
 
 }

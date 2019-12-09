@@ -561,7 +561,7 @@
 											data-content='<b>NPL : <?= $res->jml_value; ?></b><br><br><b>Baki debet NPL : <?= $res->jml_bd_npl; ?></b><br><br><b>Total Baki debet : <?= $res->jml_bd; ?></b>'
 											data-html='true' data-placement='top' data-trigger='hover'>
 											<a class="rounded-circle npl_kol" data-id="<?php echo $res->kode_group3; ?>"
-												data-nama="<?php echo $res->deskripsi_group3; ?>" href="#detail_npl_kol" data-toggle="modal"
+												data-nama="<?php echo $res->deskripsi_group3; ?>" data-kantor="<?php echo $res->kode_kantor; ?>" href="#detail_npl_kol" data-toggle="modal"
 												data-target="#detail_npl_kolektor<?php echo $res->kode_group3; ?>" data-backdrop="false">
 												<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300"
 													data-height="300" data-units="<?php echo $res->unit; ?>"
@@ -575,6 +575,10 @@
 													data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true"
 													data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
 												</canvas>
+												<form action="<?php site_url('kpi/dasboard_kpi_copy'); ?>" method="post" id="form_npl">
+													<input type="hidden" value="" name="id" id='id_npl'>
+													<input type="hidden" value="" name="kd_kantor" id='kd_npl'>
+												</form>
 											</a>
 										</span>
 										<?php } ?>
@@ -794,9 +798,14 @@
 					$("a.npl_kol").on('click', function (e) {
 						var id = $(this).attr('data-id');
 						var nama = $(this).attr('data-nama');
+						var kd_kantor = $(this).attr('data-kantor');
+						console.log(kd_kantor);
 
 						$('.npl_detail').attr('id', 'detail_npl_kolektor' + id);
 						$('#title_npl_kolektor').text('Detail Data NPL ' + nama);
+						$('#id_npl').attr('value', id);
+						$('#kd_npl').attr('value', kd_kantor);
+						$('#form_npl').submit();
 					});
 
 				</script>

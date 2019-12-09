@@ -55,7 +55,7 @@
     </button>
   </div>
 </nav>
-<script type="text/javascript" src="<?=base_url('lib/js/changedate.js')?>"></script>
+<!-- <script type="text/javascript" src="<?=base_url('lib/js/changedate.js')?>"></script>
 <script>
   var url  = '<?php echo base_url() ?>'
 	var myFunction = function() {
@@ -302,4 +302,4 @@ $(document).ready(function() {
 		}
 	}
 })
-</script>
+</script> -->

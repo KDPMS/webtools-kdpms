@@ -3,10 +3,8 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-		<?php $this->
-		load->view('include/style-css.php') ?>
-		<?php $this->
-		load->view('include/style-js-fitur.php') ?>
+		<?php $this->load->view('include/style-css.php') ?>
+		<?php $this->load->view('include/style-js-fitur.php') ?>
 
 		<!-- Bootstrap 4.3.1 CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
@@ -289,14 +287,9 @@
 		</script>
 		<div class="container-scroller">
 			<!-- partial:partials/_navbar.html -->
-			<?php $this->
-			load->view('include/navbarfitur.php') ?>
+			<?php $this->load->view('include/navbarkpi.php'); ?>
 			<!-- partial -->
 			<div class=" page-body-wrapper">
-				<!-- partial:partials/_sidebar.html -->
-				<?php $this->
-				load->view('include/sidebar.php') ?>
-				<!-- partial -->
 				<div class="main-panel" style="width: 100%;">
 					<!-- <div id="myProgress" style="position:fixed;z-index:5;">
 						<div id="myBar"></div>
@@ -312,67 +305,91 @@
 						<input type="hidden" id="session_id_user" value="<?php echo $this->session->userdata('id'); ?>" />
 						<input type="hidden" id="NowDate" value="<?php echo date('Y-m-d'); ?>" />
 						<input type="hidden" id="load_page" value="false" />
-						<div class="clearfix mt-5">
+						<div class="mt-5">
 							<div class="col-md-12">
 								<div class="row">
 									<div class="col-md-4 text-lg-left text-md-center text-sm-center text-center">
-										<p>
-											<b>
-												<?php echo $this->session->userdata('username'); ?> |
-												<?php echo $this->session->userdata('jabatan'); ?>
-											</b>
-										</p>
+										Bulan : <b><?php echo ubahBulan($bulan); ?></b><br>
+										Tahun : <b><?php echo $tahun; ?></b>
 									</div>
 									<div class="col-md-4 text-lg-center text-md-center text-sm-center text-center">
+										<br>
 										<form action="<?php echo site_url('kpi/dashboard_kpi_ao'); ?>" method="post">
-											<p>
-												Filter Data :
-												<select name="bulan" id="bulan">
-													<?php 
-														for ($i=1; $i<=12; $i++ ){
-															if ($i < 10){
-																$i = '0'.$i;
-															}
-													?>
-													<option value="<?php echo $i; ?>" <?php if($bulan == $i){ echo('selected'); } ?>> <?php echo ubahBulan($i); ?></option>
-													<?php } ?>
-												</select>
-												<select name="tahun" id="tahun">
-													<?php 
-														for ($thn = 2019; $thn <= date('Y'); $thn++){
-													?>
-													<option value="<?= $thn; ?>" <?php if($tahun == $thn){ echo('selected'); } ?>><?= $thn; ?></option>
-													<?php } ?>
-												</select>
-												<button class="btn-primary" type="submit">Filter</button>
-											</p>
+											Filter Data :
+											<select name="bulan" id="bulan">
+												<?php 
+													for ($i=1; $i<=12; $i++ ){
+														if ($i < 10){
+															$i = '0'.$i;
+														}
+												?>
+												<option value="<?php echo $i; ?>" <?php if($bulan == $i){ echo('selected'); } ?>> <?php echo ubahBulan($i); ?></option>
+												<?php } ?>
+											</select>
+											<select name="tahun" id="tahun">
+												<?php 
+													for ($thn = 2019; $thn <= date('Y'); $thn++){
+												?>
+												<option value="<?= $thn; ?>" <?php if($tahun == $thn){ echo('selected'); } ?>><?= $thn; ?></option>
+												<?php } ?>
+											</select>
+											<button class="btn-primary" type="submit">Filter</button>
 										</form>
 									</div>
 									<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
-										<p>
-											<b>
-												Kantor :
-												<?php 
-													if ($this->session->userdata('kantor') == '01'){
-														echo "Pusat";
-													}elseif($this->session->userdata('kantor') == '02'){
-														echo "Cabang Cilodong";
-													}else{
-														echo "Anda Harus Login Kembali <a href= ".base_url("login").">Login Kembali</a>";
-													}
-												?>
-											</b>
-										</p>
+										<b><?php echo $this->session->userdata('username'); ?></b> |
+										<b><?php echo $this->session->userdata('jabatan'); ?></b><br>
+										Kantor :
+										<b>
+											<?php echo namaKantor($this->session->userdata('kantor'));?>
+										</b>
 									</div>
 								</div>
 							</div>
 						</div>
 						<hr />
+						
+						<!-- handle data jika null -->
+						<span class="spedo">
+							<div class="col-md-12">
+								<div class="row justify-content-center">
+									<div id="lendingNull">
+		
+									</div>&nbsp;
+									<div id="mapNull">
+
+									</div>&nbsp;
+									<div id="nsNull">
+
+									</div>&nbsp;
+									<div id="bzNull">
+
+									</div>&nbsp;
+									<div id="mbNull">
+
+									</div>&nbsp;
+								</div>
+							</div>
+						</span>
+						<!-- end handle data jika null -->
+
+						<center>
+							<div id="loader" style="position: absolute; left: 50%;">
+								<div class="text-center" style="position: relative; left: -50%; z-index:1000;">
+									<div class="spinner-border text-facebook" role="status" style="width: 2rem; height: 2rem;">
+										<span class="sr-only">Loading...</span>
+									</div><br>
+									<b>LOADING...</b>
+								</div>
+							</div>
+						</center>
+
 						<div class="row justify-content-center">
+						<?php if($dataKpiLendingAO || $dataKpiBZ_AO){ ?>
 
 							<!-- Lending -->
 							<?php if($dataKpiLendingAO != null){ ?>
-							<span class="rounded-circle" data-popover="popover" data-content="<b>Lending : <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?> <br> Status : Tidak Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Lending : <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?> <br> Status : Tidak Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_lending">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -404,11 +421,14 @@
 									></canvas>
 								</a>
 							</span>
-							<?php }else{echo "Data LENDING TIDAK ADA";}?>
+							<?php 
+								}else{
+									echo '<span id="nullLending" data=""></span>';
+							}?>
 							<!-- /Lending -->
 
 							<!-- Map -->
-							<span class="rounded-circle" data-popover="popover" data-content="<b>Map : 1% <br> Status : Tidak Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Map : 1% <br> Status : Tidak Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_map">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -448,7 +468,7 @@
 							<!-- /Map -->
 
 							<!-- Non Starter -->
-							<span class="rounded-circle" data-popover="popover" data-content="<b>Non Starter : 50% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : 50% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_ns">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -489,7 +509,7 @@
 
 							<!-- Bucket Zero -->
 							<?php if($dataKpiBZ_AO != null){ ?>
-							<span class="rounded-circle" data-popover="popover" data-content="<b>BZ : <?= ambil2Angka($dataKpiBZ_AO[0]->jml_value) . " %"; ?> <br> Status : Cukup Tercapai <br> Jumlah tagihan : <?= rupiah($dataKpiBZ_AO[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZ_AO[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<b>BZ : <?= ambil2Angka($dataKpiBZ_AO[0]->jml_value) . " %"; ?> <br> Status : Cukup Tercapai <br> Jumlah tagihan : <?= rupiah($dataKpiBZ_AO[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZ_AO[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -521,11 +541,14 @@
 									></canvas>
 								</a>
 							</span>
-							<?php }else{echo "Data BUCKET 0 TIDAK ADA";}?>
+							<?php 
+								}else{
+									echo '<span id="nullBZ" data=""></span>';
+							}?>
 							<!-- /Bucket Zero -->
 
 							<!-- MB -->
-							<span class="rounded-circle" data-popover="popover" data-content="<b>Map : 70% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Map : 70% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_mb">
 									<canvas
 										class="mt-2 mb-2 mx-2 rounded-circle"
@@ -563,6 +586,19 @@
 								</a>
 							</span>
 							<!-- /MB -->
+						<?php }else{?>
+							<span class="spedo">
+								<div class="row align-content-center align-items-center justify-content-center text-center">
+									<h2 class="text-danger">
+										<b><i class="mdi mdi-alert"></i> 204</b> <br>
+										<hr>
+										Data Dengan Filter : <br>
+										<b><?= ubahBulan($bulan).' - '.$tahun; ?></b> <br>
+										Tidak Ditemukan
+									</h2>
+								</div>
+							</span>
+						<?php }; ?>
 						</div>
 
 						<!-- Modal Lending -->
@@ -891,14 +927,14 @@
 						</div>
 					</footer>
 
-					<script type="text/javascript" src="<?= base_url('lib/js/formatRupiah.js'); ?>"></script>
+					<!-- <script type="text/javascript" src="<?= base_url('lib/js/formatRupiah.js'); ?>"></script>
 					<script type="text/javascript" src="<?= base_url('lib/js/changedate.js'); ?>"></script>
-					<script type="text/javascript" src="<?= base_url('lib/js/url.js'); ?>"></script>
+					<script type="text/javascript" src="<?= base_url('lib/js/url.js'); ?>"></script> -->
 					<!-- Canvas Gauge CDN -->
 					<script src="//cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.5/all/gauge.min.js"></script>
 
 					<!-- Bootstrap 4.3.1 JS -->
-					<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+					<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 					<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 					<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
 					<!-- /Bootstrap 4.3.1 JS -->
@@ -923,7 +959,7 @@
 											dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
 												"<'row'<'col-sm-12't>>" +
 												"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
-											scrollY: 360,
+											scrollY: 320,
 											scrollX: true,
 											scrollCollapse: true,
 											scroller:true,
@@ -945,6 +981,29 @@
 							new cchart('#modal_bz','#dt_tables_bz');
 							new cchart('#modal_ns','#dt_tables_ns');
 							new cchart('#modal_mb','#dt_tables_mb');
+
+							//loader
+							$('#loader').fadeOut('slow');
+							$('span.spedo').fadeIn('slow');
+
+							$('form').submit(function(){
+								$('#loader').fadeIn('slow');
+								$('span.spedo').fadeOut('slow');
+							});
+							//loader
+
+							//alert data tidak ada
+							var isiLending = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Lending</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+							$('#nullLending').attr('data', isiLending);
+							var nullLending = $('#nullLending').attr('data');
+							$('#lendingNull').html(nullLending);
+
+							var isiBZ = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Bucket 0</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+							$('#nullBZ').attr('data', isiBZ);
+							var nullBZ = $('#nullBZ').attr('data');
+							$('#bzNull').html(nullBZ);
+							//tutup alert data tidak ada
+
 						} );
 					</script>
 

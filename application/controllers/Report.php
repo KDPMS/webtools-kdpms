@@ -1978,7 +1978,7 @@ Surat ini berlaku 14(empat belas) hari sejak tanda tangan dan secara otomatis ti
 
 	public function terbilang($nilai) {
 		if($nilai<0) {
-			$hasil = "minus ". trim(penyebut($nilai));
+			$hasil = "minus ". trim($this->penyebut($nilai));
 		} else {
 			$hasil = trim($this->penyebut($nilai));
 		}

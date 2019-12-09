@@ -3,14 +3,12 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-		<?php $this->
-		load->view('include/style-css.php') ?>
-		<?php $this->
-		load->view('include/style-js-fitur.php') ?>
+		<?php $this->load->view('include/style-css.php') ?>
+		<?php $this->load->view('include/style-js-fitur.php') ?>
 
 		<!-- Bootstrap 4.3.1 CSS -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css" />
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/rg-1.1.1/sc-2.0.1/datatables.min.css"/>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/sc-2.0.1/datatables.min.css"/>		<!-- /Bootstrap 4.3.1 CSS -->
 		<!-- /Bootstrap 4.3.1 CSS -->
 	</head>
 	
@@ -264,59 +262,15 @@
 			margin-right: -4px;
 			text-align: center;
 		}
-
-		#loader {
-			border: 16px solid #f3f3f3;
-			border-radius: 50%;
-			border-top: 16px solid #3498db;
-			width: 120px;
-			height: 120px;
-			-webkit-animation: spin 2s linear infinite; /* Safari */
-			animation: spin 2s linear infinite;
-		}
-
-		/* Safari */
-		@-webkit-keyframes spin {
-			0% { -webkit-transform: rotate(0deg); }
-			100% { -webkit-transform: rotate(360deg); }
-		}
-
-		@keyframes spin {
-			0% { transform: rotate(0deg); }
-			100% { transform: rotate(360deg); }
-		}
 	</style>
 
 	<body>
-		<script type="text/javascript">
-			function loadCSS(e, t, n) {
-				"use strict";
-				var i = window.document.createElement("link");
-				var o = t || window.document.getElementsByTagName("script")[0];
-				i.rel = "stylesheet";
-				i.href = e;
-				i.media = "only x";
-				o.parentNode.insertBefore(i, o);
-				setTimeout(function() {
-					i.media = n || "all";
-				});
-			}
-			loadCSS("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css");
-		</script>
 		<div class="container-scroller">
 			<!-- partial:partials/_navbar.html -->
-			<?php $this->
-			load->view('include/navbarfitur.php') ?>
+			<?php $this->load->view('include/navbarkpi.php'); ?>
 			<!-- partial -->
 			<div class=" page-body-wrapper">
-				<!-- partial:partials/_sidebar.html -->
-				<?php $this->
-				load->view('include/sidebar.php') ?>
-				<!-- partial -->
 				<div class="main-panel" style="width: 100%;">
-					<!-- <div id="myProgress" style="position:fixed;z-index:5;">
-						<div id="myBar"></div>
-					</div> -->
 					<div class="content-wrapper">
 						<input type="hidden" id="tamplate" value="" />
 						<input type="hidden" id="paramsID1" value="" />
@@ -327,65 +281,84 @@
 						<input type="hidden" id="session_id_user" value="<?php echo $this->session->userdata('id'); ?>" />
 						<input type="hidden" id="NowDate" value="<?php echo date('Y-m-d'); ?>" />
 						<input type="hidden" id="load_page" value="false" />
-						<div class="clearfix mt-5">
+						<div class="mt-5">
 							<div class="col-md-12">
 								<div class="row">
 									<div class="col-md-4 text-lg-left text-md-center text-sm-center text-center">
-										<p>
-											<b>
-												<?php echo $this->session->userdata('username'); ?> |
-												<?php echo $this->session->userdata('jabatan'); ?>
-											</b>
-										</p>
+										Bulan : <b><?php echo ubahBulan($bulan); ?></b><br>
+										Tahun : <b><?php echo $tahun; ?></b>
 									</div>
 									<div class="col-md-4 text-lg-center text-md-center text-sm-center text-center">
+										<br>
 										<form action="<?php echo site_url('kpi/dashboard_kpi_col'); ?>" method="post">
-											<p>
-												Filter Data :
-												<select name="bulan" id="bulan">
-													<?php 
-														for ($i=1; $i<=12; $i++ ){
-															if ($i < 10){
-																$i = '0'.$i;
-															}
-													?>
-													<option value="<?php echo $i; ?>" <?php if($bulan == $i){ echo('selected'); } ?>> <?php echo ubahBulan($i); ?></option>
-													<?php } ?>
-												</select>
-												<select name="tahun" id="tahun">
-													<?php 
-														for ($thn = 2019; $thn <= date('Y'); $thn++){
-													?>
-													<option value="<?= $thn; ?>" <?php if($tahun == $thn){ echo('selected'); } ?>><?= $thn; ?></option>
-													<?php } ?>
-												</select>
-												<button class="btn-primary" type="submit">Filter</button>
-											</p>
+											Filter Data :
+											<select name="bulan" id="bulan">
+												<?php 
+													for ($i=1; $i<=12; $i++ ){
+														if ($i < 10){
+															$i = '0'.$i;
+														}
+												?>
+												<option value="<?php echo $i; ?>" <?php if($bulan == $i){ echo('selected'); } ?>> <?php echo ubahBulan($i); ?></option>
+												<?php } ?>
+											</select>
+											<select name="tahun" id="tahun">
+												<?php 
+													for ($thn = 2019; $thn <= date('Y'); $thn++){
+												?>
+												<option value="<?= $thn; ?>" <?php if($tahun == $thn){ echo('selected'); } ?>><?= $thn; ?></option>
+												<?php } ?>
+											</select>
+											<button class="btn-primary" type="submit">
+													Filter  
+											</button>
 										</form>
 									</div>
 									<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
-										<p>
-											<b>
-												Kantor :
-												<?php 
-													if ($this->session->userdata('kantor') == '01'){
-														echo "Pusat";
-													}elseif($this->session->userdata('kantor') == '02'){
-														echo "Cabang Cilodong";
-													}else{
-														echo "Anda Harus Login Kembali <a href= ".base_url("login").">Login Kembali</a>";
-													}
-												?>
-											</b>
-										</p>
+										<b><?php echo $this->session->userdata('username'); ?></b> | <b><?php echo $this->session->userdata('jabatan'); ?> <br></b>												
+										Kantor :
+										<b><?php echo namaKantor($this->session->userdata('kantor'));?></b>
 									</div>
 								</div>
 							</div>
 						</div>
 						<hr />
-						<center><div id="loader"></div></center>
+
+						<!-- handle data jika null -->
+						<span class="spedo">
+							<div class="col-md-12">
+								<div class="row justify-content-center">
+									<div id="bzNull">
+		
+									</div>&nbsp;
+									<div id="crNull">
+
+									</div>&nbsp;
+									<div id="nplNull">
+
+									</div>&nbsp;
+									<div id="sprNull">
+
+									</div>&nbsp;
+								</div>
+							</div>
+						</span>
+						<!-- end handle data jika null -->
+
+						<center>
+							<div id="loader" style="position: absolute; left: 50%;">
+								<div class="text-center" style="position: relative; left: -50%; z-index:1000;">
+									<div class="spinner-border text-facebook" role="status" style="width: 2rem; height: 2rem;">
+										<span class="sr-only">Loading...</span>
+									</div><br>
+									<b>LOADING...</b>
+								</div>
+							</div>
+						</center>
+
 						<div class="row justify-content-center">
-							
+						<?php if($dataKpiBZKol || $dataKpiCRKol || $dataKpiNplKol){ ?>
+
 							<!-- Bucket Zero -->
 							<?php if($dataKpiBZKol != null){ ?>
 							<span class="rounded-circle spedo" data-popover="popover" data-content="<center><b>Bucket Zero : <?php echo number_format($dataKpiBZKol[0]->jml_value, 2); ?> % <br> Status : Tercapai <br> Jumlah Tagihan : <?= rupiah($dataKpiBZKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZKol[0]->jml_bayar); ?> </b></center>" data-html="true" data-placement="top" data-trigger="hover">
@@ -419,7 +392,10 @@
 									></canvas>
 								</a>
 							</span>
-							<?php }else{echo "";}?>
+							<?php 
+								}else{
+									echo '<span id="nullBZ" data=""></span>';
+							}?>
 							<!-- /Bucket Zero -->
 
 							<!-- Collection Ratio -->
@@ -456,7 +432,10 @@
 									></canvas>
 								</a>
 							</span>
-							<?php }else{echo "";}?>
+							<?php 
+								}else{
+									echo '<span id="nullCR" data=""></span>';
+							}?>
 							<!-- /Collection Ratio -->
 
 							<!-- NPL -->
@@ -493,7 +472,10 @@
 									></canvas>
 								</a>
 							</span>
-							<?php }else{echo "";}?>
+							<?php 
+								}else{
+									echo '<span id="nullNPL" data=""></span>';
+							}?>
 							<!-- /NPL -->
 
 							<!-- SP Return -->
@@ -535,6 +517,19 @@
 								</a>
 							</span>
 							<!-- /SP Return -->
+						<?php }else{?>
+							<span class="spedo">
+								<div class="row align-content-center align-items-center justify-content-center text-center">
+									<h2 class="text-danger">
+										<b><i class="mdi mdi-alert"></i> 204</b> <br>
+										<hr>
+										Data Dengan Filter : <br>
+										<b><?= ubahBulan($bulan).' - '.$tahun; ?></b> <br>
+										Tidak Ditemukan
+									</h2>
+								</div>
+							</span>
+						<?php }; ?>
 						</div>
 
 						<!-- Modal Bucket Zero -->
@@ -550,7 +545,7 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<table id="dt_tables_bz" class="table table-bordered table-hover">
+										<table id="dt_tables_bz" class="table table-striped table-bordered table-hover">
 											<thead class="bg-light">
 												<tr>
 													<th>Nasabah ID</th>
@@ -626,7 +621,7 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<table id="dt_tables_cr" class="table table-bordered table-hover">
+										<table id="dt_tables_cr" class="table table-striped table-bordered table-hover">
 											<thead class="bg-light">
 												<tr>
 													<th>Nasabah ID</th>
@@ -702,7 +697,7 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<table id="dt_tables_npl" class="table table-bordered table-hover">
+										<table id="dt_tables_npl" class="table table-striped table-bordered table-hover">
 											<thead class="bg-light">
 												<tr>
 													<th>Nasabah ID</th>
@@ -778,7 +773,7 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<table id="dt_tables_spr" class="table table-bordered table-hover">
+										<table id="dt_tables_spr" class="table table-striped table-bordered table-hover">
 											<thead class="bg-light">
 												<tr>
 													<th>Nasabah ID</th>
@@ -856,9 +851,9 @@
 							</span>
 						</div>
 					</footer>
-					<script type="text/javascript" src="lib/js/formatRupiah.js"></script>
+					<!-- <script type="text/javascript" src="lib/js/formatRupiah.js"></script>
 					<script type="text/javascript" src="lib/js/changedate.js"></script>
-					<script type="text/javascript" src="lib/js/url.js"></script>
+					<script type="text/javascript" src="lib/js/url.js"></script> -->
 
 					<!-- Highcharts CDN -->
 					<!-- <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -866,46 +861,51 @@
 
 					<!-- Canvas Gauge CDN -->
 					<script src="//cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.5/all/gauge.min.js"></script>
-
+					
+					<script type="text/javascript">
+						function loadCSS(e, t, n) {
+							"use strict";
+							var i = window.document.createElement("link");
+							var o = t || window.document.getElementsByTagName("script")[0];
+							i.rel = "stylesheet";
+							i.href = e;
+							i.media = "only x";
+							o.parentNode.insertBefore(i, o);
+							setTimeout(function() {
+								i.media = n || "all";
+							});
+						}
+						loadCSS("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css");
+					</script>
 					<!-- Bootstrap 4.3.1 JS -->
-					<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+					<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 					<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 					<!-- /Bootstrap 4.3.1 JS -->
 
 					<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 					<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-					<script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/kt-2.5.1/r-2.2.3/rg-1.1.1/sc-2.0.1/datatables.min.js"></script>
+					<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/sc-2.0.1/datatables.min.js"></script>
 					<script type="text/javascript">
 						$(document).ready(function() {
 							function cchart(id_modal,id_table){
 								return $(id_modal).on('shown.bs.modal', function () {
 									if ( ! $.fn.DataTable.isDataTable(id_table) ) {
 										var tbtb = $(id_table).DataTable( {
-											responsive: {
-												details: {
-													renderer: function ( api, rowIdx, columns ) {
-														var data = $.map( columns, function ( col, i ) {
-															return col.hidden ?
-																'<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
-																	'<td><b>'+col.title+'</b></td> '+
-																	'<td>'+col.data+'</td>'+
-																'</tr>' :
-																'';
-														} ).join('');
-									
-														return data ?
-															$('<table/>').append( data ) :
-															false;
-													}
-												}
+											responsive: false,
+											fixedColumns: {
+												leftColumns: 2
 											},
 											order: [
 												[ 0, "desc" ]
 											],
 											dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-												"<'row'<'col-sm-12't>>" +
+												"<'row'<'col-sm-12'tr>>" +
 												"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
+											scrollY: 320,
+											scrollX: true,
+											scrollCollapse: true,
+											scroller:true,
 										} );
 									}else{
 										// var tbtb = $.fn.dataTable.fnTables(true);
@@ -925,14 +925,36 @@
 							new cchart('#modal_spr','#dt_tables_spr');
 
 							//loader
-							$('#loader').hide('slow', 'linear');
-							$('span.spedo').show();
+							$('#loader').fadeOut('slow');
+							$('span.spedo').fadeIn('slow');
 
 							$('form').submit(function(){
-								$('#loader').show();
-								$('span.spedo').hide('slow', 'linear');
+								$('#loader').fadeIn('slow');
+								$('span.spedo').fadeOut('slow');
 							});
 							//loader
+
+							//alert data tidak ada
+							var isiBZ = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>BZ</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+							$('#nullBZ').attr('data', isiBZ);
+							var nullBZ = $('#nullBZ').attr('data');
+							$('#bzNull').html(nullBZ);
+							
+							var isiCR = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>CR</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+							$('#nullCR').attr('data', isiCR);
+							var nullCR = $('#nullCR').attr('data');
+							$('#crNull').html(nullCR);
+
+							var isiNPL = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>NPL</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+							$('#nullNPL').attr('data', isiNPL);
+							var nullNPL = $('#nullNPL').attr('data');
+							$('#nplNull').html(nullNPL);
+
+							// var isiBz = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Bucket 0</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+							// $('#nullBz').attr('data', isiBz);
+							// var nullBz = $('#nullBz').attr('data');
+							// $('#bzNull').html(nullBz);
+							//tutup alert data tidak ada
 						} );
 					</script>
 
