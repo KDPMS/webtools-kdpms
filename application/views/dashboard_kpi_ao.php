@@ -45,8 +45,8 @@
 					</form>
 				</div>
 				<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
-					<b><?php echo $this->session->userdata('username'); ?></b> |
-					<b><?php echo $this->session->userdata('jabatan'); ?></b><br>
+					User :
+					<b><?php echo ucfirst($this->session->userdata('username')); ?></b><br>
 					Kantor :
 					<b>
 						<?php echo namaKantor($this->session->userdata('kantor')); ?>

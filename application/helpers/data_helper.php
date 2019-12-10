@@ -48,11 +48,57 @@
         return $kantor;
     }
 
-    // ubah format date menjadi tanggal-bulan-tahun
+    // ubah format date menjadi tanggal-bulan-tahun indonesia
     function ubahDate($date){
         
-        $ubahDate = date("d F Y", strtotime($date));
-        return $ubahDate;
+        $tgl = substr($date, 8, 2);
+        $bln = substr($date, 5, 2);
+        $thn = substr($date, 0, 4);
+    
+        switch ($bln) {
+            case 1 : {
+                    $bln = 'Januari';
+                }break;
+            case 2 : {
+                    $bln = 'Februari';
+                }break;
+            case 3 : {
+                    $bln = 'Maret';
+                }break;
+            case 4 : {
+                    $bln = 'April';
+                }break;
+            case 5 : {
+                    $bln = 'Mei';
+                }break;
+            case 6 : {
+                    $bln = "Juni";
+                }break;
+            case 7 : {
+                    $bln = 'Juli';
+                }break;
+            case 8 : {
+                    $bln = 'Agustus';
+                }break;
+            case 9 : {
+                    $bln = 'September';
+                }break;
+            case 10 : {
+                    $bln = 'Oktober';
+                }break;
+            case 11 : {
+                    $bln = 'November';
+                }break;
+            case 12 : {
+                    $bln = 'Desember';
+                }break;
+            default: {
+                    $bln = 'UnKnown';
+                }break;
+        }
+    
+        $tanggalIndonesia = $tgl . " " . $bln . " " . $thn;
+        return $tanggalIndonesia;
     }
 
     // mengambil 2 angka setelah koma
@@ -61,4 +107,25 @@
         $ubah = number_format($angka, 2);
         return $ubah;
     }
-?>
+
+    // mengambil status lending cabang
+    function getStatusLending($angka){
+  
+        switch($angka){
+          case $angka >= 0 && $angka <= 1049 :
+              echo "tidak tercapai";
+              break;
+          case $angka >= 1050 && $angka <= 1399 :
+              echo "hampir tercapai";
+              break;
+          case $angka >= 1400 && $angka <= 2099 :
+              echo "tercapai";
+              break;
+          case $angka >= 2100 :
+              echo "sangat tercapai";
+              break;
+          default :
+              echo 'tidak ada status';
+              break;
+        }  
+    }
