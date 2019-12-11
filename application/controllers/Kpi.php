@@ -16,6 +16,7 @@ class Kpi extends CI_Controller {
 		$this->load->model('Model_business','business');
 		$this->load->model('Model_kpi','kpi');
 		$this->load->helper('data');
+		$this->load->helper('getStatus');
 	}
 
 	public function index()

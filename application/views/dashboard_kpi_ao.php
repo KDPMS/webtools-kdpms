@@ -18,7 +18,7 @@
 				</div>
 				<div class="col-md-4 text-lg-center text-md-center text-sm-center text-center">
 					<br>
-					<form action="<?php echo site_url('kpi/dashboard_kpi_ao'); ?>" method="post">
+					<form action="<?php echo base_url('kpi/dashboard_kpi_ao'); ?>" method="post">
 						Filter Data :
 						<select name="bulan" id="bulan">
 							<?php
@@ -99,7 +99,7 @@
 
 			<!-- Lending -->
 			<?php if ($dataKpiLendingAO != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Lending : <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?> <br> Status : Tidak Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Lending : <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?> <br> Status : <?= getStatusLendingAO($dataKpiLendingAO[0]->jml_value); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_lending">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="lending" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiLendingAO[0]->unit; ?>" data-title="<?= $dataKpiLendingAO[0]->title; ?>" data-value="<?= $dataKpiLendingAO[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiLendingAO[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiLendingAO[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiLendingAO[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiLendingAO[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
@@ -197,7 +197,7 @@
 									<th>Nama Nasabah</th>
 									<th>Alamat</th>
 									<th>Tanggal Realisasi</th>
-									<th>JKW</th>
+									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
@@ -211,7 +211,7 @@
 										<td><?= $resDetail->nama_nasabah; ?></td>
 										<td><?= $resDetail->alamat; ?></td>
 										<td><?= $resDetail->tgl_realisasi; ?></td>
-										<td><?= $resDetail->jkw; ?></td>
+										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
@@ -301,7 +301,7 @@
 									<th>Nama Nasabah</th>
 									<th>Alamat</th>
 									<th>Tanggal Realisasi</th>
-									<th>JKW</th>
+									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
@@ -323,7 +323,7 @@
 										<td><?= $resDetail->nama_nasabah; ?></td>
 										<td><?= $resDetail->alamat; ?></td>
 										<td><?= $resDetail->tgl_realisasi; ?></td>
-										<td><?= $resDetail->jkw; ?></td>
+										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
@@ -373,7 +373,7 @@
 									<th>Nama Nasabah</th>
 									<th>Alamat</th>
 									<th>Tanggal Realisasi</th>
-									<th>JKW</th>
+									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
@@ -396,7 +396,7 @@
 										<td><?= $resDetail->nama_nasabah; ?></td>
 										<td><?= $resDetail->alamat; ?></td>
 										<td><?= $resDetail->tgl_realisasi; ?></td>
-										<td><?= $resDetail->jkw; ?></td>
+										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
@@ -446,7 +446,7 @@
 								<th>Nama Nasabah</th>
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
-								<th>JKW</th>
+								<th>Jangka Waktu</th>
 								<th>Tanggal Jatuh Tempo</th>
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
@@ -460,7 +460,7 @@
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
 									<td><?= $resDetail->tgl_realisasi; ?></td>
-									<td><?= $resDetail->jkw; ?></td>
+									<td><?= $resDetail->jkw . " Bulan"; ?></td>
 									<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
 									<td><?= rupiah($resDetail->baki_debet); ?></td>
 									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>

@@ -179,7 +179,7 @@
 								<th>Nama Nasabah</th>
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
-								<th>JKW</th>
+								<th>Jangka Waktu</th>
 								<th>Tanggal Jatuh Tempo</th>
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
@@ -204,7 +204,7 @@
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
 									<td><?= $resDetail->tgl_realisasi; ?></td>
-									<td><?= $resDetail->jkw; ?></td>
+									<td><?= $resDetail->jkw . " Bulan"; ?></td>
 									<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
 									<td><?= rupiah($resDetail->baki_debet); ?></td>
 									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
@@ -255,7 +255,7 @@
 								<th>Nama Nasabah</th>
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
-								<th>JKW</th>
+								<th>Jangka Waktu</th>
 								<th>Tanggal Jatuh Tempo</th>
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
@@ -280,7 +280,7 @@
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
 									<td><?= $resDetail->tgl_realisasi; ?></td>
-									<td><?= $resDetail->jkw; ?></td>
+									<td><?= $resDetail->jkw . " Bulan"; ?></td>
 									<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
 									<td><?= rupiah($resDetail->baki_debet); ?></td>
 									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
@@ -331,7 +331,7 @@
 								<th>Nama Nasabah</th>
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
-								<th>JKW</th>
+								<th>Jangka Waktu</th>
 								<th>Tanggal Jatuh Tempo</th>
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
@@ -356,7 +356,7 @@
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
 									<td><?= $resDetail->tgl_realisasi; ?></td>
-									<td><?= $resDetail->jkw; ?></td>
+									<td><?= $resDetail->jkw . " Bulan"; ?></td>
 									<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
 									<td><?= rupiah($resDetail->baki_debet); ?></td>
 									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
@@ -431,7 +431,7 @@
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
 									<td><?= $resDetail->tgl_realisasi; ?></td>
-									<td><?= $resDetail->jkw; ?> Bulan</td>
+									<td><?= $resDetail->jkw . " Bulan"; ?></td>
 									<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
 									<td><?= rupiah($resDetail->baki_debet); ?></td>
 									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>

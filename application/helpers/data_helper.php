@@ -108,24 +108,5 @@
         return $ubah;
     }
 
-    // mengambil status lending cabang
-    function getStatusLending($angka){
-  
-        switch($angka){
-          case $angka >= 0 && $angka <= 1049 :
-              echo "tidak tercapai";
-              break;
-          case $angka >= 1050 && $angka <= 1399 :
-              echo "hampir tercapai";
-              break;
-          case $angka >= 1400 && $angka <= 2099 :
-              echo "tercapai";
-              break;
-          case $angka >= 2100 :
-              echo "sangat tercapai";
-              break;
-          default :
-              echo 'tidak ada status';
-              break;
-        }  
-    }
+
+    
