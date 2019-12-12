@@ -190,7 +190,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="table-responsive">
-						<table id="dt_tables_lending" class="dt_tables table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+						<table id="dt_tables_lending" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
 								<tr>
 									<th>Nasabah ID</th>
@@ -246,7 +246,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="table-responsive">
-						<table id="dt_tables_map" class="dt_tables table table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+						<table id="dt_tables_map" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
 								<tr>
 									<th>First</th>
@@ -294,7 +294,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="table-responsive">
-						<table id="dt_tables_bz" class="dt_tables table table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+						<table id="dt_tables_bz" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
 								<tr>
 									<th>Nasabah ID</th>
@@ -335,7 +335,7 @@
 										<td><?= $resDetail->ft_pokok; ?></td>
 										<td><?= $resDetail->ft_bunga; ?></td>
 										<td><?= $resDetail->ft_hari; ?></td>
-										<td><?= $resDetail->kolektibilitas; ?></td>
+										<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									</tr>
 								<?php } ?>
 							</tbody>
@@ -366,7 +366,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="table-responsive">
-						<table id="dt_tables_ns" class="dt_tables table table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+						<table id="dt_tables_ns" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
 								<tr>
 									<th>Nasabah ID</th>
@@ -408,7 +408,7 @@
 										<td><?= $resDetail->ft_pokok; ?></td>
 										<td><?= $resDetail->ft_bunga; ?></td>
 										<td><?= $resDetail->ft_hari; ?></td>
-										<td><?= $resDetail->kolektibilitas; ?></td>
+										<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 										<td><?= $resDetail->last_payment; ?></td>
 									</tr>
 								<?php } ?>
@@ -439,7 +439,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<table id="dt_tables_mb" class="dt_tables table table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+					<table id="dt_tables_mb" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 						<thead class="bg-light">
 							<tr>
 								<th>Nasabah ID</th>
@@ -490,22 +490,73 @@
 			return $(id_modal).on('shown.bs.modal', function() {
 				if (!$.fn.DataTable.isDataTable(id_table)) {
 					var tbtb = $(id_table).DataTable({
-						responsive: false,
-						fixedColumns: {
-							leftColumns: 1
+						// responsive: false,
+						language: {
+							decimal:        "",
+							emptyTable:     "Tidak Ada Data",
+							info:           "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+							infoEmpty:      "Menampilkan 0 sampai 0 dari total 0 baris",
+							infoFiltered:   "(Filter dari total _MAX_ baris)",
+							infoPostFix:    "",
+							thousands:      ",",
+							lengthMenu:     "Tampilkan _MENU_ baris",
+							loadingRecords: "Memuat...",
+							processing:     "Proses...",
+							search:         "Cari:",
+							zeroRecords:    "Tidak ada data yang sesuai",
+							paginate: {
+								first:      "Pertama",
+								last:       "Terakhir",
+								next:       "Selanjutnya",
+								previous:   "Sebelumnya"
+							},
+							aria: {
+								sortAscending:  ": Aktifkan Berdasarkan paling Awal",
+								sortDescending: ": Aktifkan Berdasarkan paling Akhir"
+							}
 						},
+						autoWidth : true,
+						pagingType: "simple_numbers",
+						lengthMenu: [ [5, 10, 25, 50, 100, -1], [5,10,25,50,100, "Semua"] ],
+						responsive: {
+							details: {
+								renderer: function ( api, rowIdx, columns ) {
+									var data = $.map( columns, function ( col, i ) {
+										return col.hidden ?
+											'<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+												'<td>'+col.title+' : '+'</td> '+
+												'<td>'+col.data+'</td>'+
+											'</tr>' :
+											'';
+									} ).join('');
+				
+									return data ?
+										$('<table/>').append( data ) :
+										false;
+								}
+							}
+						},
+						columnDefs: [ {
+							className: 'control',
+							orderable: true,
+							targets:   0
+						} ],
+						// fixedColumns: {
+						// 	leftColumns: 2
+						// },
 						order: [
 							[0, "desc"]
 						],
 						dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
 							"<'row'<'col-sm-12't>>" +
 							"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
-						scrollY: 320,
-						scrollX: true,
-						scrollCollapse: true,
-						scroller: true,
+						// scrollY: 320,
+						// scrollX: true,
+						// scrollCollapse: true,
+						// scroller: true,
 					});
 				} else {
+					tbtb.columns.adjust();
 					// var tbtb = $.fn.dataTable.fnTables(true);
 
 					// $(tbtb).each(function () {
@@ -516,6 +567,7 @@
 				tbtb.columns.adjust();
 			});
 		}
+
 
 		new cchart('#modal_lending', '#dt_tables_lending');
 		new cchart('#modal_map', '#dt_tables_map');

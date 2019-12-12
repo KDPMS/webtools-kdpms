@@ -107,7 +107,7 @@
 			<?php if ($dataKpiLending != null) { ?>
 				<span class="rounded-circle spedo" data-popover="popover" data-content='<b> Lending : <?= ubahJuta($dataKpiLending[0]->jml_value); ?> <br> Lending : <?= ambil2Angka($dataKpiLending[0]->lending) . ' %'; ?> <br> Status : <?= getStatusLendingCabang($dataKpiLending[0]->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_lending">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="lending" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiLending[0]->unit; ?>" data-title="<?= $dataKpiLending[0]->title; ?>" data-value="<?php echo $dataKpiLending[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiLending[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiLending[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiLending[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiLending[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="lending" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiLending[0]->unit; ?>" data-title="<?= $dataKpiLending[0]->title; ?>" data-value="<?php echo $dataKpiLending[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiLending[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiLending[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiLending[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiLending[0]->data_spedo; ?>' data-color-plate="black" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 						</canvas>
 					</a>
 				</span>
@@ -259,7 +259,7 @@
 						<?php foreach ($dataKpiCRKol as $res) { ?>
 							<span class="rounded-circle" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : Bagus <br> Jumlah tagihan : <?= rupiah($res->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($res->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
 								<a class="rounded-circle" href="#detail_cr_kolektor<?php echo $res->kode_group3; ?>" data-toggle="modal" data-target="#detail_cr_kolektor<?php echo $res->kode_group3; ?>" data-backdrop="false">
-									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group3; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
+									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group3; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#000000" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="1500">
 									</canvas>
 								</a>
 							</span>
@@ -313,6 +313,7 @@
 			$this->db->query("SELECT '$date' INTO @pv_per_tgl");
 			$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
 			$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->result();
+			$getTotal = $this->db->query('SELECT SUM(jml_lending) as total FROM kms_kpi.v_kpi_ao_lending')->result();
 			?>
 		<div class="modal modal2 modal_detail_lending fade" id="detail_lending_ao<?php echo $res->kode_group2; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
 			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
@@ -326,7 +327,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<table id="dt_tables_lending<?php echo $res->kode_group2; ?>" class="table table-bordered table-striped table-hover">
+						<table id="dt_tables_lending<?php echo $res->kode_group2; ?>" cellspacing="0" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
 								<tr>
 									<th>Nasabah ID</th>
@@ -358,6 +359,7 @@
 						</table>
 					</div>
 					<div class="modal-footer bg-light">
+						<h6 class="mr-auto">TOTAL :  <?= rupiah($getTotal[0]->total); ?></h6>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -387,7 +389,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="table-responsive">
-							<table id="dt_tables_npl<?php echo $res->kode_group3; ?>" class="dt_tables table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+							<table id="dt_tables_npl<?php echo $res->kode_group3; ?>" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 								<thead class="bg-light">
 									<tr>
 										<th>Nasabah ID</th>
@@ -434,7 +436,7 @@
 											<td><?= $resDetail->ft_bunga; ?></td>
 											<td><?= $resDetail->ft_hari_awal; ?></td>
 											<td><?= $resDetail->ft_hari; ?></td>
-											<td><?= $resDetail->kolektibilitas; ?></td>
+											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -473,7 +475,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="table-responsive">
-							<table id="dt_tables_cr<?php echo $res->kode_group3; ?>" class="dt_tables table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+							<table id="dt_tables_cr<?php echo $res->kode_group3; ?>" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 								<thead class="bg-light">
 									<tr>
 										<th>Nasabah ID</th>
@@ -520,7 +522,7 @@
 											<td><?= $resDetail->ft_bunga; ?></td>
 											<td><?= $resDetail->ft_hari_awal; ?></td>
 											<td><?= $resDetail->ft_hari; ?></td>
-											<td><?= $resDetail->kolektibilitas; ?></td>
+											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -557,7 +559,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="table-responsive">
-							<table id="dt_tables_bz<?php echo $res->kode_group3; ?>" class="dt_tables table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+							<table id="dt_tables_bz<?php echo $res->kode_group3; ?>" class="dt_tables table table-bordered table-hover display compact nowrap" style="width:100%">
 								<thead class="bg-light">
 									<tr>
 										<th>Nasabah ID</th>
@@ -604,7 +606,7 @@
 											<td><?= $resDetail->ft_bunga; ?></td>
 											<td><?= $resDetail->ft_hari_awal; ?></td>
 											<td><?= $resDetail->ft_hari; ?></td>
-											<td><?= $resDetail->kolektibilitas; ?></td>
+											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -630,22 +632,73 @@
 			return $(id_modal).on('shown.bs.modal', function() {
 				if (!$.fn.DataTable.isDataTable(id_table)) {
 					var tbtb = $(id_table).DataTable({
-						responsive: false,
-						fixedColumns: {
-							leftColumns: 2
+						// responsive: false,
+						language: {
+							decimal:        "",
+							emptyTable:     "Tidak Ada Data",
+							info:           "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+							infoEmpty:      "Menampilkan 0 sampai 0 dari total 0 baris",
+							infoFiltered:   "(Filter dari total _MAX_ baris)",
+							infoPostFix:    "",
+							thousands:      ",",
+							lengthMenu:     "Tampilkan _MENU_ baris",
+							loadingRecords: "Memuat...",
+							processing:     "Proses...",
+							search:         "Cari:",
+							zeroRecords:    "Tidak ada data yang sesuai",
+							paginate: {
+								first:      "Pertama",
+								last:       "Terakhir",
+								next:       "Selanjutnya",
+								previous:   "Sebelumnya"
+							},
+							aria: {
+								sortAscending:  ": Aktifkan Berdasarkan paling Awal",
+								sortDescending: ": Aktifkan Berdasarkan paling Akhir"
+							}
 						},
+						autoWidth : true,
+						pagingType: "simple_numbers",
+						lengthMenu: [ [5, 10, 25, 50, 100, -1], [5,10,25,50,100, "Semua"] ],
+						responsive: {
+							details: {
+								renderer: function ( api, rowIdx, columns ) {
+									var data = $.map( columns, function ( col, i ) {
+										return col.hidden ?
+											'<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+												'<td>'+col.title+' : '+'</td> '+
+												'<td>'+col.data+'</td>'+
+											'</tr>' :
+											'';
+									} ).join('');
+				
+									return data ?
+										$('<table/>').append( data ) :
+										false;
+								}
+							}
+						},
+						columnDefs: [ {
+							className: 'control',
+							orderable: true,
+							targets:   0
+						} ],
+						// fixedColumns: {
+						// 	leftColumns: 2
+						// },
 						order: [
 							[0, "desc"]
 						],
 						dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
 							"<'row'<'col-sm-12't>>" +
 							"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
-						scrollY: 320,
-						scrollX: true,
-						scrollCollapse: true,
-						scroller: true,
+						// scrollY: 320,
+						// scrollX: true,
+						// scrollCollapse: true,
+						// scroller: true,
 					});
 				} else {
+					tbtb.columns.adjust();
 					// var tbtb = $.fn.dataTable.fnTables(true);
 
 					// $(tbtb).each(function () {

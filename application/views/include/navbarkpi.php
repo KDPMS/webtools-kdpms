@@ -41,9 +41,9 @@
           <a href="<?php echo base_url('User/Account/'.$this->session->userdata('id')) ?>" class="dropdown-item mt-2">
             Manage Accounts
           </a>
-          <a href="javascript:void(0)" onClick="alert('Fitur Belum ada')" class="dropdown-item">
+          <!-- <a href="javascript:void(0)" onClick="alert('Fitur Belum ada')" class="dropdown-item">
             Check Inbox
-          </a>
+          </a> -->
           <a class="dropdown-item" href="<?php echo base_url('Login/Logout'); ?>">
             Logout
           </a>

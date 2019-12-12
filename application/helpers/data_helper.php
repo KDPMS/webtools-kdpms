@@ -113,19 +113,19 @@
 
         switch($angka){
             case $angka == 1 :
-                $status = "Sangat Lancar";
-                break;
-            case $angka == 2 :
                 $status = "Lancar";
                 break;
+            case $angka == 2 :
+                $status = "Dalam Perhatian Khusus (DPK)";
+                break;
             case $angka == 3 :
-                $status = "Tidak Lancar";
+                $status = "Kredit Kurang Lancar";
                 break;
             case $angka == 4 :
-                $status = "Macet";
+                $status = "Diragukan";
                 break;
             case $angka == 5 :
-                $status = "Sangat Macet";
+                $status = "Macet";
                 break;
             default :
                 $status = "Not valid";
