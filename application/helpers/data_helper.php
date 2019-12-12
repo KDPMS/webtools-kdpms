@@ -108,5 +108,31 @@
         return $ubah;
     }
 
+    //get kolektibilitas list
+    function getKolektibilitas($angka){
+
+        switch($angka){
+            case $angka == 1 :
+                $status = "Sangat Lancar";
+                break;
+            case $angka == 2 :
+                $status = "Lancar";
+                break;
+            case $angka == 3 :
+                $status = "Tidak Lancar";
+                break;
+            case $angka == 4 :
+                $status = "Macet";
+                break;
+            case $angka == 5 :
+                $status = "Sangat Macet";
+                break;
+            default :
+                $status = "Not valid";
+                break;
+        }  
+        return $status;
+    }
+
 
     
