@@ -50,19 +50,19 @@ function getStatusCRCabang($angka){
 
     switch($angka){
         case $angka >= 83 :
-            echo "sangat tercapai";
+            echo "Sangat tercapai";
             break;
         case $angka >= 67 :
-            echo "tercapai";
+            echo "Tercapai";
             break;
         case $angka >= 50 :
-            echo "hampir tercapai";
+            echo "Hampir tercapai";
             break;
         case $angka >= 0 :
-            echo "tidak tercapai";
+            echo "Tidak tercapai";
             break;
         default :
-            echo 'tidak ada status';
+            echo 'Tidak ada status';
             break;
     }  
 }
@@ -72,19 +72,19 @@ function getStatusBZCabang($angka){
 
     switch($angka){
         case $angka >= 83 :
-            echo "sangat tercapai";
+            echo "Sangat tercapai";
             break;
         case $angka >= 67 :
-            echo "tercapai";
+            echo "Tercapai";
             break;
         case $angka >= 50 :
-            echo "hampir tercapai";
+            echo "Hampir tercapai";
             break;
         case $angka >= 0 :
-            echo "tidak tercapai";
+            echo "Tidak tercapai";
             break;
         default :
-            echo 'tidak ada status';
+            echo 'Tidak ada status';
             break;
     }  
 }
@@ -116,20 +116,89 @@ function getStatusLendingAO($angka){
 function getStatusNPLKol($angka){
 
     switch($angka){
-        case $angka >= 42 :
+        case $angka >= 83 :
             echo "Tidak tercapai";
             break;
-        case $angka >= 33 :
+        case $angka >= 67 :
             echo "Hampir tercapai";
             break;
-        case $angka >= 25 :
+        case $angka >= 50 :
             echo "Tercapai";
             break;
         case $angka >= 0 :
             echo "Sangat tercapai";
             break;
         default :
-            echo 'tidak ada status';
+            echo 'Tidak ada status';
             break;
     }  
+}
+
+// mengambil status cr kolektor
+function getStatusCRKol($angka){
+  
+    switch($angka){
+        case $angka >= 83 :
+            $status = "Sangat tercapai";
+            break;
+        case $angka >= 67 :
+            $status = "Tercapai";
+            break;
+        case $angka >= 50 :
+            $status = "Hampir tercapai";
+            break;
+        case $angka >= 0 :
+            $status = "Tidak tercapai";
+            break;
+        default :
+            $status = "Not valid";
+            break;
+    }  
+    return $status;
+}
+
+// mengambil status bz kolektor
+function getStatusBZKol($angka){
+  
+    switch($angka){
+        case $angka >= 83 :
+            $status = "Sangat tercapai";
+            break;
+        case $angka >= 67 :
+            $status = "Tercapai";
+            break;
+        case $angka >= 50 :
+            $status = "Hampir tercapai";
+            break;
+        case $angka >= 0 :
+            $status = "Tidak tercapai";
+            break;
+        default :
+            $status = "Not valid";
+            break;
+    }  
+    return $status;
+}
+
+// mengambil status bz kolektor
+function getStatusBZAO($angka){
+  
+    switch($angka){
+        case $angka >= 83 :
+            $status = "Sangat tercapai";
+            break;
+        case $angka >= 67 :
+            $status = "Tercapai";
+            break;
+        case $angka >= 50 :
+            $status = "Hampir tercapai";
+            break;
+        case $angka >= 0 :
+            $status = "Tidak tercapai";
+            break;
+        default :
+            $status = "Not valid";
+            break;
+    }  
+    return $status;
 }
