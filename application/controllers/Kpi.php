@@ -118,6 +118,7 @@ class Kpi extends CI_Controller {
 			$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
 
 			$data['dataKpiMitra_AOdetail'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+			$data['dataKpiMitra_AOdetailRow'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->num_rows();
 
 			$this->load->view('include/headerkpi');
 			$this->load->view('dashboard_kpi_ao', $data);

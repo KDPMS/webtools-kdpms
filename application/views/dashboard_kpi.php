@@ -867,6 +867,6 @@
 		var nullNS = $('#nullNS').attr('data');
 		$('#nsNull').html(nullNS);
 		//tutup alert data tidak ada
-
+			
 	});
 </script>

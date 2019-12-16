@@ -189,6 +189,12 @@
 					</button>
 				</div>
 				<div class="modal-body">
+				<?php 
+				 print_r($dataKpiMitra_AOdetailRow);
+				?>
+					<a class="btn btn-sm btn-primary mb-2" href="" data-toggle="modal" data-target="#modal_mb" data-backdrop="false">
+						Data Mitra
+					</a>
 					<div class="table-responsive">
 						<table id="dt_tables_lending" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
@@ -224,6 +230,7 @@
 				</div>
 				<div class="modal-footer bg-light">
 					<h6 class="mr-auto">TOTAL :  <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?></h6>
+					
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
 						Close
 					</button>
