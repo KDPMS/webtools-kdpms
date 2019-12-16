@@ -95,7 +95,7 @@
 	<!-- end handle data jika null -->
 	
 	<div class="row justify-content-center">
-		<?php if ($dataKpiLendingAO || $dataKpiBZ_AO || $dataKpiNS_AO) { ?>
+		<?php if ($dataKpiLendingAO /**|| $dataKpiBZ_AO*/|| $dataKpiNS_AO) { ?>
 
 			<!-- Lending -->
 			<?php if ($dataKpiLendingAO != null) { ?>
@@ -111,7 +111,7 @@
 			<!-- /Lending -->
 
 			<!-- Map -->
-			<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Map : 1% <br> Status : Tidak Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
+			<!-- <span class="rounded-circle spedo" data-popover="popover" data-content="<b>Map : 1% <br> Status : Tidak Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
 				<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_map">
 					<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="map" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="Map" data-value="1" data-min-value="0" data-max-value="100" data-major-ticks="0,10,20,30,40,50,60,70,80,90,100" data-minor-ticks="5" data-stroke-ticks="true" data-highlights='[
 													{ "from": 0, "to": 25, "color": "#ef4b4b" },
@@ -120,7 +120,7 @@
 													{ "from": 75, "to": 100, "color": "#0066d6" }
 												]' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 				</a>
-			</span>
+			</span> -->
 			<!-- /Map -->
 
 			<!-- Non Starter -->
@@ -137,7 +137,7 @@
 			<!-- /Non Starter -->
 
 			<!-- Bucket Zero -->
-			<?php if ($dataKpiBZ_AO != null) { ?>
+			<!-- <?php if ($dataKpiBZ_AO != null) { ?>
 				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>BZ : <?= ambil2Angka($dataKpiBZ_AO[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusBZAO($dataKpiBZ_AO[0]->jml_value); ?> <br> Jumlah tagihan : <?= rupiah($dataKpiBZ_AO[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZ_AO[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiBZ_AO[0]->unit; ?>" data-title="<?= $dataKpiBZ_AO[0]->title; ?>" data-value="<?= $dataKpiBZ_AO[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiBZ_AO[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiBZ_AO[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiBZ_AO[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiBZ_AO[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
@@ -146,11 +146,11 @@
 			<?php
 				} else {
 					echo '<span id="nullBZ" data=""></span>';
-				} ?>
+				} ?> -->
 			<!-- /Bucket Zero -->
 
 			<!-- MB -->
-			<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Map : 70% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
+			<!-- <span class="rounded-circle spedo" data-popover="popover" data-content="<b>Map : 70% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
 				<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_mb">
 					<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="mb" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="MB" data-value="70" data-min-value="0" data-max-value="100" data-major-ticks="0,10,20,30,40,50,60,70,80,90,100" data-minor-ticks="5" data-stroke-ticks="true" data-highlights='[
 													{ "from": 0, "to": 25, "color": "#ef4b4b" },
@@ -159,7 +159,7 @@
 													{ "from": 75, "to": 100, "color": "#0066d6" }
 												]' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 				</a>
-			</span>
+			</span> -->
 			<!-- /MB -->
 		<?php } else { ?>
 			<span class="spedo">
@@ -189,12 +189,12 @@
 					</button>
 				</div>
 				<div class="modal-body">
-				<?php 
+				<!-- <?php 
 				 print_r($dataKpiMitra_AOdetailRow);
 				?>
 					<a class="btn btn-sm btn-primary mb-2" href="" data-toggle="modal" data-target="#modal_mb" data-backdrop="false">
 						Data Mitra
-					</a>
+					</a> -->
 					<div class="table-responsive">
 						<table id="dt_tables_lending" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
@@ -241,7 +241,7 @@
 	<!-- /Modal Lending -->
 
 	<!-- Modal map -->
-	<div class="modal fade" id="modal_map" tabindex="2" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	<!-- <div class="modal fade" id="modal_map" tabindex="2" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-xl modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header bg-light">
@@ -285,7 +285,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- /Modal map -->
 
 	<!-- Modal Bucket Zero -->
@@ -365,7 +365,7 @@
 		<div class="modal-dialog modal-xl modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header bg-light">
-					<h5 class="modal-title" id="exampleModalLongTitle">Detail Non Starter
+					<h5 class="modal-title" id="exampleModalLongTitle">Detail FID - Non Starter
 						<p><?= "Bulan : &nbsp" . ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
