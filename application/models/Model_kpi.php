@@ -119,9 +119,25 @@ class Model_kpi extends CI_Model {
 
 	
 	//KPI NON STARTER
+	public function datakpi_NS($tahun = '', $bulan = '', $tanggal = '', $kode_kantor = ''){
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl"); // GET VIEW NPL PER CABANG
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_fid_cabang WHERE kode_kantor = '$kode_kantor'");
+	}
+
+	public function datakpi_NS_AO($tahun = '', $bulan = '', $tanggal = '', $kode_kantor = ''){
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_fid_ao WHERE kode_kantor = '$kode_kantor'");
+	}
+
+	public function datakpi_NS_Per_AO($tahun = '', $bulan = '', $tanggal = '', $kode_group2 = '', $kode_kantor = ''){
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_fid_ao WHERE kode_group2 = '$kode_group2' AND kode_kantor = '$kode_kantor'");
+	}
+
 	public function datakpi_NS_AOdetail($tahun = '', $bulan = '', $tanggal = '', $kode_group2 = '', $kode_kantor = ''){ //GET VIEW NS DETAIL AO
 		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_non_starter WHERE kode_group2 = '$kode_group2' AND kode_kantor = '$kode_kantor'");
+		$this->db->query("SELECT '$kode_group2' INTO @pv_kode_ao");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_fid WHERE kode_kantor = '$kode_kantor'");
 	}
 	//END KPI NON STARTER
 

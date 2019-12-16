@@ -93,13 +93,13 @@
 		</div>
 	</span>
 	<!-- end handle data jika null -->
-
+	
 	<div class="row justify-content-center">
-		<?php if ($dataKpiLendingAO || $dataKpiBZ_AO) { ?>
+		<?php if ($dataKpiLendingAO || $dataKpiBZ_AO || $dataKpiNS_AO) { ?>
 
 			<!-- Lending -->
 			<?php if ($dataKpiLendingAO != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Lending : <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?> <br> Status : <?= getStatusLendingAO($dataKpiLendingAO[0]->jml_value); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Lending : <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?> <br>  Lending : <?= ambil2Angka($dataKpiLendingAO[0]->lending) . '%'; ?> <br> Status : <?= getStatusLendingAO($dataKpiLendingAO[0]->jml_value); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_lending">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="lending" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiLendingAO[0]->unit; ?>" data-title="<?= $dataKpiLendingAO[0]->title; ?>" data-value="<?= $dataKpiLendingAO[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiLendingAO[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiLendingAO[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiLendingAO[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiLendingAO[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
@@ -124,16 +124,16 @@
 			<!-- /Map -->
 
 			<!-- Non Starter -->
-			<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : 50% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
+			<?php if ($dataKpiNS_AO != null) { ?>
+			<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($dataKpiNS_AO[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusNSAO($dataKpiNS_AO[0]->jml_value); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($dataKpiNS_AO[0]->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($dataKpiNS_AO[0]->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 				<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_ns">
-					<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="NS" data-value="70" data-min-value="0" data-max-value="100" data-major-ticks="0,10,20,30,40,50,60,70,80,90,100" data-minor-ticks="5" data-stroke-ticks="true" data-highlights='[
-													{ "from": 0, "to": 25, "color": "#ef4b4b" },
-													{ "from": 25, "to": 50, "color": "yellow" },
-													{ "from": 50, "to": 75, "color": "green" },
-													{ "from": 75, "to": 100, "color": "#0066d6" }
-												]' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+					<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiNS_AO[0]->unit; ?>" data-title="<?= $dataKpiNS_AO[0]->title; ?>" data-value="<?= $dataKpiNS_AO[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiNS_AO[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiNS_AO[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiNS_AO[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiNS_AO[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 				</a>
 			</span>
+			<?php
+				} else {
+					echo '<span id="nullNS" data=""></span>';
+				} ?>
 			<!-- /Non Starter -->
 
 			<!-- Bucket Zero -->
@@ -379,15 +379,6 @@
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
 									<th>Jumlah Lending</th>
-									<th>Jumlah Tagihan Turun</th>
-									<th>Jumlah Tagihan Bayar</th>
-									<th>Jumlah Tunggakan</th>
-									<th>Jumlah Denda</th>
-									<th>FT Pokok</th>
-									<th>FT Bunga</th>
-									<th>FT Hari</th>
-									<th>Kolektibilitas</th>
-									<th>Last Payment</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -402,15 +393,6 @@
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 										<td><?= rupiah($resDetail->jml_lending); ?></td>
-										<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
-										<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
-										<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-										<td><?= rupiah($resDetail->jml_denda); ?></td>
-										<td><?= $resDetail->ft_pokok; ?></td>
-										<td><?= $resDetail->ft_bunga; ?></td>
-										<td><?= $resDetail->ft_hari; ?></td>
-										<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
-										<td><?= $resDetail->last_payment; ?></td>
 									</tr>
 								<?php } ?>
 							</tbody>
@@ -587,6 +569,11 @@
 		$('#nullBZ').attr('data', isiBZ);
 		var nullBZ = $('#nullBZ').attr('data');
 		$('#bzNull').html(nullBZ);
+
+		var isiNS = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Non Starter</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+		$('#nullNS').attr('data', isiNS);
+		var nullNS = $('#nullNS').attr('data');
+		$('#nsNull').html(nullNS);
 		//tutup alert data tidak ada
 
 	});

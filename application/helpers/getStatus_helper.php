@@ -202,3 +202,49 @@ function getStatusBZAO($angka){
     }  
     return $status;
 }
+
+// mengambil status NS AO
+function getStatusNSAO($angka){
+  
+    switch($angka){
+        case $angka >= 83 :
+            $status = "Sangat tercapai";
+            break;
+        case $angka >= 67 :
+            $status = "Tercapai";
+            break;
+        case $angka >= 50 :
+            $status = "Hampir tercapai";
+            break;
+        case $angka >= 0 :
+            $status = "Tidak tercapai";
+            break;
+        default :
+            $status = "Not valid";
+            break;
+    }  
+    return $status;
+}
+
+// mengambil status NS Cabang
+function getStatusNSCabang($angka){
+  
+    switch($angka){
+        case $angka >= 83 :
+            $status = "Sangat tercapai";
+            break;
+        case $angka >= 67 :
+            $status = "Tercapai";
+            break;
+        case $angka >= 50 :
+            $status = "Hampir tercapai";
+            break;
+        case $angka >= 0 :
+            $status = "Tidak tercapai";
+            break;
+        default :
+            $status = "Not valid";
+            break;
+    }  
+    return $status;
+}

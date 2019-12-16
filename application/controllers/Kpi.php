@@ -72,6 +72,10 @@ class Kpi extends CI_Controller {
 			$data['dataKpiBZ'] = $this->kpi->datakpi_BZ($tahun, $bulan, $tanggal, $kantor)->result();
 			$data['dataKpiBZKol'] = $this->kpi->datakpi_BZ_Kol($tahun, $bulan, $tanggal, $kantor)->result();
 			$data['dataKpiBZKoldetail'] = $this->kpi->datakpi_BZ_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
+
+			$data['dataKpiNS'] = $this->kpi->datakpi_NS($tahun, $bulan, $tanggal, $kantor)->result();
+			$data['dataKpiNS_AO'] = $this->kpi->datakpi_NS_AO($tahun, $bulan, $tanggal, $kantor)->result();
+			$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $tanggal, '15', $kantor)->result();
 			
 			$this->load->view('include/headerkpi');
 			$this->load->view('dashboard_kpi',$data);
@@ -90,7 +94,7 @@ class Kpi extends CI_Controller {
 			$tahun       = $this->input->post('tahun');
 			$tanggal     = date('d');
 			$kantor      = $this->session->userdata('kantor');
-			$kode_group2 = '05';
+			$kode_group2 = '12';
 			
 			if(empty($tahun)){
 				$tahun = date('Y');
@@ -109,7 +113,8 @@ class Kpi extends CI_Controller {
 
 			$data['dataKpiBZ_AO'] = $this->kpi->datakpi_BZ_Per_AO($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
 			$data['dataKpiBZ_AOdetail'] = $this->kpi->datakpi_BZ_AO_detail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
-
+			
+			$data['dataKpiNS_AO'] = $this->kpi->datakpi_NS_Per_AO($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
 			$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
 
 			$data['dataKpiMitra_AOdetail'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();

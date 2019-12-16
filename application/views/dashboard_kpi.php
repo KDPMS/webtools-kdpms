@@ -95,13 +95,16 @@
 				<div id="bzNull">
 
 				</div>&nbsp;
+				<div id="nsNull">
+
+				</div>&nbsp;
 			</div>
 		</div>
 	</span>
 	<!-- end handle data jika null -->
 
 	<div class="row justify-content-center">
-		<?php if ($dataKpiLending || $dataKpiNpl || $dataKpiCR || $dataKpiBZ) { ?>
+		<?php if ($dataKpiLending || $dataKpiNpl || $dataKpiCR || $dataKpiBZ || $dataKpiNS) { ?>
 
 			<!-- Lending -->
 			<?php if ($dataKpiLending != null) { ?>
@@ -158,6 +161,20 @@
 					echo '<span id="nullBz" data=""></span>';
 				} ?>
 			<!-- /Bucket Zero -->
+
+			<!-- Non Starter -->
+			<?php if ($dataKpiNS != null) { ?>
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($dataKpiNS[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusNSCabang($dataKpiNS[0]->jml_value); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($dataKpiNS[0]->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($dataKpiNS[0]->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
+					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_ns">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiNS[0]->unit; ?>" data-title="<?= $dataKpiNS[0]->title; ?>" data-value="<?php echo $dataKpiNS[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiNS[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiNS[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiNS[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiNS[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
+						</canvas>
+					</a>
+				</span>
+			<?php
+				} else {
+					echo '<span id="nullNS" data=""></span>';
+				} ?>
+			<!-- /Non Starter -->
 
 		<?php } else { ?>
 			<span class="spedo">
@@ -305,6 +322,38 @@
 		</div>
 	</div>
 	<!-- /Modal Bucket Zero -->
+
+	<!-- Modal NON STARTER -->
+	<div class="modal fade" id="modal_ns" tabindex="4" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header bg-light">
+					<h5 class="modal-title" id="exampleModalLongTitle">Detail FID - Non Starter
+						<p>Bulan : <?php echo ubahBulan($bulan) . "&nbsp" . $tahun ?></p>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row justify-content-center">
+						<?php foreach ($dataKpiNS_AO as $res) { ?>
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNSAO($res->jml_value); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($res->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($res->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
+								<a class="rounded-circle" href="#detail_ns_ao" data-toggle="modal" data-target="#detail_ns_ao<?= $res->kode_group2; ?>" data-backdrop="false">
+									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group2; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
+									</canvas>
+								</a>
+							</span>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="modal-footer bg-light">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Modal NON STARTER -->
 
 	<!-- Modal Detail Lending -->
 	<?php foreach ($datakpilendingAO as $res) { ?>
@@ -620,6 +669,68 @@
 		</div>
 	<?php } ?>
 	<!-- /Modal Detail Bucket  Zero -->
+
+	<!-- Modal Detail NON STARTER -->
+	<?php foreach ($dataKpiNS_AO as $res) { ?>
+		<?php
+
+			$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+			$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
+			$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_fid WHERE kode_kantor = '$res->kode_kantor'")->result();
+			?>
+		<div class="modal fade" id="detail_ns_ao<?php echo $res->kode_group2; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+				<div class="modal-content">
+					<div class="modal-header bg-light">
+						<h5 class="modal-title" id="exampleModalLongTitle">Detail FID - Non Starter
+							<p><?php echo $res->deskripsi_group2; ?>,&nbsp;<?php echo ubahBulan($bulan) . "&nbsp" . $tahun ?></p>
+						</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="table-responsive">
+							<table id="dt_tables_ns<?php echo $res->kode_group2; ?>" class="dt_tables table table-bordered table-hover display compact nowrap" style="width:100%">
+								<thead class="bg-light">
+									<tr>
+										<th>Nasabah ID</th>
+										<th>Nama Nasabah</th>
+										<th>Alamat</th>
+										<th>Tanggal Realisasi</th>
+										<th>Jangka Waktu</th>
+										<th>Tanggal Jatuh Tempo</th>
+										<th>Baki Debet</th>
+										<th>Jumlah Pinjaman</th>
+										<th>Jumlah Lending</th>
+										</tr>
+								</thead>
+								<tbody>
+									<?php foreach ($dataDetail as $resDetail) { ?>
+										<tr>
+											<td><?= $resDetail->nasabah_id; ?></td>
+											<td><?= $resDetail->nama_nasabah; ?></td>
+											<td><?= $resDetail->alamat; ?></td>
+											<td><?= $resDetail->tgl_realisasi; ?></td>
+											<td><?= $resDetail->jkw . " Bulan"; ?></td>
+											<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+											<td><?= rupiah($resDetail->baki_debet); ?></td>
+											<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
+											<td><?= rupiah($resDetail->jml_lending); ?></td>
+										</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer bg-light">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php } ?>
+	<!-- /Modal Detail NON STARTER -->
 </div>
 <!-- content-wrapper ends -->
 
@@ -724,6 +835,10 @@
 		<?php foreach ($dataKpiBZKol as $res) { ?>
 			new cchart('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>');
 		<?php } ?>
+
+		<?php foreach ($dataKpiNS_AO as $res) { ?>
+			new cchart('#detail_ns_ao<?php echo $res->kode_group2; ?>', '#dt_tables_ns<?php echo $res->kode_group2; ?>');
+		<?php } ?>
 		//tutup datatable
 
 		//alert data tidak ada
@@ -746,6 +861,11 @@
 		$('#nullBz').attr('data', isiBz);
 		var nullBz = $('#nullBz').attr('data');
 		$('#bzNull').html(nullBz);
+
+		var isiNS = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Non Starter</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+		$('#nullNS').attr('data', isiNS);
+		var nullNS = $('#nullNS').attr('data');
+		$('#nsNull').html(nullNS);
 		//tutup alert data tidak ada
 
 	});
