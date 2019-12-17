@@ -398,7 +398,7 @@
 										<td><?php echo $resDetail->nama_nasabah; ?></td>
 										<td><?php echo rupiah($resDetail->jml_lending); ?></td>
 										<?php if($resDetail->deskripsi_group5 != NULL) { ?>
-											<td><?= $resDetail->deskripsi_group5; ?></td>
+											<td><?= ucfirst($resDetail->deskripsi_group5); ?></td>
 										<?php }else { ?>
 											<td> - </td>
 										<?php } ?>

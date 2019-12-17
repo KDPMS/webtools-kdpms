@@ -267,6 +267,24 @@
 		table.dataTable.table-striped.DTFC_Cloned tbody tr:nth-of-type(even) {
 			background-color: white;
 		}
+		.modal-dialog {
+			min-width: 100%;
+			max-width: 100%;
+			min-height: 100%;
+			max-height: 100%;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 10px;
+		}
+
+		.modal-content {
+			height: auto;
+			width: auto;
+			min-height: 100%;
+			min-width: 100%;
+			border-radius: 0;
+		}
 	</style>
 
 	<body>
