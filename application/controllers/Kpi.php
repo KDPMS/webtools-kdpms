@@ -94,7 +94,7 @@ class Kpi extends CI_Controller {
 			$tahun       = $this->input->post('tahun');
 			$tanggal     = date('d');
 			$kantor      = $this->session->userdata('kantor');
-			$kode_group2 = '12';
+			$kode_group2 = '02';
 			
 			if(empty($tahun)){
 				$tahun = date('Y');
@@ -118,7 +118,8 @@ class Kpi extends CI_Controller {
 			$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
 
 			$data['dataKpiMitra_AOdetail'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
-			$data['dataKpiMitra_AOdetailRow'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->num_rows();
+
+			$data['dataKpiMap'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->num_rows();
 
 			$this->load->view('include/headerkpi');
 			$this->load->view('dashboard_kpi_ao', $data);

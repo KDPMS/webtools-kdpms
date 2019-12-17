@@ -362,6 +362,7 @@
 			$this->db->query("SELECT '$date' INTO @pv_per_tgl");
 			$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
 			$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->result();
+			$dataKpiMap = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->num_rows();
 			?>
 		<div class="modal modal2 modal_detail_lending fade" id="detail_lending_ao<?php echo $res->kode_group2; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
 			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
@@ -380,13 +381,14 @@
 								<tr>
 									<th>Nasabah ID</th>
 									<th>Nama Nasabah</th>
+									<th>Jumlah Lending</th>
+									<th>Mitra Bisnis</th>
 									<th>Alamat</th>
 									<th>Tanggal Realisasi</th>
 									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
-									<th>Jumlah Lending</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -394,20 +396,25 @@
 									<tr>
 										<td><?php echo $resDetail->nasabah_id; ?></td>
 										<td><?php echo $resDetail->nama_nasabah; ?></td>
+										<td><?php echo rupiah($resDetail->jml_lending); ?></td>
+										<?php if($resDetail->deskripsi_group5 != NULL) { ?>
+											<td><?= $resDetail->deskripsi_group5; ?></td>
+										<?php }else { ?>
+											<td> - </td>
+										<?php } ?>
 										<td><?php echo $resDetail->alamat; ?></td>
 										<td><?php echo $resDetail->tgl_realisasi; ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?php echo $resDetail->tgl_jatuh_tempo; ?></td>
 										<td><?php echo rupiah($resDetail->baki_debet); ?></td>
 										<td><?php echo rupiah($resDetail->jml_pinjaman); ?></td>
-										<td><?php echo rupiah($resDetail->jml_lending); ?></td>
 									</tr>
 								<?php } ?>
 							</tbody>
 						</table>
 					</div>
 					<div class="modal-footer bg-light">
-						<h6 class="mr-auto">TOTAL :  <?= ubahJuta($res->jml_value); ?></h6>
+						<h6 class="mr-auto">TOTAL :  <?= ubahJuta($res->jml_value); ?> - <?= $dataKpiMap . " MAP"; ?></h6>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>

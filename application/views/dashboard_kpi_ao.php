@@ -77,18 +77,12 @@
 				<div id="lendingNull">
 
 				</div>&nbsp;
-				<div id="mapNull">
-
-				</div>&nbsp;
 				<div id="nsNull">
 
 				</div>&nbsp;
-				<div id="bzNull">
+				<!-- <div id="bzNull">
 
-				</div>&nbsp;
-				<div id="mbNull">
-
-				</div>&nbsp;
+				</div>&nbsp; -->
 			</div>
 		</div>
 	</span>
@@ -110,19 +104,6 @@
 				} ?>
 			<!-- /Lending -->
 
-			<!-- Map -->
-			<!-- <span class="rounded-circle spedo" data-popover="popover" data-content="<b>Map : 1% <br> Status : Tidak Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
-				<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_map">
-					<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="map" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="Map" data-value="1" data-min-value="0" data-max-value="100" data-major-ticks="0,10,20,30,40,50,60,70,80,90,100" data-minor-ticks="5" data-stroke-ticks="true" data-highlights='[
-													{ "from": 0, "to": 25, "color": "#ef4b4b" },
-													{ "from": 25, "to": 50, "color": "yellow" },
-													{ "from": 50, "to": 75, "color": "green" },
-													{ "from": 75, "to": 100, "color": "#0066d6" }
-												]' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
-				</a>
-			</span> -->
-			<!-- /Map -->
-
 			<!-- Non Starter -->
 			<?php if ($dataKpiNS_AO != null) { ?>
 			<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($dataKpiNS_AO[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusNSAO($dataKpiNS_AO[0]->jml_value); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($dataKpiNS_AO[0]->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($dataKpiNS_AO[0]->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
@@ -137,30 +118,18 @@
 			<!-- /Non Starter -->
 
 			<!-- Bucket Zero -->
-			<!-- <?php if ($dataKpiBZ_AO != null) { ?>
+			<!-- <?#php #if ($dataKpiBZ_AO != null) { ?>
 				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>BZ : <?= ambil2Angka($dataKpiBZ_AO[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusBZAO($dataKpiBZ_AO[0]->jml_value); ?> <br> Jumlah tagihan : <?= rupiah($dataKpiBZ_AO[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZ_AO[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiBZ_AO[0]->unit; ?>" data-title="<?= $dataKpiBZ_AO[0]->title; ?>" data-value="<?= $dataKpiBZ_AO[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiBZ_AO[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiBZ_AO[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiBZ_AO[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiBZ_AO[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
 				</span>
-			<?php
-				} else {
-					echo '<span id="nullBZ" data=""></span>';
-				} ?> -->
+			<?#php
+				#} #else {
+					#echo '<span id="nullBZ" data=""></span>';
+				#} ?> -->
 			<!-- /Bucket Zero -->
 
-			<!-- MB -->
-			<!-- <span class="rounded-circle spedo" data-popover="popover" data-content="<b>Map : 70% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
-				<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_mb">
-					<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="mb" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="MB" data-value="70" data-min-value="0" data-max-value="100" data-major-ticks="0,10,20,30,40,50,60,70,80,90,100" data-minor-ticks="5" data-stroke-ticks="true" data-highlights='[
-													{ "from": 0, "to": 25, "color": "#ef4b4b" },
-													{ "from": 25, "to": 50, "color": "yellow" },
-													{ "from": 50, "to": 75, "color": "green" },
-													{ "from": 75, "to": 100, "color": "#0066d6" }
-												]' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
-				</a>
-			</span> -->
-			<!-- /MB -->
 		<?php } else { ?>
 			<span class="spedo">
 				<div class="row align-content-center align-items-center justify-content-center text-center">
@@ -189,25 +158,20 @@
 					</button>
 				</div>
 				<div class="modal-body">
-				<!-- <?php 
-				 print_r($dataKpiMitra_AOdetailRow);
-				?>
-					<a class="btn btn-sm btn-primary mb-2" href="" data-toggle="modal" data-target="#modal_mb" data-backdrop="false">
-						Data Mitra
-					</a> -->
 					<div class="table-responsive">
 						<table id="dt_tables_lending" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
 								<tr>
 									<th>Nasabah ID</th>
 									<th>Nama Nasabah</th>
+									<th>Jumlah Lending</th>
+									<th>Mitra Bisnis</th>
 									<th>Alamat</th>
 									<th>Tanggal Realisasi</th>
 									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
-									<th>Jumlah Lending</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -215,13 +179,18 @@
 									<tr>
 										<td><?= $resDetail->nasabah_id; ?></td>
 										<td><?= $resDetail->nama_nasabah; ?></td>
+										<td><?= rupiah($resDetail->jml_lending); ?></td>
+										<?php if($resDetail->deskripsi_group5 != NULL) { ?>
+											<td><?= $resDetail->deskripsi_group5; ?></td>
+										<?php }else { ?>
+											<td> - </td>
+										<?php } ?>
 										<td><?= $resDetail->alamat; ?></td>
 										<td><?= $resDetail->tgl_realisasi; ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
-										<td><?= rupiah($resDetail->jml_lending); ?></td>
 									</tr>
 								<?php } ?>
 							</tbody>
@@ -229,7 +198,7 @@
 					</div>
 				</div>
 				<div class="modal-footer bg-light">
-					<h6 class="mr-auto">TOTAL :  <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?></h6>
+					<h6 class="mr-auto">TOTAL :  <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?> - <?= $dataKpiMap . " MAP"; ?></h6>
 					
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
 						Close
@@ -240,56 +209,8 @@
 	</div>
 	<!-- /Modal Lending -->
 
-	<!-- Modal map -->
-	<!-- <div class="modal fade" id="modal_map" tabindex="2" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-xl modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header bg-light">
-					<h5 class="modal-title" id="exampleModalLongTitle">Detail Map
-						<p><?= "Bulan : &nbsp" . ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="table-responsive">
-						<table id="dt_tables_map" class="table table-bordered table-hover display compact nowrap" style="width:100%">
-							<thead class="bg-light">
-								<tr>
-									<th>First</th>
-									<th>Last</th>
-									<th>Handle</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Mark</td>
-									<td>Otto</td>
-									<td>@mdo</td>
-									<td>
-										<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detail_nasabah" data-backdrop="false">
-											Detail
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="modal-footer bg-light">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">
-						Close
-					</button>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- /Modal map -->
-
 	<!-- Modal Bucket Zero -->
-	<div class="modal fade" id="modal_bz" tabindex="4" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	<!-- <div class="modal fade" id="modal_bz" tabindex="4" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-xl modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header bg-light">
@@ -357,7 +278,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- /Modal Bucket Zero -->
 
 	<!-- Modal Non Starter -->
@@ -416,59 +337,6 @@
 	</div>
 	<!-- /Modal Non Starter -->
 
-	<!-- Modal Mitra Bisnis -->
-	<div class="modal fade" id="modal_mb" tabindex="3" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-xl modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header bg-light">
-					<h5 class="modal-title" id="exampleModalLongTitle">Detail Mitra Bisnis
-						<p><?= "Bulan : &nbsp" . ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<table id="dt_tables_mb" class="table table-bordered table-hover display compact nowrap" style="width:100%">
-						<thead class="bg-light">
-							<tr>
-								<th>Nasabah ID</th>
-								<th>Nama Nasabah</th>
-								<th>Alamat</th>
-								<th>Tanggal Realisasi</th>
-								<th>Jangka Waktu</th>
-								<th>Tanggal Jatuh Tempo</th>
-								<th>Baki Debet</th>
-								<th>Jumlah Pinjaman</th>
-								<th>Jumlah Lending</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach ($dataKpiMitra_AOdetail as $resDetail) { ?>
-								<tr>
-									<td><?= $resDetail->nasabah_id; ?></td>
-									<td><?= $resDetail->nama_nasabah; ?></td>
-									<td><?= $resDetail->alamat; ?></td>
-									<td><?= $resDetail->tgl_realisasi; ?></td>
-									<td><?= $resDetail->jkw . " Bulan"; ?></td>
-									<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
-									<td><?= rupiah($resDetail->baki_debet); ?></td>
-									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
-									<td><?= rupiah($resDetail->jml_lending); ?></td>
-								</tr>
-							<?php } ?>
-						</tbody>
-					</table>
-				</div>
-				<div class="modal-footer bg-light">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">
-						Close
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Modal Mitra Bisnis -->
 </div>
 <!-- content-wrapper ends -->
 
@@ -560,10 +428,8 @@
 
 
 		new cchart('#modal_lending', '#dt_tables_lending');
-		new cchart('#modal_map', '#dt_tables_map');
-		new cchart('#modal_bz', '#dt_tables_bz');
+		// new cchart('#modal_bz', '#dt_tables_bz');
 		new cchart('#modal_ns', '#dt_tables_ns');
-		new cchart('#modal_mb', '#dt_tables_mb');
 		//tutup datatable
 
 		//alert data tidak ada
@@ -572,10 +438,10 @@
 		var nullLending = $('#nullLending').attr('data');
 		$('#lendingNull').html(nullLending);
 
-		var isiBZ = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Bucket 0</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
-		$('#nullBZ').attr('data', isiBZ);
-		var nullBZ = $('#nullBZ').attr('data');
-		$('#bzNull').html(nullBZ);
+		// var isiBZ = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Bucket 0</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+		// $('#nullBZ').attr('data', isiBZ);
+		// var nullBZ = $('#nullBZ').attr('data');
+		// $('#bzNull').html(nullBZ);
 
 		var isiNS = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Non Starter</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
 		$('#nullNS').attr('data', isiNS);
