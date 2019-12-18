@@ -383,12 +383,12 @@
 									<th>Nama Nasabah</th>
 									<th>Jumlah Lending</th>
 									<th>Mitra Bisnis</th>
-									<th>Alamat</th>
 									<th>Tanggal Realisasi</th>
 									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
+									<th>Alamat</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -398,16 +398,16 @@
 										<td><?php echo $resDetail->nama_nasabah; ?></td>
 										<td><?php echo rupiah($resDetail->jml_lending); ?></td>
 										<?php if($resDetail->deskripsi_group5 != NULL) { ?>
-											<td><?= ucfirst($resDetail->deskripsi_group5); ?></td>
+											<td><?= strtoupper($resDetail->deskripsi_group5); ?></td>
 										<?php }else { ?>
 											<td> - </td>
 										<?php } ?>
-										<td><?php echo $resDetail->alamat; ?></td>
 										<td><?php echo $resDetail->tgl_realisasi; ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?php echo $resDetail->tgl_jatuh_tempo; ?></td>
 										<td><?php echo rupiah($resDetail->baki_debet); ?></td>
 										<td><?php echo rupiah($resDetail->jml_pinjaman); ?></td>
+										<td><?php echo $resDetail->alamat; ?></td>
 									</tr>
 								<?php } ?>
 							</tbody>
@@ -436,7 +436,7 @@
 				<div class="modal-content">
 					<div class="modal-header bg-light">
 						<h5 class="modal-title" id="exampleModalLongTitle">Detail NPL
-							<p><?php echo $res->deskripsi_group3; ?>,&nbsp; <?php echo $date; ?></p>
+							<p><?php echo $res->deskripsi_group3; ?>, <?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 						</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -522,7 +522,7 @@
 				<div class="modal-content">
 					<div class="modal-header bg-light">
 						<h5 class="modal-title" id="exampleModalLongTitle">Detail CR
-							<p><?php echo $res->deskripsi_group3; ?>,&nbsp; <?php echo $date; ?></p>
+							<p><?php echo $res->deskripsi_group3; ?>, <?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 						</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -606,7 +606,7 @@
 				<div class="modal-content">
 					<div class="modal-header bg-light">
 						<h5 class="modal-title" id="exampleModalLongTitle">Detail Bucket Zero
-							<p><?php echo $res->deskripsi_group3; ?>,&nbsp; <?php echo $date; ?></p>
+							<p><?php echo $res->deskripsi_group3; ?>, <?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 						</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -690,7 +690,7 @@
 				<div class="modal-content">
 					<div class="modal-header bg-light">
 						<h5 class="modal-title" id="exampleModalLongTitle">Detail FID - Non Starter
-							<p><?php echo $res->deskripsi_group2; ?>,&nbsp;<?php echo ubahBulan($bulan) . "&nbsp" . $tahun ?></p>
+							<p><?php echo $res->deskripsi_group2; ?>, <?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 						</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>

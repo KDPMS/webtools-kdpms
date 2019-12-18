@@ -166,12 +166,12 @@
 									<th>Nama Nasabah</th>
 									<th>Jumlah Lending</th>
 									<th>Mitra Bisnis</th>
-									<th>Alamat</th>
 									<th>Tanggal Realisasi</th>
 									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
+									<th>Alamat</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -181,16 +181,16 @@
 										<td><?= $resDetail->nama_nasabah; ?></td>
 										<td><?= rupiah($resDetail->jml_lending); ?></td>
 										<?php if($resDetail->deskripsi_group5 != NULL) { ?>
-											<td><?= $resDetail->deskripsi_group5; ?></td>
+											<td><?= strtoupper($resDetail->deskripsi_group5); ?></td>
 										<?php }else { ?>
 											<td> - </td>
 										<?php } ?>
-										<td><?= $resDetail->alamat; ?></td>
 										<td><?= $resDetail->tgl_realisasi; ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
+										<td><?= $resDetail->alamat; ?></td>
 									</tr>
 								<?php } ?>
 							</tbody>
