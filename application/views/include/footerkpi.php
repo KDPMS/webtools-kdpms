@@ -48,6 +48,12 @@
 								$('span.spedo').fadeOut('slow');
 							});
 							//tutup loader
+
+							//btn-filter-load
+							$('#btnFilter').on('click', function(){
+								$(this).html('Filter <div class="spinner-border spinner-border-sm text-white" role="status"><span class="sr-only"></span></div>');
+							});
+							//tutup btn-filter-load
 							
 						});
 					</script>

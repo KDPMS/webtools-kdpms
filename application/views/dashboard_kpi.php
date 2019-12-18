@@ -51,7 +51,7 @@
 													echo ('selected');
 												} ?>>Cabang Cilodong</option>
 						</select>
-						<button type="submit" class="btn-primary">Filter</button>
+						<button type="submit" id="btnFilter" class="btn-primary">Filter</button>
 					</form>
 				</div>
 				<div class="col-md-3 text-lg-right text-md-center text-sm-center text-center">
@@ -122,7 +122,7 @@
 
 			<!-- NPL -->
 			<?php if ($dataKpiNpl != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content='<b>NPL : <?= ambil2Angka($dataKpiNpl[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLCabang($dataKpiNpl[0]->jml_value); ?> <br> Baki debet NPL : <?php echo rupiah($dataKpiNpl[0]->jml_bd_npl); ?> <br> Baki debet : <?php echo rupiah($dataKpiNpl[0]->jml_bd); ?></br>' data-html='true' data-placement='top' data-trigger='hover'>
+				<span class="rounded-circle spedo" data-popover="popover" data-content='<b>NPL : <?= ambil2Angka($dataKpiNpl[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLCabang($dataKpiNpl[0]->jml_value); ?> <br> Baki debet NPL : <?php echo rupiah($dataKpiNpl[0]->jml_bd_npl); ?> <br> Total Baki debet : <?php echo rupiah($dataKpiNpl[0]->jml_bd); ?></br>' data-html='true' data-placement='top' data-trigger='hover'>
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="nplkantor" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiNpl[0]->unit; ?>" data-title="<?= $dataKpiNpl[0]->title; ?>" data-value="<?php echo $dataKpiNpl[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiNpl[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiNpl[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiNpl[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiNpl[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 						</canvas>
@@ -240,7 +240,7 @@
 					<div class="row justify-content-center">
 						<?php foreach ($dataKpiNplKol as $res) { ?>
 
-							<span class="rounded-circle" data-popover="popover" data-content='<b> NPL : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLKol($res->jml_value); ?> <br> Baki debet NPL : <?= rupiah($res->jml_bd_npl); ?> <br> Baki debet : <?= rupiah($res->jml_bd); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
+							<span class="rounded-circle" data-popover="popover" data-content='<b> NPL : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLKol($res->jml_value); ?> <br> Baki debet NPL : <?= rupiah($res->jml_bd_npl); ?> <br> Total Baki debet : <?= rupiah($res->jml_bd); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
 								<a class="rounded-circle" href="#detail_npl_kol<?php echo $res->kode_group3; ?>" data-toggle="modal" data-target="#detail_npl_kol<?php echo $res->kode_group3; ?>" data-backdrop="false">
 									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group3; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
 									</canvas>

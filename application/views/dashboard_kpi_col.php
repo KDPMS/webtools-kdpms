@@ -40,9 +40,7 @@
 																	} ?>><?= $thn; ?></option>
 							<?php } ?>
 						</select>
-						<button class="btn-primary" type="submit">
-							Filter
-						</button>
+						<button class="btn-primary" id="btnFilter" type="submit">Filter</button>
 					</form>
 				</div>
 				<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
@@ -121,7 +119,7 @@
 
 			<!-- NPL -->
 			<?php if ($dataKpiNplKol != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>NPL : <?php echo number_format($dataKpiNplKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatusNPLKol($dataKpiNplKol[0]->jml_value); ?> <br> Baki Debet NPL : <?= rupiah($dataKpiNplKol[0]->jml_bd_npl); ?> <br> Tot Baki Debet : <?= rupiah($dataKpiNplKol[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>NPL : <?php echo number_format($dataKpiNplKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatusNPLKol($dataKpiNplKol[0]->jml_value); ?> <br> Baki Debet NPL : <?= rupiah($dataKpiNplKol[0]->jml_bd_npl); ?> <br> Total Baki Debet : <?= rupiah($dataKpiNplKol[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $dataKpiNplKol[0]->title; ?>" data-value="<?= $dataKpiNplKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiNplKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiNplKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiNplKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiNplKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
@@ -133,7 +131,7 @@
 			<!-- /NPL -->
 
 			<!-- SP Return -->
-			<span class="rounded-circle spedo" data-popover="popover" data-content="<b>SP Return : 70% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
+			<!-- <span class="rounded-circle spedo" data-popover="popover" data-content="<b>SP Return : 70% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
 				<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_spr">
 					<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="mb" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="SP Return" data-value="70" data-min-value="0" data-max-value="100" data-major-ticks="0,10,20,30,40,50,60,70,80,90,100" data-minor-ticks="5" data-stroke-ticks="true" data-highlights='[
 														{ "from": 0, "to": 25, "color": "#ef4b4b" },
@@ -142,7 +140,7 @@
 														{ "from": 75, "to": 100, "color": "#0066d6" }
 													]' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 				</a>
-			</span>
+			</span> -->
 			<!-- /SP Return -->
 		<?php } else { ?>
 			<span class="spedo">

@@ -41,7 +41,7 @@
 																	} ?>><?= $thn; ?></option>
 							<?php } ?>
 						</select>
-						<button class="btn-primary" type="submit">Filter</button>
+						<button class="btn-primary" id="btnFilter" type="submit">Filter</button>
 					</form>
 				</div>
 				<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
