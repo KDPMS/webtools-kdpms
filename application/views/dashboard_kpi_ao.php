@@ -91,9 +91,7 @@
 	<!-- end handle data jika null -->
 
 	<div class="row justify-content-center">
-		<?php if ($dataKpiLendingAO
-		/**|| $dataKpiBZ_AO*/
-		|| $dataKpiNS_AO) { ?>
+		<?php if ($dataKpiLendingAO /**|| $dataKpiBZ_AO*/|| $dataKpiNS_AO) { ?>
 
 			<!-- Lending -->
 			<?php if ($dataKpiLendingAO != null) { ?>
