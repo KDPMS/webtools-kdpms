@@ -9,49 +9,51 @@
 	<input type="hidden" id="session_id_user" value="<?php echo $this->session->userdata('id'); ?>" />
 	<input type="hidden" id="NowDate" value="<?php echo date('Y-m-d'); ?>" />
 	<input type="hidden" id="load_page" value="false" />
-	<div class="mt-5">
-		<div class="col-md-12">
-			<div class="row">
-				<div class="col-md-4 text-lg-left text-md-center text-sm-center text-center">
-					Bulan : <b><?php echo ubahBulan($bulan); ?></b><br>
-					Tahun : <b><?php echo $tahun; ?></b>
-				</div>
-				<div class="col-md-4 text-lg-center text-md-center text-sm-center text-center">
-					<br>
-					<form action="<?php echo base_url('kpi/dashboard_kpi_ao'); ?>" method="post">
-						Filter Data :
-						<select name="bulan" id="bulan">
-							<?php
-							for ($i = 1; $i <= 12; $i++) {
-								if ($i < 10) {
-									$i = '0' . $i;
-								}
-								?>
-								<option value="<?php echo $i; ?>" <?php if ($bulan == $i) {
-																			echo ('selected');
-																		} ?>> <?php echo ubahBulan($i); ?></option>
-							<?php } ?>
-						</select>
-						<select name="tahun" id="tahun">
-							<?php
-							for ($thn = 2019; $thn <= date('Y'); $thn++) {
-								?>
-								<option value="<?= $thn; ?>" <?php if ($tahun == $thn) {
-																		echo ('selected');
-																	} ?>><?= $thn; ?></option>
-							<?php } ?>
-						</select>
-						<button class="btn-primary" id="btnFilter" type="submit">Filter</button>
-					</form>
-				</div>
-				<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
-					User :
-					<b><?php echo ucfirst($this->session->userdata('username')); ?></b><br>
-					Kantor :
-					<b>
-						<?php echo namaKantor($this->session->userdata('kantor')); ?>
-					</b>
-				</div>
+
+	<div class="col-md-12">
+		<a href="<?= base_url('tools'); ?>" class="btn btn-secondary btn-sm mt-n3"><i class="mdi mdi-keyboard-backspace"></i>Menu Tools</a>
+
+		<div class="row mt-2">
+			<div class="col-md-4 text-lg-left text-md-center text-sm-center text-center">
+				Bulan : <b><?php echo ubahBulan($bulan); ?></b><br>
+				Tahun : <b><?php echo $tahun; ?></b>
+			</div>
+			<div class="col-md-4 text-lg-center text-md-center text-sm-center text-center">
+				<br>
+				<form action="<?php echo base_url('kpi/dashboard_kpi_ao'); ?>" method="post">
+					Filter Data :
+					<select name="bulan" id="bulan">
+						<?php
+						for ($i = 1; $i <= 12; $i++) {
+							if ($i < 10) {
+								$i = '0' . $i;
+							}
+						?>
+							<option value="<?php echo $i; ?>" <?php if ($bulan == $i) {
+																	echo ('selected');
+																} ?>> <?php echo ubahBulan($i); ?></option>
+						<?php } ?>
+					</select>
+					<select name="tahun" id="tahun">
+						<?php
+						for ($thn = 2019; $thn <= date('Y'); $thn++) {
+						?>
+							<option value="<?= $thn; ?>" <?php if ($tahun == $thn) {
+																echo ('selected');
+															} ?>><?= $thn; ?></option>
+						<?php } ?>
+					</select>
+					<button class="btn-primary" id="btnFilter" type="submit">Filter</button>
+				</form>
+			</div>
+			<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
+				User :
+				<!-- <#?php echo ucfirst($this->session->userdata('username')); ?> -->
+				<b>Putra</b><br>
+				Kantor :
+				<b>
+					<?php echo namaKantor($this->session->userdata('kantor')); ?>
+				</b>
 			</div>
 		</div>
 	</div>
@@ -87,9 +89,11 @@
 		</div>
 	</span>
 	<!-- end handle data jika null -->
-	
+
 	<div class="row justify-content-center">
-		<?php if ($dataKpiLendingAO /**|| $dataKpiBZ_AO*/|| $dataKpiNS_AO) { ?>
+		<?php if ($dataKpiLendingAO
+		/**|| $dataKpiBZ_AO*/
+		|| $dataKpiNS_AO) { ?>
 
 			<!-- Lending -->
 			<?php if ($dataKpiLendingAO != null) { ?>
@@ -99,35 +103,37 @@
 					</a>
 				</span>
 			<?php
-				} else {
-					echo '<span id="nullLending" data=""></span>';
-				} ?>
+			} else {
+				echo '<span id="nullLending" data=""></span>';
+			} ?>
 			<!-- /Lending -->
 
 			<!-- Non Starter -->
 			<?php if ($dataKpiNS_AO != null) { ?>
-			<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($dataKpiNS_AO[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusNSAO($dataKpiNS_AO[0]->jml_value); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($dataKpiNS_AO[0]->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($dataKpiNS_AO[0]->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
-				<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_ns">
-					<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiNS_AO[0]->unit; ?>" data-title="<?= $dataKpiNS_AO[0]->title; ?>" data-value="<?= $dataKpiNS_AO[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiNS_AO[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiNS_AO[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiNS_AO[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiNS_AO[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
-				</a>
-			</span>
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($dataKpiNS_AO[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusNSAO($dataKpiNS_AO[0]->jml_value); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($dataKpiNS_AO[0]->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($dataKpiNS_AO[0]->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
+					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_ns">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiNS_AO[0]->unit; ?>" data-title="<?= $dataKpiNS_AO[0]->title; ?>" data-value="<?= $dataKpiNS_AO[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiNS_AO[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiNS_AO[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiNS_AO[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiNS_AO[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+					</a>
+				</span>
 			<?php
-				} else {
-					echo '<span id="nullNS" data=""></span>';
-				} ?>
+			} else {
+				echo '<span id="nullNS" data=""></span>';
+			} ?>
 			<!-- /Non Starter -->
 
 			<!-- Bucket Zero -->
-			<!-- <?#php #if ($dataKpiBZ_AO != null) { ?>
+			<!-- <? #php #if ($dataKpiBZ_AO != null) { 
+					?>
 				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>BZ : <?= ambil2Angka($dataKpiBZ_AO[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusBZAO($dataKpiBZ_AO[0]->jml_value); ?> <br> Jumlah tagihan : <?= rupiah($dataKpiBZ_AO[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZ_AO[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiBZ_AO[0]->unit; ?>" data-title="<?= $dataKpiBZ_AO[0]->title; ?>" data-value="<?= $dataKpiBZ_AO[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiBZ_AO[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiBZ_AO[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiBZ_AO[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiBZ_AO[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
 				</span>
-			<?#php
-				#} #else {
-					#echo '<span id="nullBZ" data=""></span>';
-				#} ?> -->
+			<? #php
+			#} #else {
+			#echo '<span id="nullBZ" data=""></span>';
+			#} 
+			?> -->
 			<!-- /Bucket Zero -->
 
 		<?php } else { ?>
@@ -180,9 +186,9 @@
 										<td><?= $resDetail->nasabah_id; ?></td>
 										<td><?= $resDetail->nama_nasabah; ?></td>
 										<td><?= rupiah($resDetail->jml_lending); ?></td>
-										<?php if($resDetail->deskripsi_group5 != NULL) { ?>
+										<?php if ($resDetail->deskripsi_group5 != NULL) { ?>
 											<td><?= strtoupper($resDetail->deskripsi_group5); ?></td>
-										<?php }else { ?>
+										<?php } else { ?>
 											<td> - </td>
 										<?php } ?>
 										<td><?= $resDetail->tgl_realisasi; ?></td>
@@ -198,8 +204,8 @@
 					</div>
 				</div>
 				<div class="modal-footer bg-light">
-					<h6 class="mr-auto">TOTAL :  <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?> - <?= $dataKpiMap . " MAP"; ?></h6>
-					
+					<h6 class="mr-auto">TOTAL : <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?> - <?= $dataKpiMap . " MAP"; ?></h6>
+
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
 						Close
 					</button>
@@ -350,55 +356,58 @@
 					var tbtb = $(id_table).DataTable({
 						// responsive: false,
 						language: {
-							decimal:        "",
-							emptyTable:     "Tidak Ada Data",
-							info:           "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
-							infoEmpty:      "Menampilkan 0 sampai 0 dari total 0 baris",
-							infoFiltered:   "(Filter dari total _MAX_ baris)",
-							infoPostFix:    "",
-							thousands:      ",",
-							lengthMenu:     "Tampilkan _MENU_ baris",
+							decimal: "",
+							emptyTable: "Tidak Ada Data",
+							info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+							infoEmpty: "Menampilkan 0 sampai 0 dari total 0 baris",
+							infoFiltered: "(Filter dari total _MAX_ baris)",
+							infoPostFix: "",
+							thousands: ",",
+							lengthMenu: "Tampilkan _MENU_ baris",
 							loadingRecords: "Memuat...",
-							processing:     "Proses...",
-							search:         "Cari:",
-							zeroRecords:    "Tidak ada data yang sesuai",
+							processing: "Proses...",
+							search: "Cari:",
+							zeroRecords: "Tidak ada data yang sesuai",
 							paginate: {
-								first:      "Pertama",
-								last:       "Terakhir",
-								next:       "Selanjutnya",
-								previous:   "Sebelumnya"
+								first: "Pertama",
+								last: "Terakhir",
+								next: "Selanjutnya",
+								previous: "Sebelumnya"
 							},
 							aria: {
-								sortAscending:  ": Aktifkan Berdasarkan paling Awal",
+								sortAscending: ": Aktifkan Berdasarkan paling Awal",
 								sortDescending: ": Aktifkan Berdasarkan paling Akhir"
 							}
 						},
-						autoWidth : true,
+						autoWidth: true,
 						pagingType: "simple_numbers",
-						lengthMenu: [ [5, 10, 25, 50, 100, -1], [5,10,25,50,100, "Semua"] ],
+						lengthMenu: [
+							[5, 10, 25, 50, 100, -1],
+							[5, 10, 25, 50, 100, "Semua"]
+						],
 						responsive: {
 							details: {
-								renderer: function ( api, rowIdx, columns ) {
-									var data = $.map( columns, function ( col, i ) {
+								renderer: function(api, rowIdx, columns) {
+									var data = $.map(columns, function(col, i) {
 										return col.hidden ?
-											'<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
-												'<td>'+col.title+' : '+'</td> '+
-												'<td>'+col.data+'</td>'+
+											'<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+											'<td>' + col.title + ' : ' + '</td> ' +
+											'<td>' + col.data + '</td>' +
 											'</tr>' :
 											'';
-									} ).join('');
-				
+									}).join('');
+
 									return data ?
-										$('<table/>').append( data ) :
+										$('<table/>').append(data) :
 										false;
 								}
 							}
 						},
-						columnDefs: [ {
+						columnDefs: [{
 							className: 'control',
 							orderable: true,
-							targets:   0
-						} ],
+							targets: 0
+						}],
 						// fixedColumns: {
 						// 	leftColumns: 2
 						// },

@@ -8,47 +8,48 @@
 	<input type="hidden" id="session_id_user" value="<?php echo $this->session->userdata('id'); ?>" />
 	<input type="hidden" id="NowDate" value="<?php echo date('Y-m-d'); ?>" />
 	<input type="hidden" id="load_page" value="false" />
-	<div class="mt-5">
-		<div class="col-md-12">
-			<div class="row">
-				<div class="col-md-4 text-lg-left text-md-center text-sm-center text-center">
-					Bulan : <b><?php echo ubahBulan($bulan); ?></b><br>
-					Tahun : <b><?php echo $tahun; ?></b>
-				</div>
-				<div class="col-md-4 text-lg-center text-md-center text-sm-center text-center">
-					<br>
-					<form action="<?php echo base_url('kpi/dashboard_kpi_col'); ?>" method="post">
-						Filter Data :
-						<select name="bulan" id="bulan">
-							<?php
-							for ($i = 1; $i <= 12; $i++) {
-								if ($i < 10) {
-									$i = '0' . $i;
-								}
-								?>
-								<option value="<?php echo $i; ?>" <?php if ($bulan == $i) {
-																			echo ('selected');
-																		} ?>> <?php echo ubahBulan($i); ?></option>
-							<?php } ?>
-						</select>
-						<select name="tahun" id="tahun">
-							<?php
-							for ($thn = 2019; $thn <= date('Y'); $thn++) {
-								?>
-								<option value="<?= $thn; ?>" <?php if ($tahun == $thn) {
-																		echo ('selected');
-																	} ?>><?= $thn; ?></option>
-							<?php } ?>
-						</select>
-						<button class="btn-primary" id="btnFilter" type="submit">Filter</button>
-					</form>
-				</div>
-				<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
-					User :
-					<b><?php echo ucfirst($this->session->userdata('username')); ?></b><br>
-					Kantor :
-					<b><?php echo namaKantor($this->session->userdata('kantor')); ?></b>
-				</div>
+
+	<div class="col-md-12">
+		<a href="<?= base_url('tools'); ?>" class="btn btn-secondary btn-sm mt-n3"><i class="mdi mdi-keyboard-backspace"></i>Menu Tools</a>
+
+		<div class="row mt-2">
+			<div class="col-md-4 text-lg-left text-md-center text-sm-center text-center">
+				Bulan : <b><?php echo ubahBulan($bulan); ?></b><br>
+				Tahun : <b><?php echo $tahun; ?></b>
+			</div>
+			<div class="col-md-4 text-lg-center text-md-center text-sm-center text-center">
+				<br>
+				<form action="<?php echo base_url('kpi/dashboard_kpi_col'); ?>" method="post">
+					Filter Data :
+					<select name="bulan" id="bulan">
+						<?php
+						for ($i = 1; $i <= 12; $i++) {
+							if ($i < 10) {
+								$i = '0' . $i;
+							}
+						?>
+							<option value="<?php echo $i; ?>" <?php if ($bulan == $i) {
+																	echo ('selected');
+																} ?>> <?php echo ubahBulan($i); ?></option>
+						<?php } ?>
+					</select>
+					<select name="tahun" id="tahun">
+						<?php
+						for ($thn = 2019; $thn <= date('Y'); $thn++) {
+						?>
+							<option value="<?= $thn; ?>" <?php if ($tahun == $thn) {
+																echo ('selected');
+															} ?>><?= $thn; ?></option>
+						<?php } ?>
+					</select>
+					<button class="btn-primary" id="btnFilter" type="submit">Filter</button>
+				</form>
+			</div>
+			<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
+				User :
+				<b><?php echo ucfirst($this->session->userdata('username')); ?></b><br>
+				Kantor :
+				<b><?php echo namaKantor($this->session->userdata('kantor')); ?></b>
 			</div>
 		</div>
 	</div>
@@ -99,9 +100,9 @@
 					</a>
 				</span>
 			<?php
-				} else {
-					echo '<span id="nullBZ" data=""></span>';
-				} ?>
+			} else {
+				echo '<span id="nullBZ" data=""></span>';
+			} ?>
 			<!-- /Bucket Zero -->
 
 			<!-- Collection Ratio -->
@@ -112,9 +113,9 @@
 					</a>
 				</span>
 			<?php
-				} else {
-					echo '<span id="nullCR" data=""></span>';
-				} ?>
+			} else {
+				echo '<span id="nullCR" data=""></span>';
+			} ?>
 			<!-- /Collection Ratio -->
 
 			<!-- NPL -->
@@ -125,9 +126,9 @@
 					</a>
 				</span>
 			<?php
-				} else {
-					echo '<span id="nullNPL" data=""></span>';
-				} ?>
+			} else {
+				echo '<span id="nullNPL" data=""></span>';
+			} ?>
 			<!-- /NPL -->
 
 			<!-- SP Return -->
@@ -472,55 +473,58 @@
 					var tbtb = $(id_table).DataTable({
 						// responsive: false,
 						language: {
-							decimal:        "",
-							emptyTable:     "Tidak Ada Data",
-							info:           "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
-							infoEmpty:      "Menampilkan 0 sampai 0 dari total 0 baris",
-							infoFiltered:   "(Filter dari total _MAX_ baris)",
-							infoPostFix:    "",
-							thousands:      ",",
-							lengthMenu:     "Tampilkan _MENU_ baris",
+							decimal: "",
+							emptyTable: "Tidak Ada Data",
+							info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+							infoEmpty: "Menampilkan 0 sampai 0 dari total 0 baris",
+							infoFiltered: "(Filter dari total _MAX_ baris)",
+							infoPostFix: "",
+							thousands: ",",
+							lengthMenu: "Tampilkan _MENU_ baris",
 							loadingRecords: "Memuat...",
-							processing:     "Proses...",
-							search:         "Cari:",
-							zeroRecords:    "Tidak ada data yang sesuai",
+							processing: "Proses...",
+							search: "Cari:",
+							zeroRecords: "Tidak ada data yang sesuai",
 							paginate: {
-								first:      "Pertama",
-								last:       "Terakhir",
-								next:       "Selanjutnya",
-								previous:   "Sebelumnya"
+								first: "Pertama",
+								last: "Terakhir",
+								next: "Selanjutnya",
+								previous: "Sebelumnya"
 							},
 							aria: {
-								sortAscending:  ": Aktifkan Berdasarkan paling Awal",
+								sortAscending: ": Aktifkan Berdasarkan paling Awal",
 								sortDescending: ": Aktifkan Berdasarkan paling Akhir"
 							}
 						},
-						autoWidth : true,
+						autoWidth: true,
 						pagingType: "simple_numbers",
-						lengthMenu: [ [5, 10, 25, 50, 100, -1], [5,10,25,50,100, "Semua"] ],
+						lengthMenu: [
+							[5, 10, 25, 50, 100, -1],
+							[5, 10, 25, 50, 100, "Semua"]
+						],
 						responsive: {
 							details: {
-								renderer: function ( api, rowIdx, columns ) {
-									var data = $.map( columns, function ( col, i ) {
+								renderer: function(api, rowIdx, columns) {
+									var data = $.map(columns, function(col, i) {
 										return col.hidden ?
-											'<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
-												'<td>'+col.title+' : '+'</td> '+
-												'<td>'+col.data+'</td>'+
+											'<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+											'<td>' + col.title + ' : ' + '</td> ' +
+											'<td>' + col.data + '</td>' +
 											'</tr>' :
 											'';
-									} ).join('');
-				
+									}).join('');
+
 									return data ?
-										$('<table/>').append( data ) :
+										$('<table/>').append(data) :
 										false;
 								}
 							}
 						},
-						columnDefs: [ {
+						columnDefs: [{
 							className: 'control',
 							orderable: true,
-							targets:   0
-						} ],
+							targets: 0
+						}],
 						// fixedColumns: {
 						// 	leftColumns: 2
 						// },

@@ -6,61 +6,61 @@
 	<input type="hidden" id="NowDate" value="<?php echo date('Y-m-d'); ?>">
 	<input type="hidden" id="load_page" value="false">
 
-	<div class="mt-4">
-		<div class="col-md-12">
-			<div class="row">
-				<div class="col-md-3 text-lg-left text-md-center text-sm-center text-center">
-					Bulan : <b><?php echo ubahBulan($bulan); ?></b><br>
-					Tahun : <b><?php echo $tahun; ?></b><br>
-					Pilihan Kantor :
-					<b>
-						<?php echo namaKantor($kantor); ?>
-					</b>
-				</div>
-				<div class="col-md-6 text-lg-center text-md-center text-sm-center text-center">
-					<br><br>
-					<form action="<?php echo base_url('kpi/dashboard_kpi'); ?>" method="post">
-						Filter Data :
-						<select name="bulan" id="bulan">
-							<?php
-							for ($i = 1; $i <= 12; $i++) {
-								if ($i < 10) {
-									$i = '0' . $i;
-								}
-								?>
-								<option value="<?php echo $i; ?>" <?php if ($bulan == $i) {
-																			echo ('selected');
-																		} ?>> <?php echo ubahBulan($i); ?></option>
-							<?php } ?>
-						</select>
-						<select name="tahun" id="tahun">
-							<?php
-							for ($thn = 2019; $thn <= date('Y'); $thn++) {
-								?>
-								<option value="<?= $thn; ?>" <?php if ($tahun == $thn) {
-																		echo ('selected');
-																	} ?>><?= $thn; ?></option>
-							<?php } ?>
-						</select>
+	<div class="col-md-12">
+		<a href="<?= base_url('tools'); ?>" class="btn btn-secondary btn-sm mt-n3"><i class="mdi mdi-keyboard-backspace"></i>Menu Tools</a>
 
-						<select name="kantor" id="kantor">
-							<option value="01" <?php if ($kantor == '01') {
-													echo ('selected');
-												} ?>>Pusat</option>
-							<option value="02" <?php if ($kantor == '02') {
-													echo ('selected');
-												} ?>>Cabang Cilodong</option>
-						</select>
-						<button type="submit" id="btnFilter" class="btn-primary">Filter</button>
-					</form>
-				</div>
-				<div class="col-md-3 text-lg-right text-md-center text-sm-center text-center">
-					<br>
-					User :
-					<b><?php echo ucfirst($this->session->userdata('username')); ?></b><br>
-					Kantor :
-					<b><?php echo namaKantor($this->session->userdata('kantor')); ?></b>
-				</div>
+		<div class="row mt-2">
+			<div class="col-md-3 text-lg-left text-md-center text-sm-center text-center">
+				Bulan : <b><?php echo ubahBulan($bulan); ?></b><br>
+				Tahun : <b><?php echo $tahun; ?></b><br>
+				Pilihan Kantor :
+				<b>
+					<?php echo namaKantor($kantor); ?>
+				</b>
+			</div>
+			<div class="col-md-6 text-lg-center text-md-center text-sm-center text-center">
+				<br><br>
+				<form action="<?php echo base_url('kpi/dashboard_kpi'); ?>" method="post">
+					Filter Data :
+					<select name="bulan" id="bulan">
+						<?php
+						for ($i = 1; $i <= 12; $i++) {
+							if ($i < 10) {
+								$i = '0' . $i;
+							}
+						?>
+							<option value="<?php echo $i; ?>" <?php if ($bulan == $i) {
+																	echo ('selected');
+																} ?>> <?php echo ubahBulan($i); ?></option>
+						<?php } ?>
+					</select>
+					<select name="tahun" id="tahun">
+						<?php
+						for ($thn = 2019; $thn <= date('Y'); $thn++) {
+						?>
+							<option value="<?= $thn; ?>" <?php if ($tahun == $thn) {
+																echo ('selected');
+															} ?>><?= $thn; ?></option>
+						<?php } ?>
+					</select>
+
+					<select name="kantor" id="kantor">
+						<option value="01" <?php if ($kantor == '01') {
+												echo ('selected');
+											} ?>>Pusat</option>
+						<option value="02" <?php if ($kantor == '02') {
+												echo ('selected');
+											} ?>>Cabang Cilodong</option>
+					</select>
+					<button type="submit" id="btnFilter" class="btn-primary">Filter</button>
+				</form>
+			</div>
+			<div class="col-md-3 text-lg-right text-md-center text-sm-center text-center">
+				<br>
+				User :
+				<b><?php echo ucfirst($this->session->userdata('username')); ?></b><br>
+				Kantor :
+				<b><?php echo namaKantor($this->session->userdata('kantor')); ?></b>
 			</div>
 		</div>
 	</div>
@@ -115,9 +115,9 @@
 					</a>
 				</span>
 			<?php
-				} else {
-					echo '<span id="nullLending" data=""></span>';
-				} ?>
+			} else {
+				echo '<span id="nullLending" data=""></span>';
+			} ?>
 			<!-- /Lending -->
 
 			<!-- NPL -->
@@ -129,9 +129,9 @@
 					</a>
 				</span>
 			<?php
-				} else {
-					echo '<span id="nullNpl" data=""></span>';
-				} ?>
+			} else {
+				echo '<span id="nullNpl" data=""></span>';
+			} ?>
 			<!-- /NPL -->
 
 			<!-- Collection Ratio -->
@@ -143,9 +143,9 @@
 					</a>
 				</span>
 			<?php
-				} else {
-					echo '<span id="nullCr" data=""></span>';
-				} ?>
+			} else {
+				echo '<span id="nullCr" data=""></span>';
+			} ?>
 			<!-- /Collection Ratio -->
 
 			<!-- Bucket Zero -->
@@ -157,9 +157,9 @@
 					</a>
 				</span>
 			<?php
-				} else {
-					echo '<span id="nullBz" data=""></span>';
-				} ?>
+			} else {
+				echo '<span id="nullBz" data=""></span>';
+			} ?>
 			<!-- /Bucket Zero -->
 
 			<!-- Non Starter -->
@@ -171,9 +171,9 @@
 					</a>
 				</span>
 			<?php
-				} else {
-					echo '<span id="nullNS" data=""></span>';
-				} ?>
+			} else {
+				echo '<span id="nullNS" data=""></span>';
+			} ?>
 			<!-- /Non Starter -->
 
 		<?php } else { ?>
@@ -359,11 +359,11 @@
 	<?php foreach ($datakpilendingAO as $res) { ?>
 		<?php
 
-			$this->db->query("SELECT '$date' INTO @pv_per_tgl");
-			$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
-			$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->result();
-			$dataKpiMap = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->num_rows();
-			?>
+		$this->db->query("SELECT '$date' INTO @pv_per_tgl");
+		$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
+		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->result();
+		$dataKpiMap = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->num_rows();
+		?>
 		<div class="modal modal2 modal_detail_lending fade" id="detail_lending_ao<?php echo $res->kode_group2; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
 			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
 				<div class="modal-content">
@@ -397,9 +397,9 @@
 										<td><?php echo $resDetail->nasabah_id; ?></td>
 										<td><?php echo $resDetail->nama_nasabah; ?></td>
 										<td><?php echo rupiah($resDetail->jml_lending); ?></td>
-										<?php if($resDetail->deskripsi_group5 != NULL) { ?>
+										<?php if ($resDetail->deskripsi_group5 != NULL) { ?>
 											<td><?= strtoupper($resDetail->deskripsi_group5); ?></td>
-										<?php }else { ?>
+										<?php } else { ?>
 											<td> - </td>
 										<?php } ?>
 										<td><?php echo $resDetail->tgl_realisasi; ?></td>
@@ -414,7 +414,7 @@
 						</table>
 					</div>
 					<div class="modal-footer bg-light">
-						<h6 class="mr-auto">TOTAL :  <?= ubahJuta($res->jml_value); ?> - <?= $dataKpiMap . " MAP"; ?></h6>
+						<h6 class="mr-auto">TOTAL : <?= ubahJuta($res->jml_value); ?> - <?= $dataKpiMap . " MAP"; ?></h6>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -427,10 +427,10 @@
 	<?php foreach ($dataKpiNplKol as $res) { ?>
 		<?php
 
-			$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
-			$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
-			$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_npl WHERE kode_kantor = '$res->kode_kantor'")->result();
-			?>
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
+		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_npl WHERE kode_kantor = '$res->kode_kantor'")->result();
+		?>
 		<div class="modal fade" id="detail_npl_kol<?php echo $res->kode_group3; ?>" tabindex="2" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-xl modal-dialog-scrollable">
 				<div class="modal-content">
@@ -513,10 +513,10 @@
 	<?php foreach ($dataKpiCRKol as $res) { ?>
 		<?php
 
-			$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
-			$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
-			$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr WHERE kode_kantor = '$res->kode_kantor'")->result();
-			?>
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
+		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr WHERE kode_kantor = '$res->kode_kantor'")->result();
+		?>
 		<div class="modal fade" id="detail_cr_kolektor<?php echo $res->kode_group3; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
 			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
 				<div class="modal-content">
@@ -597,10 +597,10 @@
 	<?php foreach ($dataKpiBZKol as $res) { ?>
 		<?php
 
-			$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
-			$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
-			$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_bucket_zero WHERE kode_kantor = '$res->kode_kantor'")->result();
-			?>
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
+		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_bucket_zero WHERE kode_kantor = '$res->kode_kantor'")->result();
+		?>
 		<div class="modal fade" id="detail_bz_kol<?php echo $res->kode_group3; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
 			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
 				<div class="modal-content">
@@ -681,10 +681,10 @@
 	<?php foreach ($dataKpiNS_AO as $res) { ?>
 		<?php
 
-			$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
-			$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
-			$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_fid WHERE kode_kantor = '$res->kode_kantor'")->result();
-			?>
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
+		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_fid WHERE kode_kantor = '$res->kode_kantor'")->result();
+		?>
 		<div class="modal fade" id="detail_ns_ao<?php echo $res->kode_group2; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
 			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
 				<div class="modal-content">
@@ -710,7 +710,7 @@
 										<th>Baki Debet</th>
 										<th>Jumlah Pinjaman</th>
 										<th>Jumlah Lending</th>
-										</tr>
+									</tr>
 								</thead>
 								<tbody>
 									<?php foreach ($dataDetail as $resDetail) { ?>
@@ -751,55 +751,58 @@
 					var tbtb = $(id_table).DataTable({
 						// responsive: false,
 						language: {
-							decimal:        "",
-							emptyTable:     "Tidak Ada Data",
-							info:           "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
-							infoEmpty:      "Menampilkan 0 sampai 0 dari total 0 baris",
-							infoFiltered:   "(Filter dari total _MAX_ baris)",
-							infoPostFix:    "",
-							thousands:      ",",
-							lengthMenu:     "Tampilkan _MENU_ baris",
+							decimal: "",
+							emptyTable: "Tidak Ada Data",
+							info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+							infoEmpty: "Menampilkan 0 sampai 0 dari total 0 baris",
+							infoFiltered: "(Filter dari total _MAX_ baris)",
+							infoPostFix: "",
+							thousands: ",",
+							lengthMenu: "Tampilkan _MENU_ baris",
 							loadingRecords: "Memuat...",
-							processing:     "Proses...",
-							search:         "Cari:",
-							zeroRecords:    "Tidak ada data yang sesuai",
+							processing: "Proses...",
+							search: "Cari:",
+							zeroRecords: "Tidak ada data yang sesuai",
 							paginate: {
-								first:      "Pertama",
-								last:       "Terakhir",
-								next:       "Selanjutnya",
-								previous:   "Sebelumnya"
+								first: "Pertama",
+								last: "Terakhir",
+								next: "Selanjutnya",
+								previous: "Sebelumnya"
 							},
 							aria: {
-								sortAscending:  ": Aktifkan Berdasarkan paling Awal",
+								sortAscending: ": Aktifkan Berdasarkan paling Awal",
 								sortDescending: ": Aktifkan Berdasarkan paling Akhir"
 							}
 						},
-						autoWidth : true,
+						autoWidth: true,
 						pagingType: "simple_numbers",
-						lengthMenu: [ [5, 10, 25, 50, 100, -1], [5,10,25,50,100, "Semua"] ],
+						lengthMenu: [
+							[5, 10, 25, 50, 100, -1],
+							[5, 10, 25, 50, 100, "Semua"]
+						],
 						responsive: {
 							details: {
-								renderer: function ( api, rowIdx, columns ) {
-									var data = $.map( columns, function ( col, i ) {
+								renderer: function(api, rowIdx, columns) {
+									var data = $.map(columns, function(col, i) {
 										return col.hidden ?
-											'<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
-												'<td>'+col.title+' : '+'</td> '+
-												'<td>'+col.data+'</td>'+
+											'<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+											'<td>' + col.title + ' : ' + '</td> ' +
+											'<td>' + col.data + '</td>' +
 											'</tr>' :
 											'';
-									} ).join('');
-				
+									}).join('');
+
 									return data ?
-										$('<table/>').append( data ) :
+										$('<table/>').append(data) :
 										false;
 								}
 							}
 						},
-						columnDefs: [ {
+						columnDefs: [{
 							className: 'control',
 							orderable: true,
-							targets:   0
-						} ],
+							targets: 0
+						}],
 						// fixedColumns: {
 						// 	leftColumns: 2
 						// },
@@ -874,6 +877,6 @@
 		var nullNS = $('#nullNS').attr('data');
 		$('#nsNull').html(nullNS);
 		//tutup alert data tidak ada
-			
+
 	});
 </script>

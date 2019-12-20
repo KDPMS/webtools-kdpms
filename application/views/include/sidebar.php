@@ -14,8 +14,10 @@
             </div>
           </div>
         </div>
-        <a href="<?php echo base_url('Login/Logout'); ?>" class="btn btn-danger btn-block"><i class="mdi mdi-logout"></i> Keluar
+        <a href="<?= base_url('tools'); ?>" class="btn btn-primary btn-block"><i class="mdi mdi-back"></i>Menu Tools</a>
+        <a href="<?php echo base_url('Login/Logout'); ?>" class="btn btn-danger btn-block"><i class="mdi mdi-keyboard-arrow-left"></i> Keluar
         </a>
+
       </div>
     </li>
     <div style="width:104%;height:400px;overflow: auto;">
