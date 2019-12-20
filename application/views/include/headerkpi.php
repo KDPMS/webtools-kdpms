@@ -285,6 +285,10 @@
 			min-width: 100%;
 			border-radius: 0;
 		}
+
+		.popover {
+			max-width: 25em !important;
+		}
 	</style>
 
 	<body>
