@@ -120,18 +120,18 @@
 			<!-- /Non Starter -->
 
 			<!-- Bucket Zero -->
-			<!-- <? #php #if ($dataKpiBZ_AO != null) { 
+			<?php if ($dataKpiBZ_AO != null) { 
 					?>
 				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>BZ : <?= ambil2Angka($dataKpiBZ_AO[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusBZAO($dataKpiBZ_AO[0]->jml_value); ?> <br> Jumlah tagihan : <?= rupiah($dataKpiBZ_AO[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZ_AO[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiBZ_AO[0]->unit; ?>" data-title="<?= $dataKpiBZ_AO[0]->title; ?>" data-value="<?= $dataKpiBZ_AO[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiBZ_AO[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiBZ_AO[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiBZ_AO[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiBZ_AO[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
 				</span>
-			<? #php
-			#} #else {
-			#echo '<span id="nullBZ" data=""></span>';
-			#} 
-			?> -->
+			<?php
+			} else {
+			echo '<span id="nullBZ" data=""></span>';
+			} 
+			?>
 			<!-- /Bucket Zero -->
 
 		<?php } else { ?>
@@ -184,14 +184,10 @@
 										<td><?= $resDetail->nasabah_id; ?></td>
 										<td><?= $resDetail->nama_nasabah; ?></td>
 										<td><?= rupiah($resDetail->jml_lending); ?></td>
-										<?php if ($resDetail->deskripsi_group5 != NULL) { ?>
-											<td><?= strtoupper($resDetail->deskripsi_group5); ?></td>
-										<?php } else { ?>
-											<td> - </td>
-										<?php } ?>
-										<td><?= $resDetail->tgl_realisasi; ?></td>
+										<?php echo ($resDetail->deskripsi_group5 != NULL ? "<td>" . strtoupper($resDetail->deskripsi_group5) . "</td>" : "<td> - </td>"); ?>
+										<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
-										<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+										<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 										<td><?= $resDetail->alamat; ?></td>
@@ -214,7 +210,7 @@
 	<!-- /Modal Lending -->
 
 	<!-- Modal Bucket Zero -->
-	<!-- <div class="modal fade" id="modal_bz" tabindex="4" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modal_bz" tabindex="4" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-xl modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header bg-light">
@@ -239,9 +235,9 @@
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
 									<th>Jumlah Lending</th>
-									<th>Jumlah Tagihan Turun</th>
+									<th>Angsuran per Bulan</th>
 									<th>Jumlah Tagihan Bayar</th>
-									<th>Jumlah Tunggakan</th>
+									<th>Total Jumlah Tunggakan</th>
 									<th>Jumlah Denda</th>
 									<th>FT Pokok</th>
 									<th>FT Bunga</th>
@@ -255,9 +251,9 @@
 										<td><?= $resDetail->nasabah_id; ?></td>
 										<td><?= $resDetail->nama_nasabah; ?></td>
 										<td><?= $resDetail->alamat; ?></td>
-										<td><?= $resDetail->tgl_realisasi; ?></td>
+										<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
-										<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+										<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 										<td><?= rupiah($resDetail->jml_lending); ?></td>
@@ -282,7 +278,7 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 	<!-- /Modal Bucket Zero -->
 
 	<!-- Modal Non Starter -->
@@ -319,9 +315,9 @@
 										<td><?= $resDetail->nasabah_id; ?></td>
 										<td><?= $resDetail->nama_nasabah; ?></td>
 										<td><?= $resDetail->alamat; ?></td>
-										<td><?= $resDetail->tgl_realisasi; ?></td>
+										<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
-										<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+										<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 										<td><?= rupiah($resDetail->jml_lending); ?></td>
@@ -435,7 +431,7 @@
 
 
 		new cchart('#modal_lending', '#dt_tables_lending');
-		// new cchart('#modal_bz', '#dt_tables_bz');
+		new cchart('#modal_bz', '#dt_tables_bz');
 		new cchart('#modal_ns', '#dt_tables_ns');
 		//tutup datatable
 

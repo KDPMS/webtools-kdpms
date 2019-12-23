@@ -183,9 +183,9 @@
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
-								<th>Jumlah Tagihan Turun</th>
+								<th>Angsuran per Bulan</th>
 								<th>Jumlah Tagihan Bayar</th>
-								<th>Jumlah Tunggakan</th>
+								<th>Total Jumlah Tunggakan</th>
 								<th>Jumlah Denda</th>
 								<th>Jumlah SP Assign</th>
 								<th>Jumlah SP Return</th>
@@ -202,9 +202,9 @@
 									<td><?= $resDetail->nasabah_id; ?></td>
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
-									<td><?= $resDetail->tgl_realisasi; ?></td>
+									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 									<td><?= $resDetail->jkw . " Bulan"; ?></td>
-									<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
 									<td><?= rupiah($resDetail->baki_debet); ?></td>
 									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
@@ -259,9 +259,9 @@
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
-								<th>Jumlah Tagihan Turun</th>
+								<th>Angsuran per Bulan</th>
 								<th>Jumlah Tagihan Bayar</th>
-								<th>Jumlah Tunggakan</th>
+								<th>Total Jumlah Tunggakan</th>
 								<th>Jumlah Denda</th>
 								<th>Jumlah SP Assign</th>
 								<th>Jumlah SP Return</th>
@@ -278,9 +278,9 @@
 									<td><?= $resDetail->nasabah_id; ?></td>
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
-									<td><?= $resDetail->tgl_realisasi; ?></td>
+									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 									<td><?= $resDetail->jkw . " Bulan"; ?></td>
-									<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
 									<td><?= rupiah($resDetail->baki_debet); ?></td>
 									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
@@ -335,9 +335,9 @@
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
-								<th>Jumlah Tagihan Turun</th>
+								<th>Angsuran per Bulan</th>
 								<th>Jumlah Tagihan Bayar</th>
-								<th>Jumlah Tunggakan</th>
+								<th>Total Jumlah Tunggakan</th>
 								<th>Jumlah Denda</th>
 								<th>Jumlah SP Assign</th>
 								<th>Jumlah SP Return</th>
@@ -354,9 +354,9 @@
 									<td><?= $resDetail->nasabah_id; ?></td>
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
-									<td><?= $resDetail->tgl_realisasi; ?></td>
+									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 									<td><?= $resDetail->jkw . " Bulan"; ?></td>
-									<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
 									<td><?= rupiah($resDetail->baki_debet); ?></td>
 									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
@@ -411,9 +411,9 @@
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
-								<th>Jumlah Tagihan Turun</th>
+								<th>Angsuran per Bulan</th>
 								<th>Jumlah Tagihan Bayar</th>
-								<th>Jumlah Tunggakan</th>
+								<th>Total Jumlah Tunggakan</th>
 								<th>Jumlah Denda</th>
 								<th>Jumlah SP Assign</th>
 								<th>Jumlah SP Return</th>
@@ -429,9 +429,9 @@
 									<td><?= $resDetail->nasabah_id; ?></td>
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
-									<td><?= $resDetail->tgl_realisasi; ?></td>
+									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 									<td><?= $resDetail->jkw . " Bulan"; ?></td>
-									<td><?= $resDetail->tgl_jatuh_tempo; ?></td>
+									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
 									<td><?= rupiah($resDetail->baki_debet); ?></td>
 									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
