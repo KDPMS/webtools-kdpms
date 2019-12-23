@@ -17,7 +17,7 @@
     }
     
     //menubah nama bulan 
-    function ubahBulan($bln){
+    function ubahBulan($month){
 
         $bulan_array = array(
             '01'=>"Januari",
@@ -33,7 +33,7 @@
             '11'=>"November",
             '12'=>"Desember");
 
-        $bulan = $bulan_array[$bln];
+        $bulan = $bulan_array[$month];
         return $bulan;
     }
 
