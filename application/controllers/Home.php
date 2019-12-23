@@ -19,7 +19,7 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		if (empty($this->session->userdata('id'))) {
-			redirect('/','refresh');
+			redirect(base_url('login'), 'refresh'); // redirect('/','refresh');
 		}else{
 			$this->load->view('index');
 		}
