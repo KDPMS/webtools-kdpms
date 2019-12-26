@@ -485,12 +485,12 @@
 											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
-											<td><?= $resDetail->jml_sp_assign; ?></td>
-											<td><?= $resDetail->jml_sp_return; ?></td>
+											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
+											<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 											<td><?= $resDetail->ft_pokok; ?></td>
 											<td><?= $resDetail->ft_bunga; ?></td>
-											<td><?= $resDetail->ft_hari_awal; ?></td>
-											<td><?= $resDetail->ft_hari; ?></td>
+											<td><?= $resDetail->ft_hari_awal . " Hari"; ?></td>
+											<td><?= $resDetail->ft_hari . " Hari"; ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 										</tr>
 									<?php } ?>
@@ -571,12 +571,12 @@
 											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
-											<td><?= $resDetail->jml_sp_assign; ?></td>
-											<td><?= $resDetail->jml_sp_return; ?></td>
+											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
+											<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 											<td><?= $resDetail->ft_pokok; ?></td>
 											<td><?= $resDetail->ft_bunga; ?></td>
-											<td><?= $resDetail->ft_hari_awal; ?></td>
-											<td><?= $resDetail->ft_hari; ?></td>
+											<td><?= $resDetail->ft_hari_awal . " Hari"; ?></td>
+											<td><?= $resDetail->ft_hari . " Hari"; ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 										</tr>
 									<?php } ?>
@@ -655,12 +655,12 @@
 											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
-											<td><?= $resDetail->jml_sp_assign; ?></td>
-											<td><?= $resDetail->jml_sp_return; ?></td>
+											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
+											<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 											<td><?= $resDetail->ft_pokok; ?></td>
 											<td><?= $resDetail->ft_bunga; ?></td>
-											<td><?= $resDetail->ft_hari_awal; ?></td>
-											<td><?= $resDetail->ft_hari; ?></td>
+											<td><?= $resDetail->ft_hari_awal . " Hari"; ?></td>
+											<td><?= $resDetail->ft_hari . " Hari"; ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 										</tr>
 									<?php } ?>
@@ -703,13 +703,13 @@
 									<tr>
 										<th>Nasabah ID</th>
 										<th>Nama Nasabah</th>
-										<th>Alamat</th>
+										<th>Jumlah Lending</th>
+										<th>Baki Debet</th>
+										<th>Jumlah Pinjaman</th>
 										<th>Tanggal Realisasi</th>
 										<th>Jangka Waktu</th>
 										<th>Tanggal Jatuh Tempo</th>
-										<th>Baki Debet</th>
-										<th>Jumlah Pinjaman</th>
-										<th>Jumlah Lending</th>
+										<th>Alamat</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -717,13 +717,13 @@
 										<tr>
 											<td><?= $resDetail->nasabah_id; ?></td>
 											<td><?= $resDetail->nama_nasabah; ?></td>
-											<td><?= $resDetail->alamat; ?></td>
+											<td><?= rupiah($resDetail->jml_lending); ?></td>
+											<td><?= rupiah($resDetail->baki_debet); ?></td>
+											<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 											<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 											<td><?= $resDetail->jkw . " Bulan"; ?></td>
 											<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
-											<td><?= rupiah($resDetail->baki_debet); ?></td>
-											<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
-											<td><?= rupiah($resDetail->jml_lending); ?></td>
+											<td><?= $resDetail->alamat; ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>

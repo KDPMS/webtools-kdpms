@@ -212,12 +212,12 @@
 									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
 									<td><?= rupiah($resDetail->jml_denda); ?></td>
-									<td><?= $resDetail->jml_sp_assign; ?></td>
-									<td><?= $resDetail->jml_sp_return; ?></td>
+									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
+									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= $resDetail->ft_hari_awal; ?></td>
-									<td><?= $resDetail->ft_hari; ?></td>
+									<td><?= $resDetail->ft_hari_awal . " Hari"; ?></td>
+									<td><?= $resDetail->ft_hari . " Hari"; ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 								</tr>
 							<?php } ?>
@@ -288,12 +288,12 @@
 									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
 									<td><?= rupiah($resDetail->jml_denda); ?></td>
-									<td><?= $resDetail->jml_sp_assign; ?></td>
-									<td><?= $resDetail->jml_sp_return; ?></td>
+									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
+									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= $resDetail->ft_hari_awal; ?></td>
-									<td><?= $resDetail->ft_hari; ?></td>
+									<td><?= $resDetail->ft_hari_awal . " Hari"; ?></td>
+									<td><?= $resDetail->ft_hari . " Hari"; ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 								</tr>
 							<?php } ?>
@@ -364,12 +364,12 @@
 									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
 									<td><?= rupiah($resDetail->jml_denda); ?></td>
-									<td><?= $resDetail->jml_sp_assign; ?></td>
-									<td><?= $resDetail->jml_sp_return; ?></td>
+									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
+									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= $resDetail->ft_hari_awal; ?></td>
-									<td><?= $resDetail->ft_hari; ?></td>
+									<td><?= $resDetail->ft_hari_awal . " Hari"; ?></td>
+									<td><?= $resDetail->ft_hari . " Hari"; ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 								</tr>
 							<?php } ?>
@@ -439,11 +439,11 @@
 									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
 									<td><?= rupiah($resDetail->jml_denda); ?></td>
-									<td><?= $resDetail->jml_sp_assign; ?></td>
-									<td><?= $resDetail->jml_sp_return; ?></td>
+									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
+									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= $resDetail->ft_hari; ?></td>
+									<td><?= $resDetail->ft_hari . " Hari"; ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 								</tr>
 							<?php } ?>
