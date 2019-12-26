@@ -216,8 +216,8 @@
 									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= $resDetail->ft_hari_awal . " Hari"; ?></td>
-									<td><?= $resDetail->ft_hari . " Hari"; ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari_awal ); ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 								</tr>
 							<?php } ?>
@@ -292,8 +292,8 @@
 									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= $resDetail->ft_hari_awal . " Hari"; ?></td>
-									<td><?= $resDetail->ft_hari . " Hari"; ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari_awal ); ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 								</tr>
 							<?php } ?>
@@ -368,8 +368,8 @@
 									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= $resDetail->ft_hari_awal . " Hari"; ?></td>
-									<td><?= $resDetail->ft_hari . " Hari"; ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari_awal ); ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 								</tr>
 							<?php } ?>
@@ -443,7 +443,7 @@
 									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= $resDetail->ft_hari . " Hari"; ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 								</tr>
 							<?php } ?>

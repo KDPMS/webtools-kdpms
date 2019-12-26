@@ -263,7 +263,7 @@
 										<td><?= rupiah($resDetail->jml_denda); ?></td>
 										<td><?= $resDetail->ft_pokok; ?></td>
 										<td><?= $resDetail->ft_bunga; ?></td>
-										<td><?= $resDetail->ft_hari; ?></td>
+										<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 										<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									</tr>
 								<?php } ?>

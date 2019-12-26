@@ -134,5 +134,22 @@
         return $status;
     }
 
+    //fungsi konversi data hari kedalam bulan
+    function convertDayMonth($hari){
+        //asumsi 30hari perbulan
+        $hariPerBulan = 30;
 
+        $cariBulan = floor($hari / $hariPerBulan);
+        $sisaHari = $hari % $hariPerBulan;
+
+        if ($cariBulan == 0){
+            $get = $hari . " Hari ";
+        }else if ($sisaHari == 0){
+            $get = $cariBulan . " Bulan " . "($hari Hari)";
+        }else {
+            $get = $cariBulan . " Bulan " . $sisaHari . " Hari " . "($hari Hari)";
+        }
+
+        return $get;
+    }
     
