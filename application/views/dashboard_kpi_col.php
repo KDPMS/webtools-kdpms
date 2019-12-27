@@ -18,10 +18,9 @@
 				Tahun : <b><?php echo $tahun; ?></b>
 			</div>
 			<div class="col-md-4 text-lg-center text-md-center text-sm-center text-center">
-				<br>
-				<form action="<?php echo base_url('kpi/dashboard_kpi_col'); ?>" method="post">
-					Filter Data :
-					<select name="bulan" id="bulan">
+				<form action="<?php echo base_url('kpi/dashboard_kpi_col'); ?>" method="post" class="form-inline justify-content-center mt-1">
+					Filter Data : &nbsp;
+					<select name="bulan" id="bulan" class="custom-select custom-select-sm my-1 mr-sm-2">
 						<?php
 						for ($i = 1; $i <= 12; $i++) {
 							if ($i < 10) {
@@ -33,7 +32,7 @@
 																} ?>> <?php echo ubahBulan($i); ?></option>
 						<?php } ?>
 					</select>
-					<select name="tahun" id="tahun">
+					<select name="tahun" id="tahun" class="custom-select custom-select-sm my-1 mr-sm-2">
 						<?php
 						for ($thn = 2019; $thn <= date('Y'); $thn++) {
 						?>
@@ -42,7 +41,7 @@
 															} ?>><?= $thn; ?></option>
 						<?php } ?>
 					</select>
-					<button class="btn-primary" id="btnFilter" type="submit">Filter</button>
+					<button class="btn btn-sm btn-primary" id="btnFilter" type="submit">Filter</button>
 				</form>
 			</div>
 			<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
@@ -164,7 +163,7 @@
 			<div class="modal-content">
 				<div class="modal-header bg-light">
 					<h5 class="modal-title" id="exampleModalLongTitle">Detail Bucket Zero
-						<p><?= "Date : &nbsp" . ubahDate($date); ?></p>
+						<p><?= $this->session->userdata('username'); ?>, <?= ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -240,7 +239,7 @@
 			<div class="modal-content">
 				<div class="modal-header bg-light">
 					<h5 class="modal-title" id="exampleModalLongTitle">Detail Collection Ratio
-						<p><?= "Date : &nbsp" . ubahDate($date); ?></<p>
+						<p><?= $this->session->userdata('username'); ?>, <?= ubahBulan($bulan) . "&nbsp" . $tahun; ?><p>
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -316,7 +315,7 @@
 			<div class="modal-content">
 				<div class="modal-header bg-light">
 					<h5 class="modal-title" id="exampleModalLongTitle">Detail NPL
-						<p><?= "Date : &nbsp" . ubahDate($date); ?></p>
+						<p><?= $this->session->userdata('username'); ?>, <?= ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -392,7 +391,7 @@
 			<div class="modal-content">
 				<div class="modal-header bg-light">
 					<h5 class="modal-title" id="exampleModalLongTitle">Detail SP Return
-						<p><?= "Date : &nbsp" . ubahDate($date); ?></p>
+						<p><?= $this->session->userdata('username'); ?>, <?= ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>

@@ -53,24 +53,30 @@
 
                 
               <!-- DI ARAHKAN SETIAP USER NYA KALAU AO KEHALAMAN AO, SESUAI AKSES NYA AJA GIMANA -->
-              <!-- <?php
+              <?php
                 $jabatan = $this->session->userdata('jabatan');
                 if($jabatan == 'ketua' || $jabatan == 'manager') {
               ?>
                 <a href="<?php echo base_url('kpi/dashboard_kpi'); ?>"
-                style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
+                  style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
                   style="box-shadow: 1px 1px 10px gray; width: 300px; height: 150px;">Dashboard Kpi</button></a>
                 <?php
                   }elseif($jabatan == 'marketing') {
                 ?>
                 <a href="<?php echo base_url('kpi/dashboard_kpi_ao'); ?>"
-                style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
+                  style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
                   style="box-shadow: 1px 1px 10px gray; width: 300px; height: 150px;">Dashboard Kpi</button></a>
-              <?php } ?> -->
+                <?php
+                  }elseif($jabatan == 'kolektor') {
+                ?>
+                <a href="<?php echo base_url('kpi/dashboard_kpi_col'); ?>"
+                  style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
+                  style="box-shadow: 1px 1px 10px gray; width: 300px; height: 150px;">Dashboard Kpi</button></a>
+              <?php } ?>
 
-              <a onclick="return alert('Fitur masih dalam pengembangan')"
+              <!-- <a onclick="return alert('Fitur masih dalam pengembangan')"
                 style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
-                  style="box-shadow: 1px 1px 10px gray; width: 300px; height: 150px;">Dashboard Kpi</button></a>
+                  style="box-shadow: 1px 1px 10px gray; width: 300px; height: 150px;">Dashboard Kpi</button></a> -->
               <!-- YANG INI DASHBOARD KPI PER KANTOR, NNTI SESSUAI IN AJA GIMANA ALUR NYA -->
               <!-- --------------------- -->
             </div>

@@ -35,6 +35,8 @@ class Login extends CI_Controller {
 			$username = $h->user;
 			$kantor = $h->kd_cabang;
 			$jabatan = $h->jabatan;
+			$kode_group2 = $h->kode_group2;
+			$kode_group3 = $h->kode_group3;
 		}
 
 		$getFoto = $this->business->get_where("los_foto_user",null,null,array('user_id' => $id));
@@ -55,9 +57,11 @@ class Login extends CI_Controller {
 				'kantor' => $kantor,
 				'status' => 'login',
 				'foto' => $foto,
+				'kode_group2' => $kode_group2,
+				'kode_group3' => $kode_group3
 			);
 
-			//print_r($data_session);die();
+			// print_r($data_session);die();
 			$this->session->set_userdata($data_session);
 			$this->session->set_flashdata('suksesLog','Selamat datang <n style="font-weight:bold;">'.$this->session->userdata('username').'</n>, berdoa lah sebelum melakukan pekerjaan');
 			redirect(base_url('tools'));

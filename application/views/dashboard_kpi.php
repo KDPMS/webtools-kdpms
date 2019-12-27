@@ -19,10 +19,9 @@
 				</b>
 			</div>
 			<div class="col-md-6 text-lg-center text-md-center text-sm-center text-center">
-				<br><br>
-				<form action="<?php echo base_url('kpi/dashboard_kpi'); ?>" method="post">
-					Filter Data :
-					<select name="bulan" id="bulan">
+				Filter Data
+				<form action="<?php echo base_url('kpi/dashboard_kpi'); ?>" method="post" class="form-inline justify-content-center mt-2">
+					<select name="bulan" id="bulan" class="custom-select custom-select-sm my-1 mr-sm-2">
 						<?php
 						for ($i = 1; $i <= 12; $i++) {
 							if ($i < 10) {
@@ -34,7 +33,7 @@
 																} ?>> <?php echo ubahBulan($i); ?></option>
 						<?php } ?>
 					</select>
-					<select name="tahun" id="tahun">
+					<select name="tahun" id="tahun" class="custom-select custom-select-sm my-1 mr-sm-2">
 						<?php
 						for ($thn = 2019; $thn <= date('Y'); $thn++) {
 						?>
@@ -44,7 +43,7 @@
 						<?php } ?>
 					</select>
 
-					<select name="kantor" id="kantor">
+					<select name="kantor" id="kantor" class="custom-select custom-select-sm my-1 mr-sm-2">
 						<option value="01" <?php if ($kantor == '01') {
 												echo ('selected');
 											} ?>>Pusat</option>
@@ -52,7 +51,7 @@
 												echo ('selected');
 											} ?>>Cabang Cilodong</option>
 					</select>
-					<button type="submit" id="btnFilter" class="btn-primary">Filter</button>
+					<button type="submit" id="btnFilter" class="btn btn-sm btn-primary">Filter</button>
 				</form>
 			</div>
 			<div class="col-md-3 text-lg-right text-md-center text-sm-center text-center">
