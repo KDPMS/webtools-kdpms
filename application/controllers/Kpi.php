@@ -33,53 +33,60 @@ class Kpi extends CI_Controller {
 		if($this->session->userdata('id') == null){
 			redirect(base_url('login'));
 		}else{
+			if($this->session->userdata('jabatan') == 'ketua' || $this->session->userdata('jabatan') == 'manager'){
+				$bulan   = $this->input->post('bulan');
+				$tahun   = $this->input->post('tahun');
+				$kantor  = $this->input->post('kantor');
+				$tanggal = date('d');
+				
+				if(empty($tahun)){
+					$tahun = date('Y');
+				}
 
-			$bulan   = $this->input->post('bulan');
-			$tahun   = $this->input->post('tahun');
-			$kantor  = $this->input->post('kantor');
-			$tanggal = date('d');
-			
-			if(empty($tahun)){
-				$tahun = date('Y');
+				if(empty($bulan)){
+					$bulan = date('m');
+				}
+
+				if($this->session->userdata('kantor') == '02'){
+					$kantor = "02";
+				}else{
+					if(empty($kantor)){
+						$kantor = "01";
+					}
+				}
+				
+				$data['bulan']   = $bulan;
+				$data['tahun']   = $tahun;
+				$data['tanggal'] = $tanggal;
+				$data['date'] = $tahun."-".$bulan."-".$tanggal;
+				$data['kantor']  = $kantor;
+				
+				$data['dataKpiNpl'] = $this->kpi->datakpi_npl($tahun, $bulan, $tanggal, $kantor)->result();
+				$data['dataKpiNplKol'] = $this->kpi->datakpi_npl_Kol($tahun, $bulan, $tanggal, $kantor)->result();
+				$data['dataKpiNplKoldetail'] = $this->kpi->datakpi_npl_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
+
+				$data['dataKpiLending'] = $this->kpi->datakpi_lending($tahun, $bulan, $tanggal, $kantor)->result();
+				$data['datakpilendingAO'] = $this->kpi->datakpi_lending_AO($tahun, $bulan, $tanggal, $kantor)->result();
+				$data['datakpilendingAOdetail'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $tanggal, '15', $kantor)->result();
+				
+				$data['dataKpiCR'] = $this->kpi->datakpi_CR($tahun, $bulan, $tanggal, $kantor)->result();
+				$data['dataKpiCRKol'] = $this->kpi->datakpi_CR_Kol($tahun, $bulan, $tanggal, $kantor)->result();
+				$data['dataKpiCRKoldetail'] = $this->kpi->datakpi_CR_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
+				
+				$data['dataKpiBZ'] = $this->kpi->datakpi_BZ($tahun, $bulan, $tanggal, $kantor)->result();
+				$data['dataKpiBZKol'] = $this->kpi->datakpi_BZ_Kol($tahun, $bulan, $tanggal, $kantor)->result();
+				$data['dataKpiBZKoldetail'] = $this->kpi->datakpi_BZ_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
+
+				$data['dataKpiNS'] = $this->kpi->datakpi_NS($tahun, $bulan, $tanggal, $kantor)->result();
+				$data['dataKpiNS_AO'] = $this->kpi->datakpi_NS_AO($tahun, $bulan, $tanggal, $kantor)->result();
+				$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $tanggal, '15', $kantor)->result();
+				
+				$this->load->view('include/headerkpi');
+				$this->load->view('dashboard_kpi',$data);
+				$this->load->view('include/footerkpi');
+			}else{
+				redirect(base_url('tools'));
 			}
-
-			if(empty($bulan)){
-				$bulan = date('m');
-			}
-
-			if(empty($kantor)){
-				$kantor = "01";
-			}
-			
-			$data['bulan']   = $bulan;
-			$data['tahun']   = $tahun;
-			$data['tanggal'] = $tanggal;
-			$data['date'] = $tahun."-".$bulan."-".$tanggal;
-			$data['kantor']  = $kantor;
-			
-			$data['dataKpiNpl'] = $this->kpi->datakpi_npl($tahun, $bulan, $tanggal, $kantor)->result();
-			$data['dataKpiNplKol'] = $this->kpi->datakpi_npl_Kol($tahun, $bulan, $tanggal, $kantor)->result();
-			$data['dataKpiNplKoldetail'] = $this->kpi->datakpi_npl_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
-
-			$data['dataKpiLending'] = $this->kpi->datakpi_lending($tahun, $bulan, $tanggal, $kantor)->result();
-			$data['datakpilendingAO'] = $this->kpi->datakpi_lending_AO($tahun, $bulan, $tanggal, $kantor)->result();
-			$data['datakpilendingAOdetail'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $tanggal, '15', $kantor)->result();
-			
-			$data['dataKpiCR'] = $this->kpi->datakpi_CR($tahun, $bulan, $tanggal, $kantor)->result();
-			$data['dataKpiCRKol'] = $this->kpi->datakpi_CR_Kol($tahun, $bulan, $tanggal, $kantor)->result();
-			$data['dataKpiCRKoldetail'] = $this->kpi->datakpi_CR_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
-			
-			$data['dataKpiBZ'] = $this->kpi->datakpi_BZ($tahun, $bulan, $tanggal, $kantor)->result();
-			$data['dataKpiBZKol'] = $this->kpi->datakpi_BZ_Kol($tahun, $bulan, $tanggal, $kantor)->result();
-			$data['dataKpiBZKoldetail'] = $this->kpi->datakpi_BZ_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
-
-			$data['dataKpiNS'] = $this->kpi->datakpi_NS($tahun, $bulan, $tanggal, $kantor)->result();
-			$data['dataKpiNS_AO'] = $this->kpi->datakpi_NS_AO($tahun, $bulan, $tanggal, $kantor)->result();
-			$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $tanggal, '15', $kantor)->result();
-			
-			$this->load->view('include/headerkpi');
-			$this->load->view('dashboard_kpi',$data);
-			$this->load->view('include/footerkpi');
 		}
 	}
 
@@ -89,41 +96,44 @@ class Kpi extends CI_Controller {
 		if($this->session->userdata('id') == null){
 			redirect(base_url('login'));
 		}else{
+			if($this->session->userdata('jabatan') == 'marketing'){
+				$bulan       = $this->input->post('bulan');
+				$tahun       = $this->input->post('tahun');
+				$tanggal     = date('d');
+				$kantor      = $this->session->userdata('kantor');
+				$kode_group2 = $this->session->userdata('kode_group2');
+				
+				if(empty($tahun)){
+					$tahun = date('Y');
+				}
 
-			$bulan       = $this->input->post('bulan');
-			$tahun       = $this->input->post('tahun');
-			$tanggal     = date('d');
-			$kantor      = $this->session->userdata('kantor');
-			$kode_group2 = $this->session->userdata('kode_group2');
-			
-			if(empty($tahun)){
-				$tahun = date('Y');
+				if(empty($bulan)){
+					$bulan = date('m');
+				}
+
+				$data['bulan'] = $bulan;
+				$data['tahun'] = $tahun;
+				$data['date']  = $tahun."-".$bulan."-".$tanggal;
+
+				$data['dataKpiLendingAO'] = $this->kpi->datakpi_lending_Per_AO($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+				$data['dataKpiLendingAOdetail'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+
+				$data['dataKpiBZ_AO'] = $this->kpi->datakpi_BZ_Per_AO($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+				$data['dataKpiBZ_AOdetail'] = $this->kpi->datakpi_BZ_AO_detail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+				
+				$data['dataKpiNS_AO'] = $this->kpi->datakpi_NS_Per_AO($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+				$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+
+				$data['dataKpiMitra_AOdetail'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
+
+				$data['dataKpiMap'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->num_rows();
+
+				$this->load->view('include/headerkpi');
+				$this->load->view('dashboard_kpi_ao', $data);
+				$this->load->view('include/footerkpi');
+			}else{
+				redirect(base_url('tools'));
 			}
-
-			if(empty($bulan)){
-				$bulan = date('m');
-			}
-
-			$data['bulan'] = $bulan;
-			$data['tahun'] = $tahun;
-			$data['date']  = $tahun."-".$bulan."-".$tanggal;
-
-			$data['dataKpiLendingAO'] = $this->kpi->datakpi_lending_Per_AO($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
-			$data['dataKpiLendingAOdetail'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
-
-			$data['dataKpiBZ_AO'] = $this->kpi->datakpi_BZ_Per_AO($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
-			$data['dataKpiBZ_AOdetail'] = $this->kpi->datakpi_BZ_AO_detail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
-			
-			$data['dataKpiNS_AO'] = $this->kpi->datakpi_NS_Per_AO($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
-			$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
-
-			$data['dataKpiMitra_AOdetail'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->result();
-
-			$data['dataKpiMap'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $tanggal, $kode_group2, $kantor)->num_rows();
-
-			$this->load->view('include/headerkpi');
-			$this->load->view('dashboard_kpi_ao', $data);
-			$this->load->view('include/footerkpi');
 		}
 	}
 
