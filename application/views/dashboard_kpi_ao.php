@@ -48,6 +48,7 @@
 			<div class="col-md-4 text-lg-right text-md-center text-sm-center text-center">
 				User :
 				<b><?php echo ucfirst($this->session->userdata('username')); ?></b>
+				<br>
 				Kantor :
 				<b>
 					<?php echo namaKantor($this->session->userdata('kantor')); ?>
