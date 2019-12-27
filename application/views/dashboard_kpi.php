@@ -42,7 +42,7 @@
 															} ?>><?= $thn; ?></option>
 						<?php } ?>
 					</select>
-
+					<?php if($this->session->userdata('kantor') !== '02'){ ?>
 					<select name="kantor" id="kantor" class="custom-select custom-select-sm my-1 mr-sm-2">
 						<option value="01" <?php if ($kantor == '01') {
 												echo ('selected');
@@ -51,6 +51,7 @@
 												echo ('selected');
 											} ?>>Cabang Cilodong</option>
 					</select>
+					<?php } ?>
 					<button type="submit" id="btnFilter" class="btn btn-sm btn-primary">Filter</button>
 				</form>
 			</div>
@@ -107,7 +108,7 @@
 
 			<!-- Lending -->
 			<?php if ($dataKpiLending != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content='<b> Lending : <?= ubahJuta($dataKpiLending[0]->jml_value); ?> <br> Lending (%) : <?= ambil2Angka($dataKpiLending[0]->jml_value / $dataKpiLending[0]->jml_max_value * 100) . ' %'; ?> <br> Status : <?= getStatusLendingCabang($dataKpiLending[0]->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
+				<span class="rounded-circle spedo" data-popover="popover" data-content='<b> Lending : <?= ubahJuta($dataKpiLending[0]->jml_value); ?> <br> Lending (%) : <?= ambil2Angka($dataKpiLending[0]->lending) . ' %'; ?> <br> Status : <?= getStatusLendingCabang($dataKpiLending[0]->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_lending">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="lending" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiLending[0]->unit; ?>" data-title="<?= $dataKpiLending[0]->title; ?>" data-value="<?php echo $dataKpiLending[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiLending[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiLending[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiLending[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiLending[0]->data_spedo; ?>' data-color-plate="black" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 						</canvas>
@@ -206,7 +207,7 @@
 				<div class="modal-body">
 					<div class="row justify-content-center">
 						<?php foreach ($datakpilendingAO as $res) { ?>
-							<span class="rounded-circle" data-popover="popover" data-content='<b> Lending : <?= ubahJuta($res->jml_value); ?> <br> Lending (%) : <?= ambil2Angka($res->jml_value / 350 * 100) . ' %'; ?> <br> Status : <?= getStatusLendingAO($res->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
+							<span class="rounded-circle" data-popover="popover" data-content='<b> Lending : <?= ubahJuta($res->jml_value); ?> <br> Lending (%) : <?= ambil2Angka($res->lending) . ' %'; ?> <br> Status : <?= getStatusLendingAO($res->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
 								<a class="rounded-circle" href="#detail_lending_ao" data-toggle="modal" data-target="#detail_lending_ao<?php echo $res->kode_group2; ?>" data-backdrop="false">
 									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group2; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 									</canvas>
