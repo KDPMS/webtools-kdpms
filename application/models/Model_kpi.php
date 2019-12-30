@@ -35,7 +35,7 @@ class Model_kpi extends CI_Model {
 
 	public function datakpi_lending_AO($tahun = '', $bulan = '', $tanggal = '', $kode_kantor = ''){ // GET VIEW LENDING ALL AO
 		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_lending_ao WHERE kode_kantor = '$kode_kantor'");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_lending_ao WHERE kode_kantor = '$kode_kantor' ORDER BY jml_value DESC");
 	}
 
 	public function datakpi_lending_Per_AO($tahun = '', $bulan = '', $tanggal = '', $kode_group2 = '', $kode_kantor = ''){ // GET VIEW LENDING PER AO

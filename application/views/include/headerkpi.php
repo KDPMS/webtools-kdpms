@@ -289,6 +289,10 @@
 		.popover {
 			max-width: 25em !important;
 		}
+
+		.text-xs-center {
+			text-align: center;
+		}
 	</style>
 
 	<body>
