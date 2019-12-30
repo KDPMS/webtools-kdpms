@@ -165,13 +165,13 @@
 						<table id="dt_tables_lending" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
 								<tr>
-									<th>Nasabah ID</th>
+									<th>No Rekening</th>
 									<th>Nama Nasabah</th>
-									<th>Jumlah Lending</th>
 									<th>Mitra Bisnis</th>
 									<th>Tanggal Realisasi</th>
 									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
+									<th>Jumlah Lending</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
 									<th>Alamat</th>
@@ -180,13 +180,13 @@
 							<tbody>
 								<?php foreach ($dataKpiLendingAOdetail as $resDetail) { ?>
 									<tr>
-										<td><?= $resDetail->nasabah_id; ?></td>
+										<td><?= $resDetail->no_rekening; ?></td>
 										<td><?= $resDetail->nama_nasabah; ?></td>
-										<td><?= rupiah($resDetail->jml_lending); ?></td>
-										<?php echo ($resDetail->deskripsi_group5 != NULL ? "<td>" . strtoupper($resDetail->deskripsi_group5) . "</td>" : "<td> - </td>"); ?>
+										<?php echo ($resDetail->deskripsi_group5 != NULL ? "<td>" . (($resDetail->deskripsi_group5) == "kantor" ? ucfirst("mediator") : ucfirst($resDetail->deskripsi_group5)) . "</td>" : "<td> - </td>"); ?>
 										<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+										<td><?= rupiah($resDetail->jml_lending); ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 										<td><?= $resDetail->alamat; ?></td>
@@ -197,7 +197,7 @@
 					</div>
 				</div>
 				<div class="modal-footer bg-light">
-					<h6 class="mr-auto">TOTAL : <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?> - <?= $dataKpiMap . " MAP"; ?></h6>
+					<h6 class="mr-auto"><?= $dataKpiMap . " MAP"; ?> - TOTAL : <?= ubahJuta($dataKpiLendingAO[0]->jml_value); ?></h6>
 
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
 						Close
@@ -225,7 +225,7 @@
 						<table id="dt_tables_bz" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
 								<tr>
-									<th>Nasabah ID</th>
+									<th>No Rekening</th>
 									<th>Nama Nasabah</th>
 									<th>Alamat</th>
 									<th>Tanggal Realisasi</th>
@@ -247,7 +247,7 @@
 							<tbody>
 								<?php foreach ($dataKpiBZ_AOdetail as $resDetail) { ?>
 									<tr>
-										<td><?= $resDetail->nasabah_id; ?></td>
+										<td><?= $resDetail->no_rekening; ?></td>
 										<td><?= $resDetail->nama_nasabah; ?></td>
 										<td><?= $resDetail->alamat; ?></td>
 										<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
@@ -297,28 +297,28 @@
 						<table id="dt_tables_ns" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
 								<tr>
-									<th>Nasabah ID</th>
+									<th>No Rekening</th>
 									<th>Nama Nasabah</th>
-									<th>Jumlah Lending</th>
-									<th>Baki Debet</th>
-									<th>Jumlah Pinjaman</th>
 									<th>Tanggal Realisasi</th>
 									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
+									<th>Jumlah Lending</th>
+									<th>Baki Debet</th>
+									<th>Jumlah Pinjaman</th>
 									<th>Alamat</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php foreach ($dataKpiNS_AOdetail as $resDetail) { ?>
 									<tr>
-										<td><?= $resDetail->nasabah_id; ?></td>
+										<td><?= $resDetail->no_rekening; ?></td>
 										<td><?= $resDetail->nama_nasabah; ?></td>
-										<td><?= rupiah($resDetail->jml_lending); ?></td>
-										<td><?= rupiah($resDetail->baki_debet); ?></td>
-										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 										<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+										<td><?= rupiah($resDetail->jml_lending); ?></td>
+										<td><?= rupiah($resDetail->baki_debet); ?></td>
+										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 										<td><?= $resDetail->alamat; ?></td>
 									</tr>
 								<?php } ?>

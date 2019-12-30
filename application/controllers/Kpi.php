@@ -37,7 +37,7 @@ class Kpi extends CI_Controller {
 				$bulan   = $this->input->post('bulan');
 				$tahun   = $this->input->post('tahun');
 				$kantor  = $this->input->post('kantor');
-				$tanggal = date('d');
+				$tanggal = 28;
 				
 				if(empty($tahun)){
 					$tahun = date('Y');
@@ -61,25 +61,33 @@ class Kpi extends CI_Controller {
 				$data['date'] = $tahun."-".$bulan."-".$tanggal;
 				$data['kantor']  = $kantor;
 				
+				//data npl
 				$data['dataKpiNpl'] = $this->kpi->datakpi_npl($tahun, $bulan, $tanggal, $kantor)->result();
 				$data['dataKpiNplKol'] = $this->kpi->datakpi_npl_Kol($tahun, $bulan, $tanggal, $kantor)->result();
 				$data['dataKpiNplKoldetail'] = $this->kpi->datakpi_npl_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
 
+				//data lending
 				$data['dataKpiLending'] = $this->kpi->datakpi_lending($tahun, $bulan, $tanggal, $kantor)->result();
 				$data['datakpilendingAO'] = $this->kpi->datakpi_lending_AO($tahun, $bulan, $tanggal, $kantor)->result();
 				$data['datakpilendingAOdetail'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $tanggal, '15', $kantor)->result();
 				
+				//data cr
 				$data['dataKpiCR'] = $this->kpi->datakpi_CR($tahun, $bulan, $tanggal, $kantor)->result();
 				$data['dataKpiCRKol'] = $this->kpi->datakpi_CR_Kol($tahun, $bulan, $tanggal, $kantor)->result();
 				$data['dataKpiCRKoldetail'] = $this->kpi->datakpi_CR_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
 				
+				//data bz
 				$data['dataKpiBZ'] = $this->kpi->datakpi_BZ($tahun, $bulan, $tanggal, $kantor)->result();
 				$data['dataKpiBZKol'] = $this->kpi->datakpi_BZ_Kol($tahun, $bulan, $tanggal, $kantor)->result();
 				$data['dataKpiBZKoldetail'] = $this->kpi->datakpi_BZ_Kol_detail($tahun, $bulan, $tanggal, '09', $kantor)->result();
 
+				//data ns
 				$data['dataKpiNS'] = $this->kpi->datakpi_NS($tahun, $bulan, $tanggal, $kantor)->result();
 				$data['dataKpiNS_AO'] = $this->kpi->datakpi_NS_AO($tahun, $bulan, $tanggal, $kantor)->result();
 				$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $tanggal, '15', $kantor)->result();
+
+				//data kolektibilitas
+				$data['dataKolektibilitas'] = $this->kpi->dataKolektibilitas($tahun, $bulan, $tanggal, $kantor)->result();
 				
 				$this->load->view('include/headerkpi');
 				$this->load->view('dashboard_kpi',$data);
@@ -99,7 +107,7 @@ class Kpi extends CI_Controller {
 			if($this->session->userdata('jabatan') == 'marketing'){
 				$bulan       = $this->input->post('bulan');
 				$tahun       = $this->input->post('tahun');
-				$tanggal     = date('d');
+				$tanggal     = 28;
 				$kantor      = $this->session->userdata('kantor');
 				$kode_group2 = $this->session->userdata('kode_group2');
 				
@@ -146,7 +154,7 @@ class Kpi extends CI_Controller {
 
 			$bulan       = $this->input->post('bulan');
 			$tahun       = $this->input->post('tahun');
-			$tanggal     = date('d');
+			$tanggal     = 28;
 			$kantor      = $this->session->userdata('kantor');
 			$kode_group3 = $this->session->userdata('kode_group3');
 			

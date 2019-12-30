@@ -150,4 +150,11 @@ class Model_kpi extends CI_Model {
 	}
 	//END KPI SP RETURN
 
+	//KOLEKTIBILITAS
+	public function dataKolektibilitas($tahun = '', $bulan = '', $tanggal = '', $kode_kantor = ''){ //GET VIEW KOLEKTIBILITAS
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_npl_kolektibilitas WHERE kode_kantor = '$kode_kantor' ORDER BY kolektibilitas ASC");
+	}
+	//END KOLEKTIBILITAS
+
 }

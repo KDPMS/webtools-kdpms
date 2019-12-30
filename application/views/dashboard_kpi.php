@@ -250,6 +250,24 @@
 							<input type="hidden" id="kode_group3" value="<?php echo $res->kode_group3; ?>" selected>
 						<?php } ?>
 					</div>
+					
+					<hr>
+
+					<!-- spedo kolektibilitas -->
+					<div class="row justify-content-center">
+						<?php foreach ($dataKolektibilitas as $res) { ?>
+
+							<span class="rounded-circle" data-popover="popover" data-content='<b> Kolektibilitas <?=$res->kolektibilitas;?> : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLKol($res->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
+								<a class="rounded-circle" href="#detail_kol<?php echo $res->kolektibilitas; ?>" data-toggle="modal" data-target="#detail_kol<?php echo $res->kolektibilitas; ?>" data-backdrop="false">
+									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="kol" data-type="radial-gauge" data-width="200" data-height="200" data-units="<?php echo $res->unit; ?>" data-title="Kol <?= $res->kolektibilitas; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
+									</canvas>
+								</a>
+							</span>
+
+						<?php } ?>
+					</div>
+					<!-- tutup spedo kolektibilitas -->
+
 				</div>
 				<div class="modal-footer bg-light">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -379,13 +397,13 @@
 						<table id="dt_tables_lending<?php echo $res->kode_group2; ?>" cellspacing="0" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 							<thead class="bg-light">
 								<tr>
-									<th>Nasabah ID</th>
+									<th>No Rekening</th>
 									<th>Nama Nasabah</th>
-									<th>Jumlah Lending</th>
 									<th>Mitra Bisnis</th>
 									<th>Tanggal Realisasi</th>
 									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
+									<th>Jumlah Lending</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
 									<th>Alamat</th>
@@ -394,17 +412,13 @@
 							<tbody>
 								<?php foreach ($dataDetail as $resDetail) { ?>
 									<tr>
-										<td><?php echo $resDetail->nasabah_id; ?></td>
+										<td><?php echo $resDetail->no_rekening; ?></td>
 										<td><?php echo $resDetail->nama_nasabah; ?></td>
-										<td><?php echo rupiah($resDetail->jml_lending); ?></td>
-										<?php if ($resDetail->deskripsi_group5 != NULL) { ?>
-											<td><?= strtoupper($resDetail->deskripsi_group5); ?></td>
-										<?php } else { ?>
-											<td> - </td>
-										<?php } ?>
+										<?php echo ($resDetail->deskripsi_group5 != NULL ? "<td>" . (($resDetail->deskripsi_group5) == "kantor" ? ucfirst("mediator") : ucfirst($resDetail->deskripsi_group5)) . "</td>" : "<td> - </td>"); ?>
 										<td><?php echo ubahDate($resDetail->tgl_realisasi); ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?php echo ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+										<td><?php echo rupiah($resDetail->jml_lending); ?></td>
 										<td><?php echo rupiah($resDetail->baki_debet); ?></td>
 										<td><?php echo rupiah($resDetail->jml_pinjaman); ?></td>
 										<td><?php echo $resDetail->alamat; ?></td>
@@ -414,7 +428,7 @@
 						</table>
 					</div>
 					<div class="modal-footer bg-light">
-						<h6 class="mr-auto">TOTAL : <?= ubahJuta($res->jml_value); ?> - <?= $dataKpiMap . " MAP"; ?></h6>
+						<h6 class="mr-auto"><?= $dataKpiMap . " MAP"; ?> - TOTAL : <?= ubahJuta($res->jml_value); ?></h6>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -447,7 +461,7 @@
 							<table id="dt_tables_npl<?php echo $res->kode_group3; ?>" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 								<thead class="bg-light">
 									<tr>
-										<th>Nasabah ID</th>
+										<th>No Rekening</th>
 										<th>Nama Nasabah</th>
 										<th>Alamat</th>
 										<th>Tanggal Realisasi</th>
@@ -472,7 +486,7 @@
 								<tbody>
 									<?php foreach ($dataDetail as $resDetail) { ?>
 										<tr>
-											<td><?= $resDetail->nasabah_id; ?></td>
+											<td><?= $resDetail->no_rekening; ?></td>
 											<td><?= $resDetail->nama_nasabah; ?></td>
 											<td><?= $resDetail->alamat; ?></td>
 											<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
@@ -509,20 +523,20 @@
 	<?php } ?>
 	<!-- Modal Detail NPL -->
 
-	<!-- Modal Detail CR -->
-	<?php foreach ($dataKpiCRKol as $res) { ?>
+	<!-- Modal Detail Kolektibilitas -->
+	<?php foreach ($dataKolektibilitas as $res) { ?>
 		<?php
 
 		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
-		$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
-		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr WHERE kode_kantor = '$res->kode_kantor'")->result();
+		$this->db->query("SELECT '$res->kolektibilitas' INTO @pv_kode_kolektibilitas");
+		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektibilitas_npl WHERE kode_kantor = '$res->kode_kantor'")->result();
 		?>
-		<div class="modal fade" id="detail_cr_kolektor<?php echo $res->kode_group3; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
-			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+		<div class="modal fade" id="detail_kol<?php echo $res->kolektibilitas; ?>" tabindex="2" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-scrollable">
 				<div class="modal-content">
 					<div class="modal-header bg-light">
-						<h5 class="modal-title" id="exampleModalLongTitle">Detail CR
-							<p><?php echo $res->deskripsi_group3; ?>, <?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
+						<h5 class="modal-title" id="exampleModalLongTitle">Detail Kolektibilitas <?= $res->kolektibilitas; ?>
+							<p><?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 						</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -530,10 +544,10 @@
 					</div>
 					<div class="modal-body">
 						<div class="table-responsive">
-							<table id="dt_tables_cr<?php echo $res->kode_group3; ?>" class="table table-bordered table-hover display compact nowrap" style="width:100%">
+							<table id="dt_tables_kol<?php echo $res->kolektibilitas; ?>" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 								<thead class="bg-light">
 									<tr>
-										<th>Nasabah ID</th>
+										<th>No Rekening</th>
 										<th>Nama Nasabah</th>
 										<th>Alamat</th>
 										<th>Tanggal Realisasi</th>
@@ -558,7 +572,93 @@
 								<tbody>
 									<?php foreach ($dataDetail as $resDetail) { ?>
 										<tr>
-											<td><?= $resDetail->nasabah_id; ?></td>
+											<td><?= $resDetail->no_rekening; ?></td>
+											<td><?= $resDetail->nama_nasabah; ?></td>
+											<td><?= $resDetail->alamat; ?></td>
+											<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
+											<td><?= $resDetail->jkw . " Bulan"; ?></td>
+											<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+											<td><?= rupiah($resDetail->baki_debet); ?></td>
+											<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
+											<td><?= rupiah($resDetail->jml_lending); ?></td>
+											<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
+											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
+											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+											<td><?= rupiah($resDetail->jml_denda); ?></td>
+											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
+											<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
+											<td><?= $resDetail->ft_pokok; ?></td>
+											<td><?= $resDetail->ft_bunga; ?></td>
+											<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
+											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
+											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
+										</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer bg-light">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">
+							Close
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php } ?>
+	<!-- Modal Detail Kolektibilitas -->
+
+	<!-- Modal Detail CR -->
+	<?php foreach ($dataKpiCRKol as $res) { ?>
+		<?php
+
+		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
+		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr WHERE kode_kantor = '$res->kode_kantor'")->result();
+		?>
+		<div class="modal fade" id="detail_cr_kolektor<?php echo $res->kode_group3; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+				<div class="modal-content">
+					<div class="modal-header bg-light">
+						<h5 class="modal-title" id="exampleModalLongTitle">Detail CR
+							<p><?php echo $res->deskripsi_group3; ?>, <?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
+						</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="table-responsive">
+							<table id="dt_tables_cr<?php echo $res->kode_group3; ?>" class="table table-bordered table-hover display compact nowrap" style="width:100%">
+								<thead class="bg-light">
+									<tr>
+										<th>No Rekening</th>
+										<th>Nama Nasabah</th>
+										<th>Alamat</th>
+										<th>Tanggal Realisasi</th>
+										<th>Jangka Waktu</th>
+										<th>Tanggal Jatuh Tempo</th>
+										<th>Baki Debet</th>
+										<th>Jumlah Pinjaman</th>
+										<th>Jumlah Lending</th>
+										<th>Angsuran per Bulan</th>
+										<th>Jumlah Tagihan Bayar</th>
+										<th>Total Jumlah Tunggakan</th>
+										<th>Jumlah Denda</th>
+										<th>Jumlah SP Assign</th>
+										<th>Jumlah SP Return</th>
+										<th>FT Pokok</th>
+										<th>FT Bunga</th>
+										<th>FT Hari Awal</th>
+										<th>FT Hari</th>
+										<th>Kolektibilitas</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach ($dataDetail as $resDetail) { ?>
+										<tr>
+											<td><?= $resDetail->no_rekening; ?></td>
 											<td><?= $resDetail->nama_nasabah; ?></td>
 											<td><?= $resDetail->alamat; ?></td>
 											<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
@@ -617,7 +717,7 @@
 							<table id="dt_tables_bz<?php echo $res->kode_group3; ?>" class="dt_tables table table-bordered table-hover display compact nowrap" style="width:100%">
 								<thead class="bg-light">
 									<tr>
-										<th>Nasabah ID</th>
+										<th>No Rekening</th>
 										<th>Nama Nasabah</th>
 										<th>Alamat</th>
 										<th>Tanggal Realisasi</th>
@@ -642,7 +742,7 @@
 								<tbody>
 									<?php foreach ($dataDetail as $resDetail) { ?>
 										<tr>
-											<td><?= $resDetail->nasabah_id; ?></td>
+											<td><?= $resDetail->no_rekening; ?></td>
 											<td><?= $resDetail->nama_nasabah; ?></td>
 											<td><?= $resDetail->alamat; ?></td>
 											<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
@@ -701,28 +801,28 @@
 							<table id="dt_tables_ns<?php echo $res->kode_group2; ?>" class="dt_tables table table-bordered table-hover display compact nowrap" style="width:100%">
 								<thead class="bg-light">
 									<tr>
-										<th>Nasabah ID</th>
+										<th>No Rekening</th>
 										<th>Nama Nasabah</th>
-										<th>Jumlah Lending</th>
-										<th>Baki Debet</th>
-										<th>Jumlah Pinjaman</th>
 										<th>Tanggal Realisasi</th>
 										<th>Jangka Waktu</th>
 										<th>Tanggal Jatuh Tempo</th>
+										<th>Jumlah Lending</th>
+										<th>Baki Debet</th>
+										<th>Jumlah Pinjaman</th>
 										<th>Alamat</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php foreach ($dataDetail as $resDetail) { ?>
 										<tr>
-											<td><?= $resDetail->nasabah_id; ?></td>
+											<td><?= $resDetail->no_rekening; ?></td>
 											<td><?= $resDetail->nama_nasabah; ?></td>
-											<td><?= rupiah($resDetail->jml_lending); ?></td>
-											<td><?= rupiah($resDetail->baki_debet); ?></td>
-											<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 											<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 											<td><?= $resDetail->jkw . " Bulan"; ?></td>
 											<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+											<td><?= rupiah($resDetail->jml_lending); ?></td>
+											<td><?= rupiah($resDetail->baki_debet); ?></td>
+											<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 											<td><?= $resDetail->alamat; ?></td>
 										</tr>
 									<?php } ?>
@@ -848,6 +948,10 @@
 
 		<?php foreach ($dataKpiNS_AO as $res) { ?>
 			new cchart('#detail_ns_ao<?php echo $res->kode_group2; ?>', '#dt_tables_ns<?php echo $res->kode_group2; ?>');
+		<?php } ?>
+
+		<?php foreach ($dataKolektibilitas as $res) { ?>
+			new cchart('#detail_kol<?php echo $res->kolektibilitas; ?>', '#dt_tables_kol<?php echo $res->kolektibilitas; ?>');
 		<?php } ?>
 		//tutup datatable
 

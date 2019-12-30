@@ -57,40 +57,40 @@
     
         switch ($bln) {
             case 1 : {
-                    $bln = 'Januari';
+                    $bln = 'Jan';
                 }break;
             case 2 : {
-                    $bln = 'Februari';
+                    $bln = 'Feb';
                 }break;
             case 3 : {
-                    $bln = 'Maret';
+                    $bln = 'Mar';
                 }break;
             case 4 : {
-                    $bln = 'April';
+                    $bln = 'Apr';
                 }break;
             case 5 : {
                     $bln = 'Mei';
                 }break;
             case 6 : {
-                    $bln = "Juni";
+                    $bln = "Jun";
                 }break;
             case 7 : {
-                    $bln = 'Juli';
+                    $bln = 'Jul';
                 }break;
             case 8 : {
-                    $bln = 'Agustus';
+                    $bln = 'Agu';
                 }break;
             case 9 : {
-                    $bln = 'September';
+                    $bln = 'Sep';
                 }break;
             case 10 : {
-                    $bln = 'Oktober';
+                    $bln = 'Okt';
                 }break;
             case 11 : {
-                    $bln = 'November';
+                    $bln = 'Nov';
                 }break;
             case 12 : {
-                    $bln = 'Desember';
+                    $bln = 'Des';
                 }break;
             default: {
                     $bln = 'UnKnown';
