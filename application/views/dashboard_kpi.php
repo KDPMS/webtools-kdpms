@@ -1,3 +1,4 @@
+<?php $tanggal = '15'; ?>
 <div class="content-wrapper">
 	<input type="hidden" id="tamplate" value="">
 	<input type="hidden" id="session_kantor" value="<?php echo $this->session->userdata('kantor'); ?>">
@@ -7,7 +8,7 @@
 	<input type="hidden" id="load_page" value="false">
 
 	<div class="col-md-12">
-		<div class="row">
+		<div class="row mt-5">
 			<div class="col-12 text-xs-center text-xl-left text-lg-left text-md-left text-sm-center">
 				<a href="<?= base_url('tools'); ?>" class="btn btn-secondary btn-sm mt-n3"><i class="mdi mdi-keyboard-backspace"></i>Menu Tools</a>
 			</div>
@@ -241,6 +242,23 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					<!-- spedo kolektibilitas -->
+					<hr>
+					<div class="text-center">
+						<b>Rasio Antar Kolektibilitas</b>
+					</div>
+					<div class="row justify-content-center">
+						<?php foreach ($dataKolektibilitas as $res) { ?>
+							<span class="rounded-circle" data-popover="popover" data-content='<b> Kolektibilitas <?=$res->kolektibilitas;?> : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLKol($res->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
+								<a class="rounded-circle" href="#detail_kol<?php echo $res->kolektibilitas; ?>" data-toggle="modal" data-target="#detail_kol<?php echo $res->kolektibilitas; ?>" data-backdrop="false">
+									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="kol" data-type="radial-gauge" data-width="200" data-height="200" data-units="<?php echo $res->unit; ?>" data-title="Kol <?= $res->kolektibilitas; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
+									</canvas>
+								</a>
+							</span>
+						<?php } ?>
+					</div>
+					<!-- /spedo kolektibilitas -->
+					<hr>
 					<div class="row justify-content-center">
 						<?php foreach ($dataKpiNplKol as $res) { ?>
 
@@ -254,24 +272,6 @@
 							<input type="hidden" id="kode_group3" value="<?php echo $res->kode_group3; ?>" selected>
 						<?php } ?>
 					</div>
-					
-					<hr>
-
-					<!-- spedo kolektibilitas -->
-					<div class="row justify-content-center">
-						<?php foreach ($dataKolektibilitas as $res) { ?>
-
-							<span class="rounded-circle" data-popover="popover" data-content='<b> Kolektibilitas <?=$res->kolektibilitas;?> : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLKol($res->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
-								<a class="rounded-circle" href="#detail_kol<?php echo $res->kolektibilitas; ?>" data-toggle="modal" data-target="#detail_kol<?php echo $res->kolektibilitas; ?>" data-backdrop="false">
-									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="kol" data-type="radial-gauge" data-width="200" data-height="200" data-units="<?php echo $res->unit; ?>" data-title="Kol <?= $res->kolektibilitas; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
-									</canvas>
-								</a>
-							</span>
-
-						<?php } ?>
-					</div>
-					<!-- tutup spedo kolektibilitas -->
-
 				</div>
 				<div class="modal-footer bg-light">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -381,7 +381,7 @@
 	<?php foreach ($datakpilendingAO as $res) { ?>
 		<?php
 
-		$this->db->query("SELECT '$date' INTO @pv_per_tgl");
+		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
 		$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
 		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->result();
 		$dataKpiMap = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->num_rows();
@@ -445,7 +445,7 @@
 	<?php foreach ($dataKpiNplKol as $res) { ?>
 		<?php
 
-		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
 		$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
 		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_npl WHERE kode_kantor = '$res->kode_kantor'")->result();
 		?>
@@ -531,7 +531,7 @@
 	<?php foreach ($dataKolektibilitas as $res) { ?>
 		<?php
 
-		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
 		$this->db->query("SELECT '$res->kolektibilitas' INTO @pv_kode_kolektibilitas");
 		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektibilitas_npl WHERE kode_kantor = '$res->kode_kantor'")->result();
 		?>
@@ -617,7 +617,7 @@
 	<?php foreach ($dataKpiCRKol as $res) { ?>
 		<?php
 
-		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
 		$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
 		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr WHERE kode_kantor = '$res->kode_kantor'")->result();
 		?>
@@ -701,7 +701,7 @@
 	<?php foreach ($dataKpiBZKol as $res) { ?>
 		<?php
 
-		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
 		$this->db->query("SELECT '$res->kode_group3' INTO @pv_kode_kolektor");
 		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_bucket_zero WHERE kode_kantor = '$res->kode_kantor'")->result();
 		?>
@@ -785,7 +785,7 @@
 	<?php foreach ($dataKpiNS_AO as $res) { ?>
 		<?php
 
-		$this->db->query("SELECT '$tahun-$bulan-$tanggal' INTO @pv_per_tgl");
+		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
 		$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
 		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_fid WHERE kode_kantor = '$res->kode_kantor'")->result();
 		?>
@@ -881,8 +881,8 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[5, 10, 25, 50, 100, -1],
-							[5, 10, 25, 50, 100, "Semua"]
+							[9, 5, 9, 10, 25, 50, 100, -1],
+							[9, 5, 9, 10, 25, 50, 100, "Semua"]
 						],
 						responsive: {
 							details: {

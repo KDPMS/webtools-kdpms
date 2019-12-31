@@ -11,7 +11,11 @@
 	<input type="hidden" id="load_page" value="false" />
 
 	<div class="col-md-12">
-		<a href="<?= base_url('tools'); ?>" class="btn btn-secondary btn-sm mt-n3"><i class="mdi mdi-keyboard-backspace"></i>Menu Tools</a>
+		<div class="row mt-5">
+			<div class="col-12 text-xs-center text-xl-left text-lg-left text-md-left text-sm-center">
+				<a href="<?= base_url('tools'); ?>" class="btn btn-secondary btn-sm mt-n3"><i class="mdi mdi-keyboard-backspace"></i>Menu Tools</a>
+			</div>
+		</div>
 
 		<div class="row mt-2">
 			<div class="col-md-4 text-lg-left text-md-center text-sm-center text-center">
@@ -375,8 +379,8 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[5, 10, 25, 50, 100, -1],
-							[5, 10, 25, 50, 100, "Semua"]
+							[9, 5, 9, 10, 25, 50, 100, -1],
+							[9, 5, 9, 10, 25, 50, 100, "Semua"]
 						],
 						responsive: {
 							details: {
