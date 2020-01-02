@@ -246,6 +246,7 @@
 									<th>FT Bunga</th>
 									<th>FT Hari</th>
 									<th>Kolektibilitas</th>
+									<th>Last Payment</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -268,6 +269,7 @@
 										<td><?= $resDetail->ft_bunga; ?></td>
 										<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 										<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
+										<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
 									</tr>
 								<?php } ?>
 							</tbody>
@@ -379,8 +381,8 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[9, 5, 9, 10, 25, 50, 100, -1],
-							[9, 5, 9, 10, 25, 50, 100, "Semua"]
+							[-1, 10, 25, 50, 100, -1],
+							["Semua", 10, 25, 50, 100, "Semua"]
 						],
 						responsive: {
 							details: {
@@ -408,9 +410,6 @@
 						// fixedColumns: {
 						// 	leftColumns: 2
 						// },
-						order: [
-							[0, "desc"]
-						],
 						dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
 							"<'row'<'col-sm-12't>>" +
 							"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
@@ -420,7 +419,6 @@
 						// scroller: true,
 					});
 				} else {
-					tbtb.columns.adjust();
 					// var tbtb = $.fn.dataTable.fnTables(true);
 
 					// $(tbtb).each(function () {
@@ -428,7 +426,7 @@
 					// });
 				}
 
-				tbtb.columns.adjust();
+				//tbtb.columns.adjust().responsive.recalc();
 			});
 		}
 

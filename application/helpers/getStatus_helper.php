@@ -20,6 +20,7 @@ function getStatusLendingCabang($angka){
             $status = "Not valid";
             break;
     }  
+
     return $status;
 }
 
@@ -48,45 +49,37 @@ function getStatusNPLCabang($angka){
 // mengambil status cr cabang
 function getStatusCRCabang($angka){
 
-    switch($angka){
-        case $angka >= 83 :
-            echo "Sangat tercapai";
-            break;
-        case $angka >= 67 :
-            echo "Tercapai";
-            break;
-        case $angka >= 50 :
-            echo "Hampir tercapai";
-            break;
-        case $angka >= 0 :
-            echo "Tidak tercapai";
-            break;
-        default :
-            echo 'Tidak ada status';
-            break;
-    }  
+    if($angka >= 83) {
+        $return = "Sangat tercapai";
+    }else if($angka >= 67) {
+        $return = "Tercapai";
+    }else if($angka >= 50) {
+        $return = "Hampir tercapai";
+    }else if($angka >= 0) {
+        $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
 }
 
 // mengambil status bz cabang
 function getStatusBZCabang($angka){
 
-    switch($angka){
-        case $angka >= 83 :
-            echo "Sangat tercapai";
-            break;
-        case $angka >= 67 :
-            echo "Tercapai";
-            break;
-        case $angka >= 50 :
-            echo "Hampir tercapai";
-            break;
-        case $angka >= 0 :
-            echo "Tidak tercapai";
-            break;
-        default :
-            echo 'Tidak ada status';
-            break;
-    }  
+    if($angka >= 83) {
+        $return = "Sangat tercapai";
+    }else if($angka >= 67) {
+        $return = "Tercapai";
+    }else if($angka >= 50) {
+        $return = "Hampir tercapai";
+    }else if($angka >= 0) {
+        $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
 }
 
 // mengambil status lending AO
@@ -115,136 +108,107 @@ function getStatusLendingAO($angka){
 // mengambil status npl kolektor
 function getStatusNPLKol($angka){
 
-    switch($angka){
-        case $angka >= 83 :
-            echo "Tidak tercapai";
-            break;
-        case $angka >= 67 :
-            echo "Hampir tercapai";
-            break;
-        case $angka >= 50 :
-            echo "Tercapai";
-            break;
-        case $angka >= 0 :
-            echo "Sangat tercapai";
-            break;
-        default :
-            echo 'Tidak ada status';
-            break;
-    }  
+    if($angka >= 83) {
+        $return = "Sangat tercapai";
+    }else if($angka >= 67) {
+        $return = "Tercapai";
+    }else if($angka >= 50) {
+        $return = "Hampir tercapai";
+    }else if($angka >= 0) {
+        $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
 }
 
 // mengambil status cr kolektor
 function getStatusCRKol($angka){
   
-    switch($angka){
-        case $angka >= 83 :
-            $status = "Sangat tercapai";
-            break;
-        case $angka >= 67 :
-            $status = "Tercapai";
-            break;
-        case $angka >= 50 :
-            $status = "Hampir tercapai";
-            break;
-        case $angka >= 0 :
-            $status = "Tidak tercapai";
-            break;
-        default :
-            $status = "Not valid";
-            break;
-    }  
-    return $status;
+    if($angka >= 83) {
+        $return = "Sangat tercapai";
+    }else if($angka >= 67) {
+        $return = "Tercapai";
+    }else if($angka >= 50) {
+        $return = "Hampir tercapai";
+    }else if($angka >= 0) {
+        $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
 }
 
 // mengambil status bz kolektor
 function getStatusBZKol($angka){
   
-    switch($angka){
-        case $angka >= 83 :
-            $status = "Sangat tercapai";
-            break;
-        case $angka >= 67 :
-            $status = "Tercapai";
-            break;
-        case $angka >= 50 :
-            $status = "Hampir tercapai";
-            break;
-        case $angka >= 0 :
-            $status = "Tidak tercapai";
-            break;
-        default :
-            $status = "Not valid";
-            break;
-    }  
-    return $status;
+    if($angka >= 83) {
+        $return = "Sangat tercapai";
+    }else if($angka >= 67) {
+        $return = "Tercapai";
+    }else if($angka >= 50) {
+        $return = "Hampir tercapai";
+    }else if($angka >= 0) {
+        $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
 }
 
 // mengambil status bz kolektor
 function getStatusBZAO($angka){
   
-    switch($angka){
-        case $angka >= 83 :
-            $status = "Sangat tercapai";
-            break;
-        case $angka >= 67 :
-            $status = "Tercapai";
-            break;
-        case $angka >= 50 :
-            $status = "Hampir tercapai";
-            break;
-        case $angka >= 0 :
-            $status = "Tidak tercapai";
-            break;
-        default :
-            $status = "Not valid";
-            break;
-    }  
-    return $status;
+    if($angka >= 83) {
+        $return = "Sangat tercapai";
+    }else if($angka >= 67) {
+        $return = "Tercapai";
+    }else if($angka >= 50) {
+        $return = "Hampir tercapai";
+    }else if($angka >= 0) {
+        $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
 }
 
 // mengambil status NS AO
 function getStatusNSAO($angka){
   
-    switch($angka){
-        case $angka >= 83 :
-            $status = "Sangat tercapai";
-            break;
-        case $angka >= 67 :
-            $status = "Tercapai";
-            break;
-        case $angka >= 50 :
-            $status = "Hampir tercapai";
-            break;
-        case $angka >= 0 :
-            $status = "Tidak tercapai";
-            break;
-        default :
-            $status = "Not valid";
-            break;
-    }  
-    return $status;
+    if($angka >= 83) {
+        $return = "Sangat tercapai";
+    }else if($angka >= 67) {
+        $return = "Tercapai";
+    }else if($angka >= 50) {
+        $return = "Hampir tercapai";
+    }else if($angka >= 0) {
+        $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
 }
 
 // mengambil status NS Cabang
 function getStatusNSCabang($angka){
   
-    switch($angka){
-        case $angka >= 83 :
-            $status = "Sangat tercapai";
-            break;
-        case $angka >= 67 :
-            $status = "Tercapai";
-            break;
-        case $angka >= 50 :
-            $status = "Hampir tercapai";
-            break;
-        case $angka >= 0 :
-            $status = "Tidak tercapai";
-            break;
-        default :
-            $status = "Not valid";
-            break;
-    }  
-    return $status;
+    if($angka >= 83) {
+        $return = "Sangat tercapai";
+    }else if($angka >= 67) {
+        $return = "Tercapai";
+    }else if($angka >= 50) {
+        $return = "Hampir tercapai";
+    }else if($angka >= 0) {
+        $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
 }

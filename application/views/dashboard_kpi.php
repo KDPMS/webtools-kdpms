@@ -242,23 +242,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<!-- spedo kolektibilitas -->
-					<hr>
-					<div class="text-center">
-						<b>Rasio Antar Kolektibilitas</b>
-					</div>
-					<div class="row justify-content-center">
-						<?php foreach ($dataKolektibilitas as $res) { ?>
-							<span class="rounded-circle" data-popover="popover" data-content='<b> Kolektibilitas <?=$res->kolektibilitas;?> : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLKol($res->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
-								<a class="rounded-circle" href="#detail_kol<?php echo $res->kolektibilitas; ?>" data-toggle="modal" data-target="#detail_kol<?php echo $res->kolektibilitas; ?>" data-backdrop="false">
-									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="kol" data-type="radial-gauge" data-width="200" data-height="200" data-units="<?php echo $res->unit; ?>" data-title="Kol <?= $res->kolektibilitas; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
-									</canvas>
-								</a>
-							</span>
-						<?php } ?>
-					</div>
-					<!-- /spedo kolektibilitas -->
-					<hr>
+
 					<div class="row justify-content-center">
 						<?php foreach ($dataKpiNplKol as $res) { ?>
 
@@ -272,6 +256,27 @@
 							<input type="hidden" id="kode_group3" value="<?php echo $res->kode_group3; ?>" selected>
 						<?php } ?>
 					</div>
+
+					<!-- spedo kolektibilitas -->
+					<hr>
+					<div id="kolToogle">	
+						<div class="text-center">
+							<b>Rasio Antar Kolektibilitas</b>
+						</div>
+						<div class="row justify-content-center">
+							<?php foreach ($dataKolektibilitas as $res) { ?>
+								<span class="rounded-circle" data-popover="popover" data-content='<b> Kolektibilitas <?=$res->kolektibilitas;?> : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLKol($res->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
+									<a class="rounded-circle" href="#detail_kol<?php echo $res->kolektibilitas; ?>" data-toggle="modal" data-target="#detail_kol<?php echo $res->kolektibilitas; ?>" data-backdrop="false">
+										<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="kol" data-type="radial-gauge" data-width="200" data-height="200" data-units="<?php echo $res->unit; ?>" data-title="Kol <?= $res->kolektibilitas; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
+										</canvas>
+									</a>
+								</span>
+							<?php } ?>
+						</div>
+					</div>
+					<!-- /spedo kolektibilitas -->
+					
+					<hr>
 				</div>
 				<div class="modal-footer bg-light">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -485,6 +490,7 @@
 										<th>FT Hari Awal</th>
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
+										<th>Last Payment</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -510,6 +516,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
+											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -571,6 +578,7 @@
 										<th>FT Hari Awal</th>
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
+										<th>Last Payment</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -596,6 +604,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
+											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -657,6 +666,7 @@
 										<th>FT Hari Awal</th>
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
+										<th>Last Payment</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -682,6 +692,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
+											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -741,6 +752,7 @@
 										<th>FT Hari Awal</th>
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
+										<th>Last Payment</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -766,6 +778,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
+											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -847,7 +860,6 @@
 
 <script>
 	$(document).ready(function() {
-
 		//datatable
 		function cchart(id_modal, id_table) {
 			return $(id_modal).on('shown.bs.modal', function() {
@@ -881,8 +893,92 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[9, 5, 9, 10, 25, 50, 100, -1],
-							[9, 5, 9, 10, 25, 50, 100, "Semua"]
+							[-1, 10, 25, 50, 100, -1],
+							["Semua", 10, 25, 50, 100, "Semua"]
+						],
+						responsive: {
+							details: {
+								renderer: function(api, rowIdx, columns) {
+									var data = $.map(columns, function(col, i) {
+										return col.hidden ?
+											'<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+											'<td>' + col.title + ' : ' + '</td> ' +
+											'<td>' + col.data + '</td>' +
+											'</tr>' :
+											'';
+									}).join('');
+
+									return data ?
+										$('<table/>').append(data) :
+										false;
+								}
+							}
+						},
+						columnDefs: [{
+							className: 'control',
+							orderable: true,
+							targets: 0
+						}],
+						// fixedColumns: {
+						// 	leftColumns: 2
+						// },
+						dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+							"<'row'<'col-sm-12't>>" +
+							"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
+						// scrollY: 320,
+						// scrollX: true,
+						// scrollCollapse: true,
+						// scroller: true,
+					});
+				} else {
+					// var tbtb = $.fn.dataTable.fnTables(true);
+
+					// $(tbtb).each(function () {
+					// 	$(this).dataTable().fnDestroy();
+					// });
+				}
+
+				//tbtb.columns.adjust().responsive.recalc();
+			});
+		}
+
+		function cchart2(id_modal, id_table,colgrp) {
+			return $(id_modal).on('shown.bs.modal', function() {
+				if (!$.fn.DataTable.isDataTable(id_table)) {
+					var tbtb = $(id_table).DataTable({
+						// responsive: false,
+						language: {
+							decimal: "",
+							emptyTable: "Tidak Ada Data",
+							info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+							infoEmpty: "Menampilkan 0 sampai 0 dari total 0 baris",
+							infoFiltered: "(Filter dari total _MAX_ baris)",
+							infoPostFix: "",
+							thousands: ",",
+							lengthMenu: "Tampilkan _MENU_ baris",
+							loadingRecords: "Memuat...",
+							processing: "Proses...",
+							search: "Cari:",
+							zeroRecords: "Tidak ada data yang sesuai",
+							paginate: {
+								first: "Pertama",
+								last: "Terakhir",
+								next: "Selanjutnya",
+								previous: "Sebelumnya"
+							},
+							aria: {
+								sortAscending: ": Aktifkan Berdasarkan paling Awal",
+								sortDescending: ": Aktifkan Berdasarkan paling Akhir"
+							}
+						},
+						rowGroup: {
+							dataSrc: colgrp
+						},
+						autoWidth: true,
+						pagingType: "simple_numbers",
+						lengthMenu: [
+							[-1, 10, 25, 50, 100, -1],
+							["Semua", 10, 25, 50, 100, "Semua"]
 						],
 						responsive: {
 							details: {
@@ -911,7 +1007,7 @@
 						// 	leftColumns: 2
 						// },
 						order: [
-							[0, "desc"]
+							[colgrp, "asc"]
 						],
 						dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
 							"<'row'<'col-sm-12't>>" +
@@ -922,7 +1018,6 @@
 						// scroller: true,
 					});
 				} else {
-					tbtb.columns.adjust();
 					// var tbtb = $.fn.dataTable.fnTables(true);
 
 					// $(tbtb).each(function () {
@@ -930,7 +1025,7 @@
 					// });
 				}
 
-				tbtb.columns.adjust();
+				//tbtb.columns.adjust().responsive.recalc();
 			});
 		}
 
@@ -939,15 +1034,15 @@
 		<?php } ?>
 
 		<?php foreach ($dataKpiNplKol as $res) { ?>
-			new cchart('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>');
+			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>',19);
 		<?php } ?>
 
 		<?php foreach ($dataKpiCRKol as $res) { ?>
-			new cchart('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>');
+			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',19);
 		<?php } ?>
 
 		<?php foreach ($dataKpiBZKol as $res) { ?>
-			new cchart('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>');
+			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',19);
 		<?php } ?>
 
 		<?php foreach ($dataKpiNS_AO as $res) { ?>
@@ -955,7 +1050,7 @@
 		<?php } ?>
 
 		<?php foreach ($dataKolektibilitas as $res) { ?>
-			new cchart('#detail_kol<?php echo $res->kolektibilitas; ?>', '#dt_tables_kol<?php echo $res->kolektibilitas; ?>');
+			new cchart2('#detail_kol<?php echo $res->kolektibilitas; ?>', '#dt_tables_kol<?php echo $res->kolektibilitas; ?>',19);
 		<?php } ?>
 		//tutup datatable
 
@@ -985,6 +1080,5 @@
 		var nullNS = $('#nullNS').attr('data');
 		$('#nsNull').html(nullNS);
 		//tutup alert data tidak ada
-
 	});
 </script>
