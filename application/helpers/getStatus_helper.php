@@ -109,13 +109,13 @@ function getStatusLendingAO($angka){
 function getStatusNPLKol($angka){
 
     if($angka >= 83) {
-        $return = "Sangat tercapai";
-    }else if($angka >= 67) {
-        $return = "Tercapai";
-    }else if($angka >= 50) {
-        $return = "Hampir tercapai";
-    }else if($angka >= 0) {
         $return = "Tidak tercapai";
+    }else if($angka >= 67) {
+        $return = "Hampir Tercapai";
+    }else if($angka >= 50) {
+        $return = "Tercapai";
+    }else if($angka >= 0) {
+        $return = "Sangat tercapai";
     }else {
         $return = "Tidak ada status";
     }
@@ -206,6 +206,42 @@ function getStatusNSCabang($angka){
         $return = "Hampir tercapai";
     }else if($angka >= 0) {
         $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
+}
+
+// mengambil status kolektibilitas 1
+function getStatusKolektibilitas1($angka){
+
+    if($angka >= 83) {
+        $return = "Sangat tercapai";
+    }else if($angka >= 67) {
+        $return = "Tercapai";
+    }else if($angka >= 50) {
+        $return = "Hampir tercapai";
+    }else if($angka >= 0) {
+        $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
+}
+
+// mengambil status kolektibilitas 2-5
+function getStatusKolektibilitas($angka){
+
+    if($angka >= 83) {
+        $return = "Tidak tercapai";
+    }else if($angka >= 67) {
+        $return = "Hampir Tercapai";
+    }else if($angka >= 50) {
+        $return = "Tercapai";
+    }else if($angka >= 0) {
+        $return = "Sangat tercapai";
     }else {
         $return = "Tidak ada status";
     }
