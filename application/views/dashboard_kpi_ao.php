@@ -239,8 +239,8 @@
 									<th>Jumlah Pinjaman</th>
 									<th>Jumlah Lending</th>
 									<th>Angsuran per Bulan</th>
-									<th>Jumlah Tagihan Bayar</th>
 									<th>Total Jumlah Tunggakan</th>
+									<th>Jumlah Pembayaran</th>
 									<th>Jumlah Denda</th>
 									<th>FT Pokok</th>
 									<th>FT Bunga</th>
@@ -262,8 +262,8 @@
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 										<td><?= rupiah($resDetail->jml_lending); ?></td>
 										<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
-										<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 										<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+										<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 										<td><?= rupiah($resDetail->jml_denda); ?></td>
 										<td><?= $resDetail->ft_pokok; ?></td>
 										<td><?= $resDetail->ft_bunga; ?></td>
