@@ -113,7 +113,14 @@
 
 			<!-- Lending -->
 			<?php if ($dataKpiLending != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content='<b> Lending : <?= ubahJuta($dataKpiLending[0]->jml_value); ?> <br> Lending (%) : <?= ambil2Angka($dataKpiLending[0]->lending) . ' %'; ?> <br> Status : <?= getStatusLendingCabang($dataKpiLending[0]->jml_value); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
+				<!-- getstatus berdasarkan spedo -->
+				<?php 
+					$data = $dataKpiLending[0]->data_spedo;
+					$preg = preg_replace('/[^0-9\,]/', '', $data);
+					$res = explode(",", $preg);
+				?>
+				<!-- tutup getstatus berdasarkan spedo -->
+				<span class="rounded-circle spedo" data-popover="popover" data-content='<b> Lending : <?= ubahJuta($dataKpiLending[0]->jml_value); ?> <br> Lending (%) : <?= ambil2Angka($dataKpiLending[0]->lending) . ' %'; ?> <br> Status : <?= getStatusLendingCabang($dataKpiLending[0]->jml_value, $res[3], $res[6], $res[9]); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_lending">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="lending" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiLending[0]->unit; ?>" data-title="<?= $dataKpiLending[0]->title; ?>" data-value="<?php echo $dataKpiLending[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiLending[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiLending[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiLending[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiLending[0]->data_spedo; ?>' data-color-plate="black" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 						</canvas>
@@ -126,8 +133,16 @@
 			<!-- /Lending -->
 
 			<!-- NPL -->
+
 			<?php if ($dataKpiNpl != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content='<b>NPL : <?= ambil2Angka($dataKpiNpl[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLCabang($dataKpiNpl[0]->jml_value); ?> <br> Baki debet NPL : <?php echo rupiah($dataKpiNpl[0]->jml_bd_npl); ?> <br> Total Baki debet : <?php echo rupiah($dataKpiNpl[0]->jml_bd); ?></br>' data-html='true' data-placement='top' data-trigger='hover'>
+				<!-- getstatus berdasarkan spedo -->
+				<?php 
+					$data = $dataKpiNpl[0]->data_spedo;
+					$preg = preg_replace('/[^0-9\,]/', '', $data);
+					$res = explode(",", $preg);
+				?>
+				<!-- tutup getstatus berdasarkan spedo -->
+				<span class="rounded-circle spedo" data-popover="popover" data-content='<b>NPL : <?= ambil2Angka($dataKpiNpl[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusNPLCabang($dataKpiNpl[0]->jml_value, $res[3], $res[6], $res[9]); ?> <br> Baki debet NPL : <?php echo rupiah($dataKpiNpl[0]->jml_bd_npl); ?> <br> Total Baki debet : <?php echo rupiah($dataKpiNpl[0]->jml_bd); ?></br>' data-html='true' data-placement='top' data-trigger='hover'>
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="nplkantor" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiNpl[0]->unit; ?>" data-title="<?= $dataKpiNpl[0]->title; ?>" data-value="<?php echo $dataKpiNpl[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiNpl[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiNpl[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiNpl[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiNpl[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 						</canvas>
@@ -545,7 +560,7 @@
 			<div class="modal-dialog modal-xl modal-dialog-scrollable">
 				<div class="modal-content">
 					<div class="modal-header bg-light">
-						<h5 class="modal-title" id="exampleModalLongTitle">Detail Kolektibilitas <?= $res->kolektibilitas; ?>
+						<h5 class="modal-title" id="exampleModalLongTitle">Detail Kolektibilitas <?= $res->kolektibilitas . ' - ' . getKolektibilitas($res->kolektibilitas); ?>
 							<p><?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 						</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1049,7 +1064,7 @@
 		<?php } ?>
 
 		<?php foreach ($dataKolektibilitas as $res) { ?>
-			new cchart2('#detail_kol<?php echo $res->kolektibilitas; ?>', '#dt_tables_kol<?php echo $res->kolektibilitas; ?>',19);
+			new cchart('#detail_kol<?php echo $res->kolektibilitas; ?>', '#dt_tables_kol<?php echo $res->kolektibilitas; ?>');
 		<?php } ?>
 		//tutup datatable
 

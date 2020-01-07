@@ -110,6 +110,7 @@ class Kpi extends CI_Controller {
 				// $tanggal     = 28;
 				$kantor      = $this->session->userdata('kantor');
 				$kode_group2 = $this->session->userdata('kode_group2');
+				// $kode_group2 = 02;
 				
 				if(empty($tahun)){
 					$tahun = date('Y');

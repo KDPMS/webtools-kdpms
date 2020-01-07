@@ -1,16 +1,16 @@
 <?php
 
 // mengambil status lending cabang
-function getStatusLendingCabang($angka){
+function getStatusLendingCabang($angka, $param1, $param2, $param3){
   
     switch($angka){
-        case $angka >= 1750 :
+        case $angka >= $param3 :
             $status = "Sangat tercapai";
             break;
-        case $angka >= 1400 :
+        case $angka >= $param2 :
             $status = "Tercapai";
             break;
-        case $angka >= 1050 :
+        case $angka >= $param1 :
             $status = "Hampir tercapai";
             break;
         case $angka >= 0 :
@@ -25,16 +25,16 @@ function getStatusLendingCabang($angka){
 }
 
 // mengambil status npl cabang
-function getStatusNPLCabang($angka){
+function getStatusNPLCabang($angka, $param1, $param2, $param3){
 
     switch($angka){
-        case $angka >= 42 :
+        case $angka >= $param3 :
             echo "Tidak tercapai";
             break;
-        case $angka >= 33 :
+        case $angka >= $param2 :
             echo "Hampir tercapai";
             break;
-        case $angka >= 25 :
+        case $angka >= $param1 :
             echo "Tercapai";
             break;
         case $angka >= 0 :
@@ -67,6 +67,24 @@ function getStatusCRCabang($angka){
 // mengambil status bz cabang
 function getStatusBZCabang($angka){
 
+    if($angka >= 83) {
+        $return = "Sangat tercapai";
+    }else if($angka >= 67) {
+        $return = "Tercapai";
+    }else if($angka >= 50) {
+        $return = "Hampir tercapai";
+    }else if($angka >= 0) {
+        $return = "Tidak tercapai";
+    }else {
+        $return = "Tidak ada status";
+    }
+
+    return $return;
+}
+
+// mengambil status NS Cabang
+function getStatusNSCabang($angka){
+  
     if($angka >= 83) {
         $return = "Sangat tercapai";
     }else if($angka >= 67) {
@@ -179,24 +197,6 @@ function getStatusBZAO($angka){
 
 // mengambil status NS AO
 function getStatusNSAO($angka){
-  
-    if($angka >= 83) {
-        $return = "Sangat tercapai";
-    }else if($angka >= 67) {
-        $return = "Tercapai";
-    }else if($angka >= 50) {
-        $return = "Hampir tercapai";
-    }else if($angka >= 0) {
-        $return = "Tidak tercapai";
-    }else {
-        $return = "Tidak ada status";
-    }
-
-    return $return;
-}
-
-// mengambil status NS Cabang
-function getStatusNSCabang($angka){
   
     if($angka >= 83) {
         $return = "Sangat tercapai";
