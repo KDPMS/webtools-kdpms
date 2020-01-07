@@ -510,8 +510,8 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[-1, 10, 25, 50, 100, -1],
-							["Semua", 10, 25, 50, 100, "Semua"]
+							[7, 10, 25, 50, 100, 7],
+							[7, 10, 25, 50, 100, 7]
 						],
 						responsive: {
 							details: {

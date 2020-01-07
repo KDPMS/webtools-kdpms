@@ -991,8 +991,8 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[-1, 10, 25, 50, 100, -1],
-							["Semua", 10, 25, 50, 100, "Semua"]
+							[7, 10, 25, 50, 100, 7],
+							[7, 10, 25, 50, 100, 7]
 						],
 						responsive: {
 							details: {
@@ -1048,7 +1048,7 @@
 		<?php } ?>
 
 		<?php foreach ($dataKpiNplKol as $res) { ?>
-			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>',20);
+			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 20);
 		<?php } ?>
 
 		<?php foreach ($dataKpiCRKol as $res) { ?>
