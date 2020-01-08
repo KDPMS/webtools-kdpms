@@ -111,10 +111,10 @@ class Model_kpi extends CI_Model {
 
 
 	//KPI MITRA
-	public function datakpi_Mitra_AOdetail($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor = '', $tanggal = '15'){ // GET VIEW MITRA DETAIL
-		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_mitra WHERE kode_group2 = '$kode_group2' AND kode_kantor = '$kode_kantor'");
-	}
+	// public function datakpi_Mitra_AOdetail($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor = '', $tanggal = '15'){ // GET VIEW MITRA DETAIL
+	// 	$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
+	// 	return $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_mitra WHERE kode_group2 = '$kode_group2' AND kode_kantor = '$kode_kantor'");
+	// }
 	//END KPI MITRA
 
 	
@@ -143,11 +143,11 @@ class Model_kpi extends CI_Model {
 
 
 	//KPI SP RETURN
-	public function datakpi_SPreturn_Kol_detail($tahun = '', $bulan = '', $kode_group3 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW SP-RETURN PER KOLEKTOR-DETAIL
-		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_sp_return WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
-	}
+	// public function datakpi_SPreturn_Kol_detail($tahun = '', $bulan = '', $kode_group3 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW SP-RETURN PER KOLEKTOR-DETAIL
+	// 	$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
+	// 	$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
+	// 	return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_sp_return WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
+	// }
 	//END KPI SP RETURN
 
 	//KOLEKTIBILITAS

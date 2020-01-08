@@ -133,7 +133,7 @@ class Kpi extends CI_Controller {
 				$data['dataKpiNS_AO'] = $this->kpi->datakpi_NS_Per_AO($tahun, $bulan, $kode_group2, $kantor)->result();
 				$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $kode_group2, $kantor)->result();
 
-				$data['dataKpiMitra_AOdetail'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $kode_group2, $kantor)->result();
+				// $data['dataKpiMitra_AOdetail'] = $this->kpi->datakpi_Mitra_AOdetail($tahun, $bulan, $kode_group2, $kantor)->result();
 
 				$data['dataKpiMap'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $kode_group2, $kantor)->num_rows();
 
@@ -182,7 +182,7 @@ class Kpi extends CI_Controller {
 			$data['dataKpiNplKol'] = $this->kpi->datakpi_npl_Per_Kol($tahun, $bulan, $kode_group3, $kantor)->result();
 			$data['dataKpiNplKoldetail'] = $this->kpi->datakpi_npl_Kol_detail($tahun, $bulan, $kode_group3, $kantor)->result();
 			
-			$data['dataKpiSpReturnKoldetail'] = $this->kpi->datakpi_SPreturn_Kol_detail($tahun, $bulan, $kode_group3, $kantor)->result();
+			// $data['dataKpiSpReturnKoldetail'] = $this->kpi->datakpi_SPreturn_Kol_detail($tahun, $bulan, $kode_group3, $kantor)->result();
 
 			$this->load->view('include/headerkpi');
 			$this->load->view('dashboard_kpi_col', $data);

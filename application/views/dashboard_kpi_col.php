@@ -177,7 +177,7 @@
 					<table id="dt_tables_bz" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 						<thead class="bg-light">
 							<tr>
-								<th>Nasabah ID</th>
+								<th>No Rekening</th>
 								<th>Nama Nasabah</th>
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
@@ -186,10 +186,10 @@
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
-								<th>Angsuran per Bulan</th>
+								<th>Tagihan Bulan ini (angsuran per bulan)</th>
 								<th>Total Jumlah Tunggakan</th>
-								<th>Jumlah Pembayaran</th>
 								<th>Jumlah Denda</th>
+								<th>Jumlah Pembayaran</th>
 								<th>Jumlah SP Assign</th>
 								<th>Jumlah SP Return</th>
 								<th>FT Pokok</th>
@@ -203,7 +203,7 @@
 						<tbody>
 							<?php foreach ($dataKpiBZKoldetail as $resDetail) { ?>
 								<tr>
-									<td><?= $resDetail->nasabah_id; ?></td>
+									<td><?= $resDetail->no_rekening; ?></td>
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
 									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
@@ -214,13 +214,13 @@
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
 									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= rupiah($resDetail->jml_denda); ?></td>
+									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
 									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= convertDayMonth($resDetail->ft_hari_awal ); ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
@@ -255,7 +255,7 @@
 					<table id="dt_tables_cr" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 						<thead class="bg-light">
 							<tr>
-								<th>Nasabah ID</th>
+								<th>No Rekening</th>
 								<th>Nama Nasabah</th>
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
@@ -264,10 +264,10 @@
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
-								<th>Angsuran per Bulan</th>
+								<th>Tagihan Bulan ini (angsuran per bulan)</th>
 								<th>Total Jumlah Tunggakan</th>
-								<th>Jumlah Pembayaran</th>
 								<th>Jumlah Denda</th>
+								<th>Jumlah Pembayaran</th>
 								<th>Jumlah SP Assign</th>
 								<th>Jumlah SP Return</th>
 								<th>FT Pokok</th>
@@ -281,7 +281,7 @@
 						<tbody>
 							<?php foreach ($dataKpiCRKoldetail as $resDetail) { ?>
 								<tr>
-									<td><?= $resDetail->nasabah_id; ?></td>
+									<td><?= $resDetail->no_rekening; ?></td>
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
 									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
@@ -292,13 +292,13 @@
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
 									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= rupiah($resDetail->jml_denda); ?></td>
+									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
 									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= convertDayMonth($resDetail->ft_hari_awal ); ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
@@ -333,7 +333,7 @@
 					<table id="dt_tables_npl" class="table table-bordered table-hover display compact nowrap" style="width:100%">
 						<thead class="bg-light">
 							<tr>
-								<th>Nasabah ID</th>
+								<th>No Rekening</th>
 								<th>Nama Nasabah</th>
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
@@ -342,10 +342,10 @@
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
-								<th>Angsuran per Bulan</th>
+								<th>Tagihan Bulan ini (angsuran per bulan)</th>
 								<th>Total Jumlah Tunggakan</th>
-								<th>Jumlah Pembayaran</th>
 								<th>Jumlah Denda</th>
+								<th>Jumlah Pembayaran</th>
 								<th>Jumlah SP Assign</th>
 								<th>Jumlah SP Return</th>
 								<th>FT Pokok</th>
@@ -359,7 +359,7 @@
 						<tbody>
 							<?php foreach ($dataKpiNplKoldetail as $resDetail) { ?>
 								<tr>
-									<td><?= $resDetail->nasabah_id; ?></td>
+									<td><?= $resDetail->no_rekening; ?></td>
 									<td><?= $resDetail->nama_nasabah; ?></td>
 									<td><?= $resDetail->alamat; ?></td>
 									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
@@ -370,13 +370,13 @@
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
 									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= rupiah($resDetail->jml_denda); ?></td>
+									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
 									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 									<td><?= $resDetail->ft_pokok; ?></td>
 									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= convertDayMonth($resDetail->ft_hari_awal ); ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
@@ -396,12 +396,12 @@
 	<!-- /Modal NPL -->
 
 	<!-- Modal SP Return -->
-	<div class="modal fade" id="modal_spr" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
+	<!-- <div class="modal fade" id="modal_spr" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
 		<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
 			<div class="modal-content">
 				<div class="modal-header bg-light">
 					<h5 class="modal-title" id="exampleModalLongTitle">Detail SP Return
-						<p><?= $this->session->userdata('username'); ?>, <?= ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
+						<p><#?= $this->session->userdata('username'); ?>, <#?= ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -434,30 +434,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($dataKpiSpReturnKoldetail as $resDetail) { ?>
+							<#?php foreach ($dataKpiSpReturnKoldetail as $resDetail) { ?>
 								<tr>
-									<td><?= $resDetail->nasabah_id; ?></td>
-									<td><?= $resDetail->nama_nasabah; ?></td>
-									<td><?= $resDetail->alamat; ?></td>
-									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
-									<td><?= $resDetail->jkw . " Bulan"; ?></td>
-									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
-									<td><?= rupiah($resDetail->baki_debet); ?></td>
-									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
-									<td><?= rupiah($resDetail->jml_lending); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
-									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
-									<td><?= rupiah($resDetail->jml_denda); ?></td>
-									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
-									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
-									<td><?= $resDetail->ft_pokok; ?></td>
-									<td><?= $resDetail->ft_bunga; ?></td>
-									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
-									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
-									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+									<td><#?= $resDetail->nasabah_id; ?></td>
+									<td><#?= $resDetail->nama_nasabah; ?></td>
+									<td><#?= $resDetail->alamat; ?></td>
+									<td><#?= ubahDate($resDetail->tgl_realisasi); ?></td>
+									<td><#?= $resDetail->jkw . " Bulan"; ?></td>
+									<td><#?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+									<td><#?= rupiah($resDetail->baki_debet); ?></td>
+									<td><#?= rupiah($resDetail->jml_pinjaman); ?></td>
+									<td><#?= rupiah($resDetail->jml_lending); ?></td>
+									<td><#?= rupiah($resDetail->jml_tagihan_turun); ?></td>
+									<td><#?= rupiah($resDetail->jml_tunggakan); ?></td>
+									<td><#?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
+									<td><#?= rupiah($resDetail->jml_denda); ?></td>
+									<td><#?= $resDetail->jml_sp_assign . " Surat"; ?></td>
+									<td><#?= $resDetail->jml_sp_return . " Surat"; ?></td>
+									<td><#?= $resDetail->ft_pokok; ?></td>
+									<td><#?= $resDetail->ft_bunga; ?></td>
+									<td><#?= convertDayMonth($resDetail->ft_hari); ?></td>
+									<td><#?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
+									<td><#?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
 								</tr>
-							<?php } ?>
+							<#?php } ?>
 						</tbody>
 					</table>
 				</div>
@@ -468,7 +468,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- /Modal SP Return -->
 
 </div>

@@ -493,10 +493,10 @@
 										<th>Baki Debet</th>
 										<th>Jumlah Pinjaman</th>
 										<th>Jumlah Lending</th>
-										<th>Angsuran per Bulan</th>
+										<th>Tagihan Bulan ini (angsuran per bulan)</th>
 										<th>Total Jumlah Tunggakan</th>
-										<th>Jumlah Pembayaran</th>
 										<th>Jumlah Denda</th>
+										<th>Jumlah Pembayaran</th>
 										<th>Jumlah SP Assign</th>
 										<th>Jumlah SP Return</th>
 										<th>FT Pokok</th>
@@ -521,8 +521,8 @@
 											<td><?= rupiah($resDetail->jml_lending); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
+											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
 											<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 											<td><?= $resDetail->ft_pokok; ?></td>
@@ -581,10 +581,10 @@
 										<th>Baki Debet</th>
 										<th>Jumlah Pinjaman</th>
 										<th>Jumlah Lending</th>
-										<th>Angsuran per Bulan</th>
+										<th>Tagihan Bulan ini (angsuran per bulan)</th>
 										<th>Total Jumlah Tunggakan</th>
-										<th>Jumlah Pembayaran</th>
 										<th>Jumlah Denda</th>
+										<th>Jumlah Pembayaran</th>
 										<th>Jumlah SP Assign</th>
 										<th>Jumlah SP Return</th>
 										<th>FT Pokok</th>
@@ -609,8 +609,8 @@
 											<td><?= rupiah($resDetail->jml_lending); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
+											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
 											<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 											<td><?= $resDetail->ft_pokok; ?></td>
@@ -669,10 +669,10 @@
 										<th>Baki Debet</th>
 										<th>Jumlah Pinjaman</th>
 										<th>Jumlah Lending</th>
-										<th>Angsuran per Bulan</th>
+										<th>Tagihan Bulan ini (angsuran per bulan)</th>
 										<th>Total Jumlah Tunggakan</th>
-										<th>Jumlah Pembayaran</th>
 										<th>Jumlah Denda</th>
+										<th>Jumlah Pembayaran</th>
 										<th>Jumlah SP Assign</th>
 										<th>Jumlah SP Return</th>
 										<th>FT Pokok</th>
@@ -697,8 +697,8 @@
 											<td><?= rupiah($resDetail->jml_lending); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
+											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
 											<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 											<td><?= $resDetail->ft_pokok; ?></td>
@@ -755,10 +755,10 @@
 										<th>Baki Debet</th>
 										<th>Jumlah Pinjaman</th>
 										<th>Jumlah Lending</th>
-										<th>Angsuran per Bulan</th>
+										<th>Tagihan Bulan ini (angsuran per bulan)</th>
 										<th>Total Jumlah Tunggakan</th>
-										<th>Jumlah Pembayaran</th>
 										<th>Jumlah Denda</th>
+										<th>Jumlah Pembayaran</th>
 										<th>Jumlah SP Assign</th>
 										<th>Jumlah SP Return</th>
 										<th>FT Pokok</th>
@@ -783,8 +783,8 @@
 											<td><?= rupiah($resDetail->jml_lending); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
+											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
 											<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
 											<td><?= $resDetail->ft_pokok; ?></td>
