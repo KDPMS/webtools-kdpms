@@ -92,21 +92,21 @@
 	<div class="row justify-content-center">
 		<?php if ($dataKpiBZKol || $dataKpiCRKol || $dataKpiNplKol) { ?>
 
-			<!-- Bucket Zero -->
-			<?php
-			 $tampung = getDataSpedo($dataKpiBZKol[0]->data_spedo);
-			 if ($dataKpiBZKol != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Bucket Zero : <?php echo number_format($dataKpiBZKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($dataKpiBZKol[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($dataKpiBZKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZKol[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
-					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiBZKol[0]->unit; ?>" data-title="<?= $dataKpiBZKol[0]->title; ?>" data-value="<?= $dataKpiBZKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiBZKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiBZKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiBZKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiBZKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+			<!-- NPL -->
+			<?php 
+			 $tampung = getDataSpedo($dataKpiNplKol[0]->data_spedo);
+			 if ($dataKpiNplKol != null) { ?>
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>NPL : <?php echo number_format($dataKpiNplKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatusNPL($dataKpiNplKol[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Baki Debet NPL : <?= rupiah($dataKpiNplKol[0]->jml_bd_npl); ?> <br> Total Baki Debet : <?= rupiah($dataKpiNplKol[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
+					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $dataKpiNplKol[0]->title; ?>" data-value="<?= $dataKpiNplKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiNplKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiNplKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiNplKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiNplKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
 				</span>
 			<?php
 			} else {
-				echo '<span id="nullBZ" data=""></span>';
+				echo '<span id="nullNPL" data=""></span>';
 			} ?>
-			<!-- /Bucket Zero -->
-
+			<!-- /NPL -->
+			
 			<!-- Collection Ratio -->
 			<?php 
 			 $tampung = getDataSpedo($dataKpiCRKol[0]->data_spedo);
@@ -122,20 +122,20 @@
 			} ?>
 			<!-- /Collection Ratio -->
 
-			<!-- NPL -->
-			<?php 
-			 $tampung = getDataSpedo($dataKpiNplKol[0]->data_spedo);
-			 if ($dataKpiNplKol != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>NPL : <?php echo number_format($dataKpiNplKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatusNPL($dataKpiNplKol[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Baki Debet NPL : <?= rupiah($dataKpiNplKol[0]->jml_bd_npl); ?> <br> Total Baki Debet : <?= rupiah($dataKpiNplKol[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
-					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $dataKpiNplKol[0]->title; ?>" data-value="<?= $dataKpiNplKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiNplKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiNplKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiNplKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiNplKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+			<!-- Bucket Zero -->
+			<?php
+			 $tampung = getDataSpedo($dataKpiBZKol[0]->data_spedo);
+			 if ($dataKpiBZKol != null) { ?>
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Bucket Zero : <?php echo number_format($dataKpiBZKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($dataKpiBZKol[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($dataKpiBZKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZKol[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
+					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiBZKol[0]->unit; ?>" data-title="<?= $dataKpiBZKol[0]->title; ?>" data-value="<?= $dataKpiBZKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiBZKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiBZKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiBZKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiBZKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
 				</span>
 			<?php
 			} else {
-				echo '<span id="nullNPL" data=""></span>';
+				echo '<span id="nullBZ" data=""></span>';
 			} ?>
-			<!-- /NPL -->
+			<!-- /Bucket Zero -->
 
 		<?php } else { ?>
 			<span class="spedo">
@@ -177,7 +177,7 @@
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
-								<th>Tagihan Bulan ini (angsuran per bulan)</th>
+								<th>Angsuran per Bulan</th>
 								<th>Total Jumlah Tunggakan</th>
 								<th>Jumlah Denda</th>
 								<th>Jumlah Pembayaran</th>
@@ -189,7 +189,7 @@
 								<th>FT Hari</th>
 								<th>Kolektibilitas</th>
 								<th>Last Payment</th>
-								<th>Status</th>
+								<!-- <th>Status</th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -210,13 +210,13 @@
 									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
 									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
-									<td><?= $resDetail->ft_pokok; ?></td>
-									<td><?= $resDetail->ft_bunga; ?></td>
+									<td><?= $resDetail->ft_pokok . " Bulan"; ?></td>
+									<td><?= $resDetail->ft_bunga . " Bulan"; ?></td>
 									<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-									<td><?= cekBayar($resDetail->last_payment); ?></td>
+									<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
 								</tr>
 							<?php } ?>
 						</tbody>
@@ -257,7 +257,7 @@
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
-								<th>Tagihan Bulan ini (angsuran per bulan)</th>
+								<th>Angsuran per Bulan</th>
 								<th>Total Jumlah Tunggakan</th>
 								<th>Jumlah Denda</th>
 								<th>Jumlah Pembayaran</th>
@@ -269,7 +269,7 @@
 								<th>FT Hari</th>
 								<th>Kolektibilitas</th>
 								<th>Last Payment</th>
-								<th>Status</th>
+								<!-- <th>Status</th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -296,7 +296,7 @@
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-									<td><?= cekBayar($resDetail->last_payment); ?></td>
+									<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
 								</tr>
 							<?php } ?>
 						</tbody>
@@ -337,7 +337,7 @@
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
-								<th>Tagihan Bulan ini (angsuran per bulan)</th>
+								<th>Angsuran per Bulan</th>
 								<th>Total Jumlah Tunggakan</th>
 								<th>Jumlah Denda</th>
 								<th>Jumlah Pembayaran</th>
@@ -349,7 +349,7 @@
 								<th>FT Hari</th>
 								<th>Kolektibilitas</th>
 								<th>Last Payment</th>
-								<th>Status</th>
+								<!-- <th>Status</th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -376,7 +376,7 @@
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-									<td><?= cekBayar($resDetail->last_payment); ?></td>
+									<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
 								</tr>
 							<?php } ?>
 						</tbody>
@@ -399,7 +399,7 @@
 	$(document).ready(function() {
 
 		//datatable
-		function cchart(id_modal, id_table) {
+		function cchart(id_modal, id_table,colgrp) {
 			return $(id_modal).on('shown.bs.modal', function() {
 				if (!$.fn.DataTable.isDataTable(id_table)) {
 					var tbtb = $(id_table).DataTable({
@@ -428,11 +428,14 @@
 								sortDescending: ": Aktifkan Berdasarkan paling Akhir"
 							}
 						},
+						rowGroup: {
+							dataSrc: colgrp
+						},
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[7, 10, 25, 50, 100, 7],
-							[7, 10, 25, 50, 100, 7]
+							[5, 10, 25, 50, 100, -1],
+							[5, 10, 25, 50, 100, "Semua"]
 						],
 						responsive: {
 							details: {
@@ -452,6 +455,9 @@
 								}
 							}
 						},
+						order: [
+							[colgrp, "desc"]
+						],
 						columnDefs: [{
 							className: 'control',
 							orderable: true,
@@ -464,7 +470,7 @@
 							"<'row'<'col-sm-12't>>" +
 							"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
 						// scrollY: 320,
-						// scrollX: true,
+						// scrollX: true, 
 						// scrollCollapse: true,
 						// scroller: true,
 					});
@@ -481,9 +487,9 @@
 		}
 
 
-		new cchart('#modal_bz', '#dt_tables_bz');
-		new cchart('#modal_cr', '#dt_tables_cr');
-		new cchart('#modal_npl', '#dt_tables_npl');
+		new cchart('#modal_bz', '#dt_tables_bz',19);
+		new cchart('#modal_cr', '#dt_tables_cr',19);
+		new cchart('#modal_npl', '#dt_tables_npl',19);
 		//tutup datatable
 
 

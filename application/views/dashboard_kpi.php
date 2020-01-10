@@ -511,7 +511,7 @@
 										<th>Baki Debet</th>
 										<th>Jumlah Pinjaman</th>
 										<th>Jumlah Lending</th>
-										<th>Tagihan Bulan ini (angsuran per bulan)</th>
+										<th>Angsuran per Bulan</th>
 										<th>Total Jumlah Tunggakan</th>
 										<th>Jumlah Denda</th>
 										<th>Jumlah Pembayaran</th>
@@ -523,7 +523,7 @@
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
 										<th>Last Payment</th>
-										<th>Status</th>
+										<!-- <th>Status</th> -->
 									</tr>
 								</thead>
 								<tbody>
@@ -550,7 +550,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-											<td><?= cekBayar($resDetail->last_payment); ?></td>
+											<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -601,7 +601,7 @@
 										<th>Baki Debet</th>
 										<th>Jumlah Pinjaman</th>
 										<th>Jumlah Lending</th>
-										<th>Tagihan Bulan ini (angsuran per bulan)</th>
+										<th>Angsuran per Bulan</th>
 										<th>Total Jumlah Tunggakan</th>
 										<th>Jumlah Denda</th>
 										<th>Jumlah Pembayaran</th>
@@ -613,7 +613,7 @@
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
 										<th>Last Payment</th>
-										<th>Status</th>
+										<!-- <th>Status</th> -->
 									</tr>
 								</thead>
 								<tbody>
@@ -640,7 +640,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-											<td><?= cekBayar($resDetail->last_payment); ?></td>
+											<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -691,7 +691,7 @@
 										<th>Baki Debet</th>
 										<th>Jumlah Pinjaman</th>
 										<th>Jumlah Lending</th>
-										<th>Tagihan Bulan ini (angsuran per bulan)</th>
+										<th>Angsuran per Bulan</th>
 										<th>Total Jumlah Tunggakan</th>
 										<th>Jumlah Denda</th>
 										<th>Jumlah Pembayaran</th>
@@ -703,7 +703,7 @@
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
 										<th>Last Payment</th>
-										<th>Status</th>
+										<!-- <th>Status</th> -->
 									</tr>
 								</thead>
 								<tbody>
@@ -730,7 +730,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-											<td><?= cekBayar($resDetail->last_payment); ?></td>
+											<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -779,7 +779,7 @@
 										<th>Baki Debet</th>
 										<th>Jumlah Pinjaman</th>
 										<th>Jumlah Lending</th>
-										<th>Tagihan Bulan ini (angsuran per bulan)</th>
+										<th>Angsuran per Bulan</th>
 										<th>Total Jumlah Tunggakan</th>
 										<th>Jumlah Denda</th>
 										<th>Jumlah Pembayaran</th>
@@ -791,7 +791,7 @@
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
 										<th>Last Payment</th>
-										<th>Status</th>
+										<!-- <th>Status</th> -->
 									</tr>
 								</thead>
 								<tbody>
@@ -818,7 +818,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-											<td><?= cekBayar($resDetail->last_payment); ?></td>
+											<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -1019,8 +1019,8 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[7, 10, 25, 50, 100, 7],
-							[7, 10, 25, 50, 100, 7]
+							[5, 10, 25, 50, 100, -1],
+							[5, 10, 25, 50, 100, "Semua"]
 						],
 						responsive: {
 							details: {
@@ -1076,15 +1076,15 @@
 		<?php } ?>
 
 		<?php foreach ($dataKpiNplKol as $res) { ?>
-			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 21);
+			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 19);
 		<?php } ?>
 
 		<?php foreach ($dataKpiCRKol as $res) { ?>
-			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',21);
+			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',19);
 		<?php } ?>
 
 		<?php foreach ($dataKpiBZKol as $res) { ?>
-			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',21);
+			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',19);
 		<?php } ?>
 
 		<?php foreach ($dataKpiNS_AO as $res) { ?>

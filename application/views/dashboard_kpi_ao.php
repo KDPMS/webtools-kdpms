@@ -254,7 +254,7 @@
 									<th>FT Hari</th>
 									<th>Kolektibilitas</th>
 									<th>Last Payment</th>
-									<th>Status</th>
+									<!-- <th>Status</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -278,7 +278,7 @@
 										<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 										<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 										<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment)  : " - "; ?></td>
-										<td><?= cekBayar($resDetail->last_payment); ?></td>
+										<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
 									</tr>
 								<?php } ?>
 							</tbody>
@@ -439,9 +439,96 @@
 			});
 		}
 
+		function cchart2(id_modal, id_table,colgrp) {
+			return $(id_modal).on('shown.bs.modal', function() {
+				if (!$.fn.DataTable.isDataTable(id_table)) {
+					var tbtb = $(id_table).DataTable({
+						// responsive: false,
+						language: {
+							decimal: "",
+							emptyTable: "Tidak Ada Data",
+							info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+							infoEmpty: "Menampilkan 0 sampai 0 dari total 0 baris",
+							infoFiltered: "(Filter dari total _MAX_ baris)",
+							infoPostFix: "",
+							thousands: ",",
+							lengthMenu: "Tampilkan _MENU_ baris",
+							loadingRecords: "Memuat...",
+							processing: "Proses...",
+							search: "Cari:",
+							zeroRecords: "Tidak ada data yang sesuai",
+							paginate: {
+								first: "Pertama",
+								last: "Terakhir",
+								next: "Selanjutnya",
+								previous: "Sebelumnya"
+							},
+							aria: {
+								sortAscending: ": Aktifkan Berdasarkan paling Awal",
+								sortDescending: ": Aktifkan Berdasarkan paling Akhir"
+							}
+						},
+						rowGroup: {
+							dataSrc: colgrp
+						},
+						autoWidth: true,
+						pagingType: "simple_numbers",
+						lengthMenu: [
+							[5, 10, 25, 50, 100, -1],
+							[5, 10, 25, 50, 100, "Semua"]
+						],
+						responsive: {
+							details: {
+								renderer: function(api, rowIdx, columns) {
+									var data = $.map(columns, function(col, i) {
+										return col.hidden ?
+											'<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+											'<td>' + col.title + ' : ' + '</td> ' +
+											'<td>' + col.data + '</td>' +
+											'</tr>' :
+											'';
+									}).join('');
+
+									return data ?
+										$('<table/>').append(data) :
+										false;
+								}
+							}
+						},
+						columnDefs: [{
+							className: 'control',
+							orderable: true,
+							targets: 0
+						}],
+						// fixedColumns: {
+						// 	leftColumns: 2
+						// },
+						order: [
+							[colgrp, "desc"]
+						],
+						dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+							"<'row'<'col-sm-12't>>" +
+							"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
+						// scrollY: 320,
+						// scrollX: true,
+						// scrollCollapse: true,
+						// scroller: true,
+					});
+				} else {
+					// var tbtb = $.fn.dataTable.fnTables(true);
+
+					// $(tbtb).each(function () {
+					// 	$(this).dataTable().fnDestroy();
+					// });
+				}
+
+				//tbtb.columns.adjust().responsive.recalc();
+			});
+		}
+
 
 		new cchart('#modal_lending', '#dt_tables_lending');
-		new cchart('#modal_bz', '#dt_tables_bz');
+		new cchart2('#modal_bz', '#dt_tables_bz',16);
 		new cchart('#modal_ns', '#dt_tables_ns');
 		//tutup datatable
 
