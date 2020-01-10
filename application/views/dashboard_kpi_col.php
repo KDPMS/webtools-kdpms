@@ -84,9 +84,6 @@
 				<div id="nplNull">
 
 				</div>&nbsp;
-				<div id="sprNull">
-
-				</div>&nbsp;
 			</div>
 		</div>
 	</span>
@@ -134,18 +131,6 @@
 			} ?>
 			<!-- /NPL -->
 
-			<!-- SP Return -->
-			<!-- <span class="rounded-circle spedo" data-popover="popover" data-content="<b>SP Return : 70% <br> Status : Cukup Tercapai</b>" data-html="true" data-placement="top" data-trigger="hover">
-				<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_spr">
-					<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="mb" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="SP Return" data-value="70" data-min-value="0" data-max-value="100" data-major-ticks="0,10,20,30,40,50,60,70,80,90,100" data-minor-ticks="5" data-stroke-ticks="true" data-highlights='[
-														{ "from": 0, "to": 25, "color": "#ef4b4b" },
-														{ "from": 25, "to": 50, "color": "yellow" },
-														{ "from": 50, "to": 75, "color": "green" },
-														{ "from": 75, "to": 100, "color": "#0066d6" }
-													]' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
-				</a>
-			</span> -->
-			<!-- /SP Return -->
 		<?php } else { ?>
 			<span class="spedo">
 				<div class="row align-content-center align-items-center justify-content-center text-center">
@@ -401,82 +386,6 @@
 	</div>
 	<!-- /Modal NPL -->
 
-	<!-- Modal SP Return -->
-	<!-- <div class="modal fade" id="modal_spr" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
-		<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
-			<div class="modal-content">
-				<div class="modal-header bg-light">
-					<h5 class="modal-title" id="exampleModalLongTitle">Detail SP Return
-						<p><#?= $this->session->userdata('username'); ?>, <#?= ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<table id="dt_tables_spr" class="table table-bordered table-hover display compact nowrap" style="width:100%">
-						<thead class="bg-light">
-							<tr>
-								<th>Nasabah ID</th>
-								<th>Nama Nasabah</th>
-								<th>Alamat</th>
-								<th>Tanggal Realisasi</th>
-								<th>Jangka Waktu</th>
-								<th>Tanggal Jatuh Tempo</th>
-								<th>Baki Debet</th>
-								<th>Jumlah Pinjaman</th>
-								<th>Jumlah Lending</th>
-								<th>Angsuran per Bulan</th>
-								<th>Total Jumlah Tunggakan</th>
-								<th>Jumlah Pembayaran</th>
-								<th>Jumlah Denda</th>
-								<th>Jumlah SP Assign</th>
-								<th>Jumlah SP Return</th>
-								<th>FT Pokok</th>
-								<th>FT Bunga</th>
-								<th>FT Hari</th>
-								<th>Kolektibilitas</th>
-								<th>Last Payment</th>
-							</tr>
-						</thead>
-						<tbody>
-							<#?php foreach ($dataKpiSpReturnKoldetail as $resDetail) { ?>
-								<tr>
-									<td><#?= $resDetail->nasabah_id; ?></td>
-									<td><#?= $resDetail->nama_nasabah; ?></td>
-									<td><#?= $resDetail->alamat; ?></td>
-									<td><#?= ubahDate($resDetail->tgl_realisasi); ?></td>
-									<td><#?= $resDetail->jkw . " Bulan"; ?></td>
-									<td><#?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
-									<td><#?= rupiah($resDetail->baki_debet); ?></td>
-									<td><#?= rupiah($resDetail->jml_pinjaman); ?></td>
-									<td><#?= rupiah($resDetail->jml_lending); ?></td>
-									<td><#?= rupiah($resDetail->jml_tagihan_turun); ?></td>
-									<td><#?= rupiah($resDetail->jml_tunggakan); ?></td>
-									<td><#?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
-									<td><#?= rupiah($resDetail->jml_denda); ?></td>
-									<td><#?= $resDetail->jml_sp_assign . " Surat"; ?></td>
-									<td><#?= $resDetail->jml_sp_return . " Surat"; ?></td>
-									<td><#?= $resDetail->ft_pokok; ?></td>
-									<td><#?= $resDetail->ft_bunga; ?></td>
-									<td><#?= convertDayMonth($resDetail->ft_hari); ?></td>
-									<td><#?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
-									<td><#?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-								</tr>
-							<#?php } ?>
-						</tbody>
-					</table>
-				</div>
-				<div class="modal-footer bg-light">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">
-						Close
-					</button>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- /Modal SP Return -->
-
 </div>
 <!-- content-wrapper ends -->
 
@@ -569,7 +478,6 @@
 		new cchart('#modal_bz', '#dt_tables_bz');
 		new cchart('#modal_cr', '#dt_tables_cr');
 		new cchart('#modal_npl', '#dt_tables_npl');
-		// new cchart('#modal_spr', '#dt_tables_spr');
 		//tutup datatable
 
 
@@ -588,11 +496,6 @@
 		$('#nullNPL').attr('data', isiNPL);
 		var nullNPL = $('#nullNPL').attr('data');
 		$('#nplNull').html(nullNPL);
-
-		// var isiBz = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Bucket 0</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
-		// $('#nullBz').attr('data', isiBz);
-		// var nullBz = $('#nullBz').attr('data');
-		// $('#bzNull').html(nullBz);
 		//tutup alert data tidak ada
 	});
 </script>
