@@ -12,14 +12,15 @@ class Kpi extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		//load library
+		//load library pdf
 		$this->load->library('pdf');
+
 		//load model yg dipakai
 		$this->load->model('Model_business','business');
 		$this->load->model('Model_kpi','kpi');
-		// load helper yg berisi fungsi yang dibutuhkan
+
+		// load helper yg berisi fungsi yang dibuat dan ingin dipakai
 		$this->load->helper('data');
-		$this->load->helper('getStatus');
 	}
 
 	public function index()

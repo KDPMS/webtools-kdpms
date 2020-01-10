@@ -4,7 +4,7 @@
 							<span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
 								<a href="https://kdpms.id/" target="_blank">Koperasi dana pinjaman mandiri sejahtera</a>. All
 								rights reserved.</span>
-							<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">KDPMS BISNIS V.1.0.6
+							<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">KDPMS KPI V.0.1.6
 							</span>
 						</div>
 					</footer>

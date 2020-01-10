@@ -153,7 +153,7 @@
         return $get;
     }
     
-    // fungsi untuk sudah bayar apa belum
+    // fungsi untuk cek sudah bayar apa belum
     function cekBayar($val) {
         $now = date('Y-m');
         $lastPayment = substr($val, 0, -3);
@@ -165,4 +165,54 @@
         }
 
         return $hasil;
+    }
+
+    //ambil data spedo agar dapat mengambil status berdasarkan warna
+    function getDataSpedo($data) {
+
+        //ambil data spedo 
+        $dataSpedo = $data;
+        //hilangkan semua kecuali nomor dan symbol koma
+        $preg = preg_replace('/[^0-9,]/', '', $dataSpedo);
+        
+        //rubah string menjadi array berdasarkan dari koma
+        $result = explode(',', $preg);
+    
+        return $result;
+    }
+
+    // get all status kecuali npl (sesuai dengan data spedo yg ada didatabase)
+    function getStatus($angka, $param1, $param2, $param3, $param4) {
+
+        if ($angka >= $param4) {
+            $return = "Sangat tercapai";
+        }else if ($angka >= $param3) {
+            $return = "Tercapai";
+        }else if ($angka >= $param2) {
+            $return = "Hampir tercapai";
+        }else if ($angka >= $param1) {
+            $return = "Tidak tercapai";
+        }else {
+            $return = "Status NOT FOUND";
+        }
+
+        return $return;
+    }
+
+    //get status untuk npl (sesuai dengan data spedo yg ada didatabase)
+    function getStatusNPL($angka, $param1, $param2, $param3, $param4) {
+
+        if ($angka >= $param4) {
+            $return = "Tidak tercapai";
+        }else if ($angka >= $param3) {
+            $return = "Hampir tercapai";
+        }else if ($angka >= $param2) {
+            $return = "Tercapai";
+        }else if ($angka >= $param1) {
+            $return = "Sangat tercapai";
+        }else {
+            $return = "Status NOT FOUND";
+        }
+
+        return $return;
     }

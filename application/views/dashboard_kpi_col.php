@@ -93,8 +93,10 @@
 		<?php if ($dataKpiBZKol || $dataKpiCRKol || $dataKpiNplKol) { ?>
 
 			<!-- Bucket Zero -->
-			<?php if ($dataKpiBZKol != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Bucket Zero : <?php echo number_format($dataKpiBZKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatusBZKol($dataKpiBZKol[0]->jml_value); ?> <br> Jumlah Tagihan : <?= rupiah($dataKpiBZKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZKol[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
+			<?php
+			 $tampung = getDataSpedo($dataKpiBZKol[0]->data_spedo);
+			 if ($dataKpiBZKol != null) { ?>
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Bucket Zero : <?php echo number_format($dataKpiBZKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($dataKpiBZKol[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($dataKpiBZKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZKol[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiBZKol[0]->unit; ?>" data-title="<?= $dataKpiBZKol[0]->title; ?>" data-value="<?= $dataKpiBZKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiBZKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiBZKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiBZKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiBZKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
@@ -106,8 +108,10 @@
 			<!-- /Bucket Zero -->
 
 			<!-- Collection Ratio -->
-			<?php if ($dataKpiCRKol != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Collection Ratio : <?php echo number_format($dataKpiCRKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatusCRKol($dataKpiCRKol[0]->jml_value); ?> <br> Jumlah Tagihan : <?= rupiah($dataKpiCRKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiCRKol[0]->jml_bayar); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
+			<?php 
+			 $tampung = getDataSpedo($dataKpiCRKol[0]->data_spedo);
+			 if ($dataKpiCRKol != null) { ?>
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Collection Ratio : <?php echo number_format($dataKpiCRKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($dataKpiCRKol[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($dataKpiCRKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiCRKol[0]->jml_bayar); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_cr">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="map" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $dataKpiCRKol[0]->title; ?>" data-value="<?= $dataKpiCRKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiCRKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiCRKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiCRKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiCRKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
@@ -119,8 +123,10 @@
 			<!-- /Collection Ratio -->
 
 			<!-- NPL -->
-			<?php if ($dataKpiNplKol != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>NPL : <?php echo number_format($dataKpiNplKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatusNPLKol($dataKpiNplKol[0]->jml_value); ?> <br> Baki Debet NPL : <?= rupiah($dataKpiNplKol[0]->jml_bd_npl); ?> <br> Total Baki Debet : <?= rupiah($dataKpiNplKol[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
+			<?php 
+			 $tampung = getDataSpedo($dataKpiNplKol[0]->data_spedo);
+			 if ($dataKpiNplKol != null) { ?>
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>NPL : <?php echo number_format($dataKpiNplKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatusNPL($dataKpiNplKol[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Baki Debet NPL : <?= rupiah($dataKpiNplKol[0]->jml_bd_npl); ?> <br> Total Baki Debet : <?= rupiah($dataKpiNplKol[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $dataKpiNplKol[0]->title; ?>" data-value="<?= $dataKpiNplKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiNplKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiNplKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiNplKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiNplKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
