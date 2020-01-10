@@ -198,6 +198,7 @@
 								<th>FT Hari</th>
 								<th>Kolektibilitas</th>
 								<th>Last Payment</th>
+								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -224,6 +225,7 @@
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+									<td><?= cekBayar($resDetail->last_payment); ?></td>
 								</tr>
 							<?php } ?>
 						</tbody>
@@ -276,6 +278,7 @@
 								<th>FT Hari</th>
 								<th>Kolektibilitas</th>
 								<th>Last Payment</th>
+								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -302,6 +305,7 @@
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+									<td><?= cekBayar($resDetail->last_payment); ?></td>
 								</tr>
 							<?php } ?>
 						</tbody>
@@ -354,6 +358,7 @@
 								<th>FT Hari</th>
 								<th>Kolektibilitas</th>
 								<th>Last Payment</th>
+								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -380,6 +385,7 @@
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+									<td><?= cekBayar($resDetail->last_payment); ?></td>
 								</tr>
 							<?php } ?>
 						</tbody>

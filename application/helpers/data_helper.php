@@ -153,3 +153,16 @@
         return $get;
     }
     
+    // fungsi untuk sudah bayar apa belum
+    function cekBayar($val) {
+        $now = date('Y-m');
+        $lastPayment = substr($val, 0, -3);
+        
+        if ($lastPayment == $now) {
+            $hasil = '<span class="badge badge-pill badge-success">Sudah bayar bulan ini</span>';
+        }else {
+            $hasil = '<span class="badge badge-pill badge-danger">Belum bayar bulan ini</span>';
+        }
+
+        return $hasil;
+    }

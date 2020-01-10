@@ -27,26 +27,31 @@
 				Filter Data
 				<form action="<?php echo base_url('kpi/dashboard_kpi'); ?>" method="post" class="form-inline justify-content-center mt-2">
 					<select name="bulan" id="bulan" class="custom-select custom-select-sm my-1 mr-sm-2">
+						<!-- looping bulan 1 - 12, dan jika bulan kurang dari 10 maka akan ditambahkan 0 didepannya -->
 						<?php
-						for ($i = 1; $i <= 12; $i++) {
-							if ($i < 10) {
-								$i = '0' . $i;
-							}
+							for ($i = 1; $i <= 12; $i++) {
+								if ($i < 10) {
+									$i = '0' . $i;
+								}
 						?>
 							<option value="<?php echo $i; ?>" <?php if ($bulan == $i) {
 																	echo ('selected');
 																} ?>> <?php echo ubahBulan($i); ?></option>
 						<?php } ?>
+						<!-- akhir looping -->
 					</select>
 					<select name="tahun" id="tahun" class="custom-select custom-select-sm my-1 mr-sm-2">
+						<!-- looping tahun dari 2019 s/d tahun ini -->
 						<?php
-						for ($thn = 2019; $thn <= date('Y'); $thn++) {
+							for ($thn = 2019; $thn <= date('Y'); $thn++) {
 						?>
 							<option value="<?= $thn; ?>" <?php if ($tahun == $thn) {
 																echo ('selected');
 															} ?>><?= $thn; ?></option>
 						<?php } ?>
+						<!-- akhir looping -->
 					</select>
+					<!-- kondisi dimana kantor cabang tidak bisa melihat data dari kantor pusat, sedangkan kantor pusat bisa melihat yang cabang -->
 					<?php if($this->session->userdata('kantor') !== '02'){ ?>
 					<select name="kantor" id="kantor" class="custom-select custom-select-sm my-1 mr-sm-2">
 						<option value="01" <?php if ($kantor == '01') {
@@ -115,8 +120,11 @@
 			<?php if ($dataKpiLending != null) { ?>
 				<!-- getstatus berdasarkan spedo -->
 				<?php 
+					//ambil data spedonya
 					$data = $dataKpiLending[0]->data_spedo;
+					//hilangkan semua kecuali nomor dan symbol koma
 					$preg = preg_replace('/[^0-9\,]/', '', $data);
+					//rubah string menjadi array berdasarkan dari koma
 					$res = explode(",", $preg);
 				?>
 				<!-- tutup getstatus berdasarkan spedo -->
@@ -133,12 +141,14 @@
 			<!-- /Lending -->
 
 			<!-- NPL -->
-
 			<?php if ($dataKpiNpl != null) { ?>
 				<!-- getstatus berdasarkan spedo -->
 				<?php 
+					//ambil data spedonya
 					$data = $dataKpiNpl[0]->data_spedo;
+					//hilangkan semua kecuali nomor dan symbol koma
 					$preg = preg_replace('/[^0-9\,]/', '', $data);
+					//rubah string menjadi array berdasarkan dari koma
 					$res = explode(",", $preg);
 				?>
 				<!-- tutup getstatus berdasarkan spedo -->
@@ -158,7 +168,7 @@
 			<?php if ($dataKpiCR != null) { ?>
 				<span class="rounded-circle spedo" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($dataKpiCR[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusCRCabang($dataKpiCR[0]->jml_value); ?> <br> Jumlah tagihan : <?= rupiah($dataKpiCR[0]->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($dataKpiCR[0]->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
 					<a href="" data-toggle="modal" data-target="#modal_cr">
-						<canvas class="mt-2 mb-2 mx-2" id="cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiCR[0]->unit; ?>" data-title="<?= $dataKpiCR[0]->title; ?>" data-value="<?php echo $dataKpiCR[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiCR[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiCR[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiCR[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiCR[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiCR[0]->unit; ?>" data-title="<?= $dataKpiCR[0]->title; ?>" data-value="<?php echo $dataKpiCR[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiCR[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiCR[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiCR[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiCR[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 						</canvas>
 					</a>
 				</span>
@@ -403,7 +413,7 @@
 		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
 		$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
 		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->result();
-		$dataKpiMap = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->num_rows();
+		$dataKpiMapLending = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->num_rows();
 		?>
 		<div class="modal modal2 modal_detail_lending fade" id="detail_lending_ao<?php echo $res->kode_group2; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
 			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
@@ -451,7 +461,7 @@
 						</table>
 					</div>
 					<div class="modal-footer bg-light">
-						<h6 class="mr-auto"><?= $dataKpiMap . " MAP"; ?> - TOTAL : <?= ubahJuta($res->jml_value); ?></h6>
+						<h6 class="mr-auto"><?= $dataKpiMapLending . " MAP"; ?> - TOTAL : <?= ubahJuta($res->jml_value); ?></h6>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -505,6 +515,7 @@
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
 										<th>Last Payment</th>
+										<th>Status</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -531,6 +542,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+											<td><?= cekBayar($resDetail->last_payment); ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -593,6 +605,7 @@
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
 										<th>Last Payment</th>
+										<th>Status</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -619,6 +632,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+											<td><?= cekBayar($resDetail->last_payment); ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -681,6 +695,7 @@
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
 										<th>Last Payment</th>
+										<th>Status</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -707,6 +722,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+											<td><?= cekBayar($resDetail->last_payment); ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -767,6 +783,7 @@
 										<th>FT Hari</th>
 										<th>Kolektibilitas</th>
 										<th>Last Payment</th>
+										<th>Status</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -793,6 +810,7 @@
 											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
 											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+											<td><?= cekBayar($resDetail->last_payment); ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -815,6 +833,7 @@
 		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
 		$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
 		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_fid WHERE kode_kantor = '$res->kode_kantor'")->result();
+		// $dataKpiMapFID = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_fid WHERE kode_kantor = '$res->kode_kantor'")->num_rows();
 		?>
 		<div class="modal fade" id="detail_ns_ao<?php echo $res->kode_group2; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
 			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
@@ -862,6 +881,7 @@
 						</div>
 					</div>
 					<div class="modal-footer bg-light">
+						<!-- <h6 class="mr-auto"><#?= $dataKpiMapFID . " MAP - TOTAL : " . ubahJuta($res->jml_value); ?></h6> -->
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -907,8 +927,8 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[-1, 10, 25, 50, 100, -1],
-							["Semua", 10, 25, 50, 100, "Semua"]
+							[7, 10, 25, 50, 100, 7],
+							[7, 10, 25, 50, 100, 7]
 						],
 						responsive: {
 							details: {
@@ -1048,15 +1068,15 @@
 		<?php } ?>
 
 		<?php foreach ($dataKpiNplKol as $res) { ?>
-			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 20);
+			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 21);
 		<?php } ?>
 
 		<?php foreach ($dataKpiCRKol as $res) { ?>
-			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',20);
+			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',21);
 		<?php } ?>
 
 		<?php foreach ($dataKpiBZKol as $res) { ?>
-			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',20);
+			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',21);
 		<?php } ?>
 
 		<?php foreach ($dataKpiNS_AO as $res) { ?>

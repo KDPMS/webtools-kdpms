@@ -288,7 +288,7 @@
 			          	<p class="text-muted mt-3 mb-0" id="total_pengajuan_vb" style="font-size:8pt"></p>
 			          </div> -->
 			        </div>
-			        <p class="text-muted mt-3 mb-0" style="font-size:8.6pt:margin-top:1%;">
+			        <p class="text-muted mt-3 mb-0" style="font-size:8.6pt;margin-top:1%;">
 			        	<i class="mdi mdi-database mr-1" aria-hidden="true"></i>Total Pengajuan :&nbsp;&nbsp; <b style="font-size:11pt;" id="total_pengajuan" ></b>
 			      	</p>
 			    </div>
