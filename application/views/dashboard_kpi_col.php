@@ -290,8 +290,8 @@
 									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
 									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
-									<td><?= $resDetail->ft_pokok; ?></td>
-									<td><?= $resDetail->ft_bunga; ?></td>
+									<td><?= $resDetail->ft_pokok . " Bulan"; ?></td>
+									<td><?= $resDetail->ft_bunga . " Bulan"; ?></td>
 									<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
@@ -370,8 +370,8 @@
 									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
 									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
-									<td><?= $resDetail->ft_pokok; ?></td>
-									<td><?= $resDetail->ft_bunga; ?></td>
+									<td><?= $resDetail->ft_pokok . " Bulan"; ?></td>
+									<td><?= $resDetail->ft_bunga . " Bulan"; ?></td>
 									<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
 									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
 									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
