@@ -184,7 +184,7 @@
 			<?php 
 			 $tampung = getDataSpedo($dataKpiNS[0]->data_spedo);
 			 if ($dataKpiNS != null) { ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($dataKpiNS[0]->jml_value) . " %"; ?> <br> Status : <?= getStatus($dataKpiNS[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($dataKpiNS[0]->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($dataKpiNS[0]->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($dataKpiNS[0]->jml_value) . " %"; ?> <br> Status : <?= getStatusNPL($dataKpiNS[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($dataKpiNS[0]->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($dataKpiNS[0]->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_ns">
 						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiNS[0]->unit; ?>" data-title="<?= $dataKpiNS[0]->title; ?>" data-value="<?php echo $dataKpiNS[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiNS[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiNS[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiNS[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiNS[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 						</canvas>
@@ -397,7 +397,7 @@
 						 foreach ($dataKpiNS_AO as $res) { 
 							$tampung = getDataSpedo($res->data_spedo);	 
 						?>
-							<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($res->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($res->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPL($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($res->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($res->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="#detail_ns_ao" data-toggle="modal" data-target="#detail_ns_ao<?= $res->kode_group2; ?>" data-backdrop="false">
 									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group2; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
 									</canvas>
@@ -864,9 +864,11 @@
 										<th>Tanggal Realisasi</th>
 										<th>Jangka Waktu</th>
 										<th>Tanggal Jatuh Tempo</th>
-										<th>Jumlah Lending</th>
 										<th>Baki Debet</th>
 										<th>Jumlah Pinjaman</th>
+										<th>FT Hari</th>
+										<th>Total Tagihan</th>
+										<th>Jumlah Pembayaran</th>
 										<th>Alamat</th>
 									</tr>
 								</thead>
@@ -878,9 +880,11 @@
 											<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 											<td><?= $resDetail->jkw . " Bulan"; ?></td>
 											<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
-											<td><?= rupiah($resDetail->jml_lending); ?></td>
 											<td><?= rupiah($resDetail->baki_debet); ?></td>
 											<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
+											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
+											<td><?= rupiah($resDetail->total_tagihan); ?></td>
+											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= $resDetail->alamat; ?></td>
 										</tr>
 									<?php } ?>

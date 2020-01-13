@@ -245,7 +245,7 @@
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
 									<th>Jumlah Lending</th>
-									<th>Total Tagihan s/d bulan ini</th>
+									<th>Angsuran Per Bulan</th>
 									<th>Total Jumlah Tunggakan</th>
 									<th>Jumlah Denda</th>
 									<th>Jumlah Pembayaran</th>
@@ -317,9 +317,12 @@
 									<th>Tanggal Realisasi</th>
 									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
-									<th>Jumlah Lending</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
+									<th>Jumlah Lending</th>
+									<th>FT Hari</th>
+									<th>Total Tagihan</th>
+									<th>Jumlah Pembayaran</th>
 									<th>Alamat</th>
 								</tr>
 							</thead>
@@ -331,9 +334,12 @@
 										<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
-										<td><?= rupiah($resDetail->jml_lending); ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
+										<td><?= rupiah($resDetail->jml_lending); ?></td>
+										<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
+										<td><?= rupiah($resDetail->total_tagihan); ?></td>
+										<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 										<td><?= $resDetail->alamat; ?></td>
 									</tr>
 								<?php } ?>
