@@ -28,7 +28,7 @@ class Kpi extends CI_Controller {
 		if (empty($this->session->userdata('id'))) {
 			redirect('/','refresh');
 		}else{
-			$this->load->view('index-npl');
+			$this->load->view('halamantool');
 		}
 	}
 	
@@ -134,6 +134,7 @@ class Kpi extends CI_Controller {
 					$bulan = date('m');
 				}
 
+				//lempar tahun dan bulan ke view
 				$data['bulan'] = $bulan;
 				$data['tahun'] = $tahun;
 
