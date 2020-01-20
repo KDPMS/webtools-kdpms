@@ -4,11 +4,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
 		<?php $this->load->view('include/style-css.php') ?>
-		<?php $this->load->view('include/style-js-fitur.php') ?>
-
+		
 		<!-- Bootstrap 4.3.1 CSS -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/sc-2.0.1/datatables.min.css"/>
+		<link rel="stylesheet" type="text/css" href="<?= base_url('lib/vendors/css/bootstrap.min.css') ?>"/>
+		<link rel="stylesheet" type="text/css" href="<?= base_url('lib/vendors/css/datatables.min.css') ?>"/>
 		<!-- /Bootstrap 4.3.1 CSS -->
 		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/red/pace-theme-minimal.css"> -->
 	</head>

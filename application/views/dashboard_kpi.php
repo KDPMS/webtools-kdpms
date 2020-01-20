@@ -914,6 +914,8 @@
 </div>
 <!-- content-wrapper ends -->
 
+<?php require_once('include/footerkpi.php'); ?>
+
 <script>
 	$(document).ready(function() {
 		//datatable

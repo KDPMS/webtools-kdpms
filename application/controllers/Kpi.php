@@ -100,7 +100,6 @@ class Kpi extends CI_Controller {
 				
 				$this->load->view('include/headerkpi');
 				$this->load->view('dashboard_kpi', $data);
-				$this->load->view('include/footerkpi');
 
 			// jika user bukan memiliki jabatan ketua atau manager maka user akan dilempar ke controller tools
 			}else{
@@ -155,7 +154,6 @@ class Kpi extends CI_Controller {
 
 				$this->load->view('include/headerkpi');
 				$this->load->view('dashboard_kpi_ao', $data);
-				$this->load->view('include/footerkpi');
 
 			// jika user bukan memiliki jabatan ketua atau manager maka user akan dilempar ke controller tools
 			}else{
@@ -205,7 +203,6 @@ class Kpi extends CI_Controller {
 
 			$this->load->view('include/headerkpi');
 			$this->load->view('dashboard_kpi_col', $data);
-			$this->load->view('include/footerkpi');
 		}
 	}
 

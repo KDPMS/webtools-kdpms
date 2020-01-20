@@ -366,6 +366,8 @@
 </div>
 <!-- content-wrapper ends -->
 
+<?php require_once('include/footerkpi.php'); ?>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 

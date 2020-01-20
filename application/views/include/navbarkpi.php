@@ -54,9 +54,9 @@
     </button>
   </div>
 </nav>
-<!-- <script type="text/javascript" src="<?=base_url('lib/js/changedate.js')?>"></script>
+<!-- <script type="text/javascript" src="<#?=base_url('lib/js/changedate.js')?>"></script>
 <script>
-  var url  = '<?php echo base_url() ?>'
+  var url  = '<#?php echo base_url() ?>'
 	var myFunction = function() {
 	  $('#tamplate').val('views/content/data/data-caa.php')
 		$('#app').load('views/content/data/data-caa.php')
@@ -138,7 +138,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-  var url  = '<?php echo base_url() ?>'
+  var url  = '<#?php echo base_url() ?>'
 	var loading = '<i class="mdi mdi-18px mdi-spin mdi-loading"></i>'
   var session_jabatan = $('#session_jabatan').val()
 
