@@ -39,7 +39,7 @@
               <div class="card">
                 <div class="card-body">
                   <a href="javascript:void(0)" class="Buttoggle" from="offering"><i class="mdi mdi-dots-horizontal" style="float:right;"></i></a>
-                  <h4 style=""> 
+                  <h4 style = ""> 
                     <a href="<?php echo base_url('Home') ?>" id="backcn"><i class="mdi mdi-keyboard-backspace"></i></a>&nbsp;&nbsp;&nbsp;Sunting Profile</h4><hr><br>
                   <div class="row">
                   <div class="col-md-6">

@@ -404,8 +404,8 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[7, 10, 25, 50, 100, 7],
-							[7, 10, 25, 50, 100, 7]
+							[7, 10, 25, 50, 100],
+							[7, 10, 25, 50, 100]
 						],
 						responsive: {
 							details: {

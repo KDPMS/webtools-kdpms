@@ -5,6 +5,8 @@
 	<input type="hidden" id="session_jabatan" value="<?php echo $this->session->userdata('jabatan'); ?>">
 	<input type="hidden" id="session_id_user" value="<?php echo $this->session->userdata('id'); ?>">
 	<input type="hidden" id="NowDate" value="<?php echo date('Y-m-d'); ?>">
+	<input type="hidden" id="bln" value="<?php echo $bulan; ?>">
+	<input type="hidden" id="thn" value="<?php echo $tahun; ?>">
 	<input type="hidden" id="load_page" value="false">
 
 	<div class="col-md-12">
@@ -431,6 +433,7 @@
 		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
 		$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
 		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->result();
+		$jmlLending = $this->db->query("SELECT SUM(jml_lending) as jumlah_lending FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->row();
 		$dataKpiMapLending = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_lending WHERE kode_kantor = '$res->kode_kantor'")->num_rows();
 		?>
 		<div class="modal modal2 modal_detail_lending fade" id="detail_lending_ao<?php echo $res->kode_group2; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
@@ -479,7 +482,7 @@
 						</table>
 					</div>
 					<div class="modal-footer bg-light">
-						<h6 class="mr-auto"><?= $dataKpiMapLending . " MAP"; ?> - TOTAL : <?= ubahJuta($res->jml_value); ?></h6>
+						<h6 class="mr-auto"><?= $dataKpiMapLending . " MAP"; ?> - TOTAL : <?= rupiah($jmlLending->jumlah_lending); ?></h6>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -523,6 +526,8 @@
 										<th>Jumlah Lending</th>
 										<th>Angsuran per Bulan</th>
 										<th>Total Jumlah Tunggakan</th>
+										<th>Total Tagihan</th>
+										<th>Sisa Tunggakan</th>
 										<th>Jumlah Denda</th>
 										<th>Jumlah Pembayaran</th>
 										<th>Jumlah SP Assign</th>
@@ -550,6 +555,8 @@
 											<td><?= rupiah($resDetail->jml_lending); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+											<td><?= rupiah($resDetail->total_tagihan); ?></td>
+											<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
@@ -613,6 +620,8 @@
 										<th>Jumlah Lending</th>
 										<th>Angsuran per Bulan</th>
 										<th>Total Jumlah Tunggakan</th>
+										<th>Total Tagihan</th>
+										<th>Sisa Tunggakan</th>
 										<th>Jumlah Denda</th>
 										<th>Jumlah Pembayaran</th>
 										<th>Jumlah SP Assign</th>
@@ -640,6 +649,8 @@
 											<td><?= rupiah($resDetail->jml_lending); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+											<td><?= rupiah($resDetail->total_tagihan); ?></td>
+											<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
@@ -703,6 +714,8 @@
 										<th>Jumlah Lending</th>
 										<th>Angsuran per Bulan</th>
 										<th>Total Jumlah Tunggakan</th>
+										<th>Total Tagihan</th>
+										<th>Sisa Tunggakan</th>
 										<th>Jumlah Denda</th>
 										<th>Jumlah Pembayaran</th>
 										<th>Jumlah SP Assign</th>
@@ -730,6 +743,8 @@
 											<td><?= rupiah($resDetail->jml_lending); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+											<td><?= rupiah($resDetail->total_tagihan); ?></td>
+											<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
@@ -791,6 +806,8 @@
 										<th>Jumlah Lending</th>
 										<th>Angsuran per Bulan</th>
 										<th>Total Jumlah Tunggakan</th>
+										<th>Total Tagihan</th>
+										<th>Sisa Tunggakan</th>
 										<th>Jumlah Denda</th>
 										<th>Jumlah Pembayaran</th>
 										<th>Jumlah SP Assign</th>
@@ -818,6 +835,8 @@
 											<td><?= rupiah($resDetail->jml_lending); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+											<td><?= rupiah($resDetail->total_tagihan); ?></td>
+											<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
 											<td><?= rupiah($resDetail->jml_denda); ?></td>
 											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 											<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
@@ -951,8 +970,8 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[7, 10, 25, 50, 100, 7],
-							[7, 10, 25, 50, 100, 7]
+							[7, 10, 25, 50, 100],
+							[7, 10, 25, 50, 100]
 						],
 						responsive: {
 							details: {
@@ -1092,15 +1111,15 @@
 		<?php } ?>
 
 		<?php foreach ($dataKpiNplKol as $res) { ?>
-			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 19);
+			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 21);
 		<?php } ?>
 
 		<?php foreach ($dataKpiCRKol as $res) { ?>
-			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',19);
+			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',21);
 		<?php } ?>
 
 		<?php foreach ($dataKpiBZKol as $res) { ?>
-			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',19);
+			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',21);
 		<?php } ?>
 
 		<?php foreach ($dataKpiNS_AO as $res) { ?>
@@ -1138,5 +1157,23 @@
 		var nullNS = $('#nullNS').attr('data');
 		$('#nsNull').html(nullNS);
 		//tutup alert data tidak ada
+		
+		// $(function() {
+		// 	$('select[name=bulan]').on('change', function() {
+		// 		let bulan = $(this).children('option:selected').val();
+		// 		console.log(bulan)
+		// 	});
+		// 	$('select[name=tahun]').on('change', function() {
+		// 		let tahun = $(this).children('option:selected').val();
+		// 		console.log(tahun)
+		// 	});
+		// });
+
+		var bulan = $('#bln').val();
+		var tahun = $('#thn').val();
+
+		console.log(bulan + " " + tahun);
+
+
 	});
 </script>
