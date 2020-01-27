@@ -82,6 +82,9 @@
 				<div id="lendingNull">
 
 				</div>&nbsp;
+				<div id="crNull">
+
+				</div>&nbsp;
 				<div id="nsNull">
 
 				</div>&nbsp;
@@ -94,7 +97,7 @@
 	<!-- end handle data jika null -->
 
 	<div class="row justify-content-center">
-		<?php if ($dataKpiLendingAO || $dataKpiBZ_AO || $dataKpiNS_AO) { ?>
+		<?php if ($dataKpiLendingAO || $cr_per_ao || $dataKpiBZ_AO || $dataKpiNS_AO) { ?>
 
 			<!-- Lending -->
 			<?php 
@@ -113,6 +116,23 @@
 				} 
 			?>
 			<!-- /Lending -->
+
+			<!-- Collection Ratio -->
+			<?php 
+			
+			 if ($cr_per_ao != null) { 
+				 $tampung = getDataSpedo($cr_per_ao[0]->data_spedo);	 
+			?>
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Collection Ratio : <?php echo number_format($cr_per_ao[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($cr_per_ao[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($cr_per_ao[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($cr_per_ao[0]->jml_bayar); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
+					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_cr">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="map" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $cr_per_ao[0]->title; ?>" data-value="<?= $cr_per_ao[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $cr_per_ao[0]->jml_max_value; ?>" data-major-ticks="<?= $cr_per_ao[0]->mayor_ticks; ?>" data-minor-ticks="<?= $cr_per_ao[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $cr_per_ao[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+					</a>
+				</span>
+			<?php
+			} else {
+				echo '<span id="nullCR" data=""></span>';
+			} ?>
+			<!-- /Collection Ratio -->
 
 			<!-- Non Starter -->
 			<?php 
@@ -224,6 +244,82 @@
 		</div>
 	</div>
 	<!-- /Modal Lending -->
+
+	<!-- Modal Collection Ratio -->
+	<div class="modal fade" id="modal_cr" tabindex="4" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header bg-light">
+					<h5 class="modal-title" id="exampleModalLongTitle">Detail Collection Ratio
+						<p><?= $this->session->userdata('username'); ?>, <?= ubahBulan($bulan) . "&nbsp" . $tahun; ?><p>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<table id="dt_tables_cr" class="table table-bordered table-hover display compact nowrap" style="width:100%">
+						<thead class="bg-light">
+							<tr>
+								<th>No Rekening</th>
+								<th>Nama Nasabah</th>
+								<th>Alamat</th>
+								<th>Tanggal Realisasi</th>
+								<th>Jangka Waktu</th>
+								<th>Tanggal Jatuh Tempo</th>
+								<th>Baki Debet</th>
+								<th>Jumlah Pinjaman</th>
+								<th>Jumlah Lending</th>
+								<th>Angsuran per Bulan</th>
+								<th>Total Jumlah Tunggakan</th>
+								<th>Jumlah Denda</th>
+								<th>Jumlah Pembayaran</th>
+								<th>FT Pokok</th>
+								<th>FT Bunga</th>
+								<th>FT Hari Awal</th>
+								<th>FT Hari</th>
+								<th>Kolektibilitas</th>
+								<th>Last Payment</th>
+								<!-- <th>Status</th> -->
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($cr_ao_detail as $resDetail) { ?>
+								<tr>
+									<td><?= $resDetail->no_rekening; ?></td>
+									<td><?= $resDetail->nama_nasabah; ?></td>
+									<td><?= $resDetail->alamat; ?></td>
+									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
+									<td><?= $resDetail->jkw . " Bulan"; ?></td>
+									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+									<td><?= rupiah($resDetail->baki_debet); ?></td>
+									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
+									<td><?= rupiah($resDetail->jml_lending); ?></td>
+									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
+									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+									<td><?= rupiah($resDetail->jml_denda); ?></td>
+									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
+									<td><?= $resDetail->ft_pokok . " Bulan"; ?></td>
+									<td><?= $resDetail->ft_bunga . " Bulan"; ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
+									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
+									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
+									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+									<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer bg-light">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						Close
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Modal Collection Ratio -->
 
 	<!-- Modal Bucket Zero -->
 	<div class="modal fade" id="modal_bz" tabindex="4" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
@@ -543,6 +639,7 @@
 
 		new cchart('#modal_lending', '#dt_tables_lending');
 		new cchart2('#modal_bz', '#dt_tables_bz',16);
+		new cchart2('#modal_cr', '#dt_tables_cr',17);
 		new cchart('#modal_ns', '#dt_tables_ns');
 		//tutup datatable
 
@@ -561,6 +658,11 @@
 		$('#nullNS').attr('data', isiNS);
 		var nullNS = $('#nullNS').attr('data');
 		$('#nsNull').html(nullNS);
+
+		var isiCR = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>CR</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+		$('#nullCR').attr('data', isiCR);
+		var nullCR = $('#nullCR').attr('data');
+		$('#crNull').html(nullCR);
 		//tutup alert data tidak ada
 
 	});

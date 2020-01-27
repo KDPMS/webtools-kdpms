@@ -74,11 +74,6 @@ class Model_kpi extends CI_Model {
 		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr WHERE kode_kantor = '$kode_kantor'");
 	}
 
-	public function datakpi_CR_AO($tahun = '', $bulan = '', $kode_kantor = '', $tanggal ='15'){ // GET VIEW COLLECTION RATIO PER CABANG
-		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_cr_cabang WHERE kode_kantor = '$kode_kantor'");
-	}
-
 	// CR AO
 	public function cr_cabang_ao($tahun = '', $bulan = '', $kode_kantor = '', $tanggal ='15'){ // GET VIEW COLLECTION RATIO AO PER CABANG
 		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");

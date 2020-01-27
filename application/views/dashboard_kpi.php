@@ -165,7 +165,7 @@
 			?>
 				<span class="rounded-circle spedo" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($dataKpiCR[0]->jml_value) . " %"; ?> <br> Status : <?= getStatus($dataKpiCR[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($dataKpiCR[0]->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($dataKpiCR[0]->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
 					<a href="" data-toggle="modal" data-target="#modal_cr">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiCR[0]->unit; ?>" data-title="<?= $dataKpiCR[0]->title . "-Kolektor"; ?>" data-value="<?php echo $dataKpiCR[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiCR[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiCR[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiCR[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiCR[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiCR[0]->unit; ?>" data-title="<?= $dataKpiCR[0]->title . " Kolektor"; ?>" data-value="<?php echo $dataKpiCR[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiCR[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiCR[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiCR[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiCR[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 						</canvas>
 					</a>
 				</span>
@@ -182,13 +182,13 @@
 			?>
 				<span class="rounded-circle spedo" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($cr_cabang_ao[0]->jml_value) . " %"; ?> <br> Status : <?= getStatus($cr_cabang_ao[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($cr_cabang_ao[0]->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($cr_cabang_ao[0]->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
 					<a href="" data-toggle="modal" data-target="#modal_cr_ao">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="cr_ao" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $cr_cabang_ao[0]->unit; ?>" data-title="<?= $cr_cabang_ao[0]->title . "-AO"; ?>" data-value="<?php echo $cr_cabang_ao[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $cr_cabang_ao[0]->jml_max_value; ?>" data-major-ticks="<?php echo $cr_cabang_ao[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $cr_cabang_ao[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $cr_cabang_ao[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="cr_ao" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $cr_cabang_ao[0]->unit; ?>" data-title="<?= $cr_cabang_ao[0]->title . " AO"; ?>" data-value="<?php echo $cr_cabang_ao[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $cr_cabang_ao[0]->jml_max_value; ?>" data-major-ticks="<?php echo $cr_cabang_ao[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $cr_cabang_ao[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $cr_cabang_ao[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 						</canvas>
 					</a>
 				</span>
 			<?php
 			} else {
-				echo '<span id="nullCr" data=""></span>';
+				echo '<span id="nullCr_ao" data=""></span>';
 			} ?>
 			<!-- /Collection Ratio AO -->
 
@@ -1289,10 +1289,15 @@
 		var nullNpl = $('#nullNpl').attr('data');
 		$('#nplNull').html(nullNpl);
 
-		var isiCr = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>CR</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+		var isiCr = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>CR Kolektor</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
 		$('#nullCr').attr('data', isiCr);
 		var nullCr = $('#nullCr').attr('data');
 		$('#crNull').html(nullCr);
+
+		var isiCr = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>CR AO</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
+		$('#nullCr_ao').attr('data', isiCr);
+		var nullCr = $('#nullCr_ao').attr('data');
+		$('#crNull_ao').html(nullCr);
 
 		var isiBz = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>Bucket 0</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
 		$('#nullBz').attr('data', isiBz);
