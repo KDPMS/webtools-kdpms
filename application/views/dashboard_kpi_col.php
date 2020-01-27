@@ -90,17 +90,17 @@
 	<!-- end handle data jika null -->
 
 	<div class="row justify-content-center">
-		<?php if ($dataKpiBZKol || $dataKpiCRKol || $dataKpiNplKol) { ?>
+		<?php if ($bz_kolektor || $cr_kolektor || $npl_kolektor) { ?>
 
 			<!-- NPL -->
 			<?php 
 			 
-			 if ($dataKpiNplKol != null) {
-				$tampung = getDataSpedo($dataKpiNplKol[0]->data_spedo);
+			 if ($npl_kolektor != null) {
+				$tampung = getDataSpedo($npl_kolektor[0]->data_spedo);
 			 ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>NPL : <?php echo number_format($dataKpiNplKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatusNPL($dataKpiNplKol[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Baki Debet NPL : <?= rupiah($dataKpiNplKol[0]->jml_bd_npl); ?> <br> Total Baki Debet : <?= rupiah($dataKpiNplKol[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>NPL : <?php echo number_format($npl_kolektor[0]->jml_value, 2); ?> % <br> Status : <?= getStatusNPL($npl_kolektor[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Baki Debet NPL : <?= rupiah($npl_kolektor[0]->jml_bd_npl); ?> <br> Total Baki Debet : <?= rupiah($npl_kolektor[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $dataKpiNplKol[0]->title; ?>" data-value="<?= $dataKpiNplKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiNplKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiNplKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiNplKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiNplKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $npl_kolektor[0]->title; ?>" data-value="<?= $npl_kolektor[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $npl_kolektor[0]->jml_max_value; ?>" data-major-ticks="<?= $npl_kolektor[0]->mayor_ticks; ?>" data-minor-ticks="<?= $npl_kolektor[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $npl_kolektor[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
 				</span>
 			<?php
@@ -112,12 +112,12 @@
 			<!-- Collection Ratio -->
 			<?php 
 			
-			 if ($dataKpiCRKol != null) { 
-				 $tampung = getDataSpedo($dataKpiCRKol[0]->data_spedo);	 
+			 if ($cr_kolektor != null) { 
+				 $tampung = getDataSpedo($cr_kolektor[0]->data_spedo);	 
 			?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Collection Ratio : <?php echo number_format($dataKpiCRKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($dataKpiCRKol[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($dataKpiCRKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiCRKol[0]->jml_bayar); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Collection Ratio : <?php echo number_format($cr_kolektor[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($cr_kolektor[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($cr_kolektor[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($cr_kolektor[0]->jml_bayar); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_cr">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="map" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $dataKpiCRKol[0]->title; ?>" data-value="<?= $dataKpiCRKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiCRKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiCRKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiCRKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiCRKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="map" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $cr_kolektor[0]->title; ?>" data-value="<?= $cr_kolektor[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $cr_kolektor[0]->jml_max_value; ?>" data-major-ticks="<?= $cr_kolektor[0]->mayor_ticks; ?>" data-minor-ticks="<?= $cr_kolektor[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $cr_kolektor[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
 				</span>
 			<?php
@@ -129,12 +129,12 @@
 			<!-- Bucket Zero -->
 			<?php
 			 
-			 if ($dataKpiBZKol != null) { 
-				$tampung = getDataSpedo($dataKpiBZKol[0]->data_spedo);	 
+			 if ($bz_kolektor != null) { 
+				$tampung = getDataSpedo($bz_kolektor[0]->data_spedo);	 
 			 ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Bucket Zero : <?php echo number_format($dataKpiBZKol[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($dataKpiBZKol[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($dataKpiBZKol[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($dataKpiBZKol[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
+				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Bucket Zero : <?php echo number_format($bz_kolektor[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($bz_kolektor[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($bz_kolektor[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($bz_kolektor[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $dataKpiBZKol[0]->unit; ?>" data-title="<?= $dataKpiBZKol[0]->title; ?>" data-value="<?= $dataKpiBZKol[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $dataKpiBZKol[0]->jml_max_value; ?>" data-major-ticks="<?= $dataKpiBZKol[0]->mayor_ticks; ?>" data-minor-ticks="<?= $dataKpiBZKol[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $dataKpiBZKol[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $bz_kolektor[0]->unit; ?>" data-title="<?= $bz_kolektor[0]->title; ?>" data-value="<?= $bz_kolektor[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $bz_kolektor[0]->jml_max_value; ?>" data-major-ticks="<?= $bz_kolektor[0]->mayor_ticks; ?>" data-minor-ticks="<?= $bz_kolektor[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $bz_kolektor[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					</a>
 				</span>
 			<?php
@@ -184,7 +184,9 @@
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
 								<th>Angsuran per Bulan</th>
-								<th>Total Jumlah Tunggakan</th>
+								<th>Jumlah Tunggakan</th>
+								<th>Total Tagihan</th>
+								<th>Sisa Tunggakan</th>
 								<th>Jumlah Denda</th>
 								<th>Jumlah Pembayaran</th>
 								<th>Jumlah SP Assign</th>
@@ -199,7 +201,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($dataKpiBZKoldetail as $resDetail) { ?>
+							<?php foreach ($bz_detail as $resDetail) { ?>
 								<tr>
 									<td><?= $resDetail->no_rekening; ?></td>
 									<td><?= $resDetail->nama_nasabah; ?></td>
@@ -212,6 +214,8 @@
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
 									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+									<td><?= rupiah($resDetail->total_tagihan); ?></td>
+									<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
 									<td><?= rupiah($resDetail->jml_denda); ?></td>
 									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
@@ -264,7 +268,9 @@
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
 								<th>Angsuran per Bulan</th>
-								<th>Total Jumlah Tunggakan</th>
+								<th>Jumlah Tunggakan</th>
+								<th>Total Tagihan</th>
+								<th>Sisa Tunggakan</th>
 								<th>Jumlah Denda</th>
 								<th>Jumlah Pembayaran</th>
 								<th>Jumlah SP Assign</th>
@@ -279,7 +285,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($dataKpiCRKoldetail as $resDetail) { ?>
+							<?php foreach ($cr_detail as $resDetail) { ?>
 								<tr>
 									<td><?= $resDetail->no_rekening; ?></td>
 									<td><?= $resDetail->nama_nasabah; ?></td>
@@ -292,6 +298,8 @@
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
 									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+									<td><?= rupiah($resDetail->total_tagihan); ?></td>
+									<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
 									<td><?= rupiah($resDetail->jml_denda); ?></td>
 									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
@@ -344,7 +352,9 @@
 								<th>Jumlah Pinjaman</th>
 								<th>Jumlah Lending</th>
 								<th>Angsuran per Bulan</th>
-								<th>Total Jumlah Tunggakan</th>
+								<th>Jumlah Tunggakan</th>
+								<th>Total Tagihan</th>
+								<th>Sisa Tunggakan</th>
 								<th>Jumlah Denda</th>
 								<th>Jumlah Pembayaran</th>
 								<th>Jumlah SP Assign</th>
@@ -359,7 +369,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($dataKpiNplKoldetail as $resDetail) { ?>
+							<?php foreach ($npl_detail as $resDetail) { ?>
 								<tr>
 									<td><?= $resDetail->no_rekening; ?></td>
 									<td><?= $resDetail->nama_nasabah; ?></td>
@@ -372,6 +382,8 @@
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
 									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
 									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+									<td><?= rupiah($resDetail->total_tagihan); ?></td>
+									<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
 									<td><?= rupiah($resDetail->jml_denda); ?></td>
 									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
 									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
@@ -497,9 +509,9 @@
 		}
 
 
-		new cchart('#modal_bz', '#dt_tables_bz',19);
-		new cchart('#modal_cr', '#dt_tables_cr',19);
-		new cchart('#modal_npl', '#dt_tables_npl',19);
+		new cchart('#modal_bz', '#dt_tables_bz',21);
+		new cchart('#modal_cr', '#dt_tables_cr',21);
+		new cchart('#modal_npl', '#dt_tables_npl',21);
 		//tutup datatable
 
 
