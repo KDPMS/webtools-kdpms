@@ -71,32 +71,37 @@ class Kpi extends CI_Controller {
 				$data['kantor']  = $kantor;
 				
 				//data npl
-				$data['dataKpiNpl'] = $this->kpi->datakpi_npl($tahun, $bulan,$kantor)->result();
-				$data['dataKpiNplKol'] = $this->kpi->datakpi_npl_Kol($tahun, $bulan,$kantor)->result();
-				$data['dataKpiNplKoldetail'] = $this->kpi->datakpi_npl_Kol_detail($tahun, $bulan,'09', $kantor)->result();
+				$data['dataKpiNpl'] = $this->kpi->npl_cabang($tahun, $bulan, $kantor)->result();
+				$data['dataKpiNplKol'] = $this->kpi->npl_kolektor($tahun, $bulan, $kantor)->result();
+				$data['dataKpiNplKoldetail'] = $this->kpi->npl_kolektor_detail($tahun, $bulan,'09', $kantor)->result();
 
 				//data lending
-				$data['dataKpiLending'] = $this->kpi->datakpi_lending($tahun, $bulan,$kantor)->result();
-				$data['datakpilendingAO'] = $this->kpi->datakpi_lending_AO($tahun, $bulan,$kantor)->result();
-				$data['datakpilendingAOdetail'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan,'15', $kantor)->result();
+				$data['dataKpiLending'] = $this->kpi->lending_cabang($tahun, $bulan, $kantor)->result();
+				$data['datakpilendingAO'] = $this->kpi->lending_ao($tahun, $bulan, $kantor)->result();
+				$data['datakpilendingAOdetail'] = $this->kpi->lending_ao_detail($tahun, $bulan,'15', $kantor)->result();
 				
-				//data cr
-				$data['dataKpiCR'] = $this->kpi->datakpi_CR($tahun, $bulan,$kantor)->result();
-				$data['dataKpiCRKol'] = $this->kpi->datakpi_CR_Kol($tahun, $bulan,$kantor)->result();
-				$data['dataKpiCRKoldetail'] = $this->kpi->datakpi_CR_Kol_detail($tahun, $bulan,'09', $kantor)->result();
+				//data cr kolektor
+				$data['dataKpiCR'] = $this->kpi->cr_cabang_kolektor($tahun, $bulan, $kantor)->result();
+				$data['dataKpiCRKol'] = $this->kpi->cr_kolektor($tahun, $bulan, $kantor)->result();
+				$data['dataKpiCRKoldetail'] = $this->kpi->cr_kolektor_detail($tahun, $bulan,'09', $kantor)->result();
 				
+				// data cr ao
+				$data['cr_cabang_ao'] = $this->kpi->cr_cabang_ao($tahun, $bulan, $kantor)->result();
+				$data['cr_ao'] = $this->kpi->cr_ao($tahun, $bulan, $kantor)->result();
+				$data['cr_ao_detail'] = $this->kpi->cr_ao_detail($tahun, $bulan,'02', $kantor)->result();
+
 				//data bz
-				$data['dataKpiBZ'] = $this->kpi->datakpi_BZ($tahun, $bulan,$kantor)->result();
-				$data['dataKpiBZKol'] = $this->kpi->datakpi_BZ_Kol($tahun, $bulan,$kantor)->result();
-				$data['dataKpiBZKoldetail'] = $this->kpi->datakpi_BZ_Kol_detail($tahun, $bulan,'09', $kantor)->result();
+				$data['dataKpiBZ'] = $this->kpi->bz_cabang($tahun, $bulan,$kantor)->result();
+				$data['dataKpiBZKol'] = $this->kpi->bz_kolektor($tahun, $bulan,$kantor)->result();
+				$data['dataKpiBZKoldetail'] = $this->kpi->bz_kolektor_detail($tahun, $bulan,'09', $kantor)->result();
 
 				//data ns
-				$data['dataKpiNS'] = $this->kpi->datakpi_NS($tahun, $bulan,$kantor)->result();
-				$data['dataKpiNS_AO'] = $this->kpi->datakpi_NS_AO($tahun, $bulan,$kantor)->result();
-				$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan,'15', $kantor)->result();
+				$data['dataKpiNS'] = $this->kpi->ns_cabang($tahun, $bulan,$kantor)->result();
+				$data['dataKpiNS_AO'] = $this->kpi->ns_ao($tahun, $bulan,$kantor)->result();
+				$data['dataKpiNS_AOdetail'] = $this->kpi->ns_ao_detail($tahun, $bulan,'15', $kantor)->result();
 
 				//data kolektibilitas
-				$data['dataKolektibilitas'] = $this->kpi->dataKolektibilitas($tahun, $bulan,$kantor)->result();
+				$data['dataKolektibilitas'] = $this->kpi->kolektibilitas($tahun, $bulan,$kantor)->result();
 				
 				$this->load->view('include/headerkpi');
 				$this->load->view('dashboard_kpi', $data);
@@ -138,19 +143,23 @@ class Kpi extends CI_Controller {
 				$data['tahun'] = $tahun;
 
 				// data lending per ao
-				$data['dataKpiLendingAO'] = $this->kpi->datakpi_lending_Per_AO($tahun, $bulan, $kode_group2, $kantor)->result();
-				$data['dataKpiLendingAOdetail'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['dataKpiLendingAO'] = $this->kpi->lending_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['dataKpiLendingAOdetail'] = $this->kpi->lending_ao_detail($tahun, $bulan, $kode_group2, $kantor)->result();
+
+				// data cr per ao
+				$data['cr_per_ao'] = $this->kpi->cr_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['cr_ao_detail'] = $this->kpi->cr_ao_detail($tahun, $bulan, $kode_group2, $kantor)->result();
 
 				// data bz per ao
-				$data['dataKpiBZ_AO'] = $this->kpi->datakpi_BZ_Per_AO($tahun, $bulan, $kode_group2, $kantor)->result();
-				$data['dataKpiBZ_AOdetail'] = $this->kpi->datakpi_BZ_AO_detail($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['dataKpiBZ_AO'] = $this->kpi->bz_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['dataKpiBZ_AOdetail'] = $this->kpi->bz_ao_detail($tahun, $bulan, $kode_group2, $kantor)->result();
 				
 				// data fid-ns per ao
-				$data['dataKpiNS_AO'] = $this->kpi->datakpi_NS_Per_AO($tahun, $bulan, $kode_group2, $kantor)->result();
-				$data['dataKpiNS_AOdetail'] = $this->kpi->datakpi_NS_AOdetail($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['dataKpiNS_AO'] = $this->kpi->ns_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['dataKpiNS_AOdetail'] = $this->kpi->ns_ao_detail($tahun, $bulan, $kode_group2, $kantor)->result();
 
 				// jumlah data lending
-				$data['dataKpiMap'] = $this->kpi->datakpi_lending_AO_detail($tahun, $bulan, $kode_group2, $kantor)->num_rows();
+				$data['dataKpiMap'] = $this->kpi->lending_ao_detail($tahun, $bulan, $kode_group2, $kantor)->num_rows();
 
 				$this->load->view('include/headerkpi');
 				$this->load->view('dashboard_kpi_ao', $data);
@@ -190,16 +199,16 @@ class Kpi extends CI_Controller {
 			$data['tahun'] = $tahun;
 
 			// data bz per kolektor
-			$data['dataKpiBZKol'] = $this->kpi->datakpi_BZ_Per_Kol($tahun, $bulan, $kode_group3, $kantor)->result();
-			$data['dataKpiBZKoldetail'] = $this->kpi->datakpi_BZ_Kol_detail($tahun, $bulan, $kode_group3, $kantor)->result();
+			$data['dataKpiBZKol'] = $this->kpi->bz_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->result();
+			$data['dataKpiBZKoldetail'] = $this->kpi->bz_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
 
 			// data cr per kolektor
-			$data['dataKpiCRKol'] = $this->kpi->datakpi_CR_Per_Kol($tahun, $bulan, $kode_group3, $kantor)->result();
-			$data['dataKpiCRKoldetail'] = $this->kpi->datakpi_CR_Kol_detail($tahun, $bulan, $kode_group3, $kantor)->result();
+			$data['dataKpiCRKol'] = $this->kpi->cr_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->result();
+			$data['dataKpiCRKoldetail'] = $this->kpi->cr_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
 
 			// data npl per kolektor
-			$data['dataKpiNplKol'] = $this->kpi->datakpi_npl_Per_Kol($tahun, $bulan, $kode_group3, $kantor)->result();
-			$data['dataKpiNplKoldetail'] = $this->kpi->datakpi_npl_Kol_detail($tahun, $bulan, $kode_group3, $kantor)->result();
+			$data['dataKpiNplKol'] = $this->kpi->npl_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->result();
+			$data['dataKpiNplKoldetail'] = $this->kpi->npl_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
 
 			$this->load->view('include/headerkpi');
 			$this->load->view('dashboard_kpi_col', $data);

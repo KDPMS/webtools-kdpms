@@ -104,6 +104,9 @@
 				<div id="crNull">
 
 				</div>&nbsp;
+				<div id="cr_ao_Null">
+
+				</div>&nbsp;
 				<div id="bzNull">
 
 				</div>&nbsp;
@@ -116,7 +119,7 @@
 	<!-- end handle data jika null -->
 
 	<div class="row justify-content-center">
-		<?php if ($dataKpiLending || $dataKpiNpl || $dataKpiCR || $dataKpiBZ || $dataKpiNS) { ?>
+		<?php if ($dataKpiLending || $dataKpiNpl || $dataKpiCR || $cr_cabang_ao || $dataKpiBZ || $dataKpiNS) { ?>
 
 			<!-- Lending -->
 			<?php 
@@ -162,7 +165,7 @@
 			?>
 				<span class="rounded-circle spedo" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($dataKpiCR[0]->jml_value) . " %"; ?> <br> Status : <?= getStatus($dataKpiCR[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($dataKpiCR[0]->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($dataKpiCR[0]->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
 					<a href="" data-toggle="modal" data-target="#modal_cr">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiCR[0]->unit; ?>" data-title="<?= $dataKpiCR[0]->title; ?>" data-value="<?php echo $dataKpiCR[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiCR[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiCR[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiCR[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiCR[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $dataKpiCR[0]->unit; ?>" data-title="<?= $dataKpiCR[0]->title . "-Kolektor"; ?>" data-value="<?php echo $dataKpiCR[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $dataKpiCR[0]->jml_max_value; ?>" data-major-ticks="<?php echo $dataKpiCR[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $dataKpiCR[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $dataKpiCR[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 						</canvas>
 					</a>
 				</span>
@@ -170,7 +173,24 @@
 			} else {
 				echo '<span id="nullCr" data=""></span>';
 			} ?>
-			<!-- /Collection Ratio -->
+
+			<!-- /Collection Ratio AO -->
+			<?php 
+			
+			if ($cr_cabang_ao != null) {
+				$tampung = getDataSpedo($cr_cabang_ao[0]->data_spedo);	 
+			?>
+				<span class="rounded-circle spedo" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($cr_cabang_ao[0]->jml_value) . " %"; ?> <br> Status : <?= getStatus($cr_cabang_ao[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($cr_cabang_ao[0]->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($cr_cabang_ao[0]->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
+					<a href="" data-toggle="modal" data-target="#modal_cr_ao">
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="cr_ao" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $cr_cabang_ao[0]->unit; ?>" data-title="<?= $cr_cabang_ao[0]->title . "-AO"; ?>" data-value="<?php echo $cr_cabang_ao[0]->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $cr_cabang_ao[0]->jml_max_value; ?>" data-major-ticks="<?php echo $cr_cabang_ao[0]->mayor_ticks; ?>" data-minor-ticks="<?php echo $cr_cabang_ao[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $cr_cabang_ao[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
+						</canvas>
+					</a>
+				</span>
+			<?php
+			} else {
+				echo '<span id="nullCr" data=""></span>';
+			} ?>
+			<!-- /Collection Ratio AO -->
 
 			<!-- Bucket Zero -->
 			<?php 
@@ -355,6 +375,41 @@
 		</div>
 	</div>
 	<!-- /Modal Collection Ratio -->
+
+	<!-- Modal Collection Ratio AO -->
+	<div class="modal fade" id="modal_cr_ao" tabindex="3" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header bg-light">
+					<h5 class="modal-title" id="exampleModalLongTitle">Detail Collection Ratio AO
+						<p>Bulan : <?= ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row justify-content-center">
+						<?php 
+						 foreach ($cr_ao as $res) { 
+							$tampung = getDataSpedo($res->data_spedo);	 
+						?>
+							<span class="rounded-circle" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($res->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($res->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
+								<a class="rounded-circle" href="#detail_cr_ao<?php echo $res->kode_group2; ?>" data-toggle="modal" data-target="#detail_cr_ao<?php echo $res->kode_group2; ?>" data-backdrop="false">
+									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="cr_ao" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group2; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#000000" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="1500">
+									</canvas>
+								</a>
+							</span>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="modal-footer bg-light">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Modal Collection Ratio AO -->
 
 	<!-- Modal Bucket Zero -->
 	<div class="modal fade" id="modal_bz" tabindex="4" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
@@ -771,6 +826,94 @@
 	<?php } ?>
 	<!-- /Modal Detail CR -->
 
+	<!-- Modal Detail CR AO -->
+	<?php foreach ($cr_ao as $res) { ?>
+		<?php
+
+		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
+		$this->db->query("SELECT '$res->kode_group2' INTO @pv_kode_ao");
+		$dataDetail = $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_cr WHERE kode_kantor = '$res->kode_kantor'")->result();
+		?>
+		<div class="modal fade" id="detail_cr_ao<?php echo $res->kode_group2; ?>" tabindex="5" role="dialog" aria-labelledby="" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+				<div class="modal-content">
+					<div class="modal-header bg-light">
+						<h5 class="modal-title" id="exampleModalLongTitle">Detail CR AO
+							<p><?php echo $res->deskripsi_group2; ?>, <?php echo ubahBulan($bulan) . "&nbsp" . $tahun; ?></p>
+						</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="table-responsive">
+							<table id="dt_tables_cr_ao<?php echo $res->kode_group2; ?>" class="table table-bordered table-hover display compact nowrap" style="width:100%">
+								<thead class="bg-light">
+									<tr>
+										<th>No Rekening</th>
+										<th>Nama Nasabah</th>
+										<th>Alamat</th>
+										<th>Tanggal Realisasi</th>
+										<th>Jangka Waktu</th>
+										<th>Tanggal Jatuh Tempo</th>
+										<th>Baki Debet</th>
+										<th>Jumlah Pinjaman</th>
+										<th>Jumlah Lending</th>
+										<th>Angsuran per Bulan</th>
+										<th>Total Jumlah Tunggakan</th>
+										<th>Total Tagihan</th>
+										<th>Sisa Tunggakan</th>
+										<th>Jumlah Denda</th>
+										<th>Jumlah Pembayaran</th>
+										<th>FT Pokok</th>
+										<th>FT Bunga</th>
+										<th>FT Hari Awal</th>
+										<th>FT Hari</th>
+										<th>Kolektibilitas</th>
+										<th>Last Payment</th>
+										<!-- <th>Status</th> -->
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach ($dataDetail as $resDetail) { ?>
+										<tr>
+											<td><?= $resDetail->no_rekening; ?></td>
+											<td><?= $resDetail->nama_nasabah; ?></td>
+											<td><?= $resDetail->alamat; ?></td>
+											<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
+											<td><?= $resDetail->jkw . " Bulan"; ?></td>
+											<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+											<td><?= rupiah($resDetail->baki_debet); ?></td>
+											<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
+											<td><?= rupiah($resDetail->jml_lending); ?></td>
+											<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
+											<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+											<td><?= rupiah($resDetail->total_tagihan); ?></td>
+											<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
+											<td><?= rupiah($resDetail->jml_denda); ?></td>
+											<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
+											<td><?= $resDetail->ft_pokok . " Bulan"; ?></td>
+											<td><?= $resDetail->ft_bunga . " Bulan"; ?></td>
+											<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
+											<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
+											<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
+											<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+											<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
+										</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer bg-light">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php } ?>
+	<!-- /Modal Detail CR AO -->
+
 	<!-- Modal Detail Bucket  Zero -->
 	<?php foreach ($dataKpiBZKol as $res) { ?>
 		<?php
@@ -1116,6 +1259,10 @@
 
 		<?php foreach ($dataKpiCRKol as $res) { ?>
 			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',21);
+		<?php } ?>
+
+		<?php foreach ($cr_ao as $res) { ?>
+			new cchart2('#detail_cr_ao<?php echo $res->kode_group2; ?>', '#dt_tables_cr_ao<?php echo $res->kode_group2; ?>',19);
 		<?php } ?>
 
 		<?php foreach ($dataKpiBZKol as $res) { ?>
