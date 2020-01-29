@@ -1850,7 +1850,7 @@ class Home extends CI_Controller {
 								->get()
 								->row();
 
-       	$toemail = 'arsyandi.ridho@gmail.com, fahmidion1@gmail.com, yusufdroider@gmail.com'; //TOKREDITCHECKING
+       	$toemail = 'arsyandi.ridho@gmail.com, fahmidion1@gmail.com, yusufdroider@gmail.com, lutviarizka14@gmail.com'; //TOKREDITCHECKING
        	$subject = 'KREDIT CHECKING';
        	$plafond = number_format($dataToemail->plafond, 2, ".", ".");
        	$message = "
