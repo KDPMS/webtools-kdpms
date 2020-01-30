@@ -2666,43 +2666,17 @@ $(document).ready(function () {
 				$('#pengeluaran_pendidikan').html(loading)
 				$('#pengeluaran_lainnya').html(loading)
 				$('#angsuran_lain').html(loading)
+				$('#angsuran_kdpms').html(loading)
+				$('#penghasilan_lainnya').html(loading)
 				$('textarea').html('Sedang mengambil data . . .')
 				$('#vertifikasi_data_debitur').html(loading)
 				$('#ket_calon_debitur').html(loading)
 				$('#realisasi').html(loading)
 				$('#tenor_ao').html(loading)
-				$('#no_aplikasi_ca').val('Sedang Mengambil Data . . .')
-				$('#produk_ca').val('Sedang Mengambil Data . . .')
 			},
 			success:function (res) {
-				$('#catatan').val('')
-				$('#pusat_keramaian').val('')
-				$('#jarak_keramaian').val('')
-				$('#fasilitas_umum').val('')
-				$('#kondisi_bentuk_tanah').val('')
-				$('#keterangan_penilaian').val('')
-				$('#sumber_harga').val('')
-				$('#faktor_yang_dapat_menaikan').val('')
-				$('#faktor_yang_dapat_menurunkan').val('')
-				$('#team_survey').val('')
-				$('#penyimpangan').val('')
-				$('#vertifikasi_data_debitur_ca').val('')
-				$('#vertifikasi_penjamin').val('')
-				$('#vertifikasi_jaminan').val('')
-				$('#analisa_kredit_checking').val('')
-				$('#ket_calon_debitur_ca').val('')
-				$('#comment_analisa').val('')
-				$('#hasil_cek_lingk').val('')
-				$('#hasil_cek_aspek_kuantitatif').val('')
-				$('#Subject').val('')
-				$('vkao').html('')
-				$('#produk_ca').val('Sedang Mengambil Data . . .')
 				$('vkao').html('')
 				$.each(res,function (v,k) {
-					$('#no_aplikasi_ca').val(k.no_aplikasi)
-					$('#produk_ca').val(k.DESKRIPSI_PRODUK)
-					$('#k_produk_ca').val(k.kode_produk)
-
 					if (k.verifikasi == 0) {
 						$('#verifmemoao').addClass('text-danger')
 						$('#tglverifmemoao').addClass('text-danger')
@@ -2749,6 +2723,8 @@ $(document).ready(function () {
 					$('#pengeluaran_pendidikan').html('<p> Rp. '+FormatRupiah(k.pengeluaran_pendidikan)+'</p>')
 					$('#pengeluaran_lainnya').html('<p> Rp. '+FormatRupiah(k.pengeluaran_lainya)+'</p>')
 					$('#angsuran_lain').html('<p> Rp. '+FormatRupiah(k.angsuran_lain)+'</p>')
+					$('#angsuran_kdpms').html('<p> Rp. '+FormatRupiah(k.angsuran_kdpms)+'</p>')
+					$('#penghasilan_lainnya').html('<p> Rp. '+FormatRupiah(k.penghasilan_lainnya)+'</p>')
 					$('#hasil_cek_lingkungan').html(k.hasil_cek_lingkungan)
 					$('#vertifikasi_data_debitur').html('<p>'+k.vertifikasi_data_debitur+'</p>')
 					$('#ket_calon_debitur').html('<p>'+k.ket_calon_debitur+'</p>')
@@ -2772,35 +2748,12 @@ $(document).ready(function () {
 				load()
 			},
 			success:function (res) {
-				console.log(res)
 				if (res.amount == 0) {
-					$('#angunansertifikat').hide()
+						$('#angunansertifikat').hide()
 				}else{
 					$('ang').html('Sertifikat')
 					$('#angunansertifikat').show()
 					$.each(res,function (v,k) {
-							if (k.jenis_sertifikat == 'SHM') {
-								var nomor = k.no_shm
-								var masa_berlaku = '-'
-							}else if (k.jenis_sertifikat == 'SHGB') {
-								var nomor = k.no_surat_ukur
-								var masa_berlaku = k.masa_berlaku_shgb
-
-							}else if (k.jenis_sertifikat == 'AJB') {
-								var nomor = k.no_ajb
-								var masa_berlaku = '-'
-
-							}else if (k.jenis_sertifikat == 'SHMRS') {
-								var nomor = '-'
-								var masa_berlaku = k.masa_berlaku_shmrs
-							}
-							$('#jenis_hak_ca').val(k.jenis_sertifikat+' '+nomor)
-							$('#masa_berlaku_hak_ca').val(masa_berlaku)
-							$('#nama_pemegang_hak_ca').val(k.atas_nama)
-							$('#surat_ukur_ca').val('tanngal : '+k.tgl_sertifikat+'  | No : '+k.no_sertifikat+' | Luas : '+k.luas_tanah+'M2')
-							$('#imb_ca').val(k.imb)
-							$('#legalitas_ca').val(k.legalitas)
-							$('#catatan_lainnya_ca').val(k.catatan_lainnya)
 							$('#penggunaan').html('<p>'+k.penggunaan+'</p>')
 							$('#lokasi_setifikat').html('<p>'+k.lokasi+'</p>')
 							$('#kepemilikan_sertifikat').html('<p>'+k.nama_kepemilikan+'</p>')
@@ -2809,8 +2762,10 @@ $(document).ready(function () {
 							$('#jenis_sertifikat').html('<p>'+k.jenis_sertifikat+'</p>')
 							$('#atas_nama').html('<p>'+k.atas_nama+'</p>')
 							$('#alamat-sertifikat').html('<p>'+k.alamat+'</p>')
-							$('#luas_tanah').html('<p>'+k.luas_tanah+'</p>')
-							$('#luas_bangunan').html('<p>'+k.luas_bangunan+'</p>')
+							$('#luas_tanah').html('<p>'+parseInt(k.luas_tanah)+' METER</p>')
+							$('#luas_bangunan').html('<p>'+parseInt(k.luas_bangunan)+' METER</p>')
+							$('#tgl_surat_ukur').html('<p>'+changeDate(k.tgl_surat_ukur)+'</p>')
+							$('#no_surat_ukur').html('<p>'+k.no_surat_ukur+'</p>')
 							if (k.jenis_sertifikat == 'SHM') {
 								$('.d_shm').show()
 								$('#no_shm').html('<p>'+k.no_shm+'</p>')

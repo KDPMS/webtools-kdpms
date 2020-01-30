@@ -182,8 +182,8 @@ class Kpi extends CI_Controller {
 			$bulan       = $this->input->post('bulan');
 			$tahun       = $this->input->post('tahun');
 			$kantor      = $this->session->userdata('kantor');
-			// $kode_group3 = $this->session->userdata('kode_group3');
-			$kode_group3 = '09';
+			$kode_group3 = $this->session->userdata('kode_group3');
+			// $kode_group3 = '09';
 			
 			// jika $tahun tidak ada maka tahun akan diisi tahun sekarang
 			if(empty($tahun)){

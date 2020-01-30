@@ -19,7 +19,7 @@
           <center>
             <div id="pilihan" style="margin-top: 15%;">
               <?php
-                if ($jabatan = $this->session->userdata('jabatan') == 'admin'){
+                if ($this->session->userdata('jabatan') == 'admin' || $this->session->userdata('jabatan') == 'collector'){
               ?>
                 <a onclick="return alert('Anda tidak memiliki akses!')"
                     style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-info "
@@ -46,7 +46,7 @@
                   style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
                   style="box-shadow: 1px 1px 10px gray; width: 300px; height: 150px;">Dashboard Kpi</button></a>
                 <?php
-                  }elseif($jabatan == 'kolektor') {
+                  }elseif($jabatan == 'collector') {
                 ?>
                 <a href="<?php echo base_url('kpi/dashboard_kpi_col'); ?>"
                   style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "
