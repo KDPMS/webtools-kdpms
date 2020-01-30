@@ -18,16 +18,23 @@
         <div class="content-wrapper">
           <center>
             <div id="pilihan" style="margin-top: 15%;">
-              <a href="<?php echo base_url('home') ?>" style="color: #fff; text-decoration: none; font-size: 15pt;">
+              <?php
+                if ($jabatan = $this->session->userdata('jabatan') == 'admin'){
+              ?>
+                <a onclick="return alert('Anda tidak memiliki akses!')"
+                    style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-info "
+                    style="box-shadow: 1px 1px 10px gray; width: 300px; height: 150px;">Web Bisnis</button></a>
+              <?php } else { ?>
+                <a href="<?php echo base_url('home') ?>" style="color: #fff; text-decoration: none; font-size: 15pt;">
                 <button class="btn btn-info " style="box-shadow: 1px 1px 10px gray; width: 300px; height: 150px;">
                   Web Bisnis
                 </button></a>
-
+              <?php } ?>
                 
               <!-- DI ARAHKAN SETIAP USER NYA KALAU AO KEHALAMAN AO, SESUAI AKSES NYA AJA GIMANA -->
               <?php
                 $jabatan = $this->session->userdata('jabatan');
-                if($jabatan == 'ketua' || $jabatan == 'manager') {
+                if($jabatan == 'ketua' || $jabatan == 'manager' || $jabatan == 'admin') {
               ?>
                 <a href="<?php echo base_url('kpi/dashboard_kpi'); ?>"
                   style="color: #fff; text-decoration: none; font-size: 15pt;"><button class="btn btn-primary "

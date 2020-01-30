@@ -54,7 +54,7 @@
 						<!-- akhir looping -->
 					</select>
 					<!-- kondisi dimana kantor cabang tidak bisa melihat data dari kantor pusat, sedangkan kantor pusat bisa melihat yang cabang -->
-					<?php if($this->session->userdata('kantor') !== '02'){ ?>
+					<?php if($this->session->userdata('kantor') !== '02' && $this->session->userdata('jabatan') !== 'admin'){ ?>
 					<select name="kantor" id="kantor" class="custom-select custom-select-sm my-1 mr-sm-2">
 						<option value="01" <?php if ($kantor == '01') {
 												echo ('selected');
@@ -194,7 +194,7 @@
 
 			<!-- Bucket Zero -->
 			<?php 
-			
+			if ($this->session->userdata('jabatan') !== 'admin'){
 			if ($bz_cabang != null) { 
 				$tampung = getDataSpedo($bz_cabang[0]->data_spedo);	 
 			?>
@@ -207,12 +207,12 @@
 			<?php
 			} else {
 				echo '<span id="nullBz" data=""></span>';
-			} ?>
+			}} ?>
 			<!-- /Bucket Zero -->
 
 			<!-- Non Starter -->
 			<?php 
-			
+			if ($this->session->userdata('jabatan') !== 'admin'){
 			if ($ns_cabang != null) { 
 				$tampung = getDataSpedo($ns_cabang[0]->data_spedo);	 
 			?>
@@ -225,7 +225,7 @@
 			<?php
 			} else {
 				echo '<span id="nullNS" data=""></span>';
-			} ?>
+			}} ?>
 			<!-- /Non Starter -->
 
 		<?php } else { ?>

@@ -41,7 +41,7 @@ class Kpi extends CI_Controller {
 			redirect(base_url('login'));
 		}else{
 			// kondisi untuk akses yang diijinkan (ketua dan manager yg dapat mengakses ini)
-			if($this->session->userdata('jabatan') == 'ketua' || $this->session->userdata('jabatan') == 'manager'){
+			if($this->session->userdata('jabatan') == 'ketua' || $this->session->userdata('jabatan') == 'manager' || $this->session->userdata('jabatan') == 'admin'){
 				$bulan   = $this->input->post('bulan');
 				$tahun   = $this->input->post('tahun');
 				$kantor  = $this->input->post('kantor');
