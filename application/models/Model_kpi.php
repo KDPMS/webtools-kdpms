@@ -82,7 +82,7 @@ class Model_kpi extends CI_Model {
 
 	public function cr_ao($tahun = '', $bulan = '', $kode_kantor = '', $tanggal ='15'){ //GET VIEW COLLECTION RATIO ALL AO
 		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_cr_ao WHERE kode_kantor = '$kode_kantor'");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_cr_ao as a LEFT JOIN kms.kre_kode_group2 as b ON a.kode_group2 = b.kode_group2 WHERE a.kode_kantor = '$kode_kantor' AND b.flg_aktif = '1'");
 	}
 
 	public function cr_per_ao($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW COLLECTION RATIO Per AO
