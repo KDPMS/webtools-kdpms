@@ -508,7 +508,7 @@
 								<tr>
 									<th>No Rekening</th>
 									<th>Nama Nasabah</th>
-									<th>Mitra Bisnis</th>
+									<th>Mitra</th>
 									<th>Tanggal Realisasi</th>
 									<th>Jangka Waktu</th>
 									<th>Tanggal Jatuh Tempo</th>
@@ -523,7 +523,7 @@
 									<tr>
 										<td><?php echo $resDetail->no_rekening; ?></td>
 										<td><?php echo $resDetail->nama_nasabah; ?></td>
-										<?php echo ($resDetail->deskripsi_group5 != NULL ? "<td>" . (($resDetail->deskripsi_group5) == "kantor" ? ucfirst("mediator") : ucfirst($resDetail->deskripsi_group5)) . "</td>" : "<td> - </td>"); ?>
+										<?php echo ($resDetail->deskripsi_group5 != NULL ? "<td>" . ucfirst($resDetail->deskripsi_group5) . "</td>" : "<td> - </td>"); ?>
 										<td><?php echo ubahDate($resDetail->tgl_realisasi); ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?php echo ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
