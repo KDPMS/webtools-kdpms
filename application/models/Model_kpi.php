@@ -35,7 +35,7 @@ class Model_kpi extends CI_Model {
 
 	public function lending_ao($tahun = '', $bulan = '', $kode_kantor = '', $tanggal ='15'){ // GET VIEW LENDING ALL AO
 		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_lending_ao WHERE kode_kantor = '$kode_kantor' ORDER BY jml_value DESC");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_lending_ao WHERE kode_kantor = '$kode_kantor'");
 	}
 
 	public function lending_per_ao($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor = '', $tanggal = '15'){ // GET VIEW LENDING PER AO
@@ -99,7 +99,7 @@ class Model_kpi extends CI_Model {
 
 	
 	//KPI BUCKET ZERO
-	public function bz_cabang($tahun = '', $bulan = '', $kode_kantor = '', $tanggal ='15'){ // GET VIEW BUCKET ZERO PER CABANG
+	public function bz_cabang_kolektor($tahun = '', $bulan = '', $kode_kantor = '', $tanggal ='15'){ // GET VIEW BUCKET ZERO PER CABANG
 		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
 		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_bz_cabang WHERE kode_kantor = '$kode_kantor'");
   	}

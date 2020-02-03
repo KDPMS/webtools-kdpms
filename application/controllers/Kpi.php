@@ -71,32 +71,32 @@ class Kpi extends CI_Controller {
 				$data['kantor']  = $kantor;
 				
 				//data npl
-				$data['npl_cabang'] = $this->kpi->npl_cabang($tahun, $bulan, $kantor)->result();
+				$data['npl_cabang'] = $this->kpi->npl_cabang($tahun, $bulan, $kantor)->num_rows();
 				$data['npl_kolektor'] = $this->kpi->npl_kolektor($tahun, $bulan, $kantor)->result();
 				$data['dataKpiNplKoldetail'] = $this->kpi->npl_kolektor_detail($tahun, $bulan,'09', $kantor)->result();
 
 				//data lending
-				$data['lending_cabang'] = $this->kpi->lending_cabang($tahun, $bulan, $kantor)->result();
+				$data['lending_cabang'] = $this->kpi->lending_cabang($tahun, $bulan, $kantor)->num_rows();
 				$data['lending_ao'] = $this->kpi->lending_ao($tahun, $bulan, $kantor)->result();
 				$data['datakpilendingAOdetail'] = $this->kpi->lending_ao_detail($tahun, $bulan,'15', $kantor)->result();
 				
 				//data cr kolektor
-				$data['cr_cabang'] = $this->kpi->cr_cabang_kolektor($tahun, $bulan, $kantor)->result();
+				$data['cr_cabang_kolektor'] = $this->kpi->cr_cabang_kolektor($tahun, $bulan, $kantor)->num_rows();
 				$data['cr_kolektor'] = $this->kpi->cr_kolektor($tahun, $bulan, $kantor)->result();
 				$data['dataKpiCRKoldetail'] = $this->kpi->cr_kolektor_detail($tahun, $bulan,'09', $kantor)->result();
 				
 				// data cr ao
-				$data['cr_cabang_ao'] = $this->kpi->cr_cabang_ao($tahun, $bulan, $kantor)->result();
+				$data['cr_cabang_ao'] = $this->kpi->cr_cabang_ao($tahun, $bulan, $kantor)->num_rows();
 				$data['cr_ao'] = $this->kpi->cr_ao($tahun, $bulan, $kantor)->result();
 				$data['cr_ao_detail'] = $this->kpi->cr_ao_detail($tahun, $bulan,'02', $kantor)->result();
 
 				//data bz
-				$data['bz_cabang'] = $this->kpi->bz_cabang($tahun, $bulan,$kantor)->result();
+				$data['bz_cabang_kolektor'] = $this->kpi->bz_cabang_kolektor($tahun, $bulan,$kantor)->num_rows();
 				$data['bz_kolektor'] = $this->kpi->bz_kolektor($tahun, $bulan,$kantor)->result();
 				$data['dataKpiBZKoldetail'] = $this->kpi->bz_kolektor_detail($tahun, $bulan,'09', $kantor)->result();
 
 				//data ns
-				$data['ns_cabang'] = $this->kpi->ns_cabang($tahun, $bulan,$kantor)->result();
+				$data['ns_cabang'] = $this->kpi->ns_cabang($tahun, $bulan,$kantor)->num_rows();
 				$data['ns_ao'] = $this->kpi->ns_ao($tahun, $bulan,$kantor)->result();
 				$data['dataKpiNS_AOdetail'] = $this->kpi->ns_ao_detail($tahun, $bulan,'15', $kantor)->result();
 
@@ -143,19 +143,19 @@ class Kpi extends CI_Controller {
 				$data['tahun'] = $tahun;
 
 				// data lending per ao
-				$data['lending_ao'] = $this->kpi->lending_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['lending_ao'] = $this->kpi->lending_per_ao($tahun, $bulan, $kode_group2, $kantor)->num_rows();
 				$data['lending_detail'] = $this->kpi->lending_ao_detail($tahun, $bulan, $kode_group2, $kantor)->result();
 
 				// data cr per ao
-				$data['cr_per_ao'] = $this->kpi->cr_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['cr_per_ao'] = $this->kpi->cr_per_ao($tahun, $bulan, $kode_group2, $kantor)->num_rows();
 				$data['cr_ao_detail'] = $this->kpi->cr_ao_detail($tahun, $bulan, $kode_group2, $kantor)->result();
 
 				// data bz per ao
-				$data['bz_ao'] = $this->kpi->bz_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['bz_ao'] = $this->kpi->bz_per_ao($tahun, $bulan, $kode_group2, $kantor)->num_rows();
 				$data['bz_detail'] = $this->kpi->bz_ao_detail($tahun, $bulan, $kode_group2, $kantor)->result();
 				
 				// data fid-ns per ao
-				$data['ns_ao'] = $this->kpi->ns_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+				$data['ns_ao'] = $this->kpi->ns_per_ao($tahun, $bulan, $kode_group2, $kantor)->num_rows();
 				$data['ns_detail'] = $this->kpi->ns_ao_detail($tahun, $bulan, $kode_group2, $kantor)->result();
 
 				// jumlah data lending
@@ -182,8 +182,8 @@ class Kpi extends CI_Controller {
 			$bulan       = $this->input->post('bulan');
 			$tahun       = $this->input->post('tahun');
 			$kantor      = $this->session->userdata('kantor');
-			$kode_group3 = $this->session->userdata('kode_group3');
-			// $kode_group3 = '09';
+			// $kode_group3 = $this->session->userdata('kode_group3');
+			$kode_group3 = '09';
 			
 			// jika $tahun tidak ada maka tahun akan diisi tahun sekarang
 			if(empty($tahun)){
@@ -199,20 +199,145 @@ class Kpi extends CI_Controller {
 			$data['tahun'] = $tahun;
 
 			// data bz per kolektor
-			$data['bz_kolektor'] = $this->kpi->bz_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->result();
+			$data['bz_kolektor'] = $this->kpi->bz_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->num_rows();
 			$data['bz_detail'] = $this->kpi->bz_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
 
 			// data cr per kolektor
-			$data['cr_kolektor'] = $this->kpi->cr_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->result();
+			$data['cr_kolektor'] = $this->kpi->cr_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->num_rows();
 			$data['cr_detail'] = $this->kpi->cr_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
 
 			// data npl per kolektor
-			$data['npl_kolektor'] = $this->kpi->npl_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->result();
+			$data['npl_kolektor'] = $this->kpi->npl_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->num_rows();
 			$data['npl_detail'] = $this->kpi->npl_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
 
 			$this->load->view('include/headerkpi');
 			$this->load->view('dashboard_kpi_col', $data);
 		}
+	}
+
+	// data untuk kpi (cabang)
+
+	public function spedo_lending_cabang($tahun, $bulan, $kantor) {
+
+		$data = $this->kpi->lending_cabang($tahun, $bulan, $kantor)->result();
+
+		echo json_encode($data);
+	}
+
+	public function spedo_npl_cabang($tahun, $bulan, $kantor) {
+
+		$data = $this->kpi->npl_cabang($tahun, $bulan, $kantor)->result();
+
+		echo json_encode($data);
+	}
+
+	public function spedo_cr_cabang_kolektor($tahun, $bulan, $kantor) {
+
+		$data = $this->kpi->cr_cabang_kolektor($tahun, $bulan, $kantor)->result();
+
+		echo json_encode($data);
+	}
+
+	public function spedo_cr_cabang_ao($tahun, $bulan, $kantor) {
+
+		$data = $this->kpi->cr_cabang_ao($tahun, $bulan, $kantor)->result();
+
+		echo json_encode($data);
+	}
+
+	public function spedo_bz_cabang_kolektor($tahun, $bulan, $kantor) {
+
+		$data = $this->kpi->bz_cabang_kolektor($tahun, $bulan,$kantor)->result();
+
+		echo json_encode($data);
+	}
+
+	public function spedo_ns_cabang($tahun, $bulan, $kantor) {
+
+		$data = $this->kpi->ns_cabang($tahun, $bulan,$kantor)->result();
+
+		echo json_encode($data);
+	}
+
+	// data untuk kpi_col
+
+	public function spedo_npl_kolektor($tahun, $bulan, $kode_group3, $kantor, $status) {
+
+		if ($status == 'kpi') {
+			$data = $this->kpi->npl_kolektor($tahun, $bulan, $kantor)->result();
+		} else if ($status == 'kpi_col') {
+			$data = $this->kpi->npl_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->result();
+		}
+
+		echo json_encode($data);
+	}
+
+	public function spedo_cr_kolektor($tahun, $bulan, $kode_group3, $kantor, $status) {
+
+		if ($status == 'kpi') {
+			$data = $this->kpi->cr_kolektor($tahun, $bulan, $kantor)->result();
+		} else if ($status == 'kpi_col') {
+			$data = $this->kpi->cr_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->result();
+		}
+
+		echo json_encode($data);
+	}
+
+	public function spedo_bz_kolektor($tahun, $bulan, $kode_group3, $kantor, $status) {
+		
+		if ($status == 'kpi') {
+			$data = $this->kpi->bz_kolektor($tahun, $bulan,$kantor)->result();
+		} else if ($status == 'kpi_col') {
+			$data = $this->kpi->bz_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->result();
+		}
+
+		echo json_encode($data);
+	}
+
+	// data untuk kpi_ao
+
+	public function spedo_lending_ao($tahun, $bulan, $kode_group2, $kantor, $status) {
+
+		if ($status == 'kpi') {
+			$data = $this->kpi->lending_ao($tahun, $bulan, $kantor)->result();
+		} else if ($status == 'kpi_ao') {
+			$data = $this->kpi->lending_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+		}
+
+		echo json_encode($data);
+	}
+
+	public function spedo_cr_ao($tahun, $bulan, $kode_group2, $kantor, $status) {
+
+		if ($status == 'kpi') {
+			$data = $this->kpi->cr_ao($tahun, $bulan, $kantor)->result();
+		} else if ($status == 'kpi_ao') {
+			$data = $this->kpi->cr_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+		}
+
+		echo json_encode($data);
+	}
+
+	public function spedo_bz_ao($tahun, $bulan, $kode_group2, $kantor, $status) {
+
+		if ($status == 'kpi') {
+			$data = $this->kpi->bz_ao($tahun, $bulan, $kantor)->result();
+		} else if ($status == 'kpi_ao') {
+			$data = $this->kpi->bz_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+		}
+
+		echo json_encode($data);
+	}
+
+	public function spedo_ns_ao($tahun, $bulan, $kode_group2, $kantor, $status) {
+
+		if ($status == 'kpi') {
+			$data = $this->kpi->ns_ao($tahun, $bulan, $kantor)->result();
+		} else if ($status == 'kpi_ao') {
+			$data = $this->kpi->ns_per_ao($tahun, $bulan, $kode_group2, $kantor)->result();
+		}
+
+		echo json_encode($data);
 	}
 
 }

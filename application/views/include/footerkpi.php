@@ -1,4 +1,4 @@
-<!-- partial:partials/_footer.html -->
+
                     <footer class="footer">
 						<div class="container-fluid clearfix">
 							<span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
@@ -10,6 +10,9 @@
 					</footer>
 					
 					<script src="<?= base_url('lib/vendors/js/gauge.min.js') ?>"></script>
+
+					<!-- javascript function for kpi -->
+					<script src="<?= base_url('lib/js/kpi.js') ?>"></script>
 
 					<!-- Bootstrap 4.3.1 JS -->
 					<script src="<?= base_url('lib/vendors/js/jquery-3.3.1.min.js') ?>"></script>

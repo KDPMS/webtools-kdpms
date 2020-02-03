@@ -1,13 +1,8 @@
 <div class="content-wrapper">
-	<input type="hidden" id="tamplate" value="" />
-	<input type="hidden" id="paramsID1" value="" />
-	<input type="hidden" id="paramsID2" value="" />
-	<input type="hidden" id="paramsID3" value="" />
 	<input type="hidden" id="session_kantor" value="<?php echo $this->session->userdata('kantor'); ?>" />
-	<input type="hidden" id="session_jabatan" value="<?php echo $this->session->userdata('jabatan'); ?>" />
-	<input type="hidden" id="session_id_user" value="<?php echo $this->session->userdata('id'); ?>" />
-	<input type="hidden" id="NowDate" value="<?php echo date('Y-m-d'); ?>" />
-	<input type="hidden" id="load_page" value="false" />
+	<!-- <input type="hidden" id="kd_group3" value="<#?php echo $this->session->userdata('kode_group3'); ?>" /> -->
+	<input type="hidden" id="kd_group3" value="09" />
+	<input type="hidden" id="nowDate" value="<?php echo date('Y-m-d'); ?>" />
 
 	<div class="col-md-12">
 		<div class="row mt-5">
@@ -90,17 +85,14 @@
 	<!-- end handle data jika null -->
 
 	<div class="row justify-content-center">
-		<?php if ($bz_kolektor || $cr_kolektor || $npl_kolektor) { ?>
+		<?php if ($bz_kolektor > 0 || $cr_kolektor > 0 || $npl_kolektor > 0) { ?>
 
 			<!-- NPL -->
-			<?php 
-			 
-			 if ($npl_kolektor != null) {
-				$tampung = getDataSpedo($npl_kolektor[0]->data_spedo);
-			 ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>NPL : <?php echo number_format($npl_kolektor[0]->jml_value, 2); ?> % <br> Status : <?= getStatusNPL($npl_kolektor[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Baki Debet NPL : <?= rupiah($npl_kolektor[0]->jml_bd_npl); ?> <br> Total Baki Debet : <?= rupiah($npl_kolektor[0]->jml_bd); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
-					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_npl">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $npl_kolektor[0]->title; ?>" data-value="<?= $npl_kolektor[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $npl_kolektor[0]->jml_max_value; ?>" data-major-ticks="<?= $npl_kolektor[0]->mayor_ticks; ?>" data-minor-ticks="<?= $npl_kolektor[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $npl_kolektor[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+			<?php if ($npl_kolektor > 0) { ?>
+
+				<span class="rounded-circle spedo npl_popover" data-popover="popover" data-html="true" data-placement="top" data-trigger="hover">
+					<a class="rounded-circle npl_spedo" href="" data-toggle="modal" data-target="#modal_npl">
+					
 					</a>
 				</span>
 			<?php
@@ -110,14 +102,12 @@
 			<!-- /NPL -->
 			
 			<!-- Collection Ratio -->
-			<?php 
-			
-			 if ($cr_kolektor != null) { 
-				 $tampung = getDataSpedo($cr_kolektor[0]->data_spedo);	 
-			?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Collection Ratio : <?php echo number_format($cr_kolektor[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($cr_kolektor[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($cr_kolektor[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($cr_kolektor[0]->jml_bayar); ?></b>" data-html="true" data-placement="top" data-trigger="hover">
-					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_cr">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="map" data-type="radial-gauge" data-width="300" data-height="300" data-units="%" data-title="<?= $cr_kolektor[0]->title; ?>" data-value="<?= $cr_kolektor[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $cr_kolektor[0]->jml_max_value; ?>" data-major-ticks="<?= $cr_kolektor[0]->mayor_ticks; ?>" data-minor-ticks="<?= $cr_kolektor[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $cr_kolektor[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+				
+			<?php if ($cr_kolektor > 0) {  ?>
+
+				<span class="rounded-circle spedo cr_popover" data-popover="popover" data-html="true" data-placement="top" data-trigger="hover">
+					<a class="rounded-circle cr_spedo" href="" data-toggle="modal" data-target="#modal_cr">
+					
 					</a>
 				</span>
 			<?php
@@ -127,14 +117,11 @@
 			<!-- /Collection Ratio -->
 
 			<!-- Bucket Zero -->
-			<?php
-			 
-			 if ($bz_kolektor != null) { 
-				$tampung = getDataSpedo($bz_kolektor[0]->data_spedo);	 
-			 ?>
-				<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Bucket Zero : <?php echo number_format($bz_kolektor[0]->jml_value, 2); ?> % <br> Status : <?= getStatus($bz_kolektor[0]->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Tagihan : <?= rupiah($bz_kolektor[0]->jml_tagihan); ?> <br> Jumlah Bayar : <?= rupiah($bz_kolektor[0]->jml_bayar); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
-					<a class="rounded-circle" href="" data-toggle="modal" data-target="#modal_bz">
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?= $bz_kolektor[0]->unit; ?>" data-title="<?= $bz_kolektor[0]->title; ?>" data-value="<?= $bz_kolektor[0]->jml_value; ?>" data-min-value="0" data-max-value="<?= $bz_kolektor[0]->jml_max_value; ?>" data-major-ticks="<?= $bz_kolektor[0]->mayor_ticks; ?>" data-minor-ticks="<?= $bz_kolektor[0]->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?= $bz_kolektor[0]->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+			
+			<?php if ($bz_kolektor > 0) { ?>
+				<span class="rounded-circle spedo bz_popover" data-popover="popover" data-html="true" data-placement="top" data-trigger="hover">
+					<a class="rounded-circle bz_spedo" href="" data-toggle="modal" data-target="#modal_cr">
+					
 					</a>
 				</span>
 			<?php
@@ -531,5 +518,85 @@
 		var nullNPL = $('#nullNPL').attr('data');
 		$('#nplNull').html(nullNPL);
 		//tutup alert data tidak ada
+
+		// ajax data
+		const url = '<?= base_url('kpi/'); ?>';
+		const loading = `<div class="spinner-border text-dark" style="font-size: 2px; height: 20px; width: 20px;" role="status">
+							<span class="sr-only">Loading...</span>
+						</div>`;
+		let kantor = $('#session_kantor').val();
+		let kode_group3 = $('#kd_group3').val();
+		let bulan = '<?= $bulan; ?>';
+		let tahun = '<?= $tahun; ?>';
+		let status = 'kpi_col';
+
+		console.log(kantor +" "+ kode_group3 +" "+ bulan +" "+ tahun);
+		
+		nplKolektor();
+		function nplKolektor() {
+
+			$.ajax({
+				url: url + "spedo_npl_kolektor/" +tahun+"/"+bulan+"/"+kode_group3+"/"+kantor+"/"+status,
+				method: "GET",
+				dataType: "JSON",
+				success: function(data) {
+					// console.log(data);
+					if (data.length > 0) {
+						
+						let spedo = getDataSpedo(data[0].data_spedo);
+	
+						$('.npl_popover').attr("data-content", "<b>NPL : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatusNPL(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Baki Debet NPL : "+ rupiah(data[0].jml_bd_npl) +" <br> Total Baki Debet : "+ rupiah(data[0].jml_bd) +"</b>");
+						$('.npl_spedo').html(`
+							<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+						`);
+					}
+				} 
+			});
+		}
+
+		crKolektor();
+		function crKolektor() {
+
+			$.ajax({
+				url: url + "spedo_cr_kolektor/" +tahun+"/"+bulan+"/"+kode_group3+"/"+kantor+"/"+status,
+				method: "GET",
+				dataType: "JSON",
+				success: function(data) {
+					// console.log(data);
+					if (data.length > 0) {
+
+						let spedo = getDataSpedo(data[0].data_spedo);
+	
+						$('.cr_popover').attr("data-content", "<b>Collection Ratio : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Tagihan : "+ rupiah(data[0].jml_tagihan) +" <br> Jumlah Bayar : "+ rupiah(data[0].jml_bayar) +"</b>");
+						$('.cr_spedo').html(`
+							<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+						`);
+					}
+				} 
+			});
+		}
+
+		bzKolektor();
+		function bzKolektor() {
+
+			$.ajax({
+				url: url + "spedo_bz_kolektor/" +tahun+"/"+bulan+"/"+kode_group3+"/"+kantor+"/"+status,
+				method: "GET",
+				dataType: "JSON",
+				success: function(data) {
+					// console.log(data);
+					if (data.length > 0) {
+
+						let spedo = getDataSpedo(data[0].data_spedo);
+	
+						$('.bz_popover').attr("data-content", "<b> Bucket Zero : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Tagihan : "+ rupiah(data[0].jml_tagihan) +" <br> Jumlah Bayar : "+ rupiah(data[0].jml_bayar) +"</b>");
+						$('.bz_spedo').html(`
+							<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+						`);
+					}
+				} 
+			});
+		}
+
 	});
 </script>
