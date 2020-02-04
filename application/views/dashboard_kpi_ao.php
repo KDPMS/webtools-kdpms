@@ -247,6 +247,7 @@
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
 								<th>Jangka Waktu</th>
+								<th>Jatuh Tempo</th>
 								<th>Tanggal Jatuh Tempo</th>
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
@@ -275,6 +276,7 @@
 									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 									<td><?= $resDetail->jkw . " Bulan"; ?></td>
 									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+									<td><?= substr($resDetail->tgl_jatuh_tempo,8,2); ?></td>
 									<td><?= rupiah($resDetail->baki_debet); ?></td>
 									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 									<td><?= rupiah($resDetail->jml_lending); ?></td>
@@ -328,6 +330,7 @@
 									<th>Alamat</th>
 									<th>Tanggal Realisasi</th>
 									<th>Jangka Waktu</th>
+									<th>Jatuh Tempo</th>
 									<th>Tanggal Jatuh Tempo</th>
 									<th>Baki Debet</th>
 									<th>Jumlah Pinjaman</th>
@@ -353,6 +356,7 @@
 										<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
 										<td><?= $resDetail->jkw . " Bulan"; ?></td>
 										<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+										<td><?= substr($resDetail->tgl_jatuh_tempo,8,2); ?></td>
 										<td><?= rupiah($resDetail->baki_debet); ?></td>
 										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
 										<td><?= rupiah($resDetail->jml_lending); ?></td>
@@ -534,7 +538,7 @@
 			});
 		}
 
-		function cchart2(id_modal, id_table,colgrp) {
+		function cchart2(id_modal, id_table, colgrp,title,columns_export) {
 			return $(id_modal).on('shown.bs.modal', function() {
 				if (!$.fn.DataTable.isDataTable(id_table)) {
 					var tbtb = $(id_table).DataTable({
@@ -569,62 +573,108 @@
 						autoWidth: true,
 						pagingType: "simple_numbers",
 						lengthMenu: [
-							[5, 10, 25, 50, 100, -1],
-							[5, 10, 25, 50, 100, "Semua"]
+							[7, 10, 25, 50, 100],
+							[7, 10, 25, 50, 100]
 						],
 						responsive: {
 							details: {
 								renderer: function(api, rowIdx, columns) {
 									var data = $.map(columns, function(col, i) {
 										return col.hidden ?
-											'<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+											'<tr data-dt-row="' + col.rowIndex +
+											'" data-dt-column="' + col.columnIndex +
+											'">' +
 											'<td>' + col.title + ' : ' + '</td> ' +
 											'<td>' + col.data + '</td>' +
 											'</tr>' :
 											'';
 									}).join('');
-
 									return data ?
 										$('<table/>').append(data) :
 										false;
 								}
 							}
 						},
+						order: [
+							[colgrp, "asc"]
+						],
 						columnDefs: [{
 							className: 'control',
 							orderable: true,
 							targets: 0
 						}],
+						buttons: [
+							{
+								extend: 'excelHtml5',
+								title: title,
+								autoFilter: true,
+								className: 'btn btn-sm btn-primary bg-primary ',
+								messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
+								exportOptions: {
+									columns: columns_export
+								}
+							},
+							// {
+							// 	extend: 'pdfHtml5',
+							// 	pageSize: 'A4',
+							// 	title: title,
+							// 	orientation: 'potrait',
+							// 	className: 'btn btn-sm btn-primary bg-primary ',
+							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
+							// 	exportOptions: {
+							// 		columns: [ 0, 1, 3, 5 ]
+							// 	}
+							// },
+							// {
+							// 	extend: 'pdfHtml5',
+							// 	text: 'OPEN AS PDF',
+							// 	download: 'open',
+							// 	pageSize: 'A4',
+							// 	title: title,
+							// 	orientation: 'potrait',
+							// 	className: 'btn btn-sm btn-primary bg-primary ',
+							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
+							// 	exportOptions: {
+							// 		columns: [ 0, 1, 3, 5 ]
+							// 	}
+								
+							// },
+							// {
+							// 	extend: 'print',
+							// 	title: title,
+							// 	className: 'btn btn-sm btn-primary bg-primary ',
+							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
+							// 	exportOptions: {
+							// 		columns: [ 0, 1, 3 ]
+							// 	}
+							// },
+							
+						],
 						// fixedColumns: {
 						// 	leftColumns: 2
 						// },
-						order: [
-							[colgrp, "desc"]
-						],
-						dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+						dom: "B<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
 							"<'row'<'col-sm-12't>>" +
 							"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
 						// scrollY: 320,
-						// scrollX: true,
+						// scrollX: true, 
 						// scrollCollapse: true,
 						// scroller: true,
 					});
 				} else {
 					// var tbtb = $.fn.dataTable.fnTables(true);
-
 					// $(tbtb).each(function () {
 					// 	$(this).dataTable().fnDestroy();
 					// });
 				}
-
 				//tbtb.columns.adjust().responsive.recalc();
 			});
 		}
 
 
 		new cchart('#modal_lending', '#dt_tables_lending');
-		new cchart2('#modal_bz', '#dt_tables_bz',16);
-		new cchart2('#modal_cr', '#dt_tables_cr',19);
+		new cchart2('#modal_bz', '#dt_tables_bz',6,'DATA BZ',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18]);
+		new cchart2('#modal_cr', '#dt_tables_cr',6,'DATA CR',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]);
 		new cchart('#modal_ns', '#dt_tables_ns');
 		//tutup datatable
 
