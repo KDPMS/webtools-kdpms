@@ -1141,6 +1141,9 @@
 			});
 		}
 
+		var bln = '<?= ubahBulan($bulan) ?>';
+		var thn = '<?= $tahun ?>';
+		
 		function cchart2(id_modal, id_table, colgrp,title,columns_export) {
 			return $(id_modal).on('shown.bs.modal', function() {
 				if (!$.fn.DataTable.isDataTable(id_table)) {
@@ -1212,7 +1215,7 @@
 								title: title,
 								autoFilter: true,
 								className: 'btn btn-sm btn-primary bg-primary ',
-								messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
+								messageTop: bln +' - '+ thn,
 								exportOptions: {
 									columns: columns_export
 								}
@@ -1279,19 +1282,19 @@
 		<?php } ?>
 
 		<?php foreach ($npl_kolektor as $res) { ?>
-			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 6, 'DATA NPL',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
+			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 6, 'DATA NPL - <?= strtoupper($res->deskripsi_group3); ?>',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
 		<?php } ?>
 
 		<?php foreach ($cr_kolektor as $res) { ?>
-			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',6, 'DATA CR KOL',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
+			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',6, 'DATA CR KOL - <?= strtoupper($res->deskripsi_group3); ?>',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
 		<?php } ?>
 
 		<?php foreach ($cr_ao as $res) { ?>
-			new cchart2('#detail_cr_ao<?php echo $res->kode_group2; ?>', '#dt_tables_cr_ao<?php echo $res->kode_group2; ?>',6, 'DATA CR AO',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]);
+			new cchart2('#detail_cr_ao<?php echo $res->kode_group2; ?>', '#dt_tables_cr_ao<?php echo $res->kode_group2; ?>',6, 'DATA CR AO - <?= strtoupper($res->deskripsi_group2); ?>',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]);
 		<?php } ?>
 
 		<?php foreach ($bz_kolektor as $res) { ?>
-			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',6, 'DATA BZ',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
+			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',6, 'DATA BZ - <?= strtoupper($res->deskripsi_group3); ?>',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
 		<?php } ?>
 
 		<?php foreach ($ns_ao as $res) { ?>
