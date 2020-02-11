@@ -215,7 +215,7 @@ class Kpi extends CI_Controller {
 		}
 	}
 
-	// data untuk kpi (cabang)
+	// data json untuk kpi (cabang)
 
 	public function spedo_lending_cabang($tahun, $bulan, $kantor) {
 
@@ -259,7 +259,7 @@ class Kpi extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	// data untuk kpi_col
+	// data json untuk kpi_col
 
 	public function spedo_npl_kolektor($tahun, $bulan, $kode_group3, $kantor, $status) {
 
@@ -294,7 +294,7 @@ class Kpi extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	// data untuk kpi_ao
+	// data json untuk kpi_ao
 
 	public function spedo_lending_ao($tahun, $bulan, $kode_group2, $kantor, $status) {
 
