@@ -1,7 +1,7 @@
 
                     <footer class="footer">
 						<div class="container-fluid clearfix">
-							<span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+							<span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © <?= date('Y'); ?>
 								<a href="https://kdpms.id/" target="_blank">Koperasi dana pinjaman mandiri sejahtera</a>. All
 								rights reserved.</span>
 							<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">KDPMS KPI V.0.1.6

@@ -1282,11 +1282,11 @@
 		<?php } ?>
 
 		<?php foreach ($npl_kolektor as $res) { ?>
-			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 6, 'DATA NPL - <?= strtoupper($res->deskripsi_group3); ?>',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
+			new cchart2('#detail_npl_kol<?php echo $res->kode_group3; ?>', '#dt_tables_npl<?php echo $res->kode_group3; ?>', 6, 'DATA NPL - <?= strtoupper($res->deskripsi_group3); ?>',[6,1,8,10,4]);
 		<?php } ?>
 
 		<?php foreach ($cr_kolektor as $res) { ?>
-			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',6, 'DATA CR KOL - <?= strtoupper($res->deskripsi_group3); ?>',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
+			new cchart2('#detail_cr_kolektor<?php echo $res->kode_group3; ?>', '#dt_tables_cr<?php echo $res->kode_group3; ?>',6, 'DATA CR KOL - <?= strtoupper($res->deskripsi_group3); ?>',[6,1,8,10,4]);
 		<?php } ?>
 
 		<?php foreach ($cr_ao as $res) { ?>
@@ -1294,7 +1294,7 @@
 		<?php } ?>
 
 		<?php foreach ($bz_kolektor as $res) { ?>
-			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',6, 'DATA BZ - <?= strtoupper($res->deskripsi_group3); ?>',[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
+			new cchart2('#detail_bz_kol<?php echo $res->kode_group3; ?>', '#dt_tables_bz<?php echo $res->kode_group3; ?>',6, 'DATA BZ - <?= strtoupper($res->deskripsi_group3); ?>',[6,1,8,10,4]);
 		<?php } ?>
 
 		<?php foreach ($ns_ao as $res) { ?>
@@ -1337,171 +1337,151 @@
 		var nullNS = $('#nullNS').attr('data');
 		$('#nsNull').html(nullNS);
 		//tutup alert data tidak ada
-		
-		// ajax data
-		const url = '<?= base_url('kpi/'); ?>';
-		const loading = `<div class="spinner-border text-dark" style="font-size: 2px; height: 20px; width: 20px;" role="status">
-							<span class="sr-only">Loading...</span>
-						</div>`;
-		let kantor = '<?= $kantor; ?>';
-		let bulan = '<?= $bulan; ?>';
-		let tahun = '<?= $tahun; ?>';
-		let status = 'kpi';
-
-		console.log(kantor +" "+ bulan +" "+ tahun);
-		
-		lending_Cabang();
-		function lending_Cabang() {
-
-			$.ajax({
-				url: url + "spedo_lending_cabang/" +tahun+"/"+bulan+"/"+kantor,
-				method: "GET",
-				dataType: "JSON",
-				success: function(data) {
-					// console.log(data);
-					if (data.length > 0) {
-
-						let spedo = getDataSpedo(data[0].data_spedo);
-	
-						$('.lending_cabang_popover').attr("data-content", "<b>Lending : "+ ubahJuta(data[0].jml_value) +" <br> Lending (%) : "+ ambil2Angka(data[0].lending) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +"</br>");
-						$('.lending_cabang_spedo').html(`
-							<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_lending" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
-						`);
-						// $('lending').html(ubahJuta(data[0].jml_value));
-					}
-				} 
-			});
-		}
-
-		npl_Cabang();
-		function npl_Cabang() {
-
-			$.ajax({
-				url: url + "spedo_npl_cabang/" +tahun+"/"+bulan+"/"+kantor,
-				method: "GET",
-				dataType: "JSON",
-				success: function(data) {
-					// console.log(data);
-					if (data.length > 0) {
-						
-						let spedo = getDataSpedo(data[0].data_spedo);
-	
-						$('.npl_cabang_popover').attr("data-content", "<b>NPL : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatusNPL(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Baki Debet NPL : "+ rupiah(data[0].jml_bd_npl) +" <br> Total Baki Debet : "+ rupiah(data[0].jml_bd) +"</b>");
-						$('.npl_cabang_spedo').html(`
-							<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
-						`);
-					}
-				} 
-			});
-		}
-
-		cr_Cabang_Kolektor();
-		function cr_Cabang_Kolektor() {
-
-			$.ajax({
-				url: url + "spedo_cr_cabang_kolektor/" +tahun+"/"+bulan+"/"+kantor,
-				method: "GET",
-				dataType: "JSON",
-				success: function(data) {
-					// console.log(data);
-					if (data.length > 0) {
-
-						let spedo = getDataSpedo(data[0].data_spedo);
-	
-						$('.cr_cabang_kolektor_popover').attr("data-content", "<b>Collection Ratio : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Tagihan : "+ rupiah(data[0].jml_tagihan) +" <br> Jumlah Bayar : "+ rupiah(data[0].jml_bayar) +"</b>");
-						$('.cr_cabang_kolektor_spedo').html(`
-							<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +` Kolektor" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
-						`);
-					}
-				} 
-			});
-		}
-
-		cr_Cabang_AO();
-		function cr_Cabang_AO() {
-
-			$.ajax({
-				url: url + "spedo_cr_cabang_ao/" +tahun+"/"+bulan+"/"+kantor,
-				method: "GET",
-				dataType: "JSON",
-				success: function(data) {
-					// console.log(data);
-					if (data.length > 0) {
-						
-						let spedo = getDataSpedo(data[0].data_spedo);
-	
-						$('.cr_cabang_ao_popover').attr("data-content", "<b>Collection Ratio : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Tagihan : "+ rupiah(data[0].jml_tagihan) +" <br> Jumlah Bayar : "+ rupiah(data[0].jml_bayar) +"</b>");
-						$('.cr_cabang_ao_spedo').html(`
-							<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +` AO" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
-						`);
-					}
-				} 
-			});
-		}
-
-		bz_Cabang_Kolektor();
-		function bz_Cabang_Kolektor() {
-
-			$.ajax({
-				url: url + "spedo_bz_cabang_kolektor/" +tahun+"/"+bulan+"/"+kantor,
-				method: "GET",
-				dataType: "JSON",
-				success: function(data) {
-					// console.log(data);
-					if (data.length > 0) {
-
-						let spedo = getDataSpedo(data[0].data_spedo);
-	
-						$('.bz_cabang_kolektor_popover').attr("data-content", "<b> Bucket Zero : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Tagihan : "+ rupiah(data[0].jml_tagihan) +" <br> Jumlah Bayar : "+ rupiah(data[0].jml_bayar) +"</b>");
-						$('.bz_cabang_kolektor_spedo').html(`
-							<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
-						`);
-					}
-				} 
-			});
-		}
-
-		ns_Cabang();
-		function ns_Cabang() {
-
-			$.ajax({
-				url: url + "spedo_ns_cabang/" +tahun+"/"+bulan+"/"+kantor,
-				method: "GET",
-				dataType: "JSON",
-				success: function(data) {
-					// console.log(data);
-					if (data.length > 0) {
-						
-						let spedo = getDataSpedo(data[0].data_spedo);
-	
-						$('.ns_cabang_popover').attr("data-content", "<b> Non Starter : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatusNPL(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Pinjaman FID NS : "+ rupiah(data[0].jml_pinjaman_fid_ns) +" <br> Total Jumlah Pinjaman NS : "+ rupiah(data[0].jml_pinjaman_ns) +"</b>");
-						$('.ns_cabang_spedo').html(`
-							<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
-						`);
-					}
-				} 
-			});
-		}
-
-		// modal ao or col
-
-		// lending_AO();
-		// function lending_AO() {
-
-		// 	$.ajax({
-		// 		url: url + "spedo_lending_ao/" +tahun+"/"+bulan+"/"+null+"/"+kantor+"/"+status,
-		// 		method: "GET",
-		// 		dataType: "JSON",
-		// 		success: function(data) {
-					
-		// 			$.each(data, function(index, value) { 
-		// 				let spedo = getDataSpedo(value.data_spedo)
-		// 				console.log(spedo);
-		// 			});
-		// 		} 
-		// 	});
-		// }
-
 
 	});
+
+	// ajax data
+	const url = '<?= base_url('kpi/'); ?>';
+	const loading = `<div class="spinner-border text-dark" style="font-size: 2px; height: 20px; width: 20px;" role="status">
+						<span class="sr-only">Loading...</span>
+					</div>`;
+	let kantor = '<?= $kantor; ?>';
+	let bulan = '<?= $bulan; ?>';
+	let tahun = '<?= $tahun; ?>';
+	let status = 'kpi';
+
+	console.log(kantor +" "+ bulan +" "+ tahun);
+	
+	lending_Cabang();
+	function lending_Cabang() {
+
+		$.ajax({
+			url: url + "spedo_lending_cabang/" +tahun+"/"+bulan+"/"+kantor,
+			method: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				// console.log(data);
+				if (data.length > 0) {
+
+					let spedo = getDataSpedo(data[0].data_spedo);
+
+					$('.lending_cabang_popover').attr("data-content", "<b>Lending : "+ ubahJuta(data[0].jml_value) +" <br> Lending (%) : "+ ambil2Angka(data[0].lending) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +"</br>");
+					$('.lending_cabang_spedo').html(`
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_lending" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+					`);
+					// $('lending').html(ubahJuta(data[0].jml_value));
+				}
+			} 
+		});
+	}
+
+	npl_Cabang();
+	function npl_Cabang() {
+
+		$.ajax({
+			url: url + "spedo_npl_cabang/" +tahun+"/"+bulan+"/"+kantor,
+			method: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				// console.log(data);
+				if (data.length > 0) {
+					
+					let spedo = getDataSpedo(data[0].data_spedo);
+
+					$('.npl_cabang_popover').attr("data-content", "<b>NPL : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatusNPL(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Baki Debet NPL : "+ rupiah(data[0].jml_bd_npl) +" <br> Total Baki Debet : "+ rupiah(data[0].jml_bd) +"</b>");
+					$('.npl_cabang_spedo').html(`
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+					`);
+				}
+			} 
+		});
+	}
+
+	cr_Cabang_Kolektor();
+	function cr_Cabang_Kolektor() {
+
+		$.ajax({
+			url: url + "spedo_cr_cabang_kolektor/" +tahun+"/"+bulan+"/"+kantor,
+			method: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				// console.log(data);
+				if (data.length > 0) {
+
+					let spedo = getDataSpedo(data[0].data_spedo);
+
+					$('.cr_cabang_kolektor_popover').attr("data-content", "<b>Collection Ratio : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Tagihan : "+ rupiah(data[0].jml_tagihan) +" <br> Jumlah Bayar : "+ rupiah(data[0].jml_bayar) +"</b>");
+					$('.cr_cabang_kolektor_spedo').html(`
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +` Kolektor" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+					`);
+				}
+			} 
+		});
+	}
+
+	cr_Cabang_AO();
+	function cr_Cabang_AO() {
+
+		$.ajax({
+			url: url + "spedo_cr_cabang_ao/" +tahun+"/"+bulan+"/"+kantor,
+			method: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				// console.log(data);
+				if (data.length > 0) {
+					
+					let spedo = getDataSpedo(data[0].data_spedo);
+
+					$('.cr_cabang_ao_popover').attr("data-content", "<b>Collection Ratio : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Tagihan : "+ rupiah(data[0].jml_tagihan) +" <br> Jumlah Bayar : "+ rupiah(data[0].jml_bayar) +"</b>");
+					$('.cr_cabang_ao_spedo').html(`
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +` AO" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+					`);
+				}
+			} 
+		});
+	}
+
+	bz_Cabang_Kolektor();
+	function bz_Cabang_Kolektor() {
+
+		$.ajax({
+			url: url + "spedo_bz_cabang_kolektor/" +tahun+"/"+bulan+"/"+kantor,
+			method: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				// console.log(data);
+				if (data.length > 0) {
+
+					let spedo = getDataSpedo(data[0].data_spedo);
+
+					$('.bz_cabang_kolektor_popover').attr("data-content", "<b> Bucket Zero : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Tagihan : "+ rupiah(data[0].jml_tagihan) +" <br> Jumlah Bayar : "+ rupiah(data[0].jml_bayar) +"</b>");
+					$('.bz_cabang_kolektor_spedo').html(`
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+					`);
+				}
+			} 
+		});
+	}
+
+	ns_Cabang();
+	function ns_Cabang() {
+
+		$.ajax({
+			url: url + "spedo_ns_cabang/" +tahun+"/"+bulan+"/"+kantor,
+			method: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				// console.log(data);
+				if (data.length > 0) {
+					
+					let spedo = getDataSpedo(data[0].data_spedo);
+
+					$('.ns_cabang_popover').attr("data-content", "<b> Non Starter : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatusNPL(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Pinjaman FID NS : "+ rupiah(data[0].jml_pinjaman_fid_ns) +" <br> Total Jumlah Pinjaman NS : "+ rupiah(data[0].jml_pinjaman_ns) +"</b>");
+					$('.ns_cabang_spedo').html(`
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+					`);
+				}
+			} 
+		});
+	}
 </script>
