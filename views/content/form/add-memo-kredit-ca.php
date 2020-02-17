@@ -1067,7 +1067,7 @@
 	          </div>
 	        </div>
 	        <hr>
-	        <b class="card-description">
+	        <!-- <b class="card-description">
 	          Aspek Hukum Kepemilikan
 	        </b><br><br>
 	        <div class="row">
@@ -1140,7 +1140,7 @@
 	            </div>
 	          </div>
 	        </div>
-	         <hr>
+	         <hr> -->
 	        <b class="card-description">
 	          Batas Batas
 	        </b><br><br>
@@ -2646,6 +2646,7 @@ $(document).ready(function () {
 				$('#nama_sekolah_anak').html(loading)
 				$('#alamat_sekolah_anak').html(loading)
 				$('#no_aplikasi').html(loading)
+				$('#no_aplikasi_ca').html(loading)
 				$('#nama_calon_nasabah_ao').html(loading)
 				$('#jaminan_utama').html(loading)
 				$('#sumber_informasi').html(loading)
@@ -2703,6 +2704,7 @@ $(document).ready(function () {
 					$('#nama_sekolah_anak').html('<p>'+k.nama_sekolah_anak+'</p>')
 					$('#alamat_sekolah_anak').html('<p>'+k.alamat_sekolah_anak+'</p>')
 					$('#no_aplikasi').html('<p>'+k.no_aplikasi+'</p>')
+					$('#no_aplikasi_ca').val(k.no_aplikasi)
 					$('#nama_calon_nasabah_ao').html('<p>'+k.calon_debitur+'</p>')
 					$('#jaminan_utama').html('<p>'+k.jenis_jaminan+'</p>')
 					$('#sumber_informasi').html('<p>'+k.deskripsi_group4+'</p>')
@@ -2782,8 +2784,10 @@ $(document).ready(function () {
 								$('#masa_berlaku_shmrs').html('<p>'+k.masa_berlaku_shmrs+'</p>')
 							}
 							$('#imb').html('<p>'+k.imb+'</p>')
+							// $('#imb_ca').val(k.imb)
 							$('#legalitas').html('<p>'+k.legalitas+'</p>')
 							$('#catatan_lainnya').html('<p>'+k.catatan_lainnya+'</p>')
+							// $('#catatan_lainnya_ca').val(k.catatan_lainnya)
 							$('#kondisi_bangunan').html('<p>'+k.kondisi_bangunan+'</p>')
 							$('#nilai_njop').html('<p>'+k.nilai_njop+'</p>')
 							$('#nilai_taksasi').html('<p>'+k.nilai_taksasi+'</p>')

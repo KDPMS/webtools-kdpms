@@ -144,7 +144,7 @@ class Kpi extends CI_Controller {
 
 				// data lending per ao
 				$data['lending_ao'] = $this->kpi->lending_per_ao($tahun, $bulan, $kode_group2, $kantor)->num_rows();
-				$data['lending_detail'] = $this->kpi->lending_ao_detail($tahun, $bulan, $kode_group2, $kantor)->result();
+				// $data['lending_detail'] = $this->kpi->lending_ao_detail($tahun, $bulan, $kode_group2, $kantor)->result();
 
 				// data cr per ao
 				$data['cr_per_ao'] = $this->kpi->cr_per_ao($tahun, $bulan, $kode_group2, $kantor)->num_rows();
@@ -215,7 +215,7 @@ class Kpi extends CI_Controller {
 		}
 	}
 
-	// data json untuk kpi (cabang)
+	// data json untuk spedo kpi (cabang)
 
 	public function spedo_lending_cabang($tahun, $bulan, $kantor) {
 
@@ -258,8 +258,10 @@ class Kpi extends CI_Controller {
 
 		echo json_encode($data);
 	}
+	// data json untuk spedo kpi (cabang)
 
-	// data json untuk kpi_col
+
+	// data json untuk spedo kpi_col
 
 	public function spedo_npl_kolektor($tahun, $bulan, $kode_group3, $kantor, $status) {
 
@@ -293,8 +295,10 @@ class Kpi extends CI_Controller {
 
 		echo json_encode($data);
 	}
+	// data json untuk spedo kpi_col
 
-	// data json untuk kpi_ao
+
+	// data json untuk spedo kpi_ao
 
 	public function spedo_lending_ao($tahun, $bulan, $kode_group2, $kantor, $status) {
 
@@ -339,5 +343,238 @@ class Kpi extends CI_Controller {
 
 		echo json_encode($data);
 	}
+	// data json untuk spedo kpi_ao
+
+
+	// DATA DETAIL
+
+	// Membuat data json untuk detail_lending
+	function lending_detail($tahun, $bulan, $kode_group2, $kantor)
+    {
+        $length = intval($this->input->post("length"));
+        $draw = intval($this->input->post("draw"));
+		$start = intval($this->input->post("start"));
+		$search= $this->input->post("search");
+        $search = $search['value'];
+		
+        $this->db->query("SELECT LAST_DAY('$tahun-$bulan-20') INTO @pv_per_tgl");
+        $this->db->query("SELECT '$kode_group2' INTO @pv_kode_ao");
+        $where = array('kode_kantor' => $kantor);
+		$this->db->where($where);
+		
+        $table = 'kms_kpi.v_kpi_ao_lending';
+        $column_order = array('no_rekening', 'nama_nasabah', 'deskripsi_group5', 'tgl_realisasi', 'jkw', 'tgl_jatuh_tempo', 'jml_lending', 'baki_debet', 'jml_pinjaman', 'alamat'); //field yang ada di table user
+        $column_search = array('no_rekening', 'nama_nasabah', 'deskripsi_group5', 'tgl_realisasi', 'jkw', 'tgl_jatuh_tempo', 'jml_lending', 'baki_debet', 'jml_pinjaman', 'alamat'); //field yang diizin untuk pencarian 
+        $order = array('no_rekening' => 'desc'); // default order by
+        
+        $list = $this->kpi->get_datatables($table, $column_order, $column_search, $order, $search, $length, $start);
+        $data = array();
+        $no = $start;
+        foreach ($list as $field) {
+            $no++;
+            $row = array();
+            $row[] = $field->no_rekening;
+            $row[] = $field->nama_nasabah;
+            $row[] = ($field->deskripsi_group5 != null ? ucfirst($field->deskripsi_group5) : " - ");
+            $row[] = ubahDate($field->tgl_realisasi);
+            $row[] = $field->jkw . " Bulan";
+            $row[] = ubahDate($field->tgl_jatuh_tempo);
+            $row[] = rupiah($field->jml_lending);
+            $row[] = rupiah($field->baki_debet);
+            $row[] = rupiah($field->jml_pinjaman);
+			$row[] = $field->alamat;
+			
+            $data[] = $row;
+        }
+ 
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $this->kpi->count_all($table),
+            "recordsFiltered" => $this->kpi->count_filtered($table, $column_order, $column_search, $order, $search),
+            "data" => $data,
+		);
+		
+        //output dalam format JSON
+        echo json_encode($output);
+	}
+	// Membuat data json untuk detail_lending
+
+	// Membuat data json untuk cr_detail_ao
+	function cr_ao_detail($tahun, $bulan, $kode_group2, $kantor)
+    {
+        $length = intval($this->input->post("length"));
+        $draw = intval($this->input->post("draw"));
+		$start = intval($this->input->post("start"));
+		$search= $this->input->post("search");
+        $search = $search['value'];
+		
+        $this->db->query("SELECT LAST_DAY('$tahun-$bulan-20') INTO @pv_per_tgl");
+        $this->db->query("SELECT '$kode_group2' INTO @pv_kode_ao");
+        $where = array('kode_kantor' => $kantor);
+		$this->db->where($where);
+		
+        $table = 'kms_kpi.v_kpi_ao_cr';
+        $column_order = array('no_rekening', 'nama_nasabah', 'alamat', 'tgl_realisasi', 'jkw', 'tgl_jatuh_tempo', 'baki_debet', 'jml_pinjaman', 'jml_lending', 'jml_tagihan_turun', 'jml_tunggakan', 'total_tagihan', 'sisa_tunggakan', 'jml_denda', 'jml_tagihan_bayar', 'ft_pokok', 'ft_bunga', 'ft_hari_awal', 'ft_hari', 'kolektibilitas', 'last_payment'); //field yang ada di table user
+        $column_search = array('no_rekening', 'nama_nasabah', 'alamat', 'tgl_realisasi', 'jkw', 'tgl_jatuh_tempo', 'baki_debet', 'jml_pinjaman', 'jml_lending', 'jml_tagihan_turun', 'jml_tunggakan', 'total_tagihan', 'sisa_tunggakan', 'jml_denda', 'jml_tagihan_bayar', 'ft_pokok', 'ft_bunga', 'ft_hari_awal', 'ft_hari', 'kolektibilitas', 'last_payment'); //field yang diizin untuk pencarian 
+        $order = array('no_rekening' => 'desc'); // default order by
+        
+        $list = $this->kpi->get_datatables($table, $column_order, $column_search, $order, $search, $length, $start);
+        $data = array();
+        $no = $start;
+        foreach ($list as $field) {
+            $no++;
+            $row = array();
+            $row[] = $field->no_rekening;
+            $row[] = $field->nama_nasabah;
+            $row[] = $field->alamat;
+            $row[] = ubahDate($field->tgl_realisasi);
+            $row[] = $field->jkw . " Bulan";
+            $row[] = ubahDate($field->tgl_jatuh_tempo);
+            $row[] = rupiah($field->baki_debet);
+            $row[] = rupiah($field->jml_pinjaman);
+            $row[] = rupiah($field->jml_lending);
+            $row[] = rupiah($field->jml_tagihan_turun);
+			$row[] = rupiah($field->jml_tunggakan);
+            $row[] = rupiah($field->total_tagihan);
+            $row[] = rupiah($field->sisa_tunggakan);
+            $row[] = rupiah($field->jml_denda);
+			$row[] = rupiah($field->jml_tagihan_bayar);
+			$row[] = $field->ft_pokok . " Bulan";
+			$row[] = $field->ft_bunga . " Bulan";
+			$row[] = convertDayMonth($field->ft_hari_awal);
+			$row[] = convertDayMonth($field->ft_hari);
+			$row[] = $field->kolektibilitas . " - " . getKolektibilitas($field->kolektibilitas);
+			$row[] = ($field->last_payment !== null ? ubahDate($field->last_payment) : " - ");
+			
+            $data[] = $row;
+        }
+ 
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $this->kpi->count_all($table),
+            "recordsFiltered" => $this->kpi->count_filtered($table, $column_order, $column_search, $order, $search),
+            "data" => $data,
+		);
+		
+        //output dalam format JSON
+        echo json_encode($output);
+	}
+	// Membuat data json untuk cr_detail_ao
+
+	// Membuat data json untuk bz_detail_ao
+	// function bz_ao_detail($tahun, $bulan, $kode_group2, $kantor)
+    // {
+    //     $length = intval($this->input->post("length"));
+    //     $draw = intval($this->input->post("draw"));
+	// 	$start = intval($this->input->post("start"));
+	// 	$search= $this->input->post("search");
+    //     $search = $search['value'];
+		
+    //     $this->db->query("SELECT LAST_DAY('$tahun-$bulan-20') INTO @pv_per_tgl");
+    //     $this->db->query("SELECT '$kode_group2' INTO @pv_kode_ao");
+    //     $where = array('kode_kantor' => $kantor, 'kode_group2' => $kode_group2);
+	// 	$this->db->where($where);
+		
+    //     $table = 'kms_kpi.v_kpi_ao_bucket_zero';
+    //     $column_order = array('no_rekening', 'nama_nasabah', 'alamat', 'tgl_realisasi', 'jkw', 'tgl_jatuh_tempo', 'baki_debet', 'jml_pinjaman', 'jml_lending', 'jml_tagihan_turun', 'jml_tunggakan', 'jml_denda', 'jml_tagihan_bayar', 'ft_pokok', 'ft_bunga', 'ft_hari', 'kolektibilitas', 'last_payment'); //field yang ada di table user
+    //     $column_search = array('no_rekening', 'nama_nasabah', 'alamat', 'tgl_realisasi', 'jkw', 'tgl_jatuh_tempo', 'baki_debet', 'jml_pinjaman', 'jml_lending', 'jml_tagihan_turun', 'jml_tunggakan', 'jml_denda', 'jml_tagihan_bayar', 'ft_pokok', 'ft_bunga', 'ft_hari', 'kolektibilitas', 'last_payment'); //field yang diizin untuk pencarian 
+    //     $order = array('no_rekening' => 'desc'); // default order by
+        
+    //     $list = $this->kpi->get_datatables($table, $column_order, $column_search, $order, $search, $length, $start);
+    //     $data = array();
+    //     $no = $start;
+    //     foreach ($list as $field) {
+    //         $no++;
+    //         $row = array();
+    //         $row[] = $field->no_rekening;
+    //         $row[] = $field->nama_nasabah;
+    //         $row[] = $field->alamat;
+    //         $row[] = ubahDate($field->tgl_realisasi);
+    //         $row[] = $field->jkw . " Bulan";
+    //         $row[] = ubahDate($field->tgl_jatuh_tempo);
+    //         $row[] = rupiah($field->baki_debet);
+    //         $row[] = rupiah($field->jml_pinjaman);
+    //         $row[] = rupiah($field->jml_lending);
+    //         $row[] = rupiah($field->jml_tagihan_turun);
+	// 		$row[] = rupiah($field->jml_tunggakan);
+    //         $row[] = rupiah($field->jml_denda);
+	// 		$row[] = rupiah($field->jml_tagihan_bayar);
+	// 		$row[] = $field->ft_pokok . " Bulan";
+	// 		$row[] = $field->ft_bunga . " Bulan";
+	// 		$row[] = convertDayMonth($field->ft_hari);
+	// 		$row[] = $field->kolektibilitas . " - " . getKolektibilitas($field->kolektibilitas);
+	// 		$row[] = ($field->last_payment !== null ? ubahDate($field->last_payment) : " - ");
+			
+    //         $data[] = $row;
+    //     }
+ 
+    //     $output = array(
+    //         "draw" => $draw,
+    //         "recordsTotal" => $this->kpi->count_all($table),
+    //         "recordsFiltered" => $this->kpi->count_filtered($table, $column_order, $column_search, $order, $search),
+    //         "data" => $data,
+	// 	);
+		
+    //     //output dalam format JSON
+    //     echo json_encode($output);
+	// }
+	// Membuat data json untuk bz_detail_ao
+
+	// Membuat data json untuk detail_nonstarter
+	function ns_detail($tahun, $bulan, $kode_group2, $kantor)
+    {
+        $length = intval($this->input->post("length"));
+        $draw = intval($this->input->post("draw"));
+		$start = intval($this->input->post("start"));
+		$search= $this->input->post("search");
+        $search = $search['value'];
+		
+        $this->db->query("SELECT LAST_DAY('$tahun-$bulan-20') INTO @pv_per_tgl");
+        $this->db->query("SELECT '$kode_group2' INTO @pv_kode_ao");
+        $where = array('kode_kantor' => $kantor);
+		$this->db->where($where);
+		
+        $table = 'kms_kpi.v_kpi_ao_fid';
+        $column_order = array('no_rekening', 'nama_nasabah', 'deskripsi_group5', 'tgl_realisasi', 'jkw', 'tgl_jatuh_tempo', 'baki_debet', 'jml_pinjaman', 'jml_lending', 'ft_hari', 'total_tagihan', 'jml_tagihan_bayar', 'alamat'); //field yang ada di table user
+        $column_search = array('no_rekening', 'nama_nasabah', 'deskripsi_group5', 'tgl_realisasi', 'jkw', 'tgl_jatuh_tempo', 'baki_debet', 'jml_pinjaman', 'jml_lending', 'ft_hari', 'total_tagihan', 'jml_tagihan_bayar', 'alamat'); //field yang diizin untuk pencarian 
+        $order = array('no_rekening' => 'desc'); // default order by
+        
+        $list = $this->kpi->get_datatables($table, $column_order, $column_search, $order, $search, $length, $start);
+        $data = array();
+        $no = $start;
+        foreach ($list as $field) {
+            $no++;
+            $row = array();
+            $row[] = $field->no_rekening;
+            $row[] = $field->nama_nasabah;
+            $row[] = ($field->deskripsi_group5 != null ? ucfirst($field->deskripsi_group5) : " - ");
+            $row[] = ubahDate($field->tgl_realisasi);
+            $row[] = $field->jkw . " Bulan";
+            $row[] = ubahDate($field->tgl_jatuh_tempo);
+            $row[] = rupiah($field->baki_debet);
+            $row[] = rupiah($field->jml_pinjaman);
+            $row[] = rupiah($field->jml_lending);
+			$row[] = convertDayMonth($field->ft_hari);
+			$row[] = rupiah($field->total_tagihan);
+			$row[] = rupiah($field->jml_tagihan_bayar);
+			$row[] = $field->alamat;
+			
+            $data[] = $row;
+        }
+ 
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $this->kpi->count_all($table),
+            "recordsFiltered" => $this->kpi->count_filtered($table, $column_order, $column_search, $order, $search),
+            "data" => $data,
+		);
+		
+        //output dalam format JSON
+        echo json_encode($output);
+	}
+	// Membuat data json untuk detail_nonstarter
+
+	
+	// DATA DETAIL
 
 }

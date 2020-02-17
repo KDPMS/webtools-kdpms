@@ -165,4 +165,69 @@ class Model_kpi extends CI_Model {
 	}
 	//END KOLEKTIBILITAS
 
+
+	// DATATABLES
+	private function _get_datatables_query($table, $column_order, $column_search, $order, $search)
+    {
+         
+        $this->db->from($table);
+ 
+        $i = 0;
+     
+        foreach ($column_search as $item) // looping awal
+        {
+            if($search) // jika datatable mengirimkan pencarian dengan metode POST
+            {
+                 
+                if($i===0) // looping awal
+                {
+                    $this->db->group_start(); 
+                    $this->db->like($item, $search);
+                }
+                else
+                {
+                    $this->db->or_like($item, $search);
+                }
+ 
+                if(count($column_search) - 1 == $i) 
+                    $this->db->group_end(); 
+            }
+            $i++;
+        }
+         
+        if(isset($_POST['order'])) 
+        {
+            $this->db->order_by($column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } 
+        else if(isset($order))
+        {
+            $order = $order;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+ 
+    function get_datatables($table, $column_order, $column_search, $order, $search, $length, $start)
+    {
+        $this->_get_datatables_query($table, $column_order, $column_search, $order, $search);
+        if($length != -1)
+        $this->db->limit($length, $start);
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+ 
+    function count_filtered($table, $column_order, $column_search, $order, $search)
+    {
+        $this->_get_datatables_query($table, $column_order, $column_search, $order, $search);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+ 
+    public function count_all($table)
+    {
+        $this->db->from($table);
+        return $this->db->count_all_results();
+	}
+	// DATATABLES
+
 }
