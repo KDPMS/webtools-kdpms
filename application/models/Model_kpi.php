@@ -19,11 +19,11 @@ class Model_kpi extends CI_Model {
 		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_npl_kolektor WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
 	}
 
-	public function npl_kolektor_detail($tahun = '', $bulan = '', $kode_group3 = '', $kode_kantor = '', $tanggal = '15'){	// GET VIEW NPL PER KOLEKTOR-DETAIL
-		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_npl WHERE kode_kantor = '$kode_kantor'");
-	}
+	// public function npl_kolektor_detail($tahun = '', $bulan = '', $kode_group3 = '', $kode_kantor = '', $tanggal = '15'){	// GET VIEW NPL PER KOLEKTOR-DETAIL
+	// 	$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
+	// 	$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
+	// 	return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_npl WHERE kode_kantor = '$kode_kantor'");
+	// }
 	//END KPI NPL
 	
 
@@ -68,11 +68,11 @@ class Model_kpi extends CI_Model {
 		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_cr_kolektor WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
 	}
 
-	public function cr_kolektor_detail($tahun = '', $bulan = '', $kode_group3 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW COLLECTION RATIO PER KOLEKTOR-DETAIL
-		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr WHERE kode_kantor = '$kode_kantor'");
-	}
+	// public function cr_kolektor_detail($tahun = '', $bulan = '', $kode_group3 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW COLLECTION RATIO PER KOLEKTOR-DETAIL
+	// 	$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
+	// 	$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
+	// 	return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_cr WHERE kode_kantor = '$kode_kantor'");
+	// }
 
 	// CR AO
 	public function cr_cabang_ao($tahun = '', $bulan = '', $kode_kantor = '', $tanggal ='15'){ // GET VIEW COLLECTION RATIO AO PER CABANG
@@ -91,11 +91,11 @@ class Model_kpi extends CI_Model {
 		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_cr_ao WHERE kode_group2 = '$kode_group2' AND kode_kantor = '$kode_kantor'");
 	}
 
-	public function cr_ao_detail($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW COLLECTION RATIO PER KOLEKTOR-DETAIL
-		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		$this->db->query("SELECT '$kode_group2' INTO @pv_kode_ao");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_cr WHERE kode_kantor = '$kode_kantor'");
-	}
+	// public function cr_ao_detail($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW COLLECTION RATIO PER KOLEKTOR-DETAIL
+	// 	$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
+	// 	$this->db->query("SELECT '$kode_group2' INTO @pv_kode_ao");
+	// 	return $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_cr WHERE kode_kantor = '$kode_kantor'");
+	// }
 	//END KPI COLLECTION RATIO
 
 	
@@ -115,11 +115,11 @@ class Model_kpi extends CI_Model {
 		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_bz_kolektor WHERE kode_group3 = '$kode_group3' AND kode_kantor = '$kode_kantor'");
 	}
 	
-	public function bz_kolektor_detail($tahun = '', $bulan = '', $kode_group3 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW BUCKET ZERO PER KOLEKTOR-DETAIL
-		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_bucket_zero  WHERE kode_kantor = $kode_kantor");
-	}
+	// public function bz_kolektor_detail($tahun = '', $bulan = '', $kode_group3 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW BUCKET ZERO PER KOLEKTOR-DETAIL
+	// 	$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
+	// 	$this->db->query("SELECT '$kode_group3' INTO @pv_kode_kolektor");
+	// 	return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kolektor_bucket_zero  WHERE kode_kantor = $kode_kantor");
+	// }
 
 	public function bz_per_ao($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor, $tanggal = '15'){ //GET VIEW BUCKET ZERO PER AO
 		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
@@ -150,11 +150,11 @@ class Model_kpi extends CI_Model {
 		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_fid_ao WHERE kode_group2 = '$kode_group2' AND kode_kantor = '$kode_kantor'");
 	}
 
-	public function ns_ao_detail($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW NS DETAIL AO
-		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		$this->db->query("SELECT '$kode_group2' INTO @pv_kode_ao");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_fid WHERE kode_kantor = '$kode_kantor'");
-	}
+	// public function ns_ao_detail($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW NS DETAIL AO
+	// 	$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
+	// 	$this->db->query("SELECT '$kode_group2' INTO @pv_kode_ao");
+	// 	return $this->db->query("SELECT * FROM kms_kpi.v_kpi_ao_fid WHERE kode_kantor = '$kode_kantor'");
+	// }
 	//END KPI NON STARTER
 	
 
@@ -164,6 +164,12 @@ class Model_kpi extends CI_Model {
 		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_npl_kolektibilitas WHERE kode_kantor = '$kode_kantor' ORDER BY kolektibilitas ASC");
 	}
 	//END KOLEKTIBILITAS
+
+	// SCREENING ALL KREDIT
+	public function screening($kode_kantor){
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_kredit_all WHERE kode_kantor = '$kode_kantor'");
+	}
+	// SCREENING ALL KREDIT
 
 
 	// DATATABLES
@@ -206,26 +212,29 @@ class Model_kpi extends CI_Model {
         }
     }
  
-    function get_datatables($table, $column_order, $column_search, $order, $search, $length, $start)
+    function get_datatables($table, $column_order, $column_search, $order, $search, $length, $start, $kantor)
     {
         $this->_get_datatables_query($table, $column_order, $column_search, $order, $search);
         if($length != -1)
-        $this->db->limit($length, $start);
+		$this->db->limit($length, $start);
+		$this->db->where('kode_kantor', $kantor);
         $query = $this->db->get();
 
         return $query->result();
     }
  
-    function count_filtered($table, $column_order, $column_search, $order, $search)
+    function count_filtered($table, $column_order, $column_search, $order, $search, $kantor)
     {
-        $this->_get_datatables_query($table, $column_order, $column_search, $order, $search);
+		$this->_get_datatables_query($table, $column_order, $column_search, $order, $search);
+		$this->db->where('kode_kantor', $kantor);
         $query = $this->db->get();
         return $query->num_rows();
     }
  
-    public function count_all($table)
+    public function count_all($table, $kantor)
     {
-        $this->db->from($table);
+		$this->db->from($table);
+		$this->db->where('kode_kantor', $kantor);
         return $this->db->count_all_results();
 	}
 	// DATATABLES

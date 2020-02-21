@@ -2653,7 +2653,7 @@ $(document).ready(function () {
 				$('#tujuan_kredit').html(loading)
 				$('#type_kredit').html(loading)
 				$('#jenis_fasilitas').html(loading)
-				$('#produk').val('Sedang Mengambil Data . . .')
+				$('#produk_ca').val('Sedang Mengambil Data . . .')
 				// $('#produk_ca').html(loading)
 				$('#plafond_kredit').html(loading)
 				$('#jangka_waktu').html(loading)

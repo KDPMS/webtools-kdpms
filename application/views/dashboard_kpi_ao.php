@@ -379,22 +379,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<!-- <?php foreach ($ns_detail as $resDetail) { ?>
-									<tr>
-										<td><?= $resDetail->no_rekening; ?></td>
-										<td><?= $resDetail->nama_nasabah; ?></td>
-										<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
-										<td><?= $resDetail->jkw . " Bulan"; ?></td>
-										<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
-										<td><?= rupiah($resDetail->baki_debet); ?></td>
-										<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
-										<td><?= rupiah($resDetail->jml_lending); ?></td>
-										<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
-										<td><?= rupiah($resDetail->total_tagihan); ?></td>
-										<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
-										<td><?= $resDetail->alamat; ?></td>
-									</tr>
-								<?php } ?> -->
+								
 							</tbody>
 						</table>
 					</div>
@@ -698,7 +683,25 @@
 						url: url + controller + tahun + "/" + bulan + "/" + kode_group2 + "/" + kantor,
 						type: 'POST'
 					},
-					"responsive": true
+					"responsive": {
+						details: {
+							renderer: function(api, rowIdx, columns) {
+								var data = $.map(columns, function(col, i) {
+									return col.hidden ?
+										'<tr data-dt-row="' + col.rowIndex +
+										'" data-dt-column="' + col.columnIndex +
+										'">' +
+										'<td>' + col.title + ' : ' + '</td> ' +
+										'<td>' + col.data + '</td>' +
+										'</tr>' :
+										'';
+								}).join('');
+								return data ?
+									$('<table/>').append(data) :
+									false;
+							}
+						}
+					},
 				}); // End of DataTable
 			}
 		});

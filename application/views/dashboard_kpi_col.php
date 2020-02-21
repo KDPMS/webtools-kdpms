@@ -2,7 +2,6 @@
 	<input type="hidden" id="session_kantor" value="<?php echo $this->session->userdata('kantor'); ?>" />
 	<!-- <input type="hidden" id="kd_group3" value="<#?php echo $this->session->userdata('kode_group3'); ?>" /> -->
 	<input type="hidden" id="kd_group3" value="09" />
-	<input type="hidden" id="nowDate" value="<?php echo date('Y-m-d'); ?>" />
 
 	<div class="col-md-12">
 		<div class="row mt-5">
@@ -120,7 +119,7 @@
 			
 			<?php if ($bz_kolektor > 0) { ?>
 				<span class="rounded-circle spedo bz_popover" data-popover="popover" data-html="true" data-placement="top" data-trigger="hover">
-					<a class="rounded-circle bz_spedo" href="" data-toggle="modal" data-target="#modal_cr">
+					<a class="rounded-circle bz_spedo" href="" data-toggle="modal" data-target="#modal_bz">
 					
 					</a>
 				</span>
@@ -166,7 +165,6 @@
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
 								<th>Jangka Waktu</th>
-								<th>Jatuh Tempo</th>
 								<th>Tanggal Jatuh Tempo</th>
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
@@ -189,35 +187,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($bz_detail as $resDetail) { ?>
-								<tr>
-									<td><?= $resDetail->no_rekening; ?></td>
-									<td><?= $resDetail->nama_nasabah; ?></td>
-									<td><?= $resDetail->alamat; ?></td>
-									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
-									<td><?= $resDetail->jkw . " Bulan"; ?></td>
-									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
-									<td><?= substr($resDetail->tgl_jatuh_tempo,8,2); ?></td>
-									<td><?= rupiah($resDetail->baki_debet); ?></td>
-									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
-									<td><?= rupiah($resDetail->jml_lending); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
-									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-									<td><?= rupiah($resDetail->total_tagihan); ?></td>
-									<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
-									<td><?= rupiah($resDetail->jml_denda); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
-									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
-									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
-									<td><?= $resDetail->ft_pokok . " Bulan"; ?></td>
-									<td><?= $resDetail->ft_bunga . " Bulan"; ?></td>
-									<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
-									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
-									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
-									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-									<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
-								</tr>
-							<?php } ?>
+							
 						</tbody>
 					</table>
 				</div>
@@ -252,7 +222,6 @@
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
 								<th>Jangka Waktu</th>
-								<th>Jatuh Tempo</th>
 								<th>Tanggal Jatuh Tempo</th>
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
@@ -275,35 +244,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($cr_detail as $resDetail) { ?>
-								<tr>
-									<td><?= $resDetail->no_rekening; ?></td>
-									<td><?= $resDetail->nama_nasabah; ?></td>
-									<td><?= $resDetail->alamat; ?></td>
-									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
-									<td><?= $resDetail->jkw . " Bulan"; ?></td>
-									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
-									<td><?= substr($resDetail->tgl_jatuh_tempo,8,2); ?></td>
-									<td><?= rupiah($resDetail->baki_debet); ?></td>
-									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
-									<td><?= rupiah($resDetail->jml_lending); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
-									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-									<td><?= rupiah($resDetail->total_tagihan); ?></td>
-									<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
-									<td><?= rupiah($resDetail->jml_denda); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
-									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
-									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
-									<td><?= $resDetail->ft_pokok . " Bulan"; ?></td>
-									<td><?= $resDetail->ft_bunga . " Bulan"; ?></td>
-									<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
-									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
-									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
-									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-									<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
-								</tr>
-							<?php } ?>
+
 						</tbody>
 					</table>
 				</div>
@@ -338,7 +279,6 @@
 								<th>Alamat</th>
 								<th>Tanggal Realisasi</th>
 								<th>Jangka Waktu</th>
-								<th>Jatuh Tempo</th>
 								<th>Tanggal Jatuh Tempo</th>
 								<th>Baki Debet</th>
 								<th>Jumlah Pinjaman</th>
@@ -361,35 +301,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($npl_detail as $resDetail) { ?>
-								<tr>
-									<td><?= $resDetail->no_rekening; ?></td>
-									<td><?= $resDetail->nama_nasabah; ?></td>
-									<td><?= $resDetail->alamat; ?></td>
-									<td><?= ubahDate($resDetail->tgl_realisasi); ?></td>
-									<td><?= $resDetail->jkw . " Bulan"; ?></td>
-									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
-									<td><?= substr($resDetail->tgl_jatuh_tempo,8,2); ?></td>
-									<td><?= rupiah($resDetail->baki_debet); ?></td>
-									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
-									<td><?= rupiah($resDetail->jml_lending); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
-									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
-									<td><?= rupiah($resDetail->total_tagihan); ?></td>
-									<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
-									<td><?= rupiah($resDetail->jml_denda); ?></td>
-									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
-									<td><?= $resDetail->jml_sp_assign . " Surat"; ?></td>
-									<td><?= $resDetail->jml_sp_return . " Surat"; ?></td>
-									<td><?= $resDetail->ft_pokok . " Bulan"; ?></td>
-									<td><?= $resDetail->ft_bunga . " Bulan"; ?></td>
-									<td><?= convertDayMonth($resDetail->ft_hari_awal); ?></td>
-									<td><?= convertDayMonth($resDetail->ft_hari); ?></td>
-									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
-									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
-									<!-- <td><#?= cekBayar($resDetail->last_payment); ?></td> -->
-								</tr>
-							<?php } ?>
+							
 						</tbody>
 					</table>
 				</div>
@@ -412,145 +324,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
-		//datatable
-		function cchart(id_modal, id_table, colgrp,title) {
-			return $(id_modal).on('shown.bs.modal', function() {
-				if (!$.fn.DataTable.isDataTable(id_table)) {
-					var tbtb = $(id_table).DataTable({
-						// responsive: false,
-						language: {
-							decimal: "",
-							emptyTable: "Tidak Ada Data",
-							info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
-							infoEmpty: "Menampilkan 0 sampai 0 dari total 0 baris",
-							infoFiltered: "(Filter dari total _MAX_ baris)",
-							infoPostFix: "",
-							thousands: ",",
-							lengthMenu: "Tampilkan _MENU_ baris",
-							loadingRecords: "Memuat...",
-							processing: "Proses...",
-							search: "Cari:",
-							zeroRecords: "Tidak ada data yang sesuai",
-							paginate: {
-								first: "Pertama",
-								last: "Terakhir",
-								next: "Selanjutnya",
-								previous: "Sebelumnya"
-							},
-							aria: {
-								sortAscending: ": Aktifkan Berdasarkan paling Awal",
-								sortDescending: ": Aktifkan Berdasarkan paling Akhir"
-							}
-						},
-						rowGroup: {
-							dataSrc: colgrp
-						},
-						autoWidth: true,
-						pagingType: "simple_numbers",
-						lengthMenu: [
-							[7, 10, 25, 50, 100],
-							[7, 10, 25, 50, 100]
-						],
-						responsive: {
-							details: {
-								renderer: function(api, rowIdx, columns) {
-									var data = $.map(columns, function(col, i) {
-										return col.hidden ?
-											'<tr data-dt-row="' + col.rowIndex +
-											'" data-dt-column="' + col.columnIndex +
-											'">' +
-											'<td>' + col.title + ' : ' + '</td> ' +
-											'<td>' + col.data + '</td>' +
-											'</tr>' :
-											'';
-									}).join('');
-									return data ?
-										$('<table/>').append(data) :
-										false;
-								}
-							}
-						},
-						order: [
-							[colgrp, "asc"]
-						],
-						columnDefs: [{
-							className: 'control',
-							orderable: true,
-							targets: 0
-						}],
-						buttons: [
-							{
-								extend: 'excelHtml5',
-								title: title,
-								autoFilter: true,
-								className: 'btn btn-sm btn-primary bg-primary ',
-								messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
-								exportOptions: {
-									columns: [0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
-								}
-							},
-							// {
-							// 	extend: 'pdfHtml5',
-							// 	pageSize: 'A4',
-							// 	title: title,
-							// 	orientation: 'potrait',
-							// 	className: 'btn btn-sm btn-primary bg-primary ',
-							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
-							// 	exportOptions: {
-							// 		columns: [ 0, 1, 3, 5 ]
-							// 	}
-							// },
-							// {
-							// 	extend: 'pdfHtml5',
-							// 	text: 'OPEN AS PDF',
-							// 	download: 'open',
-							// 	pageSize: 'A4',
-							// 	title: title,
-							// 	orientation: 'potrait',
-							// 	className: 'btn btn-sm btn-primary bg-primary ',
-							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
-							// 	exportOptions: {
-							// 		columns: [ 0, 1, 3, 5 ]
-							// 	}
-								
-							// },
-							// {
-							// 	extend: 'print',
-							// 	title: title,
-							// 	className: 'btn btn-sm btn-primary bg-primary ',
-							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
-							// 	exportOptions: {
-							// 		columns: [ 0, 1, 3 ]
-							// 	}
-							// },
-							
-						],
-						// fixedColumns: {
-						// 	leftColumns: 2
-						// },
-						dom: "B<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-							"<'row'<'col-sm-12't>>" +
-							"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
-						// scrollY: 320,
-						// scrollX: true, 
-						// scrollCollapse: true,
-						// scroller: true,
-					});
-				} else {
-					// var tbtb = $.fn.dataTable.fnTables(true);
-					// $(tbtb).each(function () {
-					// 	$(this).dataTable().fnDestroy();
-					// });
-				}
-				//tbtb.columns.adjust().responsive.recalc();
-			});
-		}
-		new cchart('#modal_bz', '#dt_tables_bz', 6,'DATA BZ');
-		new cchart('#modal_cr', '#dt_tables_cr', 6,'DATA CR');
-		new cchart('#modal_npl', '#dt_tables_npl', 6, 'DATA NPL');
-		//tutup datatable
-
 
 		//alert data tidak ada
 		var isiBZ = "<div class='alert alert-danger alert-dismissible fade out show' role='alert'>Data <b>BZ</b> Tidak Ada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden=true'>&times;</span></button></div>";
@@ -649,4 +422,50 @@
 			} 
 		});
 	}
+
+	// datatables untuk detail
+	function datatables(id_modal, id_table, controller) {
+		return $(id_modal).on('shown.bs.modal', function() {
+			if (!$.fn.DataTable.isDataTable(id_table)) {
+				var table = $(id_table).DataTable({
+					"pageLength": 10,
+					"serverSide": true,
+					"order": [
+						[0, "desc"]
+					],
+					"processing": true,
+					"ajax": {
+						url: url + controller + tahun + "/" + bulan + "/" + kode_group3 + "/" + kantor,
+						type: 'POST'
+					},
+					"responsive": {
+						details: {
+							renderer: function(api, rowIdx, columns) {
+								var data = $.map(columns, function(col, i) {
+									return col.hidden ?
+										'<tr data-dt-row="' + col.rowIndex +
+										'" data-dt-column="' + col.columnIndex +
+										'">' +
+										'<td>' + col.title + ' : ' + '</td> ' +
+										'<td>' + col.data + '</td>' +
+										'</tr>' :
+										'';
+								}).join('');
+								return data ?
+									$('<table/>').append(data) :
+									false;
+							}
+						}
+					},
+				}); // End of DataTable
+			}
+		});
+	}
+	// tutup datatables 
+
+	new datatables('#modal_cr', '#dt_tables_cr', 'cr_kolektor_detail/');
+	new datatables('#modal_bz', '#dt_tables_bz', 'bz_kolektor_detail/');
+	new datatables('#modal_npl', '#dt_tables_npl', 'npl_kolektor_detail/');
+
+
 </script>

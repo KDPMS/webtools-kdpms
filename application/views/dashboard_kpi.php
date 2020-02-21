@@ -2,8 +2,10 @@
 <div class="content-wrapper">
 	<div class="col-md-12">
 		<div class="row mt-5">
-			<div class="col-12 text-xs-center text-xl-left text-lg-left text-md-left text-sm-center">
+			<div class="col-12 text-xs-center text-xl-center text-lg-center text-md-center text-sm-center">
 				<a href="<?= base_url('tools'); ?>" class="btn btn-secondary btn-sm mt-n3"><i class="mdi mdi-keyboard-backspace"></i>Menu Tools</a>
+				<hr class='d-lg-none d-sm-block pt-1 mt-1'>
+				<a data-toggle="modal" data-target="#modal_screening" class="btn btn-primary btn-sm mt-n3 text-white"><i class="mdi mdi-information"></i>Screening</a>
 			</div>
 		</div>
 
@@ -233,7 +235,7 @@
 						 foreach ($lending_ao as $res) { 
 							$tampung = getDataSpedo($res->data_spedo);	 
 						?>
-							<span class="rounded-circle" data-popover="popover" data-content='<b> Lending : <?= ubahJuta($res->jml_value); ?> <br> Lending (%) : <?= ambil2Angka($res->lending) . ' %'; ?> <br> Status : <?= getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
+							<span class="rounded-circle tampung" data-id="<?= $res->kode_group2; ?>" data-name="<?= $res->deskripsi_group2; ?>" data-kantor="<?= $res->kode_kantor; ?>" data-popover="popover" data-content='<b> Lending : <?= ubahJuta($res->jml_value); ?> <br> Lending (%) : <?= ambil2Angka($res->lending) . ' %'; ?> <br> Status : <?= getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
 								<a class="rounded-circle" href="#detail_lending_ao" data-toggle="modal" data-target="#detail_lending_ao<?php echo $res->kode_group2; ?>" data-backdrop="false">
 									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group2; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500">
 									</canvas>
@@ -270,7 +272,7 @@
 							$tampung = getDataSpedo($res->data_spedo);	
 						?>
 
-							<span class="rounded-circle" data-popover="popover" data-content='<b> NPL : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPL($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Baki debet NPL : <?= rupiah($res->jml_bd_npl); ?> <br> Total Baki debet : <?= rupiah($res->jml_bd); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
+							<span class="rounded-circle tampung" data-id="<?= $res->kode_group3; ?>" data-name="<?= $res->deskripsi_group3; ?>" data-kantor="<?= $res->kode_kantor; ?>" data-popover="popover" data-content='<b> NPL : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPL($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Baki debet NPL : <?= rupiah($res->jml_bd_npl); ?> <br> Total Baki debet : <?= rupiah($res->jml_bd); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
 								<a class="rounded-circle" href="#detail_npl_kol<?php echo $res->kode_group3; ?>" data-toggle="modal" data-target="#detail_npl_kol<?php echo $res->kode_group3; ?>" data-backdrop="false">
 									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group3; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
 									</canvas>
@@ -291,7 +293,7 @@
 							 foreach ($dataKolektibilitas as $res) { 
 								$tampung = getDataSpedo($res->data_spedo);	 
 							?>
-								<span class="rounded-circle" data-popover="popover" data-content='<b> Kolektibilitas <?=$res->kolektibilitas;?> : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?php echo ($res->kolektibilitas == 1) ? getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]) : getStatusNPL($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
+								<span class="rounded-circle tampung" data-id="<?= $res->kolektibilitas; ?>" data-name="<?= getKolektibilitas($res->kolektibilitas); ?>" data-kantor="<?= $res->kode_kantor; ?>" data-popover="popover" data-content='<b> Kolektibilitas <?=$res->kolektibilitas;?> : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?php echo ($res->kolektibilitas == 1) ? getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]) : getStatusNPL($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> </b>' data-html='true' data-placement='top' data-trigger='hover'>
 									<a class="rounded-circle" href="#detail_kol<?php echo $res->kolektibilitas; ?>" data-toggle="modal" data-target="#detail_kol<?php echo $res->kolektibilitas; ?>" data-backdrop="false">
 										<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="kol" data-type="radial-gauge" data-width="200" data-height="200" data-units="<?php echo $res->unit; ?>" data-title="Kol <?= $res->kolektibilitas; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
 										</canvas>
@@ -330,7 +332,7 @@
 						 foreach ($cr_kolektor as $res) { 
 							$tampung = getDataSpedo($res->data_spedo);	 
 						?>
-							<span class="rounded-circle" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($res->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($res->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
+							<span class="rounded-circle tampung" data-id="<?= $res->kode_group3; ?>" data-name="<?= $res->deskripsi_group3; ?>" data-kantor="<?= $res->kode_kantor; ?>" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($res->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($res->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
 								<a class="rounded-circle" href="#detail_cr_kolektor<?php echo $res->kode_group3; ?>" data-toggle="modal" data-target="#detail_cr_kolektor<?php echo $res->kode_group3; ?>" data-backdrop="false">
 									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group3; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#000000" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="1500">
 									</canvas>
@@ -365,7 +367,7 @@
 						 foreach ($cr_ao as $res) { 
 							$tampung = getDataSpedo($res->data_spedo);	 
 						?>
-							<span class="rounded-circle" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($res->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($res->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
+							<span class="rounded-circle tampung" data-id="<?= $res->kode_group2; ?>" data-name="<?= $res->deskripsi_group2; ?>" data-kantor="<?= $res->kode_kantor; ?>" data-popover="popover" data-content='<b>CR : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($res->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($res->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
 								<a class="rounded-circle" href="#detail_cr_ao<?php echo $res->kode_group2; ?>" data-toggle="modal" data-target="#detail_cr_ao<?php echo $res->kode_group2; ?>" data-backdrop="false">
 									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="cr_ao" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group2; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#000000" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="1500">
 									</canvas>
@@ -400,7 +402,7 @@
 						 foreach ($bz_kolektor as $res) { 
 							$tampung = getDataSpedo($res->data_spedo);	 
 						?>
-							<span class="rounded-circle" data-popover="popover" data-content='<b>BZ : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($res->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($res->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
+							<span class="rounded-circle tampung" data-id="<?= $res->kode_group3; ?>" data-name="<?= $res->deskripsi_group3; ?>" data-kantor="<?= $res->kode_kantor; ?>" data-popover="popover" data-content='<b>BZ : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatus($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah tagihan : <?= rupiah($res->jml_tagihan); ?> <br> Jumlah bayar : <?= rupiah($res->jml_bayar); ?></b>' data-html='true' data-placement='top' data-trigger='hover'>
 								<a class="rounded-circle" href="#detail_bz_kol" data-toggle="modal" data-target="#detail_bz_kol<?php echo $res->kode_group3; ?>" data-backdrop="false">
 									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group3; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
 									</canvas>
@@ -435,7 +437,7 @@
 						 foreach ($ns_ao as $res) { 
 							$tampung = getDataSpedo($res->data_spedo);	 
 						?>
-							<span class="rounded-circle spedo" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPL($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($res->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($res->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
+							<span class="rounded-circle spedo tampung" data-id="<?= $res->kode_group2; ?>" data-name="<?= $res->deskripsi_group2; ?>" data-kantor="<?= $res->kode_kantor; ?>" data-popover="popover" data-content="<b>Non Starter : <?= ambil2Angka($res->jml_value) . " %"; ?> <br> Status : <?= getStatusNPL($res->jml_value, $tampung[0], $tampung[3], $tampung[6], $tampung[9]); ?> <br> Jumlah Pinjaman FID NS : <?= rupiah($res->jml_pinjaman_fid_ns); ?> <br> Jumlah Pinjaman NS : <?= rupiah($res->jml_pinjaman_ns); ?> </b>" data-html="true" data-placement="top" data-trigger="hover">
 								<a class="rounded-circle" href="#detail_ns_ao" data-toggle="modal" data-target="#detail_ns_ao<?= $res->kode_group2; ?>" data-backdrop="false">
 									<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="bz" data-type="radial-gauge" data-width="300" data-height="300" data-units="<?php echo $res->unit; ?>" data-title="<?php echo $res->deskripsi_group2; ?>" data-value="<?php echo $res->jml_value; ?>" data-min-value="0" data-max-value="<?php echo $res->jml_max_value; ?>" data-major-ticks="<?php echo $res->mayor_ticks; ?>" data-minor-ticks="<?php echo $res->minor_ticks; ?>" data-stroke-ticks="true" data-highlights='<?php echo $res->data_spedo; ?>' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-aimation-duration="500">
 									</canvas>
@@ -1052,13 +1054,131 @@
 		</div>
 	<?php } ?>
 	<!-- /Modal Detail NON STARTER -->
+
+	<!-- MODAL SCREENING -->
+	<div class="modal fade" id="modal_screening" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-light">
+					<h5 class="modal-title" id="exampleModalScrollableTitle">
+					Data Screening
+					<p><?php echo date('d') . "&nbsp" . ubahBulan($bulan) . "&nbsp" . $tahun ?></p>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class='row'>
+						<div class="col-12 text-center">
+							<div class='form-inline justify-content-center'>
+								<div class='form-group'>
+									<label for="tgl">Tanggal : </label>&nbsp;
+									<input class='form-control form-control-sm' size="1" pattern='[0-9]{2}' max='31' maxlength='2' type="text" id="tgl" name="tgl" value='<?= date('d'); ?>'>
+								</div>
+								 &nbsp;
+								 <div class='form-group'>
+								 <label for="sd_tgl">s/d Tanggal :</label>&nbsp;
+								 <input class='form-control form-control-sm' size="1" pattern='[0-9]{2}' max='31' maxlength='2' type="text" id="sd_tgl" name="sd_tgl" value='<?= date('d'); ?>'>
+								 </div>
+							</div>
+						</div>
+					</div>
+					<table id="dt_tables_screening" cellspacing="0" class="table table-bordered table-hover display compact nowrap" style="width:100%">
+						<thead>
+							<tr class='bg-light'>
+								<th>Tanggal</th>
+								<th>No rekening</th>
+								<th>Nama nasabah</th>
+								<th>AO</th>
+								<th>Kolektor</th>
+								<th>Jangka Waktu</th>
+								<th>Tanggal jatuh tempo</th>
+								<th>Baki debet</th>
+								<th>Jumlah pinjaman</th>
+								<th>Angsuran</th>
+								<th>Jumlah tunggakan</th>
+								<th>Total tagihan</th>
+								<th>Sisa tunggakan</th>
+								<th>Jumlah denda</th>
+								<th>Jumlah pembayaran</th>
+								<th>Ft pokok</th>
+								<th>Ft bunga</th>
+								<th>Ft hari awal</th>
+								<th>Ft hari</th>
+								<th>Kolektibilitas</th>
+								<th>Last payment</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($screening as $resDetail) { ?>
+								<tr>
+									<td><?= $resDetail->tgl_tagihan; ?></td>
+									<td><?= $resDetail->no_rekening; ?></td>
+									<td><?= $resDetail->nama_nasabah; ?></td>
+									<td><?= $resDetail->deskripsi_group2; ?></td>
+									<td><?= $resDetail->deskripsi_group3; ?></td>
+									<td><?= $resDetail->jkw . " Bulan"; ?></td>
+									<td><?= ubahDate($resDetail->tgl_jatuh_tempo); ?></td>
+									<td><?= rupiah($resDetail->baki_debet); ?></td>
+									<td><?= rupiah($resDetail->jml_pinjaman); ?></td>
+									<td><?= rupiah($resDetail->jml_tagihan_turun); ?></td>
+									<td><?= rupiah($resDetail->jml_tunggakan); ?></td>
+									<td><?= rupiah($resDetail->total_tagihan); ?></td>
+									<td><?= rupiah($resDetail->sisa_tunggakan); ?></td>
+									<td><?= rupiah($resDetail->jml_denda); ?></td>
+									<td><?= rupiah($resDetail->jml_tagihan_bayar); ?></td>
+									<td><?= $resDetail->ft_pokok . " Bulan"; ?></td>
+									<td><?= $resDetail->ft_bunga . " Bulan"; ?></td>
+									<td><?= $resDetail->ft_hari_awal . " Hari"; ?></td>
+									<td><?= $resDetail->ft_hari . " Hari"; ?></td>
+									<td><?= $resDetail->kolektibilitas . " - " . getKolektibilitas($resDetail->kolektibilitas); ?></td>
+									<td><?= ($resDetail->last_payment !== null) ? ubahDate($resDetail->last_payment) : " - "; ?></td>
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer bg-light">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL SCREENING -->
 </div>
 <!-- content-wrapper ends -->
 
 <?php require_once('include/footerkpi.php'); ?>
 
 <script>
+	$.fn.dataTable.ext.search.push(
+		function( settings, data, dataIndex ) {
+			if ( settings.nTable.id !== 'dt_tables_screening' ) {
+				return true;
+			}
+			var min = parseInt( $('#tgl').val(), 10 );
+			var max = parseInt( $('#sd_tgl').val(), 10 );
+			var tgl = parseFloat( data[0] ) || 0; // use data for the tgl column
+
+			if ((isNaN(min) && isNaN(max)) || (isNaN(min) && tgl <= max) || (min <= tgl && isNaN(max)) || (min <= tgl && tgl <= max)){
+				return true;
+			}
+			return false;
+		}
+	);
+
 	$(document).ready(function() {
+
+		// $('.tampung').on('click', function(e){
+		// 	e.preventDefault();
+		// 	let kode = $(this).data('id');
+		// 	let deskripsi = $(this).data('name');
+		// 	let kode_kantor = $(this).data('kantor');
+
+		// 	console.log(kode + deskripsi + kode_kantor);
+		// });
+
 		//datatable
 		function cchart(id_modal, id_table) {
 			return $(id_modal).on('shown.bs.modal', function() {
@@ -1277,6 +1397,144 @@
 			});
 		}
 
+		function cchart3(id_modal, id_table, colgrp,title,columns_export) {
+			return $(id_modal).on('shown.bs.modal', function() {
+				if (!$.fn.DataTable.isDataTable(id_table)) {
+					var tbtb3 = $(id_table).DataTable({
+						// responsive: false,
+						language: {
+							decimal: "",
+							emptyTable: "Tidak Ada Data",
+							info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+							infoEmpty: "Menampilkan 0 sampai 0 dari total 0 baris",
+							infoFiltered: "(Filter dari total _MAX_ baris)",
+							infoPostFix: "",
+							thousands: ",",
+							lengthMenu: "Tampilkan _MENU_ baris",
+							loadingRecords: "Memuat...",
+							processing: "Proses...",
+							search: "Cari:",
+							zeroRecords: "Tidak ada data yang sesuai",
+							paginate: {
+								first: "Pertama",
+								last: "Terakhir",
+								next: "Selanjutnya",
+								previous: "Sebelumnya"
+							},
+							aria: {
+								sortAscending: ": Aktifkan Berdasarkan paling Awal",
+								sortDescending: ": Aktifkan Berdasarkan paling Akhir"
+							}
+						},
+						rowGroup: {
+							dataSrc: colgrp
+						},
+						autoWidth: true,
+						pagingType: "simple_numbers",
+						lengthMenu: [
+							[3,5,7, 10, 25, 50, 100],
+							[3,5,7, 10, 25, 50, 100]
+						],
+						responsive: {
+							details: {
+								renderer: function(api, rowIdx, columns) {
+									var data = $.map(columns, function(col, i) {
+										return col.hidden ?
+											'<tr data-dt-row="' + col.rowIndex +
+											'" data-dt-column="' + col.columnIndex +
+											'">' +
+											'<td>' + col.title + ' : ' + '</td> ' +
+											'<td>' + col.data + '</td>' +
+											'</tr>' :
+											'';
+									}).join('');
+									return data ?
+										$('<table/>').append(data) :
+										false;
+								}
+							}
+						},
+						order: [
+							[colgrp, "asc"]
+						],
+						columnDefs: [{
+							className: 'control',
+							orderable: true,
+							targets: 0
+						}],
+						buttons: [
+							{
+								extend: 'excelHtml5',
+								title: title,
+								autoFilter: true,
+								className: 'btn btn-sm btn-primary bg-primary ',
+								messageTop: bln +' - '+ thn,
+								exportOptions: {
+									columns: columns_export
+								}
+							},
+							// {
+							// 	extend: 'pdfHtml5',
+							// 	pageSize: 'A4',
+							// 	title: title,
+							// 	orientation: 'potrait',
+							// 	className: 'btn btn-sm btn-primary bg-primary ',
+							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
+							// 	exportOptions: {
+							// 		columns: [ 0, 1, 3, 5 ]
+							// 	}
+							// },
+							// {
+							// 	extend: 'pdfHtml5',
+							// 	text: 'OPEN AS PDF',
+							// 	download: 'open',
+							// 	pageSize: 'A4',
+							// 	title: title,
+							// 	orientation: 'potrait',
+							// 	className: 'btn btn-sm btn-primary bg-primary ',
+							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
+							// 	exportOptions: {
+							// 		columns: [ 0, 1, 3, 5 ]
+							// 	}
+								
+							// },
+							// {
+							// 	extend: 'print',
+							// 	title: title,
+							// 	className: 'btn btn-sm btn-primary bg-primary ',
+							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
+							// 	exportOptions: {
+							// 		columns: [ 0, 1, 3 ]
+							// 	}
+							// },
+							
+						],
+						// fixedColumns: {
+						// 	leftColumns: 2
+						// },
+						dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'p>>"+
+						"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+							"<'row'<'col-sm-12't>>" +
+							"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
+						// scrollY: 320,
+						// scrollX: true, 
+						// scrollCollapse: true,
+						// scroller: true,
+					});
+					$('#tgl, #sd_tgl').keyup( function() {
+						tbtb3.draw();
+						tbtb3.columns.adjust().responsive.recalc();
+					});
+				} else {
+					// var tbtb = $.fn.dataTable.fnTables(true);
+					// $(tbtb).each(function () {
+					// 	$(this).dataTable().fnDestroy();
+					// });
+				}
+				//tbtb.columns.adjust().responsive.recalc();
+			});
+		}
+
 		<?php foreach ($lending_ao as $res) { ?>
 			new cchart('#detail_lending_ao<?php echo $res->kode_group2; ?>', '#dt_tables_lending<?php echo $res->kode_group2; ?>');
 		<?php } ?>
@@ -1304,6 +1562,7 @@
 		<?php foreach ($dataKolektibilitas as $res) { ?>
 			new cchart('#detail_kol<?php echo $res->kolektibilitas; ?>', '#dt_tables_kol<?php echo $res->kolektibilitas; ?>');
 		<?php } ?>
+		new cchart3('#modal_screening', '#dt_tables_screening',0,'DATA SCREENING',[0,1,2,3,4,12,14]);
 		//tutup datatable
 
 		//alert data tidak ada
@@ -1345,6 +1604,9 @@
 	const loading = `<div class="spinner-border text-dark" style="font-size: 2px; height: 20px; width: 20px;" role="status">
 						<span class="sr-only">Loading...</span>
 					</div>`;
+	
+	let kode_group2 = '';
+	let kode_group3 = '';
 	let kantor = '<?= $kantor; ?>';
 	let bulan = '<?= $bulan; ?>';
 	let tahun = '<?= $tahun; ?>';
@@ -1484,4 +1746,81 @@
 			} 
 		});
 	}
+
+	// datatables untuk detail
+	function datatables(id_modal, id_table, controller) {
+		return $(id_modal).on('shown.bs.modal', function() {
+			if (!$.fn.DataTable.isDataTable(id_table)) {
+				var table = $(id_table).DataTable({
+					"pageLength": 10,
+					"serverSide": true,
+					"order": [
+						[0, "desc"]
+					],
+					"processing": true,
+					"ajax": {
+						url: url + controller + tahun + "/" + bulan + "/" + kode_group3 + "/" + kantor,
+						type: 'POST'
+					},
+					"responsive": {
+						details: {
+							renderer: function(api, rowIdx, columns) {
+								var data = $.map(columns, function(col, i) {
+									return col.hidden ?
+										'<tr data-dt-row="' + col.rowIndex +
+										'" data-dt-column="' + col.columnIndex +
+										'">' +
+										'<td>' + col.title + ' : ' + '</td> ' +
+										'<td>' + col.data + '</td>' +
+										'</tr>' :
+										'';
+								}).join('');
+								return data ?
+									$('<table/>').append(data) :
+									false;
+							}
+						}
+					},
+				}); // End of DataTable
+			}
+		});
+	}
+
+	// datatables untuk detail
+	// function screening(id_modal, id_table, controller) {
+	// 	return $(id_modal).on('shown.bs.modal', function() {
+	// 		if (!$.fn.DataTable.isDataTable(id_table)) {
+	// 			var table = $(id_table).DataTable({
+	// 				"pageLength": 10,
+	// 				"serverSide": true,
+	// 				"processing": true,
+	// 				"ajax": {
+	// 					url: url + controller + kantor,
+	// 					type: 'POST'
+	// 				},
+	// 				"responsive": {
+	// 					details: {
+	// 						renderer: function(api, rowIdx, columns) {
+	// 							var data = $.map(columns, function(col, i) {
+	// 								return col.hidden ?
+	// 									'<tr data-dt-row="' + col.rowIndex +
+	// 									'" data-dt-column="' + col.columnIndex +
+	// 									'">' +
+	// 									'<td>' + col.title + ' : ' + '</td> ' +
+	// 									'<td>' + col.data + '</td>' +
+	// 									'</tr>' :
+	// 									'';
+	// 							}).join('');
+	// 							return data ?
+	// 								$('<table/>').append(data) :
+	// 								false;
+	// 						}
+	// 					}
+	// 				},
+	// 			}); // End of DataTable
+	// 		}
+	// 	});
+	// }
+
+	// new screening('#modal_screening', '#dt_tables_screening', 'screening/');
 </script>
