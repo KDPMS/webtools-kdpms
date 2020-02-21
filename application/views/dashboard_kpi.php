@@ -1074,12 +1074,12 @@
 							<div class='form-inline justify-content-center'>
 								<div class='form-group'>
 									<label for="tgl">Tanggal : </label>&nbsp;
-									<input class='form-control form-control-sm' size="1" pattern='[0-9]{2}' max='31' maxlength='2' type="text" id="tgl" name="tgl" value='<?= date('d'); ?>'>
+									<input class='form-control form-control-sm' size="1" pattern='[0-9]{2}' max='31' maxlength='2' type="number" id="tgl" name="tgl" value='<?= date('d'); ?>'>
 								</div>
 								 &nbsp;
 								 <div class='form-group'>
 								 <label for="sd_tgl">s/d Tanggal :</label>&nbsp;
-								 <input class='form-control form-control-sm' size="1" pattern='[0-9]{2}' max='31' maxlength='2' type="text" id="sd_tgl" name="sd_tgl" value='<?= date('d'); ?>'>
+								 <input class='form-control form-control-sm' size="1" pattern='[0-9]{2}' max='31' maxlength='2' type="number" id="sd_tgl" name="sd_tgl" value='<?= date('d'); ?>'>
 								 </div>
 							</div>
 						</div>
