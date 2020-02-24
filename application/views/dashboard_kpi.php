@@ -126,6 +126,7 @@
 			} else {
 				echo '<span id="nullLending" data=""></span>';
 			} ?>
+			
 			<!-- /Lending -->
 
 			<!-- NPL -->
@@ -1078,8 +1079,8 @@
 								</div>
 								 &nbsp;
 								 <div class='form-group'>
-								 <label for="sd_tgl">s/d Tanggal :</label>&nbsp;
-								 <input class='form-control form-control-sm' size="1" pattern='[0-9]{2}' max='31' maxlength='2' type="number" id="sd_tgl" name="sd_tgl" value='<?= date('d'); ?>'>
+								 	<label for="sd_tgl">s/d Tanggal :</label>&nbsp;
+								 	<input class='form-control form-control-sm' size="1" pattern='[0-9]{2}' max='31' maxlength='2' type="number" id="sd_tgl" name="sd_tgl" value='<?= date('d'); ?>'>
 								 </div>
 							</div>
 						</div>
@@ -1521,7 +1522,7 @@
 						// scrollCollapse: true,
 						// scroller: true,
 					});
-					$('#tgl, #sd_tgl').keyup( function() {
+					$('#tgl, #sd_tgl').change( function() {
 						tbtb3.draw();
 						tbtb3.columns.adjust().responsive.recalc();
 					});
@@ -1748,43 +1749,43 @@
 	}
 
 	// datatables untuk detail
-	function datatables(id_modal, id_table, controller) {
-		return $(id_modal).on('shown.bs.modal', function() {
-			if (!$.fn.DataTable.isDataTable(id_table)) {
-				var table = $(id_table).DataTable({
-					"pageLength": 10,
-					"serverSide": true,
-					"order": [
-						[0, "desc"]
-					],
-					"processing": true,
-					"ajax": {
-						url: url + controller + tahun + "/" + bulan + "/" + kode_group3 + "/" + kantor,
-						type: 'POST'
-					},
-					"responsive": {
-						details: {
-							renderer: function(api, rowIdx, columns) {
-								var data = $.map(columns, function(col, i) {
-									return col.hidden ?
-										'<tr data-dt-row="' + col.rowIndex +
-										'" data-dt-column="' + col.columnIndex +
-										'">' +
-										'<td>' + col.title + ' : ' + '</td> ' +
-										'<td>' + col.data + '</td>' +
-										'</tr>' :
-										'';
-								}).join('');
-								return data ?
-									$('<table/>').append(data) :
-									false;
-							}
-						}
-					},
-				}); // End of DataTable
-			}
-		});
-	}
+	// function datatables(id_modal, id_table, controller) {
+	// 	return $(id_modal).on('shown.bs.modal', function() {
+	// 		if (!$.fn.DataTable.isDataTable(id_table)) {
+	// 			var table = $(id_table).DataTable({
+	// 				"pageLength": 10,
+	// 				"serverSide": true,
+	// 				"order": [
+	// 					[0, "desc"]
+	// 				],
+	// 				"processing": true,
+	// 				"ajax": {
+	// 					url: url + controller + tahun + "/" + bulan + "/" + kode_group3 + "/" + kantor,
+	// 					type: 'POST'
+	// 				},
+	// 				"responsive": {
+	// 					details: {
+	// 						renderer: function(api, rowIdx, columns) {
+	// 							var data = $.map(columns, function(col, i) {
+	// 								return col.hidden ?
+	// 									'<tr data-dt-row="' + col.rowIndex +
+	// 									'" data-dt-column="' + col.columnIndex +
+	// 									'">' +
+	// 									'<td>' + col.title + ' : ' + '</td> ' +
+	// 									'<td>' + col.data + '</td>' +
+	// 									'</tr>' :
+	// 									'';
+	// 							}).join('');
+	// 							return data ?
+	// 								$('<table/>').append(data) :
+	// 								false;
+	// 						}
+	// 					}
+	// 				},
+	// 			}); // End of DataTable
+	// 		}
+	// 	});
+	// }
 
 	// datatables untuk detail
 	// function screening(id_modal, id_table, controller) {
