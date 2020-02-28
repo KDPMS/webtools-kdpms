@@ -12,8 +12,6 @@ class Kpi extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		//load library pdf
-		$this->load->library('pdf');
 
 		//load model yg dipakai
 		$this->load->model('Model_business','business');
@@ -181,40 +179,43 @@ class Kpi extends CI_Controller {
 		if($this->session->userdata('id') == null){
 			redirect(base_url('login'));
 		}else{
+			if($this->session->userdata('jabatan') == 'collector'){
+				$bulan       = $this->input->post('bulan');
+				$tahun       = $this->input->post('tahun');
+				$kantor      = $this->session->userdata('kantor');
+				// $kode_group3 = $this->session->userdata('kode_group3');
+				$kode_group3 = '09';
+				
+				// jika $tahun tidak ada maka tahun akan diisi tahun sekarang
+				if(empty($tahun)){
+					$tahun = date('Y');
+				}
 
-			$bulan       = $this->input->post('bulan');
-			$tahun       = $this->input->post('tahun');
-			$kantor      = $this->session->userdata('kantor');
-			// $kode_group3 = $this->session->userdata('kode_group3');
-			$kode_group3 = '09';
-			
-			// jika $tahun tidak ada maka tahun akan diisi tahun sekarang
-			if(empty($tahun)){
-				$tahun = date('Y');
+				// jika $bulan tidak ada maka tahun akan diisi bulan sekarang
+				if(empty($bulan)){
+					$bulan = date('m');
+				}
+
+				$data['bulan'] = $bulan;
+				$data['tahun'] = $tahun;
+
+				// data bz per kolektor
+				$data['bz_kolektor'] = $this->kpi->bz_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->num_rows();
+				// $data['bz_detail'] = $this->kpi->bz_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
+
+				// data cr per kolektor
+				$data['cr_kolektor'] = $this->kpi->cr_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->num_rows();
+				// $data['cr_detail'] = $this->kpi->cr_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
+
+				// data npl per kolektor
+				$data['npl_kolektor'] = $this->kpi->npl_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->num_rows();
+				// $data['npl_detail'] = $this->kpi->npl_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
+
+				$this->load->view('include/headerkpi');
+				$this->load->view('dashboard_kpi_col', $data);
+			}else{
+				redirect(base_url('tools'));
 			}
-
-			// jika $bulan tidak ada maka tahun akan diisi bulan sekarang
-			if(empty($bulan)){
-				$bulan = date('m');
-			}
-
-			$data['bulan'] = $bulan;
-			$data['tahun'] = $tahun;
-
-			// data bz per kolektor
-			$data['bz_kolektor'] = $this->kpi->bz_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->num_rows();
-			// $data['bz_detail'] = $this->kpi->bz_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
-
-			// data cr per kolektor
-			$data['cr_kolektor'] = $this->kpi->cr_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->num_rows();
-			// $data['cr_detail'] = $this->kpi->cr_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
-
-			// data npl per kolektor
-			$data['npl_kolektor'] = $this->kpi->npl_per_kolektor($tahun, $bulan, $kode_group3, $kantor)->num_rows();
-			// $data['npl_detail'] = $this->kpi->npl_kolektor_detail($tahun, $bulan, $kode_group3, $kantor)->result();
-
-			$this->load->view('include/headerkpi');
-			$this->load->view('dashboard_kpi_col', $data);
 		}
 	}
 

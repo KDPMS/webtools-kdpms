@@ -121,7 +121,6 @@
 			<!-- /Collection Ratio -->
 
 			<!-- Bucket Zero -->
-
 			<?php if ($bz_ao > 0) { ?>
 				<span class="rounded-circle spedo bz_popover" data-popover="popover" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle bz_spedo" href="" data-toggle="modal" data-target="#modal_bz">
@@ -195,7 +194,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								
+
 							</tbody>
 						</table>
 					</div>
@@ -379,7 +378,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								
+
 							</tbody>
 						</table>
 					</div>
@@ -402,11 +401,10 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		function cchart2(id_modal, id_table, colgrp, title, columns_export) {
+		function cchart2(id_modal, id_table, colgrp) {
 			return $(id_modal).on('shown.bs.modal', function() {
 				if (!$.fn.DataTable.isDataTable(id_table)) {
 					var tbtb = $(id_table).DataTable({
-						// responsive: false,
 						language: {
 							decimal: "",
 							emptyTable: "Tidak Ada Data",
@@ -460,82 +458,24 @@
 							}
 						},
 						order: [
-							[colgrp, "asc"]
+							[colgrp, "desc"]
 						],
 						columnDefs: [{
 							className: 'control',
 							orderable: true,
 							targets: 0
 						}],
-						buttons: [{
-								extend: 'excelHtml5',
-								title: title,
-								autoFilter: true,
-								className: 'btn btn-sm btn-primary bg-primary ',
-								messageTop: <?= $bulan ?> + '/' + <?= $tahun ?>,
-								exportOptions: {
-									columns: columns_export
-								}
-							},
-							// {
-							// 	extend: 'pdfHtml5',
-							// 	pageSize: 'A4',
-							// 	title: title,
-							// 	orientation: 'potrait',
-							// 	className: 'btn btn-sm btn-primary bg-primary ',
-							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
-							// 	exportOptions: {
-							// 		columns: [ 0, 1, 3, 5 ]
-							// 	}
-							// },
-							// {
-							// 	extend: 'pdfHtml5',
-							// 	text: 'OPEN AS PDF',
-							// 	download: 'open',
-							// 	pageSize: 'A4',
-							// 	title: title,
-							// 	orientation: 'potrait',
-							// 	className: 'btn btn-sm btn-primary bg-primary ',
-							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
-							// 	exportOptions: {
-							// 		columns: [ 0, 1, 3, 5 ]
-							// 	}
-
-							// },
-							// {
-							// 	extend: 'print',
-							// 	title: title,
-							// 	className: 'btn btn-sm btn-primary bg-primary ',
-							// 	messageTop: <?= $bulan ?>+'/'+<?= $tahun ?>,
-							// 	exportOptions: {
-							// 		columns: [ 0, 1, 3 ]
-							// 	}
-							// },
-
-						],
-						// fixedColumns: {
-						// 	leftColumns: 2
-						// },
-						dom: "B<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+						dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
 							"<'row'<'col-sm-12't>>" +
 							"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
-						// scrollY: 320,
-						// scrollX: true, 
-						// scrollCollapse: true,
-						// scroller: true,
 					});
 				} else {
-					// var tbtb = $.fn.dataTable.fnTables(true);
-					// $(tbtb).each(function () {
-					// 	$(this).dataTable().fnDestroy();
-					// });
 				}
-				//tbtb.columns.adjust().responsive.recalc();
 			});
 		}
 
 
-		new cchart2('#modal_bz', '#dt_tables_bz', 6, 'DATA BZ', [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]);
+		new cchart2('#modal_bz', '#dt_tables_bz', 17);
 		//tutup datatable
 
 		//alert data tidak ada
@@ -564,7 +504,7 @@
 
 	// ajax data
 	const url = '<?= base_url('kpi/'); ?>';
-	const loading = `<div class="spinner-border text-dark" style="font-size: 2px; height: 20px; width: 20px;" role="status">
+	const loading = `<div class="spinner-border text-dark" style="font-size: 2px; height: 2rem; width: 2rem;" role="status">
 						<span class="sr-only">Loading...</span>
 					</div>`;
 	let kantor = $('#session_kantor').val();
@@ -583,6 +523,9 @@
 			url: url + "spedo_lending_ao/" + tahun + "/" + bulan + "/" + kode_group2 + "/" + kantor + "/" + status,
 			method: "GET",
 			dataType: "JSON",
+			beforeSend: function() {
+				$('.lending_spedo').html(loading);
+			},
 			success: function(data) {
 				// console.log(data);
 				if (data.length > 0) {
@@ -607,6 +550,9 @@
 			url: url + "spedo_cr_ao/" + tahun + "/" + bulan + "/" + kode_group2 + "/" + kantor + "/" + status,
 			method: "GET",
 			dataType: "JSON",
+			beforeSend: function() {
+				$('.cr_spedo').html(loading);
+			},
 			success: function(data) {
 				// console.log(data);
 				if (data.length > 0) {
@@ -630,6 +576,9 @@
 			url: url + "spedo_bz_ao/" + tahun + "/" + bulan + "/" + kode_group2 + "/" + kantor + "/" + status,
 			method: "GET",
 			dataType: "JSON",
+			beforeSend: function() {
+				$('.bz_spedo').html(loading);
+			},
 			success: function(data) {
 				// console.log(data);
 				if (data.length > 0) {
@@ -653,6 +602,9 @@
 			url: url + "spedo_ns_ao/" + tahun + "/" + bulan + "/" + kode_group2 + "/" + kantor + "/" + status,
 			method: "GET",
 			dataType: "JSON",
+			beforeSend: function() {
+				$('.ns_spedo').html(loading);
+			},
 			success: function(data) {
 				// console.log(data);
 				if (data.length > 0) {
@@ -669,21 +621,50 @@
 	}
 
 	// datatables untuk detail
-	function datatables(id_modal, id_table, controller) {
+	function datatables(id_modal, id_table, controller, colgrp) {
 		return $(id_modal).on('shown.bs.modal', function() {
 			if (!$.fn.DataTable.isDataTable(id_table)) {
-				var table = $(id_table).DataTable({
-					"pageLength": 10,
-					"serverSide": true,
-					"order": [
-						[0, "desc"]
-					],
-					"processing": true,
-					"ajax": {
+				var tbtb = $(id_table).DataTable({
+					serverSide: true,
+					processing: true,
+					ajax: {
 						url: url + controller + tahun + "/" + bulan + "/" + kode_group2 + "/" + kantor,
 						type: 'POST'
 					},
-					"responsive": {
+					language: {
+						decimal: "",
+						emptyTable: "Tidak Ada Data",
+						info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+						infoEmpty: "Menampilkan 0 sampai 0 dari total 0 baris",
+						infoFiltered: "(Filter dari total _MAX_ baris)",
+						infoPostFix: "",
+						thousands: ",",
+						lengthMenu: "Tampilkan _MENU_ baris",
+						loadingRecords: "Loading...",
+						processing: "Proses...",
+						search: "Cari:",
+						zeroRecords: "Tidak ada data yang sesuai",
+						paginate: {
+							first: "Pertama",
+							last: "Terakhir",
+							next: "Selanjutnya",
+							previous: "Sebelumnya"
+						},
+						aria: {
+							sortAscending: ": Aktifkan Berdasarkan paling Awal",
+							sortDescending: ": Aktifkan Berdasarkan paling Akhir"
+						}
+					},
+					rowGroup: {
+						dataSrc: colgrp
+					},
+					autoWidth: true,
+					pagingType: "simple_numbers",
+					lengthMenu: [
+						[10, 25, 50, 100],
+						[10, 25, 50, 100]
+					],
+					responsive: {
 						details: {
 							renderer: function(api, rowIdx, columns) {
 								var data = $.map(columns, function(col, i) {
@@ -702,13 +683,111 @@
 							}
 						}
 					},
-				}); // End of DataTable
+					order: [
+						[colgrp, "desc"]
+					],
+					columnDefs: [{
+						className: 'control',
+						orderable: true,
+						targets: 0
+					}],
+					dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+						"<'row'<'col-sm-12'tr>>" +
+						"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
+				});
+			} else {
+
 			}
 		});
 	}
 
-	new datatables('#modal_lending', '#dt_tables_lending', 'lending_detail/');
-	new datatables('#modal_ns', '#dt_tables_ns', 'ns_detail/');
-	new datatables('#modal_cr', '#dt_tables_cr', 'cr_ao_detail/');
+	function datatables2(id_modal, id_table,controller) {
+		return $(id_modal).on('shown.bs.modal', function() {
+			if (!$.fn.DataTable.isDataTable(id_table)) {
+				var tbtb = $(id_table).DataTable({
+					serverSide: true,
+					processing: true,
+					ajax: {
+						url: url + controller + tahun + "/" + bulan + "/" + kode_group2 + "/" + kantor,
+						type: 'POST'
+					},
+					language: {
+						decimal: "",
+						emptyTable: "Tidak Ada Data",
+						info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+						infoEmpty: "Menampilkan 0 sampai 0 dari total 0 baris",
+						infoFiltered: "(Filter dari total _MAX_ baris)",
+						infoPostFix: "",
+						thousands: ",",
+						lengthMenu: "Tampilkan _MENU_ baris",
+						loadingRecords: "Memuat...",
+						processing: "Proses...",
+						search: "Cari:",
+						zeroRecords: "Tidak ada data yang sesuai",
+						paginate: {
+							first: "Pertama",
+							last: "Terakhir",
+							next: "Selanjutnya",
+							previous: "Sebelumnya"
+						},
+						aria: {
+							sortAscending: ": Aktifkan Berdasarkan paling Awal",
+							sortDescending: ": Aktifkan Berdasarkan paling Akhir"
+						}
+					},
+					autoWidth: true,
+					pagingType: "simple_numbers",
+					lengthMenu: [
+						[7, 10, 25, 50, 100],
+						[7, 10, 25, 50, 100]
+					],
+					responsive: {
+						details: {
+							renderer: function(api, rowIdx, columns) {
+								var data = $.map(columns, function(col, i) {
+									return col.hidden ?
+										'<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+										'<td>' + col.title + ' : ' + '</td> ' +
+										'<td>' + col.data + '</td>' +
+										'</tr>' :
+										'';
+								}).join('');
 
+								return data ?
+									$('<table/>').append(data) :
+									false;
+							}
+						}
+					},
+					columnDefs: [{
+						className: 'control',
+						orderable: true,
+						targets: 0
+					}],
+					// fixedColumns: {
+					// 	leftColumns: 2
+					// },
+					dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+						"<'row'<'col-sm-12'tr>>" +
+						"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
+					// scrollY: 320,
+					// scrollX: true,
+					// scrollCollapse: true,
+					// scroller: true,
+				});
+			} else {
+				// var tbtb = $.fn.dataTable.fnTables(true);
+
+				// $(tbtb).each(function () {
+				// 	$(this).dataTable().fnDestroy();
+				// });
+			}
+
+			//tbtb.columns.adjust().responsive.recalc();
+		});
+	}
+
+	new datatables2('#modal_lending', '#dt_tables_lending', 'lending_detail/');
+	new datatables2('#modal_ns', '#dt_tables_ns', 'ns_detail/');
+	new datatables('#modal_cr', '#dt_tables_cr', 'cr_ao_detail/', 19);
 </script>

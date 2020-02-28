@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 	<input type="hidden" id="session_kantor" value="<?php echo $this->session->userdata('kantor'); ?>" />
-	<!-- <input type="hidden" id="kd_group3" value="<#?php echo $this->session->userdata('kode_group3'); ?>" /> -->
-	<input type="hidden" id="kd_group3" value="09" />
+	<input type="hidden" id="kd_group3" value="<?php echo $this->session->userdata('kode_group3'); ?>" />
+	<!-- <input type="hidden" id="kd_group3" value="09" /> -->
 
 	<div class="col-md-12">
 		<div class="row mt-5">
@@ -91,7 +91,7 @@
 
 				<span class="rounded-circle spedo npl_popover" data-popover="popover" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle npl_spedo" href="" data-toggle="modal" data-target="#modal_npl">
-					
+
 					</a>
 				</span>
 			<?php
@@ -99,14 +99,14 @@
 				echo '<span id="nullNPL" data=""></span>';
 			} ?>
 			<!-- /NPL -->
-			
+
 			<!-- Collection Ratio -->
-				
+
 			<?php if ($cr_kolektor > 0) {  ?>
 
 				<span class="rounded-circle spedo cr_popover" data-popover="popover" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle cr_spedo" href="" data-toggle="modal" data-target="#modal_cr">
-					
+
 					</a>
 				</span>
 			<?php
@@ -116,11 +116,11 @@
 			<!-- /Collection Ratio -->
 
 			<!-- Bucket Zero -->
-			
+
 			<?php if ($bz_kolektor > 0) { ?>
 				<span class="rounded-circle spedo bz_popover" data-popover="popover" data-html="true" data-placement="top" data-trigger="hover">
 					<a class="rounded-circle bz_spedo" href="" data-toggle="modal" data-target="#modal_bz">
-					
+
 					</a>
 				</span>
 			<?php
@@ -187,7 +187,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							
+
 						</tbody>
 					</table>
 				</div>
@@ -301,7 +301,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							
+
 						</tbody>
 					</table>
 				</div>
@@ -346,7 +346,7 @@
 
 	// ajax data
 	const url = '<?= base_url('kpi/'); ?>';
-	const loading = `<div class="spinner-border text-dark" style="font-size: 2px; height: 20px; width: 20px;" role="status">
+	const loading = `<div class="spinner-border text-dark" style="font-size: 2px; height: 2rem; width: 2rem;" role="status">
 						<span class="sr-only">Loading...</span>
 					</div>`;
 	let kantor = $('#session_kantor').val();
@@ -355,90 +355,130 @@
 	let tahun = '<?= $tahun; ?>';
 	let status = 'kpi_col';
 
-	console.log(kantor +" "+ kode_group3 +" "+ bulan +" "+ tahun);
-	
+	console.log(kantor + " " + kode_group3 + " " + bulan + " " + tahun);
+
 	nplKolektor();
+
 	function nplKolektor() {
 
 		$.ajax({
-			url: url + "spedo_npl_kolektor/" +tahun+"/"+bulan+"/"+kode_group3+"/"+kantor+"/"+status,
+			url: url + "spedo_npl_kolektor/" + tahun + "/" + bulan + "/" + kode_group3 + "/" + kantor + "/" + status,
 			method: "GET",
 			dataType: "JSON",
+			beforeSend: function() {
+				$('.npl_spedo').html(loading);
+			},
 			success: function(data) {
 				// console.log(data);
 				if (data.length > 0) {
-					
+
 					let spedo = getDataSpedo(data[0].data_spedo);
 
-					$('.npl_popover').attr("data-content", "<b>NPL : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatusNPL(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Baki Debet NPL : "+ rupiah(data[0].jml_bd_npl) +" <br> Total Baki Debet : "+ rupiah(data[0].jml_bd) +"</b>");
+					$('.npl_popover').attr("data-content", "<b>NPL : " + ambil2Angka(data[0].jml_value) + " % <br> Status : " + getStatusNPL(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) + " <br> Baki Debet NPL : " + rupiah(data[0].jml_bd_npl) + " <br> Total Baki Debet : " + rupiah(data[0].jml_bd) + "</b>");
 					$('.npl_spedo').html(`
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_npl" data-type="radial-gauge" data-width="300" data-height="300" data-units="` + data[0].unit + `" data-title="` + data[0].title + `" data-value="` + data[0].jml_value + `" data-min-value="0" data-max-value="` + data[0].jml_max_value + `" data-major-ticks="` + data[0].mayor_ticks + `" data-minor-ticks="` + data[0].minor_ticks + `" data-stroke-ticks="true" data-highlights='` + data[0].data_spedo + `' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					`);
 				}
-			} 
+			}
 		});
 	}
 
 	crKolektor();
+
 	function crKolektor() {
 
 		$.ajax({
-			url: url + "spedo_cr_kolektor/" +tahun+"/"+bulan+"/"+kode_group3+"/"+kantor+"/"+status,
+			url: url + "spedo_cr_kolektor/" + tahun + "/" + bulan + "/" + kode_group3 + "/" + kantor + "/" + status,
 			method: "GET",
 			dataType: "JSON",
+			beforeSend: function() {
+				$('.cr_spedo').html(loading);
+			},
 			success: function(data) {
 				// console.log(data);
 				if (data.length > 0) {
 
 					let spedo = getDataSpedo(data[0].data_spedo);
 
-					$('.cr_popover').attr("data-content", "<b>Collection Ratio : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Tagihan : "+ rupiah(data[0].jml_tagihan) +" <br> Jumlah Bayar : "+ rupiah(data[0].jml_bayar) +"</b>");
+					$('.cr_popover').attr("data-content", "<b>Collection Ratio : " + ambil2Angka(data[0].jml_value) + " % <br> Status : " + getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) + " <br> Jumlah Tagihan : " + rupiah(data[0].jml_tagihan) + " <br> Jumlah Bayar : " + rupiah(data[0].jml_bayar) + "</b>");
 					$('.cr_spedo').html(`
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="` + data[0].unit + `" data-title="` + data[0].title + `" data-value="` + data[0].jml_value + `" data-min-value="0" data-max-value="` + data[0].jml_max_value + `" data-major-ticks="` + data[0].mayor_ticks + `" data-minor-ticks="` + data[0].minor_ticks + `" data-stroke-ticks="true" data-highlights='` + data[0].data_spedo + `' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					`);
 				}
-			} 
+			}
 		});
 	}
 
 	bzKolektor();
+
 	function bzKolektor() {
 
 		$.ajax({
-			url: url + "spedo_bz_kolektor/" +tahun+"/"+bulan+"/"+kode_group3+"/"+kantor+"/"+status,
+			url: url + "spedo_bz_kolektor/" + tahun + "/" + bulan + "/" + kode_group3 + "/" + kantor + "/" + status,
 			method: "GET",
 			dataType: "JSON",
+			beforeSend: function() {
+				$('.bz_spedo').html(loading);
+			},
 			success: function(data) {
 				// console.log(data);
 				if (data.length > 0) {
 
 					let spedo = getDataSpedo(data[0].data_spedo);
 
-					$('.bz_popover').attr("data-content", "<b> Bucket Zero : "+ ambil2Angka(data[0].jml_value) +" % <br> Status : "+ getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) +" <br> Jumlah Tagihan : "+ rupiah(data[0].jml_tagihan) +" <br> Jumlah Bayar : "+ rupiah(data[0].jml_bayar) +"</b>");
+					$('.bz_popover').attr("data-content", "<b> Bucket Zero : " + ambil2Angka(data[0].jml_value) + " % <br> Status : " + getStatus(data[0].jml_value, spedo[0], spedo[3], spedo[6], spedo[9]) + " <br> Jumlah Tagihan : " + rupiah(data[0].jml_tagihan) + " <br> Jumlah Bayar : " + rupiah(data[0].jml_bayar) + "</b>");
 					$('.bz_spedo').html(`
-						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="`+ data[0].unit +`" data-title="`+ data[0].title +`" data-value="`+ data[0].jml_value +`" data-min-value="0" data-max-value="`+ data[0].jml_max_value +`" data-major-ticks="`+ data[0].mayor_ticks +`" data-minor-ticks="`+ data[0].minor_ticks +`" data-stroke-ticks="true" data-highlights='`+ data[0].data_spedo +`' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
+						<canvas class="mt-2 mb-2 mx-2 rounded-circle" id="spedo_cr" data-type="radial-gauge" data-width="300" data-height="300" data-units="` + data[0].unit + `" data-title="` + data[0].title + `" data-value="` + data[0].jml_value + `" data-min-value="0" data-max-value="` + data[0].jml_max_value + `" data-major-ticks="` + data[0].mayor_ticks + `" data-minor-ticks="` + data[0].minor_ticks + `" data-stroke-ticks="true" data-highlights='` + data[0].data_spedo + `' data-color-plate="#010101" data-color-major-ticks="#000000" data-color-minor-ticks="#000000" data-color-title="#fff" data-color-units="#ccc" data-color-numbers="#eee" data-color-needle="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)" data-value-box="true" data-animate-on-init="true" data-animation-rule="bounce" data-animation-duration="1500"></canvas>
 					`);
 				}
-			} 
+			}
 		});
 	}
-
 	// datatables untuk detail
-	function datatables(id_modal, id_table, controller) {
+	function datatables(id_modal, id_table, controller, colgrp) {
 		return $(id_modal).on('shown.bs.modal', function() {
 			if (!$.fn.DataTable.isDataTable(id_table)) {
-				var table = $(id_table).DataTable({
-					"pageLength": 10,
-					"serverSide": true,
-					"order": [
-						[0, "desc"]
-					],
-					"processing": true,
-					"ajax": {
+				var tbtb = $(id_table).DataTable({
+					serverSide: true,
+					processing: true,
+					ajax: {
 						url: url + controller + tahun + "/" + bulan + "/" + kode_group3 + "/" + kantor,
 						type: 'POST'
 					},
-					"responsive": {
+					language: {
+						decimal: "",
+						emptyTable: "Tidak Ada Data",
+						info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_ baris",
+						infoEmpty: "Menampilkan 0 sampai 0 dari total 0 baris",
+						infoFiltered: "(Filter dari total _MAX_ baris)",
+						infoPostFix: "",
+						thousands: ",",
+						lengthMenu: "Tampilkan _MENU_ baris",
+						loadingRecords: "Loading...",
+						processing: "Proses...",
+						search: "Cari:",
+						zeroRecords: "Tidak ada data yang sesuai",
+						paginate: {
+							first: "Pertama",
+							last: "Terakhir",
+							next: "Selanjutnya",
+							previous: "Sebelumnya"
+						},
+						aria: {
+							sortAscending: ": Aktifkan Berdasarkan paling Awal",
+							sortDescending: ": Aktifkan Berdasarkan paling Akhir"
+						}
+					},
+					rowGroup: {
+						dataSrc: colgrp
+					},
+					autoWidth: true,
+					pagingType: "simple_numbers",
+					lengthMenu: [
+						[10, 25, 50, 100],
+						[10, 25, 50, 100]
+					],
+					responsive: {
 						details: {
 							renderer: function(api, rowIdx, columns) {
 								var data = $.map(columns, function(col, i) {
@@ -457,15 +497,26 @@
 							}
 						}
 					},
-				}); // End of DataTable
+					order: [
+						[colgrp, "desc"]
+					],
+					columnDefs: [{
+						className: 'control',
+						orderable: true,
+						targets: 0
+					}],
+					dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+						"<'row'<'col-sm-12'tr>>" +
+						"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
+				});
+			} else {
+
 			}
 		});
 	}
 	// tutup datatables 
 
-	new datatables('#modal_cr', '#dt_tables_cr', 'cr_kolektor_detail/');
-	new datatables('#modal_bz', '#dt_tables_bz', 'bz_kolektor_detail/');
-	new datatables('#modal_npl', '#dt_tables_npl', 'npl_kolektor_detail/');
-
-
+	new datatables('#modal_cr', '#dt_tables_cr', 'cr_kolektor_detail/', 21);
+	new datatables('#modal_bz', '#dt_tables_bz', 'bz_kolektor_detail/', 21);
+	new datatables('#modal_npl', '#dt_tables_npl', 'npl_kolektor_detail/', 21, );
 </script>

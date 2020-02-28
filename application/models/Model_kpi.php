@@ -123,7 +123,8 @@ class Model_kpi extends CI_Model {
 
 	public function bz_per_ao($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor, $tanggal = '15'){ //GET VIEW BUCKET ZERO PER AO
 		$this->db->query("SELECT LAST_DAY('$tahun-$bulan-$tanggal') INTO @pv_per_tgl");
-		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_bz_ao WHERE kode_group2 = '$kode_group2' AND kode_kantor = '$kode_kantor'");
+		$this->db->query("SELECT '$kode_group2' INTO @pv_kode_ao");
+		return $this->db->query("SELECT * FROM kms_kpi.v_kpi_bz_ao WHERE kode_kantor = '$kode_kantor'");
 	}
 
 	public function bz_ao_detail($tahun = '', $bulan = '', $kode_group2 = '', $kode_kantor = '', $tanggal = '15'){ //GET VIEW BUCKET ZERO PER AO-DETAIL
