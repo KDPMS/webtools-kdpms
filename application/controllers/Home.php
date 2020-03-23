@@ -1,34 +1,35 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 date_default_timezone_set('Asia/Jakarta');
-if($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 	header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
 	header('Access-Control-Allow-Headers: Content-Type');
 	exit;
 }
 
-class Home extends CI_Controller {
+class Home extends CI_Controller
+{
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->library('pdf');
-		$this->load->model('Model_business','business');
+		$this->load->model('Model_business', 'business');
 	}
 
 	public function index()
 	{
 		if (empty($this->session->userdata('id'))) {
 			redirect(base_url('login'), 'refresh'); // redirect('/','refresh');
-		}else{
+		} else {
 			$this->load->view('index');
 		}
 	}
 
 	/*DASHBOOARD*/
-	public function getTotalNasabah($value='')
+	public function getTotalNasabah($value = '')
 	{
-		$data = $this->business->get('los_calon_nasabah',null)->num_rows();
+		$data = $this->business->get('los_calon_nasabah', null)->num_rows();
 		echo json_encode(array('total_nasabah' => $data));
 	}
 
@@ -36,59 +37,59 @@ class Home extends CI_Controller {
 	{
 		if ($session_kantor == 01) {
 			$where = array('los_cn.kode_kantor' => $session_kantor);
-		}else if ($session_kantor == 02){
+		} else if ($session_kantor == 02) {
 			$where = array('los_cn.kode_kantor' => $session_kantor);
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_order' => $data));
 	}
 
-	public function getTotalAllOrder($value='')
+	public function getTotalAllOrder($value = '')
 	{
-		$data = $this->business->get('los_order',null)->num_rows();
+		$data = $this->business->get('los_order', null)->num_rows();
 		echo json_encode(array('total_order' => $data));
 	}
 
 	public function getTotalTrackingOrder($session_kantor)
 	{
 		if ($session_kantor == 01) {
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_or.verifikasi' => 1);
-		}else if ($session_kantor == 02){
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_or.verifikasi' => 1);
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_or.verifikasi' => 1);
+		} else if ($session_kantor == 02) {
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_or.verifikasi' => 1);
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_tracking' => $data));
 	}
 
-	public function getTotalAllTrackingOrder($value='')
+	public function getTotalAllTrackingOrder($value = '')
 	{
-		$data = $this->business->get('los_order_tracking',null)->num_rows();
+		$data = $this->business->get('los_order_tracking', null)->num_rows();
 		echo json_encode(array('total_tracking' => $data));
 	}
 
 	public function getTotalOrderSukses($session_kantor)
 	{
 		if ($session_kantor == 01) {
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_or.verifikasi' => 1);
-		}else if ($session_kantor == 02){
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_or.verifikasi' => 1);
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_or.verifikasi' => 1);
+		} else if ($session_kantor == 02) {
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_or.verifikasi' => 1);
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_order' => $data));
 	}
 
@@ -121,119 +122,119 @@ class Home extends CI_Controller {
 	{
 		if ($session_kantor == 01) {
 			$where = array('los_cn.kode_kantor' => $session_kantor);
-		}else if ($session_kantor == 02){
+		} else if ($session_kantor == 02) {
 			$where = array('los_cn.kode_kantor' => $session_kantor);
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->join('los_kredit_checking AS los_kc','los_or.id = los_kc.id_order')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_kredit_checking AS los_kc', 'los_or.id = los_kc.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_kredit' => $data));
 	}
 
-	public function getTotalAllKredit($value='')
+	public function getTotalAllKredit($value = '')
 	{
-		$data = $this->business->get('los_kredit_checking',null)->num_rows();
+		$data = $this->business->get('los_kredit_checking', null)->num_rows();
 		echo json_encode(array('total_kredit' => $data));
 	}
 
 	public function getTotalKreditOnProg($session_kantor)
 	{
 		if ($session_kantor == 01) {
-			$where = array('los_cn.kode_kantor' => $session_kantor,'status' => 'ON PROGRESS');
-		}else if ($session_kantor == 02){
-			$where = array('los_cn.kode_kantor' => $session_kantor,'status' => 'ON PROGRESS');
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'status' => 'ON PROGRESS');
+		} else if ($session_kantor == 02) {
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'status' => 'ON PROGRESS');
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->join('los_kredit_checking AS los_kc','los_or.id = los_kc.id_order')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_kredit_checking AS los_kc', 'los_or.id = los_kc.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_kredit' => $data));
 	}
 
 	public function getTotalKreditDone($session_kantor)
 	{
 		if ($session_kantor == 01) {
-			$where = array('los_cn.kode_kantor' => $session_kantor,'status' => 'DONE');
-		}else if ($session_kantor == 02){
-			$where = array('los_cn.kode_kantor' => $session_kantor,'status' => 'DONE');
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'status' => 'DONE');
+		} else if ($session_kantor == 02) {
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'status' => 'DONE');
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->join('los_kredit_checking AS los_kc','los_or.id = los_kc.id_order')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_kredit_checking AS los_kc', 'los_or.id = los_kc.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_kredit' => $data));
 	}
 
 	public function getTotalMemoAo($session_kantor)
 	{
 		if ($session_kantor == 01) {
-			$where = array('los_cn.kode_kantor' => $session_kantor,'status' => 'DONE','flg_survey' => '2');
-		}else if ($session_kantor == 02){
-			$where = array('los_cn.kode_kantor' => $session_kantor,'status' => 'DONE','flg_survey' => '2');
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'status' => 'DONE', 'flg_survey' => '2');
+		} else if ($session_kantor == 02) {
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'status' => 'DONE', 'flg_survey' => '2');
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->join('los_kredit_checking AS los_kc','los_or.id = los_kc.id_order')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_kredit_checking AS los_kc', 'los_or.id = los_kc.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_memo_ao' => $data));
 	}
 
-	public function getTotalAllAo($value='')
+	public function getTotalAllAo($value = '')
 	{
-		$data = $this->business->get('los_memo_kredit_ao',null)->num_rows();
+		$data = $this->business->get('los_memo_kredit_ao', null)->num_rows();
 		echo json_encode(array('total_all_ao' => $data));
 	}
 
 	public function getTotalMemoAoOut($session_kantor)
 	{
 		if ($session_kantor == 01) {
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_ao.verifikasi' => '1');
-		}else if ($session_kantor == 02){
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_ao.verifikasi' => '1');
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_ao.verifikasi' => '1');
+		} else if ($session_kantor == 02) {
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_ao.verifikasi' => '1');
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->join('los_memo_kredit_ao AS los_ao','los_or.id = los_ao.id_order')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_memo_kredit_ao AS los_ao', 'los_or.id = los_ao.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_memo_ao' => $data));
 	}
 
 	public function getTotalMemoCa($session_kantor)
 	{
 		if ($session_kantor == 01) {
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_ao.verifikasi' => '1');
-		}else if ($session_kantor == 02){
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_ao.verifikasi' => '1');
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_ao.verifikasi' => '1');
+		} else if ($session_kantor == 02) {
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_ao.verifikasi' => '1');
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->join('los_memo_kredit_ao AS los_ao','los_or.id = los_ao.id_order')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_memo_kredit_ao AS los_ao', 'los_or.id = los_ao.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_memo_ca' => $data));
 	}
 
-	public function getTotalAllCa($value='')
+	public function getTotalAllCa($value = '')
 	{
-		$data = $this->business->get('los_memo_kredit_ca',null)->num_rows();
+		$data = $this->business->get('los_memo_kredit_ca', null)->num_rows();
 		echo json_encode(array('total_all_ca' => $data));
 	}
 
@@ -241,16 +242,16 @@ class Home extends CI_Controller {
 	{
 		if ($session_kantor == 01) {
 			$where = array('los_cn.kode_kantor' => $session_kantor);
-		}else if ($session_kantor == 02){
+		} else if ($session_kantor == 02) {
 			$where = array('los_cn.kode_kantor' => $session_kantor);
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->join('los_memo_kredit_ca AS los_ca','los_or.id = los_ca.id_order')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_memo_kredit_ca AS los_ca', 'los_or.id = los_ca.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_memo_ca' => $data));
 	}
 
@@ -258,111 +259,111 @@ class Home extends CI_Controller {
 	{
 		if ($session_kantor == 01) {
 			$where = array('los_cn.kode_kantor' => $session_kantor);
-		}else if ($session_kantor == 02){
+		} else if ($session_kantor == 02) {
 			$where = array('los_cn.kode_kantor' => $session_kantor);
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->join('los_memo_kredit_ca AS los_ca','los_or.id = los_ca.id_order')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_memo_kredit_ca AS los_ca', 'los_or.id = los_ca.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_memo_ca' => $data));
 	}
 
-	public function getPushnotif($value='')
+	public function getPushnotif($value = '')
 	{
-		$where = array('status_app' => '0','flg_notif' => '0');
-		$data = $this->business->get_where('los_caa',null,null,$where)->num_rows();
+		$where = array('status_app' => '0', 'flg_notif' => '0');
+		$data = $this->business->get_where('los_caa', null, null, $where)->num_rows();
 		echo json_encode(array('total_push' => $data));
 	}
 
-	public function UpdatePushNotif($value='')
+	public function UpdatePushNotif($value = '')
 	{
-		$where = array('status_app' => '0','flg_notif' => '0');
+		$where = array('status_app' => '0', 'flg_notif' => '0');
 		$data = array('flg_notif' => '1');
-		$query = $this->business->update_data('los_caa',$data,$where);
+		$query = $this->business->update_data('los_caa', $data, $where);
 		if ($query) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function getPushnotifKetua($value='')
+	public function getPushnotifKetua($value = '')
 	{
-		$where = array('jabatan' => 'manager','flg_notif' => '0');
-		$data = $this->business->get_where('los_caa_approval',null,null,$where)->num_rows();
+		$where = array('jabatan' => 'manager', 'flg_notif' => '0');
+		$data = $this->business->get_where('los_caa_approval', null, null, $where)->num_rows();
 		echo json_encode(array('total_push' => $data));
 	}
 
-	public function UpdatePushNotifKetua($value='')
+	public function UpdatePushNotifKetua($value = '')
 	{
-		$where = array('jabatan' => 'manager','flg_notif' => '0');
+		$where = array('jabatan' => 'manager', 'flg_notif' => '0');
 		$data = array('flg_notif' => '1');
-		$query = $this->business->update_data('los_caa_approval',$data,$where);
+		$query = $this->business->update_data('los_caa_approval', $data, $where);
 		if ($query) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function testpush($value='')
+	public function testpush($value = '')
 	{
-		$where = array('status_app' => '0','flg_notif' => '1');
+		$where = array('status_app' => '0', 'flg_notif' => '1');
 		$data = array('flg_notif' => '0');
-		$query = $this->business->update_data('los_caa',$data,$where);
+		$query = $this->business->update_data('los_caa', $data, $where);
 		if ($query) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function testpushketua($value='')
+	public function testpushketua($value = '')
 	{
-		$where = array('jabatan' => 'manager','flg_notif' => '1');
+		$where = array('jabatan' => 'manager', 'flg_notif' => '1');
 		$data = array('flg_notif' => '0');
-		$query = $this->business->update_data('los_caa_approval',$data,$where);
+		$query = $this->business->update_data('los_caa_approval', $data, $where);
 		if ($query) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function getTotalWaiting($value='')
+	public function getTotalWaiting($value = '')
 	{
-		$where = array('los_caa.status_app' => '0','los_cn.kode_kantor' => $this->session->userdata('kantor'));
+		$where = array('los_caa.status_app' => '0', 'los_cn.kode_kantor' => $this->session->userdata('kantor'));
 		$data = $this->db->select('*')
-					 ->from('los_calon_nasabah AS los_cn')
-					 ->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
-					 ->join('los_caa', 'los_or.id = los_caa.id_order')
-		  			 ->where($where)
-		  			 ->get()
-		  			 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_caa', 'los_or.id = los_caa.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_memo_app' => $data));
 	}
 
-	public function dataWaitingApprove($value='')
+	public function dataWaitingApprove($value = '')
 	{
-		$where = array('los_caa.status_app' => '0','los_cn.kode_kantor' => $this->session->userdata('kantor'));
+		$where = array('los_caa.status_app' => '0', 'los_cn.kode_kantor' => $this->session->userdata('kantor'));
 		$data = $this->db->select('los_caa.*,user.nama AS pengirim,los_or.id_calon_debitur')
-				->from('los_calon_nasabah AS los_cn')
-				->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
-				->join('los_caa', 'los_or.id = los_caa.id_order')
-				->join('user','los_caa.user_id = user.user_id')
-				->where($where)
-				->limit(6)
-				->order_by('tgl_buat','DESC')
-				->get()
-				->result();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_caa', 'los_or.id = los_caa.id_order')
+			->join('user', 'los_caa.user_id = user.user_id')
+			->where($where)
+			->limit(6)
+			->order_by('tgl_buat', 'DESC')
+			->get()
+			->result();
 		echo json_encode($data);
 	}
 
-	public function getTotalWaitingAppKetua($value='')
+	public function getTotalWaitingAppKetua($value = '')
 	{
 		$where = array(
 			'los_caa.status_app' => '0',
@@ -370,15 +371,15 @@ class Home extends CI_Controller {
 			'los_caa_approval.jabatan' => 'manager'
 		);
 		$data = $this->db->select('los_caa.status_app')
-				->from('los_caa')
-				->join('los_caa_approval','los_caa.id_order = los_caa_approval.id_order')
-				->where($where)
-				->get()
-				->num_rows();
+			->from('los_caa')
+			->join('los_caa_approval', 'los_caa.id_order = los_caa_approval.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_memo_app' => $data));
 	}
 
-	public function dataWaitingAppKetua($value='')
+	public function dataWaitingAppKetua($value = '')
 	{
 		$where = array(
 			'los_caa.status_app' => '0',
@@ -386,55 +387,55 @@ class Home extends CI_Controller {
 			'los_caa_approval.jabatan' => 'manager'
 		);
 		$data = $this->db->select('los_caa_approval.*,user.nama AS pengirim,los_order.id_calon_debitur')
-				->from('los_caa_approval')
-				->join('los_order','los_caa_approval.id_order = los_order.id')
-				->join('los_caa','los_caa_approval.id_order = los_caa.id_order')
-				->join('user','los_caa_approval.user_id = user.user_id')
-				->where($where)
-				->limit(6)
-				->order_by('tgl_app','DESC')
-				->get()
-				->result();
+			->from('los_caa_approval')
+			->join('los_order', 'los_caa_approval.id_order = los_order.id')
+			->join('los_caa', 'los_caa_approval.id_order = los_caa.id_order')
+			->join('user', 'los_caa_approval.user_id = user.user_id')
+			->where($where)
+			->limit(6)
+			->order_by('tgl_app', 'DESC')
+			->get()
+			->result();
 		echo json_encode($data);
 	}
 
 	public function getTotalAppove($session_kantor)
 	{
 		if ($session_kantor == 01) {
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_caa.status_app' => '1');
-		}else if ($session_kantor == 02){
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_caa.status_app' => '1');
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_caa.status_app' => '1');
+		} else if ($session_kantor == 02) {
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_caa.status_app' => '1');
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->join('los_caa','los_or.id = los_caa.id_order')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_caa', 'los_or.id = los_caa.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_memo_app' => $data));
 	}
 
 	public function getTotalReject($session_kantor)
 	{
 		if ($session_kantor == 01) {
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_caa.status_app' => '2');
-		}else if ($session_kantor == 02){
-			$where = array('los_cn.kode_kantor' => $session_kantor,'los_caa.status_app' => '2');
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_caa.status_app' => '2');
+		} else if ($session_kantor == 02) {
+			$where = array('los_cn.kode_kantor' => $session_kantor, 'los_caa.status_app' => '2');
 		}
 		$data = $this->db->select('*')
-						 ->from('los_calon_nasabah AS los_cn')
-						 ->join('los_order AS los_or','los_cn.id_calon_debitur = los_or.id_calon_debitur')
-						 ->join('los_caa','los_or.id = los_caa.id_order')
-						 ->where($where)
-						 ->get()
-						 ->num_rows();
+			->from('los_calon_nasabah AS los_cn')
+			->join('los_order AS los_or', 'los_cn.id_calon_debitur = los_or.id_calon_debitur')
+			->join('los_caa', 'los_or.id = los_caa.id_order')
+			->where($where)
+			->get()
+			->num_rows();
 		echo json_encode(array('total_memo_reject' => $data));
 	}
 
-	public function getAllCaa($value='')
+	public function getAllCaa($value = '')
 	{
-		$data = $this->business->get('los_caa',null)->num_rows();
+		$data = $this->business->get('los_caa', null)->num_rows();
 		echo json_encode(array('total_caa' => $data));
 	}
 
@@ -444,39 +445,38 @@ class Home extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	public function getAllOffering($value='')
+	public function getAllOffering($value = '')
 	{
-		$data = $this->business->get('los_offering_letter',null)->num_rows();
+		$data = $this->business->get('los_offering_letter', null)->num_rows();
 		echo json_encode(array('total_off' => $data));
 	}
 
-	public function sendEmail($toemail,$subject,$msg)
+	public function sendEmail($toemail, $subject, $msg)
 	{
 
-	    $this->load->library('email');
-	    $config = array();
-	    $config['charset'] = 'utf-8';
-	    $config['protocol']= "smtp";
-	    $config['mailtype']= "html";
-	    $config['smtp_host']= "ssl://smtp.googlemail.com";//pengaturan smtp
-	    $config['smtp_port']= 465;
-	    $config['smtp_user']= "dpmsejahtera@gmail.com"; // isi dengan email kamu
-	    $config['smtp_pass']= "mod3.1.1.1"; // isi dengan password kamu
-	    $config['crlf']="\r\n";
-	    $config['newline']="\r\n";
-	    $config['wordwrap'] = TRUE;
-	    //memanggil library email dan set konfigurasi untuk pengiriman email
-	    $this->email->initialize($config);
-	    //konfigurasi pengiriman
-	    $this->email->from($config['smtp_user'],'KDPMS BISNIS');
-	    $this->email->to($toemail);
-	    $this->email->subject($subject);
-	    $this->email->message($msg);
+		$this->load->library('email');
+		$config = array();
+		$config['charset'] = 'utf-8';
+		$config['protocol'] = "smtp";
+		$config['mailtype'] = "html";
+		$config['smtp_host'] = "ssl://smtp.googlemail.com"; //pengaturan smtp
+		$config['smtp_port'] = 465;
+		$config['smtp_user'] = "dpmsejahtera@gmail.com"; // isi dengan email kamu
+		$config['smtp_pass'] = "mod3.1.1.1"; // isi dengan password kamu
+		$config['crlf'] = "\r\n";
+		$config['newline'] = "\r\n";
+		$config['wordwrap'] = TRUE;
+		//memanggil library email dan set konfigurasi untuk pengiriman email
+		$this->email->initialize($config);
+		//konfigurasi pengiriman
+		$this->email->from($config['smtp_user'], 'KDPMS BISNIS');
+		$this->email->to($toemail);
+		$this->email->subject($subject);
+		$this->email->message($msg);
 
-	    if(!$this->email->send())
-	    {
-	       show_error($this->email->print_debugger());
-	    }
+		if (!$this->email->send()) {
+			show_error($this->email->print_debugger());
+		}
 	}
 	/*-----------------------*/
 
@@ -488,20 +488,20 @@ class Home extends CI_Controller {
 		$jabatan = $this->session->userdata('jabatan');
 		if ($jabatan == 'manager' || $jabatan == 'ketua') {
 			$ao = null;
-		}else{
+		} else {
 			$ao = $this->session->userdata('id');
 		}
 
-		$data = $this->business->data_c_nasabah($areakerja,$startlimit,$keysearch,$ao)->result();
-		$hit = $this->business->data_c_nasabah($areakerja,$startlimit,$keysearch,$ao)->num_rows();
+		$data = $this->business->data_c_nasabah($areakerja, $startlimit, $keysearch, $ao)->result();
+		$hit = $this->business->data_c_nasabah($areakerja, $startlimit, $keysearch, $ao)->num_rows();
 		if ($hit == 0) {
 			echo json_encode(array('amount' => $hit));
-		}else{
+		} else {
 			echo json_encode(array('total_nasabah' => $hit, 'data' => $data));
 		}
 	}
 
-	public function seacrhNasabah($value='')
+	public function seacrhNasabah($value = '')
 	{
 		$keysearch = $this->input->post('keyword');
 		$startlimit = 0;
@@ -509,148 +509,148 @@ class Home extends CI_Controller {
 		if ($jabatan == 'ketua') {
 			$areakerja = 'semua';
 			$ao = null;
-		}else if($jabatan == 'manager') {
+		} else if ($jabatan == 'manager') {
 			$areakerja = $this->session->userdata('kantor');
 			$ao = null;
-		}else{
+		} else {
 			$areakerja = $this->session->userdata('kantor');
 			$ao = $this->session->userdata('id');
 		}
 
-		$data = $this->business->data_c_nasabah($areakerja,$startlimit,$keysearch,$ao)->result();
-		$hit = $this->business->data_c_nasabah($areakerja,$startlimit,$keysearch,$ao)->num_rows();
+		$data = $this->business->data_c_nasabah($areakerja, $startlimit, $keysearch, $ao)->result();
+		$hit = $this->business->data_c_nasabah($areakerja, $startlimit, $keysearch, $ao)->num_rows();
 		if ($hit == 0) {
 			echo json_encode(array('amount' => $hit));
-		}else{
+		} else {
 			echo json_encode(array('total_nasabah' => $hit, 'data' => $data));
 		}
 	}
 
 	public function data_jaminan()
 	{
-		$data = $this->business->get('los_jenis_jaminan',null)->result();
-		$hit = $this->business->get('los_jenis_jaminan',null)->num_rows();
+		$data = $this->business->get('los_jenis_jaminan', null)->result();
+		$hit = $this->business->get('los_jenis_jaminan', null)->num_rows();
 		if ($hit == 0) {
 			echo json_encode(array('amount' => $hit));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function ao($value='')
+	public function ao($value = '')
 	{
-		$data = $this->business->get('kre_kode_group2',null)->result();
+		$data = $this->business->get('kre_kode_group2', null)->result();
 		echo json_encode($data);
 	}
 
-	public function kantor($value='')
+	public function kantor($value = '')
 	{
-		$data = $this->business->get('app_kode_kantor',null)->result();
+		$data = $this->business->get('app_kode_kantor', null)->result();
 		echo json_encode($data);
 	}
 
-	public function agama($value='')
+	public function agama($value = '')
 	{
-		$data = $this->business->get('css_kode_agama',null)->result();
+		$data = $this->business->get('css_kode_agama', null)->result();
 		echo json_encode($data);
 	}
 
-	public function Pekerjaan($value='')
+	public function Pekerjaan($value = '')
 	{
-		$data = $this->business->get('css_kode_pekerjaan',null)->result();
+		$data = $this->business->get('css_kode_pekerjaan', null)->result();
 		echo json_encode($data);
 	}
 
-	public function pendidikan($value='')
+	public function pendidikan($value = '')
 	{
-		$data = $this->business->get('los_pendidikan',null)->result();
+		$data = $this->business->get('los_pendidikan', null)->result();
 		echo json_encode($data);
 	}
 
-	public function sumberPenghasilan($value='')
+	public function sumberPenghasilan($value = '')
 	{
-		$data = $this->business->get('css_sumber_penghasilan',null)->result();
+		$data = $this->business->get('css_sumber_penghasilan', null)->result();
 		echo json_encode($data);
 	}
 
-	public function kepemilikanRumah($value='')
+	public function kepemilikanRumah($value = '')
 	{
-		$data = $this->business->get('los_kepemilikan_rumah',null)->result();
+		$data = $this->business->get('los_kepemilikan_rumah', null)->result();
 		echo json_encode($data);
 	}
 
-	public function provinsi($value='')
+	public function provinsi($value = '')
 	{
-		$data = $this->business->get('los_propinsi','propinsi_id')->result();
+		$data = $this->business->get('los_propinsi', 'propinsi_id')->result();
 		echo json_encode($data);
 	}
 
-	public function kotakab($value='')
+	public function kotakab($value = '')
 	{
 		$propinsi_id = $this->uri->segment(3);
 		$where = array('propinsi_id' => $propinsi_id);
-		$data = $this->business->get_where('los_kotakab','name','ASC',$where)->result();
+		$data = $this->business->get_where('los_kotakab', 'name', 'ASC', $where)->result();
 		echo json_encode($data);
 	}
 
-	public function kecamatan($value='')
+	public function kecamatan($value = '')
 	{
 		$kotakab_id = $this->uri->segment(3);
 		$where = array('kotakab_id' => $kotakab_id);
-		$data = $this->business->get_where('los_kecamatan','name','ASC',$where)->result();
+		$data = $this->business->get_where('los_kecamatan', 'name', 'ASC', $where)->result();
 		echo json_encode($data);
 	}
 
-	public function kelurahan($value='')
+	public function kelurahan($value = '')
 	{
 		$kecamatan_id = $this->uri->segment(3);
 		$where = array('kecamatan_id' => $kecamatan_id);
-		$data = $this->business->get_where('los_kelurahan','name','ASC',$where)->result();
+		$data = $this->business->get_where('los_kelurahan', 'name', 'ASC', $where)->result();
 		echo json_encode($data);
 	}
 	/*CALON NASABAH*/
 
-	public function checkNasabahExist($value='')
+	public function checkNasabahExist($value = '')
 	{
 		$no_ktp = $this->uri->segment(3);
 		$where = array('no_ktp' => $no_ktp);
-		$query = $this->business->get_where('los_calon_nasabah',null,null,$where)->num_rows();
+		$query = $this->business->get_where('los_calon_nasabah', null, null, $where)->num_rows();
 		if ($query > 0) {
 			echo json_encode(array('amount' => $query));
-		}else{
+		} else {
 			echo json_encode(array('amount' => $query));
 		}
 	}
 
-	public function checkNokkNasabah($value='')
+	public function checkNokkNasabah($value = '')
 	{
 		$no_ktp = $this->uri->segment(3);
 		$where = array('no_kk' => $no_ktp);
-		$query = $this->business->get_where('los_calon_nasabah',null,null,$where)->num_rows();
+		$query = $this->business->get_where('los_calon_nasabah', null, null, $where)->num_rows();
 		if ($query > 0) {
 			echo json_encode(array('amount' => $query));
-		}else{
+		} else {
 			echo json_encode(array('amount' => $query));
 		}
 	}
 
 
-	public function checkPasanganExist($value='')
+	public function checkPasanganExist($value = '')
 	{
 		$no_ktp = $this->uri->segment(3);
 		$where = array('no_ktp' => $no_ktp);
-		$query = $this->business->get_where('los_calon_nasabah_pasangan',null,null,$where)->num_rows();
+		$query = $this->business->get_where('los_calon_nasabah_pasangan', null, null, $where)->num_rows();
 		if ($query > 0) {
 			echo json_encode(array('amount' => $query));
-		}else{
+		} else {
 			echo json_encode(array('amount' => $query));
 		}
 	}
 
-	public function getIdnasabah($value='')
+	public function getIdnasabah($value = '')
 	{
 		$noktp = $this->uri->segment(3);
-		$query = 'SELECT id_calon_debitur FROM los_calon_nasabah WHERE no_ktp ='.$noktp;
+		$query = 'SELECT id_calon_debitur FROM los_calon_nasabah WHERE no_ktp =' . $noktp;
 		$db = $this->db->query($query)->result();
 		foreach ($db as $h) {
 			$id = $h->id_calon_debitur;
@@ -658,10 +658,10 @@ class Home extends CI_Controller {
 		echo json_encode(array('id_calon_debitur' => $id));
 	}
 
-	public function getIdpasangan($value='')
+	public function getIdpasangan($value = '')
 	{
 		$noktp = $this->uri->segment(3);
-		$query = 'SELECT id_calon_debitur FROM los_calon_nasabah_pasangan WHERE no_ktp ='.$noktp;
+		$query = 'SELECT id_calon_debitur FROM los_calon_nasabah_pasangan WHERE no_ktp =' . $noktp;
 		$db = $this->db->query($query)->result();
 		foreach ($db as $h) {
 			$id = $h->id_calon_debitur;
@@ -844,12 +844,12 @@ class Home extends CI_Controller {
 			'create_by' => $this->session->userdata('id'),
 			'last_update' => null,
 			'update_by' => null,
-			'flg_aktif' =>1
+			'flg_aktif' => 1
 
 		);
 
 		if ($status_nikah_calon_nasabah == 'KAWIN' && $penjamin == 'ya_penjamin') {
-			$id = $this->business->add_data_nasabah('los_calon_nasabah',$dataCalonNasabah);
+			$id = $this->business->add_data_nasabah('los_calon_nasabah', $dataCalonNasabah);
 
 			$dataPasangan = array(
 				'id_calon_debitur' => $id,
@@ -932,17 +932,16 @@ class Home extends CI_Controller {
 
 			);
 
-			$addPasangan = $this->business->add_data('los_calon_nasabah_pasangan',$dataPasangan);
-			$addPenjamin = $this->business->add_data('los_calon_nasabah_penjamin',$dataPenjamin);
+			$addPasangan = $this->business->add_data('los_calon_nasabah_pasangan', $dataPasangan);
+			$addPenjamin = $this->business->add_data('los_calon_nasabah_penjamin', $dataPenjamin);
 
-			if ($id AND $addPasangan AND $addPenjamin) {
-				echo json_encode(array('msg' => 'success' ));
-			}else{
-				echo json_encode(array('msg' => 'failed' ));
+			if ($id and $addPasangan and $addPenjamin) {
+				echo json_encode(array('msg' => 'success'));
+			} else {
+				echo json_encode(array('msg' => 'failed'));
 			}
-
-		}else if ($status_nikah_calon_nasabah == 'KAWIN' && $penjamin == 'tidak_penjamin') {
-			$id = $this->business->add_data_nasabah('los_calon_nasabah',$dataCalonNasabah);
+		} else if ($status_nikah_calon_nasabah == 'KAWIN' && $penjamin == 'tidak_penjamin') {
+			$id = $this->business->add_data_nasabah('los_calon_nasabah', $dataCalonNasabah);
 
 			$dataPasangan = array(
 				'id_calon_debitur' => $id,
@@ -990,14 +989,14 @@ class Home extends CI_Controller {
 				'flg_aktif' => 1,
 			);
 
-			$addPasangan = $this->business->add_data('los_calon_nasabah_pasangan',$dataPasangan);
-			if ($id AND $addPasangan) {
-				echo json_encode(array('msg' => 'success' ));
-			}else{
-				echo json_encode(array('msg' => 'failed' ));
+			$addPasangan = $this->business->add_data('los_calon_nasabah_pasangan', $dataPasangan);
+			if ($id and $addPasangan) {
+				echo json_encode(array('msg' => 'success'));
+			} else {
+				echo json_encode(array('msg' => 'failed'));
 			}
-		}else if ($penjamin == 'ya_penjamin') {
-			$id = $this->business->add_data_nasabah('los_calon_nasabah',$dataCalonNasabah);
+		} else if ($penjamin == 'ya_penjamin') {
+			$id = $this->business->add_data_nasabah('los_calon_nasabah', $dataCalonNasabah);
 
 			$dataPenjamin = array(
 				'id_calon_debitur' => $id,
@@ -1034,24 +1033,24 @@ class Home extends CI_Controller {
 
 			);
 
-			$addPenjamin = $this->business->add_data('los_calon_nasabah_penjamin',$dataPenjamin);
+			$addPenjamin = $this->business->add_data('los_calon_nasabah_penjamin', $dataPenjamin);
 
-			if ($id AND $addPenjamin) {
-				echo json_encode(array('msg' => 'success' ));
-			}else{
-				echo json_encode(array('msg' => 'failed' ));
+			if ($id and $addPenjamin) {
+				echo json_encode(array('msg' => 'success'));
+			} else {
+				echo json_encode(array('msg' => 'failed'));
 			}
-		}else{
-			$id = $this->business->add_data_nasabah('los_calon_nasabah',$dataCalonNasabah);
+		} else {
+			$id = $this->business->add_data_nasabah('los_calon_nasabah', $dataCalonNasabah);
 			if ($id) {
-				echo json_encode(array('msg' => 'success' ));
-			}else{
-				echo json_encode(array('msg' => 'failed' ));
+				echo json_encode(array('msg' => 'success'));
+			} else {
+				echo json_encode(array('msg' => 'failed'));
 			}
 		}
 	}
 
-	public function save_edit_c_nasabah($value='')
+	public function save_edit_c_nasabah($value = '')
 	{
 		$verifikasi = $this->input->post('verifikasi');
 		$id_calon_debitur = $this->input->post('id_calon_debitur');
@@ -1259,184 +1258,184 @@ class Home extends CI_Controller {
 				'update_by' => $this->session->userdata('id'),
 			);
 			if ($status_penjamin == 'tidakada') {
-				$queryPasangan = $this->business->update_data('los_calon_nasabah_pasangan',$dataPasangan,$where);
-				$query = $this->business->update_data('los_calon_nasabah',$dataCalonNasabah,$where);
-				if ($query AND $queryPasangan) {
-					echo json_encode(array('msg' => 'success' ));
-				}else{
-					echo json_encode(array('msg' => 'failed' ));
+				$queryPasangan = $this->business->update_data('los_calon_nasabah_pasangan', $dataPasangan, $where);
+				$query = $this->business->update_data('los_calon_nasabah', $dataCalonNasabah, $where);
+				if ($query and $queryPasangan) {
+					echo json_encode(array('msg' => 'success'));
+				} else {
+					echo json_encode(array('msg' => 'failed'));
 				}
-			}else if ($status_pasangan == 'tidakada') {
-				$queryPenjamin = $this->business->update_data('los_calon_nasabah_penjamin',$dataPenjamin,$where);
-				$query = $this->business->update_data('los_calon_nasabah',$dataCalonNasabah,$where);
-				if ($query AND $queryPenjamin) {
-					echo json_encode(array('msg' => 'success' ));
-				}else{
-					echo json_encode(array('msg' => 'failed' ));
+			} else if ($status_pasangan == 'tidakada') {
+				$queryPenjamin = $this->business->update_data('los_calon_nasabah_penjamin', $dataPenjamin, $where);
+				$query = $this->business->update_data('los_calon_nasabah', $dataCalonNasabah, $where);
+				if ($query and $queryPenjamin) {
+					echo json_encode(array('msg' => 'success'));
+				} else {
+					echo json_encode(array('msg' => 'failed'));
 				}
-			}else if ($status_penjamin == 'tidakada' && $status_pasangan == 'tidakada') {
-				$query = $this->business->update_data('los_calon_nasabah',$dataCalonNasabah,$where);
+			} else if ($status_penjamin == 'tidakada' && $status_pasangan == 'tidakada') {
+				$query = $this->business->update_data('los_calon_nasabah', $dataCalonNasabah, $where);
 				if ($query) {
-					echo json_encode(array('msg' => 'success' ));
-				}else{
-					echo json_encode(array('msg' => 'failed' ));
+					echo json_encode(array('msg' => 'success'));
+				} else {
+					echo json_encode(array('msg' => 'failed'));
 				}
 			}
-		}else if($verifikasi == '0'){
-				$dataCalonNasabah = array(
-					'kode_ao' => $ao,
-					'nama_lengkap' => $nama_lengkap_calon_nasabah,
-					'nama_panggilan' => $nama_panggilan_calon_nasabah,
-					'nama_identitas' => $nama_identitas_calon_nasabah,
-					'no_ktp' => $no_ktp_calon_nasabah,
-					'npwp' => $npwp_calon_nasabah,
-					'kelamin' => $kelamin_calon_nasabah,
-					'nama_gadis_ibu_kandung' => $nama_gadis_ibu_kandung_calon_nasabah,
-					'no_kk' => $no_kk_calon_nasabah,
-					'jenis_debitur' => $jenis_debitur_calon_nasabah,
-					//'status_nikah' => $status_nikah_calon_nasabah,
-					'tempat_lahir' => $tempat_lahir_calon_nasabah,
-					'tgl_lahir' => $tgl_lahir_calon_nasabah,
-					'kode_agama' => $agama_calon_nasabah,
-					'pekerjaan' => $pekerjaan_calon_nasabah,
-					'pendidikan' => $pen_terakhir_calon_nasabah,
-					'sumber_penghasilan' => $sumber_peng_calon_nasabah,
-					'kepemilikan_rumah' => $status_kep_rumah_calon_nasabah,
-					'tinggal_sejak' => $tinggal_sejak_calon_nasabah,
-					'jumlah_kepemilikan_tanah' => $jum_tanah_calon_nasabah,
-					'jumlah_kepemilikan_tanah_bangunan' => $jum_tanah_bangunan_calon_nasabah,
-					'jumlah_kendaraan_motor' => $jum_motor_calon_nasabah,
-					'jumlah_kendaraan_mobil' => $jum_mobil_calon_nasabah,
-					'alamat' => $alamat_calon_nasabah,
-					'propinsi_id' => $propinsi_calon_nasabah,
-					'kotakab_id' => $kabkota_calon_nasabah,
-					'kecamatan_id' => $kecamatan_calon_nasabah,
-					'kelurahan_id' => $kelurahan_calon_nasabah,
-					'rt' => $rt_calon_nasabah,
-					'rw' => $rw_calon_nasabah,
-					'telp_rumah' => $telp_rumah_calon_nasabah,
-					'telp_kantor' => $telp_kantor_calon_nasabah,
-					'telp_hp' => $telp_hp_calon_nasabah,
-					'domisili_alamat' => $alamat_dom_calon_nasabah,
-					'domisili_propinsi_id' => $propinsi_dom_calon_nasabah,
-					'domisili_kotakab_id' => $kabkota_dom_calon_nasabah,
-					'domisili_kecamatan_id' => $kecamatan_dom_calon_nasabah,
-					'domisili_kelurahan_id' => $kelurahan_dom_calon_nasabah,
-					'domisili_rt' => $rt_dom_calon_nasabah,
-					'domisili_rw' => $rw_dom_calon_nasabah,
-					'email' => $email_calon_nasabah,
-					'nama_kerabat' => $this->input->post('nama_kerabat'),
-					'hubungan_dengan_calon' => $this->input->post('hubungan_dengan_calon'),
-					'no_telp_kerabat' => $this->input->post('no_telp_kerabat'),
-					'alamat_kerabat' => $this->input->post('alamat_kerabat'),
-					'propinsi_kerabat' => $this->input->post('propinsi_kerabat'),
-					'kabupaten_kerabat' => $this->input->post('kabupaten_kerabat'),
-					'kecamatan_kerabat' => $this->input->post('kecamatan_kerabat'),
-					'rt_kerabat' => $this->input->post('rt_kerabat'),
-					'rw_kerabat' => $this->input->post('rw_kerabat'),
-					'kode_pos_Kerabat' => $this->input->post('kode_pos_Kerabat'),
-					'last_update' => date('Y-m-d H:i:s'),
-					'update_by' => $this->session->userdata('id'),
-				);
+		} else if ($verifikasi == '0') {
+			$dataCalonNasabah = array(
+				'kode_ao' => $ao,
+				'nama_lengkap' => $nama_lengkap_calon_nasabah,
+				'nama_panggilan' => $nama_panggilan_calon_nasabah,
+				'nama_identitas' => $nama_identitas_calon_nasabah,
+				'no_ktp' => $no_ktp_calon_nasabah,
+				'npwp' => $npwp_calon_nasabah,
+				'kelamin' => $kelamin_calon_nasabah,
+				'nama_gadis_ibu_kandung' => $nama_gadis_ibu_kandung_calon_nasabah,
+				'no_kk' => $no_kk_calon_nasabah,
+				'jenis_debitur' => $jenis_debitur_calon_nasabah,
+				//'status_nikah' => $status_nikah_calon_nasabah,
+				'tempat_lahir' => $tempat_lahir_calon_nasabah,
+				'tgl_lahir' => $tgl_lahir_calon_nasabah,
+				'kode_agama' => $agama_calon_nasabah,
+				'pekerjaan' => $pekerjaan_calon_nasabah,
+				'pendidikan' => $pen_terakhir_calon_nasabah,
+				'sumber_penghasilan' => $sumber_peng_calon_nasabah,
+				'kepemilikan_rumah' => $status_kep_rumah_calon_nasabah,
+				'tinggal_sejak' => $tinggal_sejak_calon_nasabah,
+				'jumlah_kepemilikan_tanah' => $jum_tanah_calon_nasabah,
+				'jumlah_kepemilikan_tanah_bangunan' => $jum_tanah_bangunan_calon_nasabah,
+				'jumlah_kendaraan_motor' => $jum_motor_calon_nasabah,
+				'jumlah_kendaraan_mobil' => $jum_mobil_calon_nasabah,
+				'alamat' => $alamat_calon_nasabah,
+				'propinsi_id' => $propinsi_calon_nasabah,
+				'kotakab_id' => $kabkota_calon_nasabah,
+				'kecamatan_id' => $kecamatan_calon_nasabah,
+				'kelurahan_id' => $kelurahan_calon_nasabah,
+				'rt' => $rt_calon_nasabah,
+				'rw' => $rw_calon_nasabah,
+				'telp_rumah' => $telp_rumah_calon_nasabah,
+				'telp_kantor' => $telp_kantor_calon_nasabah,
+				'telp_hp' => $telp_hp_calon_nasabah,
+				'domisili_alamat' => $alamat_dom_calon_nasabah,
+				'domisili_propinsi_id' => $propinsi_dom_calon_nasabah,
+				'domisili_kotakab_id' => $kabkota_dom_calon_nasabah,
+				'domisili_kecamatan_id' => $kecamatan_dom_calon_nasabah,
+				'domisili_kelurahan_id' => $kelurahan_dom_calon_nasabah,
+				'domisili_rt' => $rt_dom_calon_nasabah,
+				'domisili_rw' => $rw_dom_calon_nasabah,
+				'email' => $email_calon_nasabah,
+				'nama_kerabat' => $this->input->post('nama_kerabat'),
+				'hubungan_dengan_calon' => $this->input->post('hubungan_dengan_calon'),
+				'no_telp_kerabat' => $this->input->post('no_telp_kerabat'),
+				'alamat_kerabat' => $this->input->post('alamat_kerabat'),
+				'propinsi_kerabat' => $this->input->post('propinsi_kerabat'),
+				'kabupaten_kerabat' => $this->input->post('kabupaten_kerabat'),
+				'kecamatan_kerabat' => $this->input->post('kecamatan_kerabat'),
+				'rt_kerabat' => $this->input->post('rt_kerabat'),
+				'rw_kerabat' => $this->input->post('rw_kerabat'),
+				'kode_pos_Kerabat' => $this->input->post('kode_pos_Kerabat'),
+				'last_update' => date('Y-m-d H:i:s'),
+				'update_by' => $this->session->userdata('id'),
+			);
 
-				$dataPasangan = array(
-					'no_ktp' => $no_ktp_pasangan,
-					'nama_lengkap' => $nama_lengkap_pasangan,
-					'nama_panggilan' => $nama_panggilan_pasangan,
-					'nama_identitas' => $nama_identitas_pasangan,
-					'npwp' => $npwp_pasangan,
-					'kelamin' => $kelamin_pasangan,
-					'nama_gadis_ibu_kandung' => $nama_gadis_ibu_kandung_pasangan,
-					'no_kk' => $no_kk_pasangan,
-					'tempat_lahir' => $tempat_lahir_pasangan,
-					'tgl_lahir' => $tgl_lahir_pasangan,
-					'kode_agama' => $agama_pasangan,
-					'pekerjaan' => $pekerjaan_pasangan,
-					'kewarganegaraan' => $kewarganegaraan_pasangan,
-					'pendidikan' => $pendidikan_pasangan,
-					'sumber_penghasilan' => $sumber_peng_pasangan,
-					'alamat' => $alamat_pasangan,
-					'propinsi_id' => $propinsi_pasangan,
-					'kotakab_id' => $kabkota_pasangan,
-					'kecamatan_id' => $kecamatan_pasangan,
-					'kelurahan_id' => $kelurahan_pasangan,
-					'rt' => $rt_pasangan,
-					'rw' => $rw_pasangan,
-					'telp_rumah' => $telp_rumah_pasangan,
-					'telp_kantor' => $telp_kantor_pasangan,
-					'telp_hp' => $telp_hp_pasangan,
-					'domisili_alamat' => $alamat_dom_pasangan,
-					'domisili_propinsi_id' => $propinsi_dom_pasangan,
-					'domisili_kotakab_id' => $kabkota_dom_pasangan,
-					'domisili_kecamatan_id' => $kecamatan_dom_pasangan,
-					'domisili_kelurahan_id' => $kelurahan_dom_pasangan,
-					'domisili_rt' => $rt_dom_pasangan,
-					'domisili_rw' => $rw_dom_pasangan,
-					'email' => $email_pasangan,
-					'nama_kerabat' => $this->input->post('nama_kerabat'),
-					'hubungan_dengan_calon' => $this->input->post('hubungan_dengan_calon'),
-					'no_telp_kerabat' => $this->input->post('no_telp_kerabat'),
-					'alamat_kerabat' => $this->input->post('alamat_kerabat'),
-					'propinsi_kerabat' => $this->input->post('propinsi_kerabat'),
-					'kabupaten_kerabat' => $this->input->post('kabupaten_kerabat'),
-					'kecamatan_kerabat' => $this->input->post('kecamatan_kerabat'),
-					'rt_kerabat' => $this->input->post('rt_kerabat'),
-					'rw_kerabat' => $this->input->post('rw_kerabat'),
-					'kode_pos_Kerabat' => $this->input->post('kode_pos_Kerabat'),
-					'last_update' => date('Y-m-d H:i:s'),
-					'update_by' => $this->session->userdata('id'),
-				);
+			$dataPasangan = array(
+				'no_ktp' => $no_ktp_pasangan,
+				'nama_lengkap' => $nama_lengkap_pasangan,
+				'nama_panggilan' => $nama_panggilan_pasangan,
+				'nama_identitas' => $nama_identitas_pasangan,
+				'npwp' => $npwp_pasangan,
+				'kelamin' => $kelamin_pasangan,
+				'nama_gadis_ibu_kandung' => $nama_gadis_ibu_kandung_pasangan,
+				'no_kk' => $no_kk_pasangan,
+				'tempat_lahir' => $tempat_lahir_pasangan,
+				'tgl_lahir' => $tgl_lahir_pasangan,
+				'kode_agama' => $agama_pasangan,
+				'pekerjaan' => $pekerjaan_pasangan,
+				'kewarganegaraan' => $kewarganegaraan_pasangan,
+				'pendidikan' => $pendidikan_pasangan,
+				'sumber_penghasilan' => $sumber_peng_pasangan,
+				'alamat' => $alamat_pasangan,
+				'propinsi_id' => $propinsi_pasangan,
+				'kotakab_id' => $kabkota_pasangan,
+				'kecamatan_id' => $kecamatan_pasangan,
+				'kelurahan_id' => $kelurahan_pasangan,
+				'rt' => $rt_pasangan,
+				'rw' => $rw_pasangan,
+				'telp_rumah' => $telp_rumah_pasangan,
+				'telp_kantor' => $telp_kantor_pasangan,
+				'telp_hp' => $telp_hp_pasangan,
+				'domisili_alamat' => $alamat_dom_pasangan,
+				'domisili_propinsi_id' => $propinsi_dom_pasangan,
+				'domisili_kotakab_id' => $kabkota_dom_pasangan,
+				'domisili_kecamatan_id' => $kecamatan_dom_pasangan,
+				'domisili_kelurahan_id' => $kelurahan_dom_pasangan,
+				'domisili_rt' => $rt_dom_pasangan,
+				'domisili_rw' => $rw_dom_pasangan,
+				'email' => $email_pasangan,
+				'nama_kerabat' => $this->input->post('nama_kerabat'),
+				'hubungan_dengan_calon' => $this->input->post('hubungan_dengan_calon'),
+				'no_telp_kerabat' => $this->input->post('no_telp_kerabat'),
+				'alamat_kerabat' => $this->input->post('alamat_kerabat'),
+				'propinsi_kerabat' => $this->input->post('propinsi_kerabat'),
+				'kabupaten_kerabat' => $this->input->post('kabupaten_kerabat'),
+				'kecamatan_kerabat' => $this->input->post('kecamatan_kerabat'),
+				'rt_kerabat' => $this->input->post('rt_kerabat'),
+				'rw_kerabat' => $this->input->post('rw_kerabat'),
+				'kode_pos_Kerabat' => $this->input->post('kode_pos_Kerabat'),
+				'last_update' => date('Y-m-d H:i:s'),
+				'update_by' => $this->session->userdata('id'),
+			);
 
-				$dataPenjamin = array(
-					'no_ktp' => $no_ktp_penjamin,
-					'nama_lengkap' => $nama_lengkap_penjamin,
-					'nama_identitas' => $nama_identitas_penjamin,
-					'npwp' => $npwp_penjamin,
-					'kelamin' => $kelamin_penjamin,
-					'nama_gadis_ibu_kandung' => $nama_gadis_ibu_kandung_penjamin,
-					'no_kk' => $no_kk_penjamin,
-					'hubungan_debitur' => $hub_debitur,
-					'status_nikah' => $status_nikah_penjamin,
-					'tempat_lahir' => $tempat_lahir_penjamin,
-					'tgl_lahir' => $tgl_lahir_penjamin,
-					'kode_agama' => $agama_penjamin,
-					'pekerjaan' => $pekerjaan_penjamin,
-					'kewarganegaraan' => $kewarganegaraan_penjamin,
-					'alamat' => $alamat_penjamin,
-					'propinsi_id' => $propinsi_penjamin,
-					'kotakab_id' => $kabkota_penjamin,
-					'kecamatan_id' => $kecamatan_penjamin,
-					'kelurahan_id' => $kelurahan_penjamin,
-					'rt' => $rt_penjamin,
-					'rw' => $rw_penjamin,
-					'last_update' => date('Y-m-d H:i:s'),
-					'update_by' => $this->session->userdata('id'),
-				);
+			$dataPenjamin = array(
+				'no_ktp' => $no_ktp_penjamin,
+				'nama_lengkap' => $nama_lengkap_penjamin,
+				'nama_identitas' => $nama_identitas_penjamin,
+				'npwp' => $npwp_penjamin,
+				'kelamin' => $kelamin_penjamin,
+				'nama_gadis_ibu_kandung' => $nama_gadis_ibu_kandung_penjamin,
+				'no_kk' => $no_kk_penjamin,
+				'hubungan_debitur' => $hub_debitur,
+				'status_nikah' => $status_nikah_penjamin,
+				'tempat_lahir' => $tempat_lahir_penjamin,
+				'tgl_lahir' => $tgl_lahir_penjamin,
+				'kode_agama' => $agama_penjamin,
+				'pekerjaan' => $pekerjaan_penjamin,
+				'kewarganegaraan' => $kewarganegaraan_penjamin,
+				'alamat' => $alamat_penjamin,
+				'propinsi_id' => $propinsi_penjamin,
+				'kotakab_id' => $kabkota_penjamin,
+				'kecamatan_id' => $kecamatan_penjamin,
+				'kelurahan_id' => $kelurahan_penjamin,
+				'rt' => $rt_penjamin,
+				'rw' => $rw_penjamin,
+				'last_update' => date('Y-m-d H:i:s'),
+				'update_by' => $this->session->userdata('id'),
+			);
 			if ($status_penjamin == 'tidakada') {
-				$queryPasangan = $this->business->update_data('los_calon_nasabah_pasangan',$dataPasangan,$where);
-				$query = $this->business->update_data('los_calon_nasabah',$dataCalonNasabah,$where);
-				if ($query AND $queryPasangan) {
-					echo json_encode(array('msg' => 'success' ));
-				}else{
-					echo json_encode(array('msg' => 'failed' ));
+				$queryPasangan = $this->business->update_data('los_calon_nasabah_pasangan', $dataPasangan, $where);
+				$query = $this->business->update_data('los_calon_nasabah', $dataCalonNasabah, $where);
+				if ($query and $queryPasangan) {
+					echo json_encode(array('msg' => 'success'));
+				} else {
+					echo json_encode(array('msg' => 'failed'));
 				}
-			}else if ($status_pasangan == 'tidakada') {
-				$queryPasangan = $this->business->update_data('los_calon_nasabah_penjamin',$dataPenjamin,$where);
-				$query = $this->business->update_data('los_calon_nasabah',$dataCalonNasabah,$where);
-				if ($query AND $queryPasangan) {
-					echo json_encode(array('msg' => 'success' ));
-				}else{
-					echo json_encode(array('msg' => 'failed' ));
+			} else if ($status_pasangan == 'tidakada') {
+				$queryPasangan = $this->business->update_data('los_calon_nasabah_penjamin', $dataPenjamin, $where);
+				$query = $this->business->update_data('los_calon_nasabah', $dataCalonNasabah, $where);
+				if ($query and $queryPasangan) {
+					echo json_encode(array('msg' => 'success'));
+				} else {
+					echo json_encode(array('msg' => 'failed'));
 				}
-			}else if ($status_penjamin == 'tidakada' && $status_pasangan == 'tidakada') {
-				$query = $this->business->update_data('los_calon_nasabah',$dataCalonNasabah,$where);
-				if ($query AND $queryPasangan) {
-					echo json_encode(array('msg' => 'success' ));
-				}else{
-					echo json_encode(array('msg' => 'failed' ));
+			} else if ($status_penjamin == 'tidakada' && $status_pasangan == 'tidakada') {
+				$query = $this->business->update_data('los_calon_nasabah', $dataCalonNasabah, $where);
+				if ($query and $queryPasangan) {
+					echo json_encode(array('msg' => 'success'));
+				} else {
+					echo json_encode(array('msg' => 'failed'));
 				}
 			}
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'ada yang tidak beres'));
 		}
 	}
@@ -1657,103 +1656,102 @@ class Home extends CI_Controller {
 		}
 	}*/
 
-	public function verifikasi_calon_nasabah($value='')
+	public function verifikasi_calon_nasabah($value = '')
 	{
 		$id = $this->uri->segment(3);
 		$where = array('id_calon_debitur' => $id);
 
-		$data =array(
+		$data = array(
 			'verifikasi' => 1
 		);
 
-		$queryCNasabah = $this->business->update_data('los_calon_nasabah',$data,$where);
-		$queryPasangan = $this->business->update_data('los_calon_nasabah_pasangan',$data,$where);
-		$queryPenjamin = $this->business->update_data('los_calon_nasabah_penjamin',$data,$where);
+		$queryCNasabah = $this->business->update_data('los_calon_nasabah', $data, $where);
+		$queryPasangan = $this->business->update_data('los_calon_nasabah_pasangan', $data, $where);
+		$queryPenjamin = $this->business->update_data('los_calon_nasabah_penjamin', $data, $where);
 
-		if ($queryCNasabah AND $queryPasangan AND $queryPenjamin) {
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+		if ($queryCNasabah and $queryPasangan and $queryPenjamin) {
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
-
 	}
 
-	public function get_detail_calon_nasabah($value='')
+	public function get_detail_calon_nasabah($value = '')
 	{
 		$id_calon_debitur = $this->uri->segment(3);
 		$query = $this->business->get_calon_nasabah($id_calon_debitur)->result();
 		$lengh = $this->business->get_calon_nasabah($id_calon_debitur)->num_rows();
 		if ($lengh > 0) {
 			echo json_encode($query);
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'Data tidak ditemukan'));
 		}
 	}
 
-	public function get_detail_pasangan($value='')
+	public function get_detail_pasangan($value = '')
 	{
 		$id_calon_debitur = $this->uri->segment(3);
 		$query = $this->business->get_pasangan($id_calon_debitur)->result();
 		$lengh = $this->business->get_pasangan($id_calon_debitur)->num_rows();
 		if ($lengh > 0) {
 			echo json_encode($query);
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'Data tidak ditemukan'));
 		}
 	}
 
-	public function get_detail_penjamin($value='')
+	public function get_detail_penjamin($value = '')
 	{
 		$id_calon_debitur = $this->uri->segment(3);
 		$query = $this->business->get_penjamin($id_calon_debitur)->result();
 		$lengh = $this->business->get_penjamin($id_calon_debitur)->num_rows();
 		if ($lengh > 0) {
 			echo json_encode($query);
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'Data tidak ditemukan'));
 		}
 	}
 
-	public function delete_nasabah($value='')
+	public function delete_nasabah($value = '')
 	{
 		$id = $this->uri->segment(3);
 		//echo $id;
 		$where = array('id_calon_debitur' => $id);
-		$query = $this->business->delete_data('los_calon_nasabah',$where);
+		$query = $this->business->delete_data('los_calon_nasabah', $where);
 		if ($query) {
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 	/*-------------------*/
 	/*APLIAKSI ORDER*/
 
-	public function sumberAplikasi($value='')
+	public function sumberAplikasi($value = '')
 	{
-		$data = $this->business->get('kre_kode_group4',null)->result();
+		$data = $this->business->get('kre_kode_group4', null)->result();
 		echo json_encode($data);
 	}
 
-	public function jenisPinjaman($value='')
+	public function jenisPinjaman($value = '')
 	{
-		$data = $this->business->get('los_jenis_pinjaman',null)->result();
+		$data = $this->business->get('los_jenis_pinjaman', null)->result();
 		echo json_encode($data);
 	}
 
 	public function NasabahReadyOrder()
 	{
 		$where = array('verifikasi' => 1, 'create_by' => $this->session->userdata('id'));
-		$data = $this->business->get_where('los_calon_nasabah','id_calon_debitur','DESC',$where)->result();
-		$hit = $this->business->get_where('los_calon_nasabah','id_calon_debitur','DESC',$where)->num_rows();
+		$data = $this->business->get_where('los_calon_nasabah', 'id_calon_debitur', 'DESC', $where)->result();
+		$hit = $this->business->get_where('los_calon_nasabah', 'id_calon_debitur', 'DESC', $where)->num_rows();
 		if ($hit == 0) {
 			echo json_encode(array('amount' => $hit));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function get_order($value='')
+	public function get_order($value = '')
 	{
 		$startlimit = $this->uri->segment(3);
 		$areakerja = $this->uri->segment(4);
@@ -1761,19 +1759,19 @@ class Home extends CI_Controller {
 		$jabatan = $this->session->userdata('jabatan');
 		if ($jabatan == 'manager' || $jabatan == 'ketua') {
 			$ao = null;
-		}else{
+		} else {
 			$ao = $this->session->userdata('id');
 		}
-		$data = $this->business->get_order($areakerja,$startlimit,$keysearch,$ao)->result();
-		$lengh = $this->business->get_order($areakerja,$startlimit,$keysearch,$ao)->num_rows();
+		$data = $this->business->get_order($areakerja, $startlimit, $keysearch, $ao)->result();
+		$lengh = $this->business->get_order($areakerja, $startlimit, $keysearch, $ao)->num_rows();
 		if ($lengh > 0) {
 			echo json_encode($data);
-		}else{
+		} else {
 			echo json_encode(array('amount' => $lengh));
 		}
 	}
 
-	public function seacrhOrder($value='')
+	public function seacrhOrder($value = '')
 	{
 		$keysearch = $this->input->post('keyword');
 		$startlimit = 0;
@@ -1781,45 +1779,45 @@ class Home extends CI_Controller {
 		if ($jabatan == 'ketua') {
 			$areakerja = 'semua';
 			$ao = null;
-		}else if($jabatan == 'manager') {
+		} else if ($jabatan == 'manager') {
 			$areakerja = $this->session->userdata('kantor');
 			$ao = null;
-		}else{
+		} else {
 			$areakerja = $this->session->userdata('kantor');
 			$ao = $this->session->userdata('id');
 		}
 
-		$data = $this->business->get_order($areakerja,$startlimit,$keysearch,$ao)->result();
-		$hit = $this->business->get_order($areakerja,$startlimit,$keysearch,$ao)->num_rows();
+		$data = $this->business->get_order($areakerja, $startlimit, $keysearch, $ao)->result();
+		$hit = $this->business->get_order($areakerja, $startlimit, $keysearch, $ao)->num_rows();
 		if ($hit == 0) {
 			echo json_encode(array('amount' => $hit));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function get_detail_order($value='')
+	public function get_detail_order($value = '')
 	{
 		$id = $this->uri->segment(3);
 		$query = $this->business->get_detail_order($id)->result();
 		$lengh = $this->business->get_detail_order($id)->num_rows();
 		if ($lengh > 0) {
 			echo json_encode($query);
-		}else{
+		} else {
 			echo json_encode(array('amount' => $lengh));
 		}
 	}
 
-	public function add_data_order($value='')
+	public function add_data_order($value = '')
 	{
 		$jumfile = count($_FILES['lampiran']['name']);
-		$upload =  $this->MultiUpload($jumfile,'lampiran','./assets/lampiran','LAMP_');
+		$upload =  $this->MultiUpload($jumfile, 'lampiran', './assets/lampiran', 'LAMP_');
 		$dataFile = json_encode(array('file' => $upload));
-        $data = array(
-        	'kode_ao' => $this->input->post('ao'),
-        	'kode_mitra' => 1, // belum dinamis
-        	'id_calon_debitur' => $this->input->post('id_calon_debitur'),
-			'plafond' => str_replace(".","",$this->input->post('plafond')),
+		$data = array(
+			'kode_ao' => $this->input->post('ao'),
+			'kode_mitra' => 1, // belum dinamis
+			'id_calon_debitur' => $this->input->post('id_calon_debitur'),
+			'plafond' => str_replace(".", "", $this->input->post('plafond')),
 			'tenor' => $this->input->post('tenor'),
 			'jenis_pinjaman' => $this->input->post('jenis_pinjaman'),
 			'tujuan_penggunaan' => $this->input->post('tujuan_penggunaan'),
@@ -1838,22 +1836,22 @@ class Home extends CI_Controller {
 			'keterangan_assign' => 'Order On Progress'
 		);
 
-        $query = $this->business->add_data('los_order',$data);
+		$query = $this->business->add_data('los_order', $data);
 
 		//GET DATA TO EMAIL
-        $where = array('los_calon_nasabah.id_calon_debitur' => $this->input->post('id_calon_debitur'));
+		$where = array('los_calon_nasabah.id_calon_debitur' => $this->input->post('id_calon_debitur'));
 		$dataToemail = $this->db->select('*,kre_kode_group2.deskripsi_group2 AS AO_ORDER')
-								->from('los_calon_nasabah')
-								->join('los_order','los_calon_nasabah.id_calon_debitur = los_order.id_calon_debitur')
-								->join('kre_kode_group2','los_order.kode_ao = kre_kode_group2.KODE_GROUP2')
-								->where($where)
-								->get()
-								->row();
+			->from('los_calon_nasabah')
+			->join('los_order', 'los_calon_nasabah.id_calon_debitur = los_order.id_calon_debitur')
+			->join('kre_kode_group2', 'los_order.kode_ao = kre_kode_group2.KODE_GROUP2')
+			->where($where)
+			->get()
+			->row();
 
-       	$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, yusufdroider@gmail.com, lutviarizka14@gmail.com'; //TOKREDITCHECKING
-       	$subject = 'KREDIT CHECKING';
-       	$plafond = number_format($dataToemail->plafond, 2, ".", ".");
-       	$message = "
+		$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, yusufdroider@gmail.com, lutviarizka14@gmail.com'; //TOKREDITCHECKING
+		$subject = 'KREDIT CHECKING';
+		$plafond = number_format($dataToemail->plafond, 2, ".", ".");
+		$message = "
 	    <div style='padding:2%;background-color:white;'>
 		<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 		</div>
@@ -1872,11 +1870,11 @@ class Home extends CI_Controller {
 			</center>
 		</div>
 	    ";
-	    $this->sendEmail($toemail,$subject,$message);
+		$this->sendEmail($toemail, $subject, $message);
 
-        if ($query == TRUE) {
+		if ($query == TRUE) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
@@ -1886,10 +1884,10 @@ class Home extends CI_Controller {
 		$where = array('id' => $id_order);
 		$where2 = array('id_order' => $id_order);
 		$data = array(
-	    	'kode_ao' => $this->input->post('ao'),
-	    	'kode_mitra' => 1, // belum dinamis
-	    	'id_calon_debitur' => $this->input->post('id_calon_debitur'),
-			'plafond' => str_replace(".","",$this->input->post('plafond')),
+			'kode_ao' => $this->input->post('ao'),
+			'kode_mitra' => 1, // belum dinamis
+			'id_calon_debitur' => $this->input->post('id_calon_debitur'),
+			'plafond' => str_replace(".", "", $this->input->post('plafond')),
 			'tenor' => $this->input->post('tenor'),
 			'jenis_pinjaman' => $this->input->post('jenis_pinjaman'),
 			'tujuan_penggunaan' => $this->input->post('tujuan_penggunaan'),
@@ -1901,23 +1899,23 @@ class Home extends CI_Controller {
 		);
 
 		$data_ao = array(
-			'plafon_kredit' => str_replace(".","",$this->input->post('plafond')),
+			'plafon_kredit' => str_replace(".", "", $this->input->post('plafond')),
 			'jangka_waktu' => $this->input->post('tenor')
 		);
 
 		$data_ca = array(
-			'realisasi' => str_replace(".","",$this->input->post('plafond')),
+			'realisasi' => str_replace(".", "", $this->input->post('plafond')),
 			'tenor' => $this->input->post('tenor')
 		);
 
-		$this->business->update_data('los_memo_kredit_ao',$data_ao,$where2);
-		$this->business->update_data('los_memo_kredit_ca_lain_lain',$data_ca,$where2);
-		$queryeditorder = $this->business->update_data('los_order',$data,$where);
+		$this->business->update_data('los_memo_kredit_ao', $data_ao, $where2);
+		$this->business->update_data('los_memo_kredit_ca_lain_lain', $data_ca, $where2);
+		$queryeditorder = $this->business->update_data('los_order', $data, $where);
 
 		if ($queryeditorder) {
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
@@ -1925,21 +1923,21 @@ class Home extends CI_Controller {
 	{
 		$where = array('id' => $id_order);
 		$jumfile = count($_FILES['lampiran']['name']);
-		$upload =  $this->MultiUpload($jumfile,'lampiran','./assets/lampiran','LAMP_');
+		$upload =  $this->MultiUpload($jumfile, 'lampiran', './assets/lampiran', 'LAMP_');
 		$dataFile = json_encode(array('file' => $upload));
-    	$data = array(
+		$data = array(
 			'file_lampiran' => $dataFile
 		);
-		$querylampiranorder = $this->business->update_data('los_order',$data,$where);
+		$querylampiranorder = $this->business->update_data('los_order', $data, $where);
 
 		if ($querylampiranorder) {
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function verifikasiOrder($value='')
+	public function verifikasiOrder($value = '')
 	{
 		$id = $this->uri->segment(3);
 		$where = array('id' => $id);
@@ -1950,12 +1948,12 @@ class Home extends CI_Controller {
 			'verifikasi_date' => date('Y-m-d H:i:s')
 		);
 
-		$queryVerifOrder = $this->business->update_data('los_order',$data,$where);
+		$queryVerifOrder = $this->business->update_data('los_order', $data, $where);
 
 		if ($queryVerifOrder) {
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
@@ -1971,7 +1969,7 @@ class Home extends CI_Controller {
 
 	/*TRACKING ORDER*/
 
-	public function OrderTracking($value='')
+	public function OrderTracking($value = '')
 	{
 		$startlimit = $this->uri->segment(3);
 		$areakerja = $this->uri->segment(4);
@@ -1979,19 +1977,19 @@ class Home extends CI_Controller {
 		$jabatan = $this->session->userdata('jabatan');
 		if ($jabatan == 'manager' || $jabatan == 'ketua') {
 			$ao = null;
-		}else{
+		} else {
 			$ao = $this->session->userdata('id');
 		}
-		$query = $this->business->DataTrackingOrder($startlimit,$areakerja,$keysearch,$ao)->result();
-		$lengh = $this->business->DataTrackingOrder($startlimit,$areakerja,$keysearch,$ao)->num_rows();
+		$query = $this->business->DataTrackingOrder($startlimit, $areakerja, $keysearch, $ao)->result();
+		$lengh = $this->business->DataTrackingOrder($startlimit, $areakerja, $keysearch, $ao)->num_rows();
 		if ($lengh > 0) {
 			echo json_encode($query);
-		}else{
+		} else {
 			echo json_encode(array('amount' => $lengh));
 		}
 	}
 
-	public function SearchOrderTracking($value='')
+	public function SearchOrderTracking($value = '')
 	{
 		$startlimit = 0;
 		$keysearch = $this->input->post('keyword');
@@ -1999,23 +1997,23 @@ class Home extends CI_Controller {
 		if ($jabatan == 'ketua') {
 			$areakerja = 'semua';
 			$ao = null;
-		}else if($jabatan == 'manager') {
+		} else if ($jabatan == 'manager') {
 			$areakerja = $this->session->userdata('kantor');
 			$ao = null;
-		}else{
+		} else {
 			$areakerja = $this->session->userdata('kantor');
 			$ao = $this->session->userdata('id');
 		}
-		$query = $this->business->DataTrackingOrder($startlimit,$areakerja,$keysearch,$ao)->result();
-		$lengh = $this->business->DataTrackingOrder($startlimit,$areakerja,$keysearch,$ao)->num_rows();
+		$query = $this->business->DataTrackingOrder($startlimit, $areakerja, $keysearch, $ao)->result();
+		$lengh = $this->business->DataTrackingOrder($startlimit, $areakerja, $keysearch, $ao)->num_rows();
 		if ($lengh > 0) {
 			echo json_encode($query);
-		}else{
+		} else {
 			echo json_encode(array('amount' => $lengh));
 		}
 	}
 
-	public function getTrackingOrder($value='')
+	public function getTrackingOrder($value = '')
 	{
 		$id = $this->uri->segment(3);
 		$query = $this->business->getTrackingOrder($id)->result();
@@ -2023,76 +2021,75 @@ class Home extends CI_Controller {
 
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($query);
 		}
-
 	}
 
 	/*---------------------*/
 	/*KREDIT CHECKING*/
 
-	public function OrderReady($value='')
+	public function OrderReady($value = '')
 	{
 		$data = $this->business->OrderReady()->result();
 		$lengh = $this->business->OrderReady()->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function checkOrderInKredit($value='')
+	public function checkOrderInKredit($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$id_calon_debitur = $this->uri->segment(4);
-		$where = array('id_order' => $id_order,'id_calon_debitur' => $id_calon_debitur);
-		$data = $this->business->get_where('los_kredit_checking',null,null,$where)->num_rows();
+		$where = array('id_order' => $id_order, 'id_calon_debitur' => $id_calon_debitur);
+		$data = $this->business->get_where('los_kredit_checking', null, null, $where)->num_rows();
 		echo json_encode(array('amount' => $data));
 	}
 
-	public function get_dataKreditcheck($value='')
+	public function get_dataKreditcheck($value = '')
 	{
 		$startlimit = $this->uri->segment(3);
 		$areakerja = $this->uri->segment(4);
 		$keysearch = $this->uri->segment(5);
-		$data = $this->business->get_dataKreditcheck($startlimit,$areakerja,$keysearch)->result();
-		$lengh = $this->business->get_dataKreditcheck($startlimit,$areakerja,$keysearch)->num_rows();
+		$data = $this->business->get_dataKreditcheck($startlimit, $areakerja, $keysearch)->result();
+		$lengh = $this->business->get_dataKreditcheck($startlimit, $areakerja, $keysearch)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function seacrhKredit($value='')
+	public function seacrhKredit($value = '')
 	{
 		$startlimit = 0;
 		$areakerja = $this->input->post('areakerja');
 		$keysearch = $this->input->post('keyword');
-		$data = $this->business->get_dataKreditcheck($startlimit,$areakerja,$keysearch)->result();
-		$lengh = $this->business->get_dataKreditcheck($startlimit,$areakerja,$keysearch)->num_rows();
+		$data = $this->business->get_dataKreditcheck($startlimit, $areakerja, $keysearch)->result();
+		$lengh = $this->business->get_dataKreditcheck($startlimit, $areakerja, $keysearch)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function get_detailKreditcheck($value='')
+	public function get_detailKreditcheck($value = '')
 	{
 		$id = $this->uri->segment(3);
 		$data = $this->business->getDetailKreditChecking($id)->result();
 		$lengh = $this->business->getDetailKreditChecking($id)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function verifikasiKredit($value='')
+	public function verifikasiKredit($value = '')
 	{
 		$id = $this->input->post('id_kredit_check');
 		$id_order = $this->input->post('id_order');
@@ -2108,7 +2105,7 @@ class Home extends CI_Controller {
 			'verifikasi_date' => date('Y-m-d H:i:s')
 		);
 
-		$queryVerifKredti = $this->business->update_data('los_kredit_checking',$data,$where);
+		$queryVerifKredti = $this->business->update_data('los_kredit_checking', $data, $where);
 
 		$whereTrack = array('id_order' => $id_order);
 		$dataTracking = array(
@@ -2120,28 +2117,28 @@ class Home extends CI_Controller {
 			'status_survey' => 1,
 		);
 
-		$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
+		$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
 
 		if ($queryVerifKredti) {
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Adi suyadi') {
-				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Budiawan') {
-				$toemail = 'budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Rediana Saputra') {
-				$toemail = 'redianasaputra4@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'M.Yakub') {
-				$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Lukman') {
-				$toemail = 'lukmanubay16@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Putra Nia') {
-				$toemail = 'putrania1972@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Amirudin') {
-				$toemail = 'muhamadamirudin78@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
+				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Adi suyadi') {
+				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Budiawan') {
+				$toemail = 'budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Rediana Saputra') {
+				$toemail = 'redianasaputra4@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'M.Yakub') {
+				$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Lukman') {
+				$toemail = 'lukmanubay16@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Putra Nia') {
+				$toemail = 'putrania1972@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Amirudin') {
+				$toemail = 'muhamadamirudin78@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
 			}
-	       	$subject = 'KREDIT CHECKING TELAH DISETUJUI';
-	       	$message = "
+			$subject = 'KREDIT CHECKING TELAH DISETUJUI';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -2162,10 +2159,10 @@ class Home extends CI_Controller {
 			</div>
 		    ";
 
-		    $this->sendEmail($toemail,$subject,$message);
-		    $toemail = 'adisuyadi.kdpms@gmail.com, heinrichricky@gmail.com';// TO MANAGER OR KETUA
-	       	$subject = 'DATA SURVEY';
-	       	$message = "
+			$this->sendEmail($toemail, $subject, $message);
+			$toemail = 'adisuyadi.kdpms@gmail.com, heinrichricky@gmail.com'; // TO MANAGER OR KETUA
+			$subject = 'DATA SURVEY';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -2185,14 +2182,14 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-		    $this->sendEmail($toemail,$subject,$message);
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			$this->sendEmail($toemail, $subject, $message);
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function TolakKredit($value='')
+	public function TolakKredit($value = '')
 	{
 		$id = $this->input->post('id_kredit_check');
 		$id_order = $this->input->post('id_order');
@@ -2205,45 +2202,45 @@ class Home extends CI_Controller {
 			'verifikasi_date' => date('Y-m-d H:i:s')
 		);
 
-		$queryVerifKredti = $this->business->update_data('los_kredit_checking',$data,$where);
+		$queryVerifKredti = $this->business->update_data('los_kredit_checking', $data, $where);
 
 		$whereTrack = array('id_order' => $id_order);
 		$dataTracking = array(
-			'desc_credit_checking' => 'Kredit Checking DI TOLAK <br> <b>Alasan Penolakan </b>: '.$alasan,
+			'desc_credit_checking' => 'Kredit Checking DI TOLAK <br> <b>Alasan Penolakan </b>: ' . $alasan,
 			'create_date_credit_checking' => date('Y-m-d H:i:s'),
 			'status_credit_checking' => 3,
 		);
 
-		$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
+		$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
 
 
 		$dataToemail = $this->db->select('los_cn.nama_lengkap,los_cn.no_ktp,los_or.plafond,los_or.tenor,kre_kg2.deskripsi_group2 AS AO_ORDER')
-								->from('los_order AS los_or')
-								->join('los_calon_nasabah AS los_cn', 'los_or.id_calon_debitur = los_cn.id_calon_debitur')
-								->join('kre_kode_group2 AS kre_kg2', 'los_or.kode_ao = kre_kg2.KODE_GROUP2')
-								->where(array('los_or.id' => $id_order))
-								->get()->row();
+			->from('los_order AS los_or')
+			->join('los_calon_nasabah AS los_cn', 'los_or.id_calon_debitur = los_cn.id_calon_debitur')
+			->join('kre_kode_group2 AS kre_kg2', 'los_or.kode_ao = kre_kg2.KODE_GROUP2')
+			->where(array('los_or.id' => $id_order))
+			->get()->row();
 
 		if ($dataToemail->AO_ORDER == 'Kantor') {
-			$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-		}else if ($dataToemail->AO_ORDER == 'Adi suyadi') {
-			$toemail = 'adisuyadi.kdpms@gmail.com';//TO AO
-		}else if ($dataToemail->AO_ORDER == 'Budiawan') {
-			$toemail = 'budiawan.kdpms@gmail.com';//TO AO
-		}else if ($dataToemail->AO_ORDER == 'Rediana Saputra') {
-			$toemail = 'redianasaputra4@gmail.com';//TO AO
-		}else if ($dataToemail->AO_ORDER == 'M.Yakub') {
-			$toemail = 'mu.yakub99@gmail.com';//TO AO
-		}else if ($dataToemail->AO_ORDER == 'Lukman') {
-			$toemail = 'lukmanubay16@gmail.com';//TO AO
-		}else if ($dataToemail->AO_ORDER == 'Putra Nia') {
-			$toemail = 'putrania1972@gmail.com';//TO AO
-		}else if ($dataToemail->AO_ORDER == 'Amirudin') {
-			$toemail = 'muhamadamirudin78@gmail.com';//TO AO
+			$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+		} else if ($dataToemail->AO_ORDER == 'Adi suyadi') {
+			$toemail = 'adisuyadi.kdpms@gmail.com'; //TO AO
+		} else if ($dataToemail->AO_ORDER == 'Budiawan') {
+			$toemail = 'budiawan.kdpms@gmail.com'; //TO AO
+		} else if ($dataToemail->AO_ORDER == 'Rediana Saputra') {
+			$toemail = 'redianasaputra4@gmail.com'; //TO AO
+		} else if ($dataToemail->AO_ORDER == 'M.Yakub') {
+			$toemail = 'mu.yakub99@gmail.com'; //TO AO
+		} else if ($dataToemail->AO_ORDER == 'Lukman') {
+			$toemail = 'lukmanubay16@gmail.com'; //TO AO
+		} else if ($dataToemail->AO_ORDER == 'Putra Nia') {
+			$toemail = 'putrania1972@gmail.com'; //TO AO
+		} else if ($dataToemail->AO_ORDER == 'Amirudin') {
+			$toemail = 'muhamadamirudin78@gmail.com'; //TO AO
 		}
 
-       	$subject = 'PENOLAKAN KREDIT CHECKING';
-       	$message = "
+		$subject = 'PENOLAKAN KREDIT CHECKING';
+		$message = "
 	    <div style='padding:2%;background-color:white;'>
 		<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 		</div>
@@ -2263,29 +2260,28 @@ class Home extends CI_Controller {
 			</center>
 		</div>
 	    ";
-	    if ($this->sendEmail($toemail,$subject,$message)) {
-	    	if ($queryVerifKredti) {
-				echo json_encode(array('msg' => 'success' ));
-			}else{
-				echo json_encode(array('msg' => 'failed' ));
+		if ($this->sendEmail($toemail, $subject, $message)) {
+			if ($queryVerifKredti) {
+				echo json_encode(array('msg' => 'success'));
+			} else {
+				echo json_encode(array('msg' => 'failed'));
 			}
-	    }else{
-	    	if ($queryVerifKredti) {
-				echo json_encode(array('msg' => 'success' ));
-			}else{
-				echo json_encode(array('msg' => 'failed' ));
+		} else {
+			if ($queryVerifKredti) {
+				echo json_encode(array('msg' => 'success'));
+			} else {
+				echo json_encode(array('msg' => 'failed'));
 			}
-	    }
-		
+		}
 	}
 
-	public function delete_kredit($value='')
+	public function delete_kredit($value = '')
 	{
 		$id = $this->uri->segment(3);
 		//echo $id;
-		$query = "SELECT lampiran FROM los_kredit_checking WHERE id = ".$id;
+		$query = "SELECT lampiran FROM los_kredit_checking WHERE id = " . $id;
 		$query = $this->db->query($query)->row();
-		$json = json_decode($query->lampiran,true);
+		$json = json_decode($query->lampiran, true);
 
 		/*$where = array('id' => $id);
 		$query = $this->business->delete_data('los_kredit_checking',$where);
@@ -2303,11 +2299,11 @@ class Home extends CI_Controller {
 
 		$data = array('no_ktp' => $this->input->post('new_no_ktp_from_kc'));
 
-		$mood = $this->business->update_data('los_calon_nasabah',$data,$where);
+		$mood = $this->business->update_data('los_calon_nasabah', $data, $where);
 
 		if ($mood) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
@@ -2318,11 +2314,11 @@ class Home extends CI_Controller {
 
 		$data = array('nama_lengkap' => $this->input->post('new_nama_lengkap'));
 
-		$mood = $this->business->update_data('los_calon_nasabah',$data,$where);
+		$mood = $this->business->update_data('los_calon_nasabah', $data, $where);
 
 		if ($mood) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
@@ -2342,16 +2338,16 @@ class Home extends CI_Controller {
 			'rw' => $this->input->post('rw_cn')
 		);
 
-		$mood = $this->business->update_data('los_calon_nasabah',$data,$where);
+		$mood = $this->business->update_data('los_calon_nasabah', $data, $where);
 
 		if ($mood) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function add_kreditCheck($value='')
+	public function add_kreditCheck($value = '')
 	{
 		$jenis_debitur = $this->input->post('jenis_debitur');
 		$kode_kantor = $this->session->userdata('kantor');
@@ -2365,99 +2361,100 @@ class Home extends CI_Controller {
 		$plafond_to_email = $this->input->post('plafond_to_email');
 
 		$tanggalTahun = date('Y-m-d');
-		$split 		  = explode('-',$tanggalTahun);
+		$split 		  = explode('-', $tanggalTahun);
 		$tahun 		  = $split[0];
 		$kantor  	  = $this->session->userdata('kantor');
 
 		$jumdatalast = $this->business->getNOKreditLastData()->num_rows();
 		if ($jumdatalast > 0) {
 			$Nolast 	 = $this->business->getNOKreditLastData()->row();
-			$tahunData	 = explode('-',$Nolast->verifikasi_date)[0];
-			$NolastApk   = explode('/',$Nolast->nomor)[2];
+			$tahunData	 = explode('-', $Nolast->verifikasi_date)[0];
+			$NolastApk   = explode('/', $Nolast->nomor)[2];
 
 			if ($tahunData != $tahunData) {
 				$nofix = '0001';
-			}else if ($tahunData == $tahunData) {
+			} else if ($tahunData == $tahunData) {
 				$no = $NolastApk + 1;
 				$nodef = '10000';
 				$nosub = $nodef + $no;
-				$nofix = substr($nosub,1,7);
-			}else{
-				echo "ada yang ga beress";die();
+				$nofix = substr($nosub, 1, 7);
+			} else {
+				echo "ada yang ga beress";
+				die();
 			}
-		}else{
+		} else {
 			$nofix = '0001';
 		}
 
-		$nomor 		  = 'KRDTCHKNG/'.$tahun.'/'.$nofix;
+		$nomor 		  = 'KRDTCHKNG/' . $tahun . '/' . $nofix;
 
 		//$jumfile = count($_FILES['files']['name']);
 
 		if ($status == 'ON PROGRESS') {
 			$dataKreditChecking = array(
-	    		'id' => null,
-	    		'id_order' => $this->input->post('id_order'),
-	    		'id_calon_debitur' => $this->input->post('id_calon_debitur'),
-	    		'jenis_debitur' => $jenis_debitur,
-	    		'nomor' => $nomor,
-	    		'kode_kantor' => $kantor,
-	    		'kode_ao' => $kode_ao,
-	    		'root_server' => null,
-	    		'status' => $status,
-	    		'proses_by' => $this->session->userdata('id'),
-	    		'proses_date' => date('Y-m-d H:i:s'),
-	    		'folder_master' => null,
-	    		'lampiran' => null,
-	    		'notes' => $notes,
-	    		'lampiran_result' => null,
-	    		'notes_result' => null,
-	    		'verifikasi' => 0,
-	    		'verifikasi_by' => null,
-	    		'verifikasi_date' => date('Y-m-d H:i:s'),
-	        );
+				'id' => null,
+				'id_order' => $this->input->post('id_order'),
+				'id_calon_debitur' => $this->input->post('id_calon_debitur'),
+				'jenis_debitur' => $jenis_debitur,
+				'nomor' => $nomor,
+				'kode_kantor' => $kantor,
+				'kode_ao' => $kode_ao,
+				'root_server' => null,
+				'status' => $status,
+				'proses_by' => $this->session->userdata('id'),
+				'proses_date' => date('Y-m-d H:i:s'),
+				'folder_master' => null,
+				'lampiran' => null,
+				'notes' => $notes,
+				'lampiran_result' => null,
+				'notes_result' => null,
+				'verifikasi' => 0,
+				'verifikasi_by' => null,
+				'verifikasi_date' => date('Y-m-d H:i:s'),
+			);
 
-	        $query = $this->business->add_data('los_kredit_checking',$dataKreditChecking);
+			$query = $this->business->add_data('los_kredit_checking', $dataKreditChecking);
 			if ($query) {
 				echo json_encode(array('msg' => 'success'));
-			}else{
+			} else {
 				echo json_encode(array('msg' => 'failed'));
 			}
-		}else if ($status == 'DONE') {
+		} else if ($status == 'DONE') {
 			//$upload = $this->MultiUpload($jumfile,'files','./assets/lampiran_kreditChecking','KREDITCHECKING_');
 
-	        //$dataFile = json_encode(array('file' => $upload));
+			//$dataFile = json_encode(array('file' => $upload));
 
-	        $dataKreditChecking = array(
-	    		'id' => null,
-	    		'id_order' => $this->input->post('id_order'),
-	    		'id_calon_debitur' => $this->input->post('id_calon_debitur'),
-	    		'jenis_debitur' => $jenis_debitur,
-	    		'nomor' => $nomor,
-	    		'kode_kantor' => $kantor,
-	    		'kode_ao' => $kode_ao,
-	    		'root_server' => null,
-	    		'status' => $status,
-	    		'proses_by' => $this->session->userdata('id'),
-	    		'proses_date' => date('Y-m-d H:i:s'),
-	    		'folder_master' => null,
-	    		'lampiran' => /*$dataFile*/null,
-	    		'notes' => $notes,
-	    		'lampiran_result' => null,
-	    		'notes_result' => null,
-	    		'verifikasi' => 0,
-	    		'verifikasi_by' => null,
-	    		'verifikasi_date' => date('Y-m-d H:i:s'),
-	        );
+			$dataKreditChecking = array(
+				'id' => null,
+				'id_order' => $this->input->post('id_order'),
+				'id_calon_debitur' => $this->input->post('id_calon_debitur'),
+				'jenis_debitur' => $jenis_debitur,
+				'nomor' => $nomor,
+				'kode_kantor' => $kantor,
+				'kode_ao' => $kode_ao,
+				'root_server' => null,
+				'status' => $status,
+				'proses_by' => $this->session->userdata('id'),
+				'proses_date' => date('Y-m-d H:i:s'),
+				'folder_master' => null,
+				'lampiran' => /*$dataFile*/ null,
+				'notes' => $notes,
+				'lampiran_result' => null,
+				'notes_result' => null,
+				'verifikasi' => 0,
+				'verifikasi_by' => null,
+				'verifikasi_date' => date('Y-m-d H:i:s'),
+			);
 
-	        $dataToemail = $this->db->select('los_calon_nasabah.kode_kantor')->from('los_calon_nasabah')->join('los_order','los_calon_nasabah.id_calon_debitur = los_order.id_calon_debitur')->where(array('los_order.id' => $this->input->post('id_order')))->get()->row();
+			$dataToemail = $this->db->select('los_calon_nasabah.kode_kantor')->from('los_calon_nasabah')->join('los_order', 'los_calon_nasabah.id_calon_debitur = los_order.id_calon_debitur')->where(array('los_order.id' => $this->input->post('id_order')))->get()->row();
 
-	        if ($dataToemail->kode_kantor == '01') {
-		        $toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';// TO MANAGER OR KETUA
-	        }else if ($dataToemail->kode_kantor == '02') {
-		        $toemail = 'ardimardianuh@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';// TO MANAGER OR KETUA
-	        }
-	       	$subject = 'DATA KREDIT CHECKING';
-	       	$message = "
+			if ($dataToemail->kode_kantor == '01') {
+				$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; // TO MANAGER OR KETUA
+			} else if ($dataToemail->kode_kantor == '02') {
+				$toemail = 'ardimardianuh@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; // TO MANAGER OR KETUA
+			}
+			$subject = 'DATA KREDIT CHECKING';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -2477,58 +2474,57 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-		    $this->sendEmail($toemail,$subject,$message);
+			$this->sendEmail($toemail, $subject, $message);
 
-	        $query = $this->business->add_data('los_kredit_checking',$dataKreditChecking);
+			$query = $this->business->add_data('los_kredit_checking', $dataKreditChecking);
 
 			if ($query) {
 				echo json_encode(array('msg' => 'success'));
-			}else{
+			} else {
 				echo json_encode(array('msg' => 'failed'));
 			}
-		}else{
+		} else {
 			echo "Ada yang ga beres";
 		}
-
 	}
 
-	public function MultiUpload($jumfile,$nameFile,$locFile,$fileNameFormat) //Params Butuh nilai: Jumlah file, name inputan file, lokasi upload './assets/lampiran_kreditChecking'
+	public function MultiUpload($jumfile, $nameFile, $locFile, $fileNameFormat) //Params Butuh nilai: Jumlah file, name inputan file, lokasi upload './assets/lampiran_kreditChecking'
 	{
 		$dataFile = array();
-		for($i = 0; $i < $jumfile; $i++){
-	        $_FILES['file']['name']     = $_FILES[$nameFile]['name'][$i];
-	        $_FILES['file']['type']     = $_FILES[$nameFile]['type'][$i];
-	        $_FILES['file']['tmp_name'] = $_FILES[$nameFile]['tmp_name'][$i];
-	        $_FILES['file']['error']     = $_FILES[$nameFile]['error'][$i];
-	        $_FILES['file']['size']     = $_FILES[$nameFile]['size'][$i];
+		for ($i = 0; $i < $jumfile; $i++) {
+			$_FILES['file']['name']     = $_FILES[$nameFile]['name'][$i];
+			$_FILES['file']['type']     = $_FILES[$nameFile]['type'][$i];
+			$_FILES['file']['tmp_name'] = $_FILES[$nameFile]['tmp_name'][$i];
+			$_FILES['file']['error']     = $_FILES[$nameFile]['error'][$i];
+			$_FILES['file']['size']     = $_FILES[$nameFile]['size'][$i];
 
-	        $file 			= $_FILES[$nameFile]['name'][$i];
-			$pisah 			= explode(".",$file);
+			$file 			= $_FILES[$nameFile]['name'][$i];
+			$pisah 			= explode(".", $file);
 			$ext 			= end($pisah);
 			$rename 		= date("YmdHis");
-			$nama_file 		= $rename.".".$ext;
+			$nama_file 		= $rename . "." . $ext;
 
 			$config['upload_path']	 = $locFile;
-	        $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
-			$config['file_name']  	 = $fileNameFormat.$nama_file;
+			$config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+			$config['file_name']  	 = $fileNameFormat . $nama_file;
 
-	        $this->load->library('upload', $config);
-	        $this->upload->initialize($config);
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
 
-	        if($this->upload->do_upload('file')){
-	            $data = array('upload_data' => $this->upload->data());
-	            $namaFile = $data['upload_data']['file_name'];
-	            array_push($dataFile,$namaFile);
-	        }else{
-	        	echo json_encode(array('msg' => 'gagal upload'));
-	    		die();
-	        }
-	    }
+			if ($this->upload->do_upload('file')) {
+				$data = array('upload_data' => $this->upload->data());
+				$namaFile = $data['upload_data']['file_name'];
+				array_push($dataFile, $namaFile);
+			} else {
+				echo json_encode(array('msg' => 'gagal upload'));
+				die();
+			}
+		}
 
-	    return $dataFile;
+		return $dataFile;
 	}
 
-	public function save_edit_kredit($value='')
+	public function save_edit_kredit($value = '')
 	{
 		$id = $this->input->post('id');
 		$status = $this->input->post('status');
@@ -2542,19 +2538,19 @@ class Home extends CI_Controller {
 				'notes' => $notes
 			);
 
-			$query = $this->business->update_data('los_kredit_checking',$data,$where);
-		}else if ($status == 'DONE') {
+			$query = $this->business->update_data('los_kredit_checking', $data, $where);
+		} else if ($status == 'DONE') {
 			//$jumfile = count($_FILES['files']['name']);
 			//$upload = $this->MultiUpload($jumfile,'files','./assets/lampiran_kreditChecking','KREDITCHECKING_');
-	        //$dataFile = json_encode(array('file' => $upload));
+			//$dataFile = json_encode(array('file' => $upload));
 			$ao_to_email = $this->input->post('ao_to_email');
 			$name_to_email = $this->input->post('name_to_email');
 			$nik_to_email = $this->input->post('nik_to_email');
 			$plafond_to_email = $this->input->post('plafond_to_email');
 
-			$toemail = 'fahmidion1@gmail.com, ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com ';// TO MANAGER OR KETUA
-	       	$subject = 'DATA KREDIT CHECKING';
-	       	$message = "
+			$toemail = 'fahmidion1@gmail.com, ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com '; // TO MANAGER OR KETUA
+			$subject = 'DATA KREDIT CHECKING';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -2574,51 +2570,51 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-		    $this->sendEmail($toemail,$subject,$message);
-	        $data = array(
+			$this->sendEmail($toemail, $subject, $message);
+			$data = array(
 				'status' => $status,
-				'lampiran' => /*$dataFile*/null,
+				'lampiran' => /*$dataFile*/ null,
 				'notes' => $notes
 			);
 
-			$query = $this->business->update_data('los_kredit_checking',$data,$where);
-		}else{
-			echo "ga beres";die();
+			$query = $this->business->update_data('los_kredit_checking', $data, $where);
+		} else {
+			echo "ga beres";
+			die();
 		}
 
 		if ($query == TRUE) {
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
-
 	}
 
 	/*SURVEY KOMITE*/
-	public function SurveyKomite($value='')
+	public function SurveyKomite($value = '')
 	{
 		$startlimit = $this->uri->segment(3);
 		$areakerja = $this->uri->segment(4);
 		$keysearch = $this->uri->segment(5);
-		$data = $this->business->SurveyKomite($startlimit,$areakerja,$keysearch)->result();
-		$lengh = $this->business->SurveyKomite($startlimit,$areakerja,$keysearch)->num_rows();
+		$data = $this->business->SurveyKomite($startlimit, $areakerja, $keysearch)->result();
+		$lengh = $this->business->SurveyKomite($startlimit, $areakerja, $keysearch)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function searchSurveyKomite($value='')
+	public function searchSurveyKomite($value = '')
 	{
 		$startlimit = 0;
 		$areakerja = $this->input->post('areakerja');
 		$keysearch = $this->input->post('keyword');
-		$data = $this->business->SurveyKomite($startlimit,$areakerja,$keysearch)->result();
-		$lengh = $this->business->SurveyKomite($startlimit,$areakerja,$keysearch)->num_rows();
+		$data = $this->business->SurveyKomite($startlimit, $areakerja, $keysearch)->result();
+		$lengh = $this->business->SurveyKomite($startlimit, $areakerja, $keysearch)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
@@ -2636,30 +2632,30 @@ class Home extends CI_Controller {
 		$data = array(
 			'flg_survey' => 1,
 		);
-		$querySudahSurvey = $this->business->update_data('los_kredit_checking',$data,$where);
+		$querySudahSurvey = $this->business->update_data('los_kredit_checking', $data, $where);
 
 		if ($querySudahSurvey) {
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'ardimardianuh@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Adi suyadi') {
-				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Budiawan') {
-				$toemail = 'budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Rediana Saputra') {
-				$toemail = 'redianasaputra4@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'M.Yakub') {
-				$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Lukman') {
-				$toemail = 'lukmanubay16@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Putra Nia') {
-				$toemail = 'putrania1972@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Amirudin') {
-				$toemail = 'muhamadamirudin78@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Bambang Setiawan') {
-				$toemail = 'Faiyzajavier@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
+				$toemail = 'ardimardianuh@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Adi suyadi') {
+				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Budiawan') {
+				$toemail = 'budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Rediana Saputra') {
+				$toemail = 'redianasaputra4@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'M.Yakub') {
+				$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Lukman') {
+				$toemail = 'lukmanubay16@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Putra Nia') {
+				$toemail = 'putrania1972@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Amirudin') {
+				$toemail = 'muhamadamirudin78@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Bambang Setiawan') {
+				$toemail = 'Faiyzajavier@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
 			}
-	       	$subject = 'SURVEY DI PENDING';
-	       	$message = "
+			$subject = 'SURVEY DI PENDING';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -2679,10 +2675,10 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-		    $this->sendEmail($toemail,$subject,$message);
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			$this->sendEmail($toemail, $subject, $message);
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
@@ -2699,7 +2695,7 @@ class Home extends CI_Controller {
 		$data = array(
 			'flg_survey' => 2,
 		);
-		$querySudahSurvey = $this->business->update_data('los_kredit_checking',$data,$where);
+		$querySudahSurvey = $this->business->update_data('los_kredit_checking', $data, $where);
 
 		$whereTrack = array('id_order' => $id_order);
 		$dataTracking = array(
@@ -2711,29 +2707,29 @@ class Home extends CI_Controller {
 			'status_memo_ao' => 1,
 		);
 
-		$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
+		$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
 		if ($querySudahSurvey) {
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Adi suyadi') {
-				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Budiawan') {
-				$toemail = 'budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Rediana Saputra') {
-				$toemail = 'redianasaputra4@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'M.Yakub') {
-				$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Lukman') {
-				$toemail = 'lukmanubay16@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Putra Nia') {
-				$toemail = 'putrania1972@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Amirudin') {
-				$toemail = 'muhamadamirudin78@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Bambang Setiawan') {
-				$toemail = 'Faiyzajavier@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
+				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Adi suyadi') {
+				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Budiawan') {
+				$toemail = 'budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Rediana Saputra') {
+				$toemail = 'redianasaputra4@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'M.Yakub') {
+				$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Lukman') {
+				$toemail = 'lukmanubay16@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Putra Nia') {
+				$toemail = 'putrania1972@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Amirudin') {
+				$toemail = 'muhamadamirudin78@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Bambang Setiawan') {
+				$toemail = 'Faiyzajavier@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
 			}
-	       	$subject = 'DATA SURVEY DI SETUJUI';
-	       	$message = "
+			$subject = 'DATA SURVEY DI SETUJUI';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -2753,16 +2749,16 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-		    $this->sendEmail($toemail,$subject,$message);
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			$this->sendEmail($toemail, $subject, $message);
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
 	public function changeFlgSurvey()
 	{
-		$this->business->update_data('los_kredit_checking',array('flg_survey' => 2),array('flg_survey' => 1));
+		$this->business->update_data('los_kredit_checking', array('flg_survey' => 2), array('flg_survey' => 1));
 		echo 'done ya qmack';
 	}
 
@@ -2781,38 +2777,38 @@ class Home extends CI_Controller {
 		$data = array(
 			'flg_survey' => 3,
 		);
-		$querySudahSurvey = $this->business->update_data('los_kredit_checking',$data,$where);
+		$querySudahSurvey = $this->business->update_data('los_kredit_checking', $data, $where);
 
 		$whereTrack = array('id_order' => $id_order);
 		$dataTracking = array(
-			'desc_survey' => 'Nasabah sudah DI TOLAK <br> <b>Alasan Penolakan </b>: '.$alasan,
+			'desc_survey' => 'Nasabah sudah DI TOLAK <br> <b>Alasan Penolakan </b>: ' . $alasan,
 			'create_date_survey' => date('Y-m-d H:i:s'),
 			'status_survey' => 3,
 		);
 
-		$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
+		$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
 		if ($querySudahSurvey) {
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Adi suyadi') {
-				$toemail = 'adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Budiawan') {
-				$toemail = 'budiawan.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Rediana Saputra') {
-				$toemail = 'redianasaputra4@gmail.com';//TO AO
-			}else if ($ao_to_email == 'M.Yakub') {
-				$toemail = 'mu.yakub99@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Lukman') {
-				$toemail = 'lukmanubay16@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Putra Nia') {
-				$toemail = 'putrania1972@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Amirudin') {
-				$toemail = 'muhamadamirudin78@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Bambang Setiawan') {
-				$toemail = 'Faiyzajavier@gmail.com';//TO AO
+				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Adi suyadi') {
+				$toemail = 'adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Budiawan') {
+				$toemail = 'budiawan.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Rediana Saputra') {
+				$toemail = 'redianasaputra4@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'M.Yakub') {
+				$toemail = 'mu.yakub99@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Lukman') {
+				$toemail = 'lukmanubay16@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Putra Nia') {
+				$toemail = 'putrania1972@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Amirudin') {
+				$toemail = 'muhamadamirudin78@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Bambang Setiawan') {
+				$toemail = 'Faiyzajavier@gmail.com'; //TO AO
 			}
-	       	$subject = 'DATA SURVEY DI TOLAK';
-	       	$message = "
+			$subject = 'DATA SURVEY DI TOLAK';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -2833,35 +2829,35 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-		    $this->sendEmail($toemail,$subject,$message);
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			$this->sendEmail($toemail, $subject, $message);
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
 	/*MEMO KREDIT AO*/
-	public function SurveyKomiteAo($value='')
+	public function SurveyKomiteAo($value = '')
 	{
 		$ao = $this->session->userdata('id');
 		$data = $this->business->SurveyReadyMemoAo($ao)->result();
 		$lengh = $this->business->SurveyReadyMemoAo($ao)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function checkOrderInMemoAo($value='')
+	public function checkOrderInMemoAo($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ao',null,null,$where)->num_rows();
+		$data = $this->business->get_where('los_memo_kredit_ao', null, null, $where)->num_rows();
 		echo json_encode(array('amount' => $data));
 	}
 
-	public function get_dataMemoAo($value='')
+	public function get_dataMemoAo($value = '')
 	{
 		$startlimit = $this->uri->segment(3);
 		$areakerja = $this->uri->segment(4);
@@ -2869,19 +2865,19 @@ class Home extends CI_Controller {
 		$jabatan = $this->session->userdata('jabatan');
 		if ($jabatan == 'manager' || $jabatan == 'ketua') {
 			$ao = null;
-		}else{
+		} else {
 			$ao = $this->session->userdata('id');
 		}
-		$data = $this->business->get_dataMemoAo($startlimit,$areakerja,$keysearch,$ao)->result();
-		$lengh = $this->business->get_dataMemoAo($startlimit,$areakerja,$keysearch,$ao)->num_rows();
+		$data = $this->business->get_dataMemoAo($startlimit, $areakerja, $keysearch, $ao)->result();
+		$lengh = $this->business->get_dataMemoAo($startlimit, $areakerja, $keysearch, $ao)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function searchAo($value='')
+	public function searchAo($value = '')
 	{
 		$startlimit = 0;
 		$keysearch = $this->input->post('keyword');
@@ -2889,51 +2885,51 @@ class Home extends CI_Controller {
 		if ($jabatan == 'ketua') {
 			$areakerja = 'semua';
 			$ao = null;
-		}else if($jabatan == 'manager') {
+		} else if ($jabatan == 'manager') {
 			$areakerja = $this->session->userdata('kantor');
 			$ao = null;
-		}else{
+		} else {
 			$areakerja = $this->session->userdata('kantor');
 			$ao = $this->session->userdata('id');
 		}
-		$data = $this->business->get_dataMemoAo($startlimit,$areakerja,$keysearch,$ao)->result();
-		$lengh = $this->business->get_dataMemoAo($startlimit,$areakerja,$keysearch,$ao)->num_rows();
+		$data = $this->business->get_dataMemoAo($startlimit, $areakerja, $keysearch, $ao)->result();
+		$lengh = $this->business->get_dataMemoAo($startlimit, $areakerja, $keysearch, $ao)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function Produk($value='')
+	public function Produk($value = '')
 	{
-		$data = $this->business->get('tab_produk',null)->result();
+		$data = $this->business->get('tab_produk', null)->result();
 		echo json_encode($data);
 	}
 
-	public function merkKendaraan($value='')
+	public function merkKendaraan($value = '')
 	{
-		$data = $this->business->get('merk_kendaraan','nm_merk')->result();
+		$data = $this->business->get('merk_kendaraan', 'nm_merk')->result();
 		echo json_encode($data);
 	}
 
-	public function typeKendaraan($value='')
+	public function typeKendaraan($value = '')
 	{
-		$data = $this->business->get('type_kendaraan',null)->result();
+		$data = $this->business->get('type_kendaraan', null)->result();
 		echo json_encode($data);
 	}
 
-	public function jenisKendaraan($value='')
+	public function jenisKendaraan($value = '')
 	{
-		$data = $this->business->get('jenis_kendaraan',null)->result();
+		$data = $this->business->get('jenis_kendaraan', null)->result();
 		echo json_encode($data);
 	}
 
 
-	public function saveAddMemoAo($value='')
+	public function saveAddMemoAo($value = '')
 	{
 		$tanggalTahun = date('Y-m-d');
-		$split 		  = explode('-',$tanggalTahun);
+		$split 		  = explode('-', $tanggalTahun);
 		$bulan 		  = $split[1];
 		$tahun 		  = $split[0];
 		$bulanRomawi  = $this->getBulanRomawi($bulan);
@@ -2942,23 +2938,24 @@ class Home extends CI_Controller {
 		$jumdatalast = $this->business->getNOMemoAoLastData()->num_rows();
 		if ($jumdatalast > 0) {
 			$Nolast 	 = $this->business->getNOMemoAoLastData()->row();
-			$tahunData	 = explode('-',$Nolast->create_date)[0];
-			$NolastApk   = explode('/',$Nolast->no_aplikasi)[4];
+			$tahunData	 = explode('-', $Nolast->create_date)[0];
+			$NolastApk   = explode('/', $Nolast->no_aplikasi)[4];
 			if ($tahunData != $tahun) {
 				$nofix = '000001';
-			}else if ($tahunData == $tahunData) {
+			} else if ($tahunData == $tahunData) {
 				$no = $NolastApk + 1;
 				$nodef = '1000000';
 				$nosub = $nodef + $no;
-				$nofix = substr($nosub,1,7);
-			}else{
-				echo "ada yang ga beress";die();
+				$nofix = substr($nosub, 1, 7);
+			} else {
+				echo "ada yang ga beress";
+				die();
 			}
-		}else{
+		} else {
 			$nofix = '000001';
 		}
 
-		$no_aplikasi  = $nokantor.'/DPM/'.$bulanRomawi.'/'.$tahun.'/'.$nofix;
+		$no_aplikasi  = $nokantor . '/DPM/' . $bulanRomawi . '/' . $tahun . '/' . $nofix;
 
 		$angunan = $this->input->post('angunan');
 		$dataMemoAo = array(
@@ -2974,19 +2971,19 @@ class Home extends CI_Controller {
 			'kode_produk' => $this->input->post('kode_produk'),
 			'plafon_kredit' => $this->input->post('plafond'),
 			'jangka_waktu' => $this->input->post('jangka_waktu'),
-			'suku_bunga' => str_replace(".","",$this->input->post('suku_bunga')),
+			'suku_bunga' => str_replace(".", "", $this->input->post('suku_bunga')),
 			'akad_kredit' => $this->input->post('akad_kredit'),
 			'akad_jaminan' => $this->input->post('akad_jaminan'),
-			'gaji_debitur' => str_replace(".","",$this->input->post('gaji_debitur')),
-			'gaji_pasangan' => str_replace(".","",$this->input->post('gaji_pasangan')),
-			'gaji_penjamin' => str_replace(".","",$this->input->post('gaji_penjamin')),
-			'pengeluaran_rumah_tangga' => str_replace(".","",$this->input->post('pengeluaran_rumah_tangga')),
-			'pengeluaran_transportasi' => str_replace(".","",$this->input->post('pengeluaran_transport')),
-			'pengeluaran_pendidikan' => str_replace(".","",$this->input->post('pengeluaran_pendidikan')),
-			'pengeluaran_lainya' => str_replace(".","",$this->input->post('pengeluaran_lainnya')),
-			'angsuran_lain' => str_replace(".","",$this->input->post('angsuran_lain')),
-			'angsuran_kdpms' => str_replace(".","",$this->input->post('angsuran_kdpms')),
-			'pendapatan_lainnya' => str_replace(".","",$this->input->post('pendapatan_lainnya')),
+			'gaji_debitur' => str_replace(".", "", $this->input->post('gaji_debitur')),
+			'gaji_pasangan' => str_replace(".", "", $this->input->post('gaji_pasangan')),
+			'gaji_penjamin' => str_replace(".", "", $this->input->post('gaji_penjamin')),
+			'pengeluaran_rumah_tangga' => str_replace(".", "", $this->input->post('pengeluaran_rumah_tangga')),
+			'pengeluaran_transportasi' => str_replace(".", "", $this->input->post('pengeluaran_transport')),
+			'pengeluaran_pendidikan' => str_replace(".", "", $this->input->post('pengeluaran_pendidikan')),
+			'pengeluaran_lainya' => str_replace(".", "", $this->input->post('pengeluaran_lainnya')),
+			'angsuran_lain' => str_replace(".", "", $this->input->post('angsuran_lain')),
+			'angsuran_kdpms' => str_replace(".", "", $this->input->post('angsuran_kdpms')),
+			'pendapatan_lainnya' => str_replace(".", "", $this->input->post('pendapatan_lainnya')),
 			'hasil_cek_lingkungan' => $this->input->post('hasil_cek_lingkungan'),
 			'vertifikasi_data_debitur' => $this->input->post('verifikasi_data_debitur'),
 			'ket_calon_debitur' => $this->input->post('ket_calon_debitur'),
@@ -2998,10 +2995,10 @@ class Home extends CI_Controller {
 			'verifikasi' => 1,
 			'verifikasi_by' => $this->session->userdata('id'),
 			'verifikasi_date' => date('Y-m-d H:i:s'),
-			'create_date'=> date('Y-m-d H:i:s'),
-			'create_by'=> $this->session->userdata('id'),
-			'last_update'=> null,
-			'update_by'=> null,
+			'create_date' => date('Y-m-d H:i:s'),
+			'create_by' => $this->session->userdata('id'),
+			'last_update' => null,
+			'update_by' => null,
 		);
 
 		$dataAoSertifikat = array(
@@ -3071,66 +3068,66 @@ class Home extends CI_Controller {
 			'status_memo_ca' => 1,
 		);
 
-		$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
+		$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
 		if ($angunan == 'Sertifikat') {
-			$querySert = $this->business->add_data('los_memo_kredit_ao_sertifikat',$dataAoSertifikat);
-			$queryMemoao = $this->business->add_data('los_memo_kredit_ao',$dataMemoAo);
-			if ($queryMemoao AND $querySert) {
+			$querySert = $this->business->add_data('los_memo_kredit_ao_sertifikat', $dataAoSertifikat);
+			$queryMemoao = $this->business->add_data('los_memo_kredit_ao', $dataMemoAo);
+			if ($queryMemoao and $querySert) {
 				echo json_encode(array('msg' => 'success'));
-			}else{
+			} else {
 				echo json_encode(array('msg' => 'failed'));
 			}
-		}else if ($angunan == 'Kendaraan') {
-			$queryKend = $this->business->add_data('los_memo_kredit_ao_kendaraan',$dataAoKendaraan);
-			$queryMemoao = $this->business->add_data('los_memo_kredit_ao',$dataMemoAo);
-			if ($queryMemoao AND $queryKend) {
+		} else if ($angunan == 'Kendaraan') {
+			$queryKend = $this->business->add_data('los_memo_kredit_ao_kendaraan', $dataAoKendaraan);
+			$queryMemoao = $this->business->add_data('los_memo_kredit_ao', $dataMemoAo);
+			if ($queryMemoao and $queryKend) {
 				echo json_encode(array('msg' => 'success'));
-			}else{
+			} else {
 				echo json_encode(array('msg' => 'failed'));
 			}
-		}else{
+		} else {
 			echo "undifined";
 		}
 	}
 
-	public function get_detailMemoAo($value='')
+	public function get_detailMemoAo($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$data = $this->business->DetailMemoAo($id_order)->result();
 		$lengh = $this->business->DetailMemoAo($id_order)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function get_detailMemoAoSertifikat($value='')
+	public function get_detailMemoAoSertifikat($value = '')
 	{
 		$id = $this->uri->segment(3);
 		$data = $this->business->DetailMemoAoSetifikat($id)->result();
 		$lengh = $this->business->DetailMemoAoSetifikat($id)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function get_detailMemoAoKendaraan($value='')
+	public function get_detailMemoAoKendaraan($value = '')
 	{
 		$id = $this->uri->segment(3);
 		$data = $this->business->DetailMemoAoKendaraan($id)->result();
 		$lengh = $this->business->DetailMemoAoKendaraan($id)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
 
-	public function verifikasiMemoAo($value='')
+	public function verifikasiMemoAo($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
@@ -3141,18 +3138,18 @@ class Home extends CI_Controller {
 			'verifikasi_date' => date('Y-m-d H:i:s')
 		);
 
-		$queryVerifMemoAO = $this->business->update_data('los_memo_kredit_ao',$data,$where);
+		$queryVerifMemoAO = $this->business->update_data('los_memo_kredit_ao', $data, $where);
 
 		if ($queryVerifMemoAO) {
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function saveEditMemoAo($value='')
+	public function saveEditMemoAo($value = '')
 	{
-		$where =array('id_order' => $this->input->post('id_order'));
+		$where = array('id_order' => $this->input->post('id_order'));
 		$status_ser = $this->input->post('status_ser');
 		$status_ken = $this->input->post('status_ken');
 		$dataMemoAo = array(
@@ -3164,16 +3161,16 @@ class Home extends CI_Controller {
 			'suku_bunga' => $this->input->post('suku_bunga'),
 			'akad_kredit' => $this->input->post('akad_kredit'),
 			'akad_jaminan' => $this->input->post('akad_jaminan'),
-			'gaji_debitur' => str_replace(".","",$this->input->post('gaji_debitur')),
-			'gaji_pasangan' => str_replace(".","",$this->input->post('gaji_pasangan')),
-			'gaji_penjamin' => str_replace(".","",$this->input->post('gaji_penjamin')),
-			'pengeluaran_rumah_tangga' => str_replace(".","",$this->input->post('pengeluaran_rumah_tangga')),
-			'pengeluaran_transportasi' => str_replace(".","",$this->input->post('pengeluaran_transport')),
-			'pengeluaran_pendidikan' => str_replace(".","",$this->input->post('pengeluaran_pendidikan')),
-			'pengeluaran_lainya' => str_replace(".","",$this->input->post('pengeluaran_lainnya')),
-			'angsuran_lain' => str_replace(".","",$this->input->post('angsuran_lain')),
-			'angsuran_kdpms' => str_replace(".","",$this->input->post('angsuran_kdpms')),
-			'pendapatan_lainnya' => str_replace(".","",$this->input->post('penghasilan_lainnya')),
+			'gaji_debitur' => str_replace(".", "", $this->input->post('gaji_debitur')),
+			'gaji_pasangan' => str_replace(".", "", $this->input->post('gaji_pasangan')),
+			'gaji_penjamin' => str_replace(".", "", $this->input->post('gaji_penjamin')),
+			'pengeluaran_rumah_tangga' => str_replace(".", "", $this->input->post('pengeluaran_rumah_tangga')),
+			'pengeluaran_transportasi' => str_replace(".", "", $this->input->post('pengeluaran_transport')),
+			'pengeluaran_pendidikan' => str_replace(".", "", $this->input->post('pengeluaran_pendidikan')),
+			'pengeluaran_lainya' => str_replace(".", "", $this->input->post('pengeluaran_lainnya')),
+			'angsuran_lain' => str_replace(".", "", $this->input->post('angsuran_lain')),
+			'angsuran_kdpms' => str_replace(".", "", $this->input->post('angsuran_kdpms')),
+			'pendapatan_lainnya' => str_replace(".", "", $this->input->post('penghasilan_lainnya')),
 			'hasil_cek_lingkungan' => $this->input->post('hasil_cek_lingkungan'),
 			'vertifikasi_data_debitur' => $this->input->post('vertifikasi_data_debitur'),
 			'ket_calon_debitur' => $this->input->post('ket_calon_debitur'),
@@ -3182,8 +3179,8 @@ class Home extends CI_Controller {
 			'nama_anak' => $this->input->post('nama_anak'),
 			'nama_sekolah_anak' => $this->input->post('nama_sekolah'),
 			'alamat_sekolah_anak' => $this->input->post('alamat_sekolah_anak'),
-			'last_update'=> date('Y-m-d H:i:s'),
-			'update_by'=> $this->session->userdata('id'),
+			'last_update' => date('Y-m-d H:i:s'),
+			'update_by' => $this->session->userdata('id'),
 		);
 
 		if ($status_ser == 'tidakada') {
@@ -3215,15 +3212,15 @@ class Home extends CI_Controller {
 				'nilai_taksasi' => $this->input->post('nilai_taksasi_kendaraan')
 			);
 
-			$updateAo = $this->business->update_data('los_memo_kredit_ao',$dataMemoAo,$where);
-			$updateKen = $this->business->update_data('los_memo_kredit_ao_kendaraan',$dataAoKendaraan,$where);
+			$updateAo = $this->business->update_data('los_memo_kredit_ao', $dataMemoAo, $where);
+			$updateKen = $this->business->update_data('los_memo_kredit_ao_kendaraan', $dataAoKendaraan, $where);
 
 			if ($updateAo && $updateKen) {
-				echo json_encode(array('msg' => 'success' ));
-			}else{
-				echo json_encode(array('msg' => 'failed' ));
+				echo json_encode(array('msg' => 'success'));
+			} else {
+				echo json_encode(array('msg' => 'failed'));
 			}
-		}else if ($status_ken == 'tidakada') {
+		} else if ($status_ken == 'tidakada') {
 			$dataAoSertifikat = array(
 				'id_order' => $this->input->post('id_order'),
 				'lokasi' => $this->input->post('lokasi'),
@@ -3252,40 +3249,40 @@ class Home extends CI_Controller {
 				'tgl_taksasi' => $this->input->post('tgl_taksasi')*/
 			);
 
-			$updateAo = $this->business->update_data('los_memo_kredit_ao',$dataMemoAo,$where);
-			$updateSer = $this->business->update_data('los_memo_kredit_ao_sertifikat',$dataAoSertifikat,$where);
+			$updateAo = $this->business->update_data('los_memo_kredit_ao', $dataMemoAo, $where);
+			$updateSer = $this->business->update_data('los_memo_kredit_ao_sertifikat', $dataAoSertifikat, $where);
 
 			if ($updateAo && $updateSer) {
-				echo json_encode(array('msg' => 'success' ));
-			}else{
-				echo json_encode(array('msg' => 'failed' ));
+				echo json_encode(array('msg' => 'success'));
+			} else {
+				echo json_encode(array('msg' => 'failed'));
 			}
-		}else{
+		} else {
 			echo "ada yang ga beres";
 		}
 	}
 
 	/*MEMO KREDIT CA*/
-	public function MemoAoReadyCA($value='')
+	public function MemoAoReadyCA($value = '')
 	{
 		$data = $this->business->MemoAoReadyCA()->result();
 		$lengh = $this->business->MemoAoReadyCA()->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function checkOrderInMemoCa($value='')
+	public function checkOrderInMemoCa($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ca',null,null,$where)->num_rows();
+		$data = $this->business->get_where('los_memo_kredit_ca', null, null, $where)->num_rows();
 		echo json_encode(array('amount' => $data));
 	}
 
-	public function get_DataMemoCA($value='')
+	public function get_DataMemoCA($value = '')
 	{
 		$startlimit = $this->uri->segment(3);
 		$areakerja = $this->uri->segment(4);
@@ -3293,19 +3290,19 @@ class Home extends CI_Controller {
 		$jabatan = $this->session->userdata('jabatan');
 		if ($jabatan == 'manager' || $jabatan == 'ketua') {
 			$ao = null;
-		}else{
+		} else {
 			$ao = $this->session->userdata('id');
 		}
-		$data = $this->business->get_DataMemoCA($startlimit,$areakerja,$keysearch,$ao)->result();
-		$lengh = $this->business->get_DataMemoCA($startlimit,$areakerja,$keysearch,$ao)->num_rows();
+		$data = $this->business->get_DataMemoCA($startlimit, $areakerja, $keysearch, $ao)->result();
+		$lengh = $this->business->get_DataMemoCA($startlimit, $areakerja, $keysearch, $ao)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function searchCa($value='')
+	public function searchCa($value = '')
 	{
 		$startlimit = 0;
 		$keysearch = $this->input->post('keyword');
@@ -3313,23 +3310,23 @@ class Home extends CI_Controller {
 		if ($jabatan == 'ketua') {
 			$areakerja = 'semua';
 			$ao = null;
-		}else if($jabatan == 'manager') {
+		} else if ($jabatan == 'manager') {
 			$areakerja = $this->session->userdata('kantor');
 			$ao = null;
-		}else{
+		} else {
 			$areakerja = $this->session->userdata('kantor');
 			$ao = $this->session->userdata('id');
 		}
-		$data = $this->business->get_DataMemoCA($startlimit,$areakerja,$keysearch,$ao)->result();
-		$lengh = $this->business->get_DataMemoCA($startlimit,$areakerja,$keysearch,$ao)->num_rows();
+		$data = $this->business->get_DataMemoCA($startlimit, $areakerja, $keysearch, $ao)->result();
+		$lengh = $this->business->get_DataMemoCA($startlimit, $areakerja, $keysearch, $ao)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function AddMemoKreditCa($value='')
+	public function AddMemoKreditCa($value = '')
 	{
 		$dataMemoCa = array(
 			'id_order' => rawurldecode($this->uri->segment(7)),
@@ -3363,15 +3360,15 @@ class Home extends CI_Controller {
 			'masa_usaha' => $this->input->post('masa_usaha'),
 			'no_telp_usaha' => $this->input->post('no_telp_usaha'),
 			'tempat_usaha' => $this->input->post('tempat_usaha'),
-			'pengeluaran_lainya' => str_replace(".","",$this->input->post('pengeluaran_lainnya')),
-			'pendapatan_tunai' => str_replace(".","",$this->input->post('pendapatan_tunai')),
-			'pendapatan_kredit' => str_replace(".","",$this->input->post('pendapatan_kredit')),
-			'pengeluaran_sewa' => str_replace(".","",$this->input->post('pengeluaran_sewa')),
-			'pengeluaran_belanja' => str_replace(".","",$this->input->post('pengeluaran_belanja')),
-			'pengeluaran_gaji_pegawai' => str_replace(".","",$this->input->post('pengeluaran_gaji_pegawai')),
-			'angsuran_lain_usaha' => str_replace(".","",$this->input->post('angsuran_lain_usaha')),
-			'pengeluaran_lainya_usaha' => str_replace(".","",$this->input->post('pengeluaran_lain_usaha')),
-			'pengeluaran_telp_listrik_air' => str_replace(".","",$this->input->post('pengeluaran_telp_listrik_air')),
+			'pengeluaran_lainya' => str_replace(".", "", $this->input->post('pengeluaran_lainnya')),
+			'pendapatan_tunai' => str_replace(".", "", $this->input->post('pendapatan_tunai')),
+			'pendapatan_kredit' => str_replace(".", "", $this->input->post('pendapatan_kredit')),
+			'pengeluaran_sewa' => str_replace(".", "", $this->input->post('pengeluaran_sewa')),
+			'pengeluaran_belanja' => str_replace(".", "", $this->input->post('pengeluaran_belanja')),
+			'pengeluaran_gaji_pegawai' => str_replace(".", "", $this->input->post('pengeluaran_gaji_pegawai')),
+			'angsuran_lain_usaha' => str_replace(".", "", $this->input->post('angsuran_lain_usaha')),
+			'pengeluaran_lainya_usaha' => str_replace(".", "", $this->input->post('pengeluaran_lain_usaha')),
+			'pengeluaran_telp_listrik_air' => str_replace(".", "", $this->input->post('pengeluaran_telp_listrik_air')),
 			'luas_tanah_ca' => $this->input->post('luas_tanah_ca'),
 			'luas_tanah_njop' => $this->input->post('luas_tanah_njop'),
 			'kondisi_bentuk_tanah' => $this->input->post('kondisi_bentuk_tanah'),
@@ -3389,17 +3386,17 @@ class Home extends CI_Controller {
 			'jalan_lingkungan_terbesar' => $this->input->post('jalan_lingkungan_terbesar'),
 			'fasilitas_umum' => $this->input->post('fasilitas_umum'),
 			'tahun_njop' => $this->input->post('tahun_njop'),
-			'njop_tanah' => str_replace(".","",$this->input->post('njop_bumi')),
-			'njop_bangunan' => str_replace(".","",$this->input->post('njop_bangunan')),
-			'harga_pasar_tanah' => str_replace(".","",$this->input->post('harga_pasaran_tanah')),
-			'harga_pasar_bangunan' => str_replace(".","",$this->input->post('harga_pasaran_bangunan')),
+			'njop_tanah' => str_replace(".", "", $this->input->post('njop_bumi')),
+			'njop_bangunan' => str_replace(".", "", $this->input->post('njop_bangunan')),
+			'harga_pasar_tanah' => str_replace(".", "", $this->input->post('harga_pasaran_tanah')),
+			'harga_pasar_bangunan' => str_replace(".", "", $this->input->post('harga_pasaran_bangunan')),
 			'keterangan_penilaian' => $this->input->post('keterangan_penilaian'),
 			'nilai_taksasi' => $this->input->post('nilai_taksasi_persen'),
 			'sumber_harga' => $this->input->post('sumber_harga'),
 			'faktor_menaikan' => $this->input->post('faktor_yang_dapat_menaikan'),
 			'faktor_menurunkan' => $this->input->post('faktor_yang_dapat_menurunkan'),
 		);
-		
+
 		$dataMemoCaBangunan = array(
 			'id_order' => rawurldecode($this->uri->segment(7)),
 			'kontruksi' => $this->input->post('kontruksi'),
@@ -3479,7 +3476,7 @@ class Home extends CI_Controller {
 			'kendaraan' => $this->input->post('kendaraan'),
 			'tim_survey' => $this->input->post('team_survey'),
 			'penyimpangan' => $this->input->post('penyimpangan'),
-			'realisasi' => str_replace(".","",$this->input->post('realisasi')),
+			'realisasi' => str_replace(".", "", $this->input->post('realisasi')),
 			'tenor' => $this->input->post('tenor'),
 			'vertifikasi_data_debitur' => $this->input->post('vertifikasi_data_debitur'),
 			'vertifikasi_penjamin' => $this->input->post('vertifikasi_penjamin'),
@@ -3492,14 +3489,14 @@ class Home extends CI_Controller {
 		);
 
 		$jumfileFotoJaminan = count($_FILES['foto_jaminan']['name']);
-		$uploadFotoJaminan = $this->MultiUpload($jumfileFotoJaminan,'foto_jaminan','./assets/foto_jaminan','CAA_');
+		$uploadFotoJaminan = $this->MultiUpload($jumfileFotoJaminan, 'foto_jaminan', './assets/foto_jaminan', 'CAA_');
 
-        $foto_jaminan = json_encode(array('file' => $uploadFotoJaminan));
+		$foto_jaminan = json_encode(array('file' => $uploadFotoJaminan));
 
-        $jumFileLampCaa = count($_FILES['lampiran_caa']['name']);
-		$uploadLampCaa = $this->MultiUpload($jumFileLampCaa,'lampiran_caa','./assets/lampiran_caa','CAA_');
+		$jumFileLampCaa = count($_FILES['lampiran_caa']['name']);
+		$uploadLampCaa = $this->MultiUpload($jumFileLampCaa, 'lampiran_caa', './assets/lampiran_caa', 'CAA_');
 
-        $lampiran_caa = json_encode(array('file' => $uploadLampCaa));
+		$lampiran_caa = json_encode(array('file' => $uploadLampCaa));
 
 		$dataCaa = array(
 			'id_order' => rawurldecode($this->uri->segment(7)),
@@ -3529,7 +3526,7 @@ class Home extends CI_Controller {
 			'status_caa' => 1,
 		);
 
-		$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
+		$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
 
 		$ao_to_email = rawurldecode($this->uri->segment(3));
 		$name_to_email = rawurldecode($this->uri->segment(4));
@@ -3541,37 +3538,37 @@ class Home extends CI_Controller {
 		print_r($plafond_to_email);
 		die();*/
 		//print_r($dataCaa);die();
-		$queryMemoCa = $this->business->add_data('los_memo_kredit_ca',$dataMemoCa);
-		$queryMemoCaBangunan = $this->business->add_data('los_memo_kredit_ca_bangunan',$dataMemoCaBangunan);
-		$queryMemoCaVerifData = $this->business->add_data('los_memo_kredit_ca_vertifikasi_data',$VerifikasiDataCa);
-		$queryMemoCaCeklisSurvey = $this->business->add_data('los_memo_kredit_ca_ceklist_survey',$CekSurveyCa);
-		$queryKondisiLokasiJaminanCa = $this->business->add_data('los_memo_kredit_ca_kondisi_dan_lokasi_jaminan',$KondisiLokasiJaminan);
-		$querylainLainCa = $this->business->add_data('los_memo_kredit_ca_lain_lain',$lainLain);
-		$queryCaa = $this->business->add_data('los_caa',$dataCaa);
+		$queryMemoCa = $this->business->add_data('los_memo_kredit_ca', $dataMemoCa);
+		$queryMemoCaBangunan = $this->business->add_data('los_memo_kredit_ca_bangunan', $dataMemoCaBangunan);
+		$queryMemoCaVerifData = $this->business->add_data('los_memo_kredit_ca_vertifikasi_data', $VerifikasiDataCa);
+		$queryMemoCaCeklisSurvey = $this->business->add_data('los_memo_kredit_ca_ceklist_survey', $CekSurveyCa);
+		$queryKondisiLokasiJaminanCa = $this->business->add_data('los_memo_kredit_ca_kondisi_dan_lokasi_jaminan', $KondisiLokasiJaminan);
+		$querylainLainCa = $this->business->add_data('los_memo_kredit_ca_lain_lain', $lainLain);
+		$queryCaa = $this->business->add_data('los_caa', $dataCaa);
 
 		if ($queryMemoCa && $queryMemoCaVerifData && $queryMemoCaCeklisSurvey && $queryKondisiLokasiJaminanCa && $querylainLainCa && $queryCaa) {
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Adi suyadi') {
-				$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Budiawan') {
-				$toemail = 'ardimardianuh@gmail.com, budiawan.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Rediana Saputra') {
-				$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'M.Yakub') {
-				$toemail = 'ardimardianuh@gmail.com, mu.yakub99@gmail.com, budiawan.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Lukman') {
-				$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Putra Nia') {
-				$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Amirudin') {
-				$toemail = 'ardimardianuh@gmail.com, budiawan.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Bambang Setiawan') {
+				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Adi suyadi') {
+				$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Budiawan') {
+				$toemail = 'ardimardianuh@gmail.com, budiawan.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Rediana Saputra') {
+				$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'M.Yakub') {
+				$toemail = 'ardimardianuh@gmail.com, mu.yakub99@gmail.com, budiawan.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Lukman') {
+				$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Putra Nia') {
+				$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Amirudin') {
+				$toemail = 'ardimardianuh@gmail.com, budiawan.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Bambang Setiawan') {
 				$toemail = 'Faiyzajavier@gmail.com';
 			}
 			//$toemail = 'fahmidwi45@gmail.com';//TO AO
-	       	$subject = 'PERSETUJUAN';
-	       	$message = "
+			$subject = 'PERSETUJUAN';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -3591,15 +3588,14 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-			$this->sendEmail($toemail,$subject,$message);
+			$this->sendEmail($toemail, $subject, $message);
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
-
 	}
 
-	public function AddMemoKreditCaKendaraan($value='')
+	public function AddMemoKreditCaKendaraan($value = '')
 	{
 		$dataMemoCa = array(
 			'id_order' => $this->input->post('id_order'),
@@ -3633,15 +3629,15 @@ class Home extends CI_Controller {
 			'masa_usaha' => $this->input->post('masa_usaha'),
 			'no_telp_usaha' => $this->input->post('no_telp_usaha'),
 			'tempat_usaha' => $this->input->post('tempat_usaha'),
-			'pengeluaran_lainya' => str_replace(".","",$this->input->post('pengeluaran_lainnya')),
-			'pendapatan_tunai' => str_replace(".","",$this->input->post('pendapatan_tunai')),
-			'pendapatan_kredit' => str_replace(".","",$this->input->post('pendapatan_kredit')),
-			'pengeluaran_sewa' => str_replace(".","",$this->input->post('pengeluaran_sewa')),
-			'pengeluaran_belanja' => str_replace(".","",$this->input->post('pengeluaran_belanja')),
-			'pengeluaran_gaji_pegawai' => str_replace(".","",$this->input->post('pengeluaran_gaji_pegawai')),
-			'angsuran_lain_usaha' => str_replace(".","",$this->input->post('angsuran_lain_usaha')),
-			'pengeluaran_lainya_usaha' => str_replace(".","",$this->input->post('pengeluaran_lain_usaha')),
-			'pengeluaran_telp_listrik_air' => str_replace(".","",$this->input->post('pengeluaran_telp_listrik_air')),
+			'pengeluaran_lainya' => str_replace(".", "", $this->input->post('pengeluaran_lainnya')),
+			'pendapatan_tunai' => str_replace(".", "", $this->input->post('pendapatan_tunai')),
+			'pendapatan_kredit' => str_replace(".", "", $this->input->post('pendapatan_kredit')),
+			'pengeluaran_sewa' => str_replace(".", "", $this->input->post('pengeluaran_sewa')),
+			'pengeluaran_belanja' => str_replace(".", "", $this->input->post('pengeluaran_belanja')),
+			'pengeluaran_gaji_pegawai' => str_replace(".", "", $this->input->post('pengeluaran_gaji_pegawai')),
+			'angsuran_lain_usaha' => str_replace(".", "", $this->input->post('angsuran_lain_usaha')),
+			'pengeluaran_lainya_usaha' => str_replace(".", "", $this->input->post('pengeluaran_lain_usaha')),
+			'pengeluaran_telp_listrik_air' => str_replace(".", "", $this->input->post('pengeluaran_telp_listrik_air')),
 			'luas_tanah_ca' => $this->input->post('luas_tanah_ca'),
 			'luas_tanah_njop' => $this->input->post('luas_tanah_njop'),
 			'kondisi_bentuk_tanah' => $this->input->post('kondisi_bentuk_tanah'),
@@ -3659,10 +3655,10 @@ class Home extends CI_Controller {
 			'jalan_lingkungan_terbesar' => $this->input->post('jalan_lingkungan_terbesar'),
 			'fasilitas_umum' => $this->input->post('fasilitas_umum'),
 			'tahun_njop' => $this->input->post('tahun_njop'),
-			'njop_tanah' => str_replace(".","",$this->input->post('njop_bumi')),
-			'njop_bangunan' => str_replace(".","",$this->input->post('njop_bangunan')),
-			'harga_pasar_tanah' => str_replace(".","",$this->input->post('harga_pasaran_tanah')),
-			'harga_pasar_bangunan' => str_replace(".","",$this->input->post('harga_pasaran_bangunan')),
+			'njop_tanah' => str_replace(".", "", $this->input->post('njop_bumi')),
+			'njop_bangunan' => str_replace(".", "", $this->input->post('njop_bangunan')),
+			'harga_pasar_tanah' => str_replace(".", "", $this->input->post('harga_pasaran_tanah')),
+			'harga_pasar_bangunan' => str_replace(".", "", $this->input->post('harga_pasaran_bangunan')),
 			'keterangan_penilaian' => $this->input->post('keterangan_penilaian'),
 			'nilai_taksasi' => $this->input->post('nilai_taksasi_persen'),
 			'sumber_harga' => $this->input->post('sumber_harga'),
@@ -3708,12 +3704,12 @@ class Home extends CI_Controller {
 			'no_bpkb' => $this->input->post('no_bpkb_k'),
 			'atas_nama' => $this->input->post('atas_nama_k'),
 			'alamat' => $this->input->post('alamat_k'),
-			'stnk' => $this->input->post('stnk').','.$this->input->post('stnk1'),
-			'notes_pajak' => $this->input->post('notes_pajak').','.$this->input->post('notes_pajak1'),
-			'trayek' => $this->input->post('trayek').','.$this->input->post('trayek1'),
-			'bpkb' => $this->input->post('bpkb').','.$this->input->post('bpkb1'),
-			'faktur' => $this->input->post('faktur').','.$this->input->post('faktur1'),
-			'kwitansi_blangko' => $this->input->post('kwitansi_blangko').','.$this->input->post('kwitansi_blangko1'),
+			'stnk' => $this->input->post('stnk') . ',' . $this->input->post('stnk1'),
+			'notes_pajak' => $this->input->post('notes_pajak') . ',' . $this->input->post('notes_pajak1'),
+			'trayek' => $this->input->post('trayek') . ',' . $this->input->post('trayek1'),
+			'bpkb' => $this->input->post('bpkb') . ',' . $this->input->post('bpkb1'),
+			'faktur' => $this->input->post('faktur') . ',' . $this->input->post('faktur1'),
+			'kwitansi_blangko' => $this->input->post('kwitansi_blangko') . ',' . $this->input->post('kwitansi_blangko1'),
 			'masa_berlaku_stnk' => $this->input->post('masa_berlaku_stnk'),
 			'masa_berlaku_pajak' => $this->input->post('masa_berlaku_pajak')
 		);
@@ -3742,9 +3738,9 @@ class Home extends CI_Controller {
 		$penilaian = array(
 			'id_order' => $this->input->post('id_order'),
 			'sumber_informasi1' => $this->input->post('sumber1'),
-			'harga1' => str_replace(".","",$this->input->post('harga1')),
+			'harga1' => str_replace(".", "", $this->input->post('harga1')),
 			'sumber_informasi2' => $this->input->post('sumber2'),
-			'harga2' => str_replace(".","",$this->input->post('harga2')),
+			'harga2' => str_replace(".", "", $this->input->post('harga2')),
 			'kesimpulan' => $this->input->post('kesimpulan_penilaian')
 		);
 
@@ -3755,7 +3751,7 @@ class Home extends CI_Controller {
 			'kendaraan' => $this->input->post('kendaraan'),
 			'tim_survey' => $this->input->post('team_survey'),
 			'penyimpangan' => $this->input->post('penyimpangan'),
-			'realisasi' => str_replace(".","",$this->input->post('realisasi')),
+			'realisasi' => str_replace(".", "", $this->input->post('realisasi')),
 			'tenor' => $this->input->post('tenor'),
 			'vertifikasi_data_debitur' => $this->input->post('vertifikasi_data_debitur'),
 			'vertifikasi_penjamin' => $this->input->post('vertifikasi_penjamin'),
@@ -3770,14 +3766,14 @@ class Home extends CI_Controller {
 		//print_r($penilaian);die();
 
 		$jumfileFotoJaminan = count($_FILES['foto_jaminan']['name']);
-		$uploadFotoJaminan = $this->MultiUpload($jumfileFotoJaminan,'foto_jaminan','./assets/foto_jaminan','CAA_');
+		$uploadFotoJaminan = $this->MultiUpload($jumfileFotoJaminan, 'foto_jaminan', './assets/foto_jaminan', 'CAA_');
 
-        $foto_jaminan = json_encode(array('file' => $uploadFotoJaminan));
+		$foto_jaminan = json_encode(array('file' => $uploadFotoJaminan));
 
-        $jumFileLampCaa = count($_FILES['lampiran_caa']['name']);
-		$uploadLampCaa = $this->MultiUpload($jumFileLampCaa,'lampiran_caa','./assets/lampiran_caa','CAA_');
+		$jumFileLampCaa = count($_FILES['lampiran_caa']['name']);
+		$uploadLampCaa = $this->MultiUpload($jumFileLampCaa, 'lampiran_caa', './assets/lampiran_caa', 'CAA_');
 
-        $lampiran_caa = json_encode(array('file' => $uploadLampCaa));
+		$lampiran_caa = json_encode(array('file' => $uploadLampCaa));
 
 		$dataCaa = array(
 			'id_order' => $this->input->post('id_order'),
@@ -3808,7 +3804,7 @@ class Home extends CI_Controller {
 			'status_caa' => 1,
 		);
 
-		$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
+		$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
 
 		$ao_to_email = rawurldecode($this->uri->segment(3));
 		$name_to_email = rawurldecode($this->uri->segment(4));
@@ -3821,26 +3817,26 @@ class Home extends CI_Controller {
 		die();*/
 		//$toemail = 'fahmidwi45@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com ';
 		if ($ao_to_email == 'Kantor') {
-			$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-		}else if ($ao_to_email == 'Adi suyadi') {
-			$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-		}else if ($ao_to_email == 'Budiawan') {
-			$toemail = 'ardimardianuh@gmail.com, budiawan.kdpms@gmail.com';//TO AO
-		}else if ($ao_to_email == 'Rediana Saputra') {
-			$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-		}else if ($ao_to_email == 'M.Yakub') {
-			$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com';//TO AO
-		}else if ($ao_to_email == 'Lukman') {
-			$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-		}else if ($ao_to_email == 'Putra Nia') {
-			$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-		}else if ($ao_to_email == 'Amirudin') {
-			$toemail = 'ardimardianuh@gmail.com, budiawan.kdpms@gmail.com,';//TO AO
-		}else if ($ao_to_email == 'Bambang Setiawan') {
-			$toemail = 'Faiyzajavier@gmail.com, budiawan.kdpms@gmail.com';//TO AO
+			$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+		} else if ($ao_to_email == 'Adi suyadi') {
+			$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+		} else if ($ao_to_email == 'Budiawan') {
+			$toemail = 'ardimardianuh@gmail.com, budiawan.kdpms@gmail.com'; //TO AO
+		} else if ($ao_to_email == 'Rediana Saputra') {
+			$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+		} else if ($ao_to_email == 'M.Yakub') {
+			$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com'; //TO AO
+		} else if ($ao_to_email == 'Lukman') {
+			$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+		} else if ($ao_to_email == 'Putra Nia') {
+			$toemail = 'ardimardianuh@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+		} else if ($ao_to_email == 'Amirudin') {
+			$toemail = 'ardimardianuh@gmail.com, budiawan.kdpms@gmail.com,'; //TO AO
+		} else if ($ao_to_email == 'Bambang Setiawan') {
+			$toemail = 'Faiyzajavier@gmail.com, budiawan.kdpms@gmail.com'; //TO AO
 		}
-       	$subject = 'PERSETUJUAN';
-       	$message = "
+		$subject = 'PERSETUJUAN';
+		$message = "
 	    <div style='padding:2%;background-color:white;'>
 		<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 		</div>
@@ -3860,112 +3856,111 @@ class Home extends CI_Controller {
 			</center>
 		</div>
 	    ";
-		$this->sendEmail($toemail,$subject,$message);
+		$this->sendEmail($toemail, $subject, $message);
 
 		//print_r($dataCaa);die();
-		$queryMemoCa = $this->business->add_data('los_memo_kredit_ca',$dataMemoCa);
-		$queryVerifikasiDataCa = $this->business->add_data('los_memo_kredit_ca_vertifikasi_data',$VerifikasiDataCa);
-		$queryMemoCaCeklisSurvey = $this->business->add_data('los_memo_kredit_ca_ceklist_survey',$CekSurveyCa);
-		$querysuratsuratKendaraan = $this->business->add_data('los_memo_kredit_ca_kendaraan',$suratsuratKendaraan);
-		$queryfisikkendaraan = $this->business->add_data('los_memo_kredit_ca_fisik_kendaraan',$fisikkendaraan);
-		$querypenilaian = $this->business->add_data('los_memo_kredit_ca_penilaian_jaminan_kendaraan',$penilaian);
-		$querylainLainCa = $this->business->add_data('los_memo_kredit_ca_lain_lain',$lainLain);
-		$queryCaa = $this->business->add_data('los_caa',$dataCaa);
+		$queryMemoCa = $this->business->add_data('los_memo_kredit_ca', $dataMemoCa);
+		$queryVerifikasiDataCa = $this->business->add_data('los_memo_kredit_ca_vertifikasi_data', $VerifikasiDataCa);
+		$queryMemoCaCeklisSurvey = $this->business->add_data('los_memo_kredit_ca_ceklist_survey', $CekSurveyCa);
+		$querysuratsuratKendaraan = $this->business->add_data('los_memo_kredit_ca_kendaraan', $suratsuratKendaraan);
+		$queryfisikkendaraan = $this->business->add_data('los_memo_kredit_ca_fisik_kendaraan', $fisikkendaraan);
+		$querypenilaian = $this->business->add_data('los_memo_kredit_ca_penilaian_jaminan_kendaraan', $penilaian);
+		$querylainLainCa = $this->business->add_data('los_memo_kredit_ca_lain_lain', $lainLain);
+		$queryCaa = $this->business->add_data('los_caa', $dataCaa);
 
 		if ($queryMemoCa && $queryVerifikasiDataCa && $queryMemoCaCeklisSurvey && $querysuratsuratKendaraan && $queryfisikkendaraan && $querypenilaian && $querylainLainCa && $queryCaa) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
-
 	}
 
-	public function get_DetailCa($value='')
+	public function get_DetailCa($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$data = $this->business->get_DetailCa($id_order)->result();
 		$lengh = $this->business->get_DetailCa($id_order)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function get_DetailCaVerifikasiData($value='')
+	public function get_DetailCaVerifikasiData($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ca_vertifikasi_data',null,null,$where)->result();
+		$data = $this->business->get_where('los_memo_kredit_ca_vertifikasi_data', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
-	public function get_DetailCaCeklisSurvey($value='')
+	public function get_DetailCaCeklisSurvey($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ca_ceklist_survey',null,null,$where)->result();
+		$data = $this->business->get_where('los_memo_kredit_ca_ceklist_survey', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
-	public function get_DetailCaKondisiLokasi($value='')
+	public function get_DetailCaKondisiLokasi($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ca_kondisi_dan_lokasi_jaminan',null,null,$where)->result();
+		$data = $this->business->get_where('los_memo_kredit_ca_kondisi_dan_lokasi_jaminan', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
-	public function get_DetailCaBiaya($value='')
+	public function get_DetailCaBiaya($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ca_biaya',null,null,$where)->result();
+		$data = $this->business->get_where('los_memo_kredit_ca_biaya', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
-	public function get_DetailCaLainLain($value='')
+	public function get_DetailCaLainLain($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ca_lain_lain',null,null,$where)->result();
+		$data = $this->business->get_where('los_memo_kredit_ca_lain_lain', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
-	public function get_DetailCaBangunan($value='')
+	public function get_DetailCaBangunan($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ca_bangunan',null,null,$where)->result();
+		$data = $this->business->get_where('los_memo_kredit_ca_bangunan', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
-	public function get_DetailCaKendaraan($value='')
+	public function get_DetailCaKendaraan($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ca_kendaraan',null,null,$where)->result();
+		$data = $this->business->get_where('los_memo_kredit_ca_kendaraan', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
-	public function get_DetailCaFisikKendaraan($value='')
+	public function get_DetailCaFisikKendaraan($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ca_fisik_kendaraan',null,null,$where)->result();
+		$data = $this->business->get_where('los_memo_kredit_ca_fisik_kendaraan', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
-	public function get_DetailCaPenilaianKendaraan($value='')
+	public function get_DetailCaPenilaianKendaraan($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_memo_kredit_ca_penilaian_jaminan_kendaraan',null,null,$where)->result();
+		$data = $this->business->get_where('los_memo_kredit_ca_penilaian_jaminan_kendaraan', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
 
-	public function SaveUpdateMemoCa($value='')
+	public function SaveUpdateMemoCa($value = '')
 	{
 		$where = array('id_order' => $this->input->post('id_order'));
 		$dataMemoCa = array(
@@ -3993,14 +3988,14 @@ class Home extends CI_Controller {
 			'alamat_usaha_debitur' => $this->input->post('alamat_usaha_debitur'),
 			'masa_kerja_debitur' => $this->input->post('masa_kerja_debitur'),
 			'no_telp_kerja_debitur' => $this->input->post('no_telp_kerja_debitur'),
-			'pengeluaran_lainya' => str_replace(".","",$this->input->post('pengeluaran_lainnya')),
-			'pendapatan_tunai' => str_replace(".","",$this->input->post('pendapatan_tunai')),
-			'pendapatan_kredit' => str_replace(".","",$this->input->post('pendapatan_kredit')),
-			'pengeluaran_sewa' => str_replace(".","",$this->input->post('pengeluaran_sewa')),
-			'pengeluaran_belanja' => str_replace(".","",$this->input->post('pengeluaran_belanja')),
-			'pengeluaran_gaji_pegawai' => str_replace(".","",$this->input->post('pengeluaran_gaji_pegawai')),
-			'angsuran_lain_usaha' => str_replace(".","",$this->input->post('angsuran_lain_usaha')),
-			'pengeluaran_lainya_usaha' => str_replace(".","",$this->input->post('pengeluaran_lain_usaha')),
+			'pengeluaran_lainya' => str_replace(".", "", $this->input->post('pengeluaran_lainnya')),
+			'pendapatan_tunai' => str_replace(".", "", $this->input->post('pendapatan_tunai')),
+			'pendapatan_kredit' => str_replace(".", "", $this->input->post('pendapatan_kredit')),
+			'pengeluaran_sewa' => str_replace(".", "", $this->input->post('pengeluaran_sewa')),
+			'pengeluaran_belanja' => str_replace(".", "", $this->input->post('pengeluaran_belanja')),
+			'pengeluaran_gaji_pegawai' => str_replace(".", "", $this->input->post('pengeluaran_gaji_pegawai')),
+			'angsuran_lain_usaha' => str_replace(".", "", $this->input->post('angsuran_lain_usaha')),
+			'pengeluaran_lainya_usaha' => str_replace(".", "", $this->input->post('pengeluaran_lain_usaha')),
 			'luas_tanah_ca' => $this->input->post('luas_tanah_ca'),
 			'luas_tanah_njop' => $this->input->post('luas_tanah_njop'),
 			'kondisi_bentuk_tanah' => $this->input->post('kondisi_bentuk_tanah'),
@@ -4018,10 +4013,10 @@ class Home extends CI_Controller {
 			'jalan_lingkungan_terbesar' => $this->input->post('jalan_lingkungan_terbesar'),
 			'fasilitas_umum' => $this->input->post('fasilitas_umum'),
 			'tahun_njop' => $this->input->post('tahun_njop'),
-			'njop_tanah' => str_replace(".","",$this->input->post('njop_bumi')),
-			'njop_bangunan' => str_replace(".","",$this->input->post('njop_bangunan')),
-			'harga_pasar_tanah' => str_replace(".","",$this->input->post('harga_pasaran_tanah')),
-			'harga_pasar_bangunan' => str_replace(".","",$this->input->post('harga_pasaran_bangunan')),
+			'njop_tanah' => str_replace(".", "", $this->input->post('njop_bumi')),
+			'njop_bangunan' => str_replace(".", "", $this->input->post('njop_bangunan')),
+			'harga_pasar_tanah' => str_replace(".", "", $this->input->post('harga_pasaran_tanah')),
+			'harga_pasar_bangunan' => str_replace(".", "", $this->input->post('harga_pasaran_bangunan')),
 			'keterangan_penilaian' => $this->input->post('keterangan_penilaian'),
 			'nilai_taksasi' => $this->input->post('nilai_taksasi_persen'),
 			'sumber_harga' => $this->input->post('sumber_harga'),
@@ -4115,7 +4110,7 @@ class Home extends CI_Controller {
 			'kendaraan' => $this->input->post('kendaraan'),
 			'tim_survey' => $this->input->post('team_survey'),
 			'penyimpangan' => $this->input->post('penyimpangan'),
-			'realisasi' => str_replace(".","",$this->input->post('realisasi')),
+			'realisasi' => str_replace(".", "", $this->input->post('realisasi')),
 			'tenor' => $this->input->post('tenor'),
 			'vertifikasi_data_debitur' => $this->input->post('vertifikasi_data_debitur'),
 			'vertifikasi_penjamin' => $this->input->post('vertifikasi_penjamin'),
@@ -4127,22 +4122,21 @@ class Home extends CI_Controller {
 			'hasil_cek_aspek_kuantitatif' => $this->input->post('hasil_cek_aspek_kuantitatif')
 		);
 
-		$queryMemoCa = $this->business->update_data('los_memo_kredit_ca',$dataMemoCa,$where);
-		$queryMemoCaBangunan = $this->business->update_data('los_memo_kredit_ca_bangunan',$dataMemoCaBangunan,$where);
-		$queryMemoCaVerifData = $this->business->update_data('los_memo_kredit_ca_vertifikasi_data',$VerifikasiDataCa,$where);
-		$queryMemoCaCeklisSurvey = $this->business->update_data('los_memo_kredit_ca_ceklist_survey',$CekSurveyCa,$where);
-		$queryKondisiLokasiJaminanCa = $this->business->update_data('los_memo_kredit_ca_kondisi_dan_lokasi_jaminan',$KondisiLokasiJaminan,$where);
-		$queryBlainLainCa = $this->business->update_data('los_memo_kredit_ca_lain_lain',$lainLain,$where);
+		$queryMemoCa = $this->business->update_data('los_memo_kredit_ca', $dataMemoCa, $where);
+		$queryMemoCaBangunan = $this->business->update_data('los_memo_kredit_ca_bangunan', $dataMemoCaBangunan, $where);
+		$queryMemoCaVerifData = $this->business->update_data('los_memo_kredit_ca_vertifikasi_data', $VerifikasiDataCa, $where);
+		$queryMemoCaCeklisSurvey = $this->business->update_data('los_memo_kredit_ca_ceklist_survey', $CekSurveyCa, $where);
+		$queryKondisiLokasiJaminanCa = $this->business->update_data('los_memo_kredit_ca_kondisi_dan_lokasi_jaminan', $KondisiLokasiJaminan, $where);
+		$queryBlainLainCa = $this->business->update_data('los_memo_kredit_ca_lain_lain', $lainLain, $where);
 
 		if ($queryMemoCa && $queryMemoCaBangunan && $queryMemoCaVerifData && $queryMemoCaCeklisSurvey && $queryKondisiLokasiJaminanCa && $queryBlainLainCa) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
-
 	}
 
-	public function SaveUpdateMemoCaKendaraan($value='')
+	public function SaveUpdateMemoCaKendaraan($value = '')
 	{
 		$where = array('id_order' => $this->input->post('id_order'));
 
@@ -4157,14 +4151,14 @@ class Home extends CI_Controller {
 			'alamat_usaha_debitur' => $this->input->post('alamat_usaha_debitur'),
 			'masa_kerja_debitur' => $this->input->post('masa_kerja_debitur'),
 			'no_telp_kerja_debitur' => $this->input->post('no_telp_kerja_debitur'),
-			'pengeluaran_lainya' => str_replace(".","",$this->input->post('pengeluaran_lainnya')),
-			'pendapatan_tunai' => str_replace(".","",$this->input->post('pendapatan_tunai')),
-			'pendapatan_kredit' => str_replace(".","",$this->input->post('pendapatan_kredit')),
-			'pengeluaran_sewa' => str_replace(".","",$this->input->post('pengeluaran_sewa')),
-			'pengeluaran_belanja' => str_replace(".","",$this->input->post('pengeluaran_belanja')),
-			'pengeluaran_gaji_pegawai' => str_replace(".","",$this->input->post('pengeluaran_gaji_pegawai')),
-			'angsuran_lain_usaha' => str_replace(".","",$this->input->post('angsuran_lain_usaha')),
-			'pengeluaran_lainya_usaha' => str_replace(".","",$this->input->post('pengeluaran_lain_usaha')),
+			'pengeluaran_lainya' => str_replace(".", "", $this->input->post('pengeluaran_lainnya')),
+			'pendapatan_tunai' => str_replace(".", "", $this->input->post('pendapatan_tunai')),
+			'pendapatan_kredit' => str_replace(".", "", $this->input->post('pendapatan_kredit')),
+			'pengeluaran_sewa' => str_replace(".", "", $this->input->post('pengeluaran_sewa')),
+			'pengeluaran_belanja' => str_replace(".", "", $this->input->post('pengeluaran_belanja')),
+			'pengeluaran_gaji_pegawai' => str_replace(".", "", $this->input->post('pengeluaran_gaji_pegawai')),
+			'angsuran_lain_usaha' => str_replace(".", "", $this->input->post('angsuran_lain_usaha')),
+			'pengeluaran_lainya_usaha' => str_replace(".", "", $this->input->post('pengeluaran_lain_usaha')),
 			'usaha_debitur' => $this->input->post('usaha_debitur'),
 			'nama_tempat_usaha' => $this->input->post('nama_tempat_usaha'),
 			'jenis_usaha' => $this->input->post('jenis_usaha'),
@@ -4204,12 +4198,12 @@ class Home extends CI_Controller {
 
 		$suratsuratKendaraan = array(
 			'id_order' => $this->input->post('id_order'),
-			'stnk' => $this->input->post('stnk').','.$this->input->post('stnk1'),
-			'notes_pajak' => $this->input->post('notes_pajak').','.$this->input->post('notes_pajak1'),
-			'trayek' => $this->input->post('trayek').','.$this->input->post('trayek1'),
-			'bpkb' => $this->input->post('bpkb').','.$this->input->post('bpkb1'),
-			'faktur' => $this->input->post('faktur').','.$this->input->post('faktur1'),
-			'kwitansi_blangko' => $this->input->post('kwitansi_blangko').','.$this->input->post('kwitansi_blangko1'),
+			'stnk' => $this->input->post('stnk') . ',' . $this->input->post('stnk1'),
+			'notes_pajak' => $this->input->post('notes_pajak') . ',' . $this->input->post('notes_pajak1'),
+			'trayek' => $this->input->post('trayek') . ',' . $this->input->post('trayek1'),
+			'bpkb' => $this->input->post('bpkb') . ',' . $this->input->post('bpkb1'),
+			'faktur' => $this->input->post('faktur') . ',' . $this->input->post('faktur1'),
+			'kwitansi_blangko' => $this->input->post('kwitansi_blangko') . ',' . $this->input->post('kwitansi_blangko1'),
 			'masa_berlaku_stnk' => $this->input->post('masa_berlaku_stnk'),
 			'masa_berlaku_pajak' => $this->input->post('masa_berlaku_pajak')
 		);
@@ -4238,9 +4232,9 @@ class Home extends CI_Controller {
 		$penilaian = array(
 			'id_order' => $this->input->post('id_order'),
 			'sumber_informasi1' => $this->input->post('sumber1'),
-			'harga1' => str_replace(".","",$this->input->post('harga1')),
+			'harga1' => str_replace(".", "", $this->input->post('harga1')),
 			'sumber_informasi2' => $this->input->post('sumber2'),
-			'harga2' => str_replace(".","",$this->input->post('harga2')),
+			'harga2' => str_replace(".", "", $this->input->post('harga2')),
 			'kesimpulan' => $this->input->post('kesimpulan_penilaian')
 		);
 
@@ -4248,7 +4242,7 @@ class Home extends CI_Controller {
 			'id_order' => $this->input->post('id_order'),
 			'tim_survey' => $this->input->post('team_survey'),
 			'penyimpangan' => $this->input->post('penyimpangan'),
-			'realisasi' => str_replace(".","",$this->input->post('realisasi')),
+			'realisasi' => str_replace(".", "", $this->input->post('realisasi')),
 			'tenor' => $this->input->post('tenor'),
 			'vertifikasi_data_debitur' => $this->input->post('vertifikasi_data_debitur_ca'),
 			'vertifikasi_penjamin' => $this->input->post('vertifikasi_penjamin'),
@@ -4262,29 +4256,28 @@ class Home extends CI_Controller {
 		//print_r($lainLain);die();
 
 		//print_r($dataCaa);die();
-		$queryMemoCa = $this->business->update_data('los_memo_kredit_ca',$dataMemoCa,$where);
-		$queryVerifikasiDataCa = $this->business->update_data('los_memo_kredit_ca_vertifikasi_data',$VerifikasiDataCa,$where);
-		$queryMemoCaCeklisSurvey = $this->business->update_data('los_memo_kredit_ca_ceklist_survey',$CekSurveyCa,$where);
-		$querysuratsuratKendaraan = $this->business->update_data('los_memo_kredit_ca_kendaraan',$suratsuratKendaraan,$where);
-		$queryfisikkendaraan = $this->business->update_data('los_memo_kredit_ca_fisik_kendaraan',$fisikkendaraan,$where);
-		$querypenilaian = $this->business->update_data('los_memo_kredit_ca_penilaian_jaminan_kendaraan',$penilaian,$where);
-		$querylainLainCa = $this->business->update_data('los_memo_kredit_ca_lain_lain',$lainLain,$where);
+		$queryMemoCa = $this->business->update_data('los_memo_kredit_ca', $dataMemoCa, $where);
+		$queryVerifikasiDataCa = $this->business->update_data('los_memo_kredit_ca_vertifikasi_data', $VerifikasiDataCa, $where);
+		$queryMemoCaCeklisSurvey = $this->business->update_data('los_memo_kredit_ca_ceklist_survey', $CekSurveyCa, $where);
+		$querysuratsuratKendaraan = $this->business->update_data('los_memo_kredit_ca_kendaraan', $suratsuratKendaraan, $where);
+		$queryfisikkendaraan = $this->business->update_data('los_memo_kredit_ca_fisik_kendaraan', $fisikkendaraan, $where);
+		$querypenilaian = $this->business->update_data('los_memo_kredit_ca_penilaian_jaminan_kendaraan', $penilaian, $where);
+		$querylainLainCa = $this->business->update_data('los_memo_kredit_ca_lain_lain', $lainLain, $where);
 
 		if ($queryMemoCa && $queryVerifikasiDataCa && $queryMemoCaCeklisSurvey && $querysuratsuratKendaraan && $queryfisikkendaraan && $querypenilaian && $querylainLainCa) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
-
 	}
 
 	public function EditFotoJaminanCa($id_order)
 	{
 		$where = array('id_order' => $id_order);
-		$cek = $this->business->get_where('los_caa',null,null,$where)->num_rows();
+		$cek = $this->business->get_where('los_caa', null, null, $where)->num_rows();
 
 		$jumfileFotoJaminan = count($_FILES['foto_jaminan']['name']);
-		$uploadFotoJaminan = $this->MultiUpload($jumfileFotoJaminan,'foto_jaminan','./assets/foto_jaminan','CAA_');
+		$uploadFotoJaminan = $this->MultiUpload($jumfileFotoJaminan, 'foto_jaminan', './assets/foto_jaminan', 'CAA_');
 		$foto_jaminan = json_encode(array('file' => $uploadFotoJaminan));
 
 		if ($cek == 0) {
@@ -4307,19 +4300,19 @@ class Home extends CI_Controller {
 				'flg_notif' => '0',
 			);
 			//print_r($dataCaa);die();
-			$queryfoto_jaminan = $this->business->add_data('los_caa',$dataCaa);
-		}else{
+			$queryfoto_jaminan = $this->business->add_data('los_caa', $dataCaa);
+		} else {
 			$data = array(
 				'foto_jaminan' => $foto_jaminan
 			);
 			//print_r($data);die();
-			$queryfoto_jaminan = $this->business->update_data('los_caa',$data,$where);
+			$queryfoto_jaminan = $this->business->update_data('los_caa', $data, $where);
 		}
 
 		if ($queryfoto_jaminan) {
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
@@ -4327,11 +4320,11 @@ class Home extends CI_Controller {
 	{
 		$where = array('id_order' => $id_order);
 		$jumFileLampCaa = count($_FILES['lampiran_caa']['name']);
-		$uploadLampCaa = $this->MultiUpload($jumFileLampCaa,'lampiran_caa','./assets/lampiran_caa','CAA_');
+		$uploadLampCaa = $this->MultiUpload($jumFileLampCaa, 'lampiran_caa', './assets/lampiran_caa', 'CAA_');
 
-    	$lampiran_caa = json_encode(array('file' => $uploadLampCaa));
+		$lampiran_caa = json_encode(array('file' => $uploadLampCaa));
 
-		$cek = $this->business->get_where('los_caa',null,null,$where)->num_rows();
+		$cek = $this->business->get_where('los_caa', null, null, $where)->num_rows();
 		if ($cek == 0) {
 			$dataCaa = array(
 				'id_order' => $id_order,
@@ -4350,24 +4343,25 @@ class Home extends CI_Controller {
 				'ket_return' => null,
 				'flg_notif' => '0',
 			);
-			print_r($dataCaa);die();
-			$lampiran_caa = $this->business->add_data('los_caa',$dataCaa);
-		}else{
+			print_r($dataCaa);
+			die();
+			$lampiran_caa = $this->business->add_data('los_caa', $dataCaa);
+		} else {
 			$data = array(
 				'lampiran' => $lampiran_caa
 			);
-			$lampiran_caa = $this->business->update_data('los_caa',$data,$where);
+			$lampiran_caa = $this->business->update_data('los_caa', $data, $where);
 		}
 
 		if ($lampiran_caa) {
-			echo json_encode(array('msg' => 'success' ));
-		}else{
-			echo json_encode(array('msg' => 'failed' ));
+			echo json_encode(array('msg' => 'success'));
+		} else {
+			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
 	/*CAA*/
-	public function get_DataCaa($value='')
+	public function get_DataCaa($value = '')
 	{
 		$startlimit = $this->uri->segment(3);
 		$areakerja = $this->uri->segment(4);
@@ -4375,33 +4369,33 @@ class Home extends CI_Controller {
 		$jabatan = $this->session->userdata('jabatan');
 		if ($jabatan == 'ketua') {
 			$kantor = null;
-		}else{
+		} else {
 			$kantor = $this->session->userdata('kantor');
 		}
-		$data = $this->business->get_Caa($startlimit,$areakerja,$keysearch,$kantor)->result();
-		$lengh = $this->business->get_Caa($startlimit,$areakerja,$keysearch,$kantor)->num_rows();
+		$data = $this->business->get_Caa($startlimit, $areakerja, $keysearch, $kantor)->result();
+		$lengh = $this->business->get_Caa($startlimit, $areakerja, $keysearch, $kantor)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function get_DataCaa_ketua($value='')
+	public function get_DataCaa_ketua($value = '')
 	{
 		$startlimit = $this->uri->segment(3);
 		$areakerja = $this->uri->segment(4);
 		$keysearch = $this->uri->segment(5);
-		$data = $this->business->get_Caa_ketua($startlimit,$areakerja,$keysearch)->result();
-		$lengh = $this->business->get_Caa_ketua($startlimit,$areakerja,$keysearch)->num_rows();
+		$data = $this->business->get_Caa_ketua($startlimit, $areakerja, $keysearch)->result();
+		$lengh = $this->business->get_Caa_ketua($startlimit, $areakerja, $keysearch)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function searchCaa($value='')
+	public function searchCaa($value = '')
 	{
 		$startlimit = 0;
 		$areakerja = $this->input->post('areakerja');
@@ -4409,33 +4403,33 @@ class Home extends CI_Controller {
 		$jabatan = $this->session->userdata('jabatan');
 		if ($jabatan == 'ketua') {
 			$kantor = null;
-		}else{
+		} else {
 			$kantor = $this->session->userdata('kantor');
 		}
-		$data = $this->business->get_Caa($startlimit,$areakerja,$keysearch,$kantor)->result();
-		$lengh = $this->business->get_Caa($startlimit,$areakerja,$keysearch,$kantor)->num_rows();
+		$data = $this->business->get_Caa($startlimit, $areakerja, $keysearch, $kantor)->result();
+		$lengh = $this->business->get_Caa($startlimit, $areakerja, $keysearch, $kantor)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function searchCaa_ketua($value='')
+	public function searchCaa_ketua($value = '')
 	{
 		$startlimit = 0;
 		$areakerja = $this->input->post('areakerja');
 		$keysearch = $this->input->post('keyword');
-		$data = $this->business->get_Caa_ketua($startlimit,$areakerja,$keysearch)->result();
-		$lengh = $this->business->get_Caa_ketua($startlimit,$areakerja,$keysearch)->num_rows();
+		$data = $this->business->get_Caa_ketua($startlimit, $areakerja, $keysearch)->result();
+		$lengh = $this->business->get_Caa_ketua($startlimit, $areakerja, $keysearch)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function AddCaaApproval($value='')
+	public function AddCaaApproval($value = '')
 	{
 		$where = array('id_order' => $this->input->post('id_order'));
 
@@ -4453,47 +4447,47 @@ class Home extends CI_Controller {
 				'syarat' => nl2br(stripslashes($this->input->post('syarat'))),
 				'notes' => nl2br(stripslashes($this->input->post('notes'))),
 				'status_app' => '1',
-				'plafon' => str_replace(".","",$this->input->post('plafond')),
+				'plafon' => str_replace(".", "", $this->input->post('plafond')),
 				'tenor' => $this->input->post('tenor'),
 				'tgl_app' => date('Y-m-d H:i:s'),
 				'flg_notif' => 0
 			);
 
-			$persetujuan = 'Rp. '.$this->input->post('plafond').' - '.$this->input->post('tenor').' Bulan';
+			$persetujuan = 'Rp. ' . $this->input->post('plafond') . ' - ' . $this->input->post('tenor') . ' Bulan';
 			$alasan = $this->input->post('alasan');
 			$syarat = $this->input->post('syarat');
 			$notes = $this->input->post('notes');
 
 			$whereTrack = array('id_order' => $this->input->post('id_order'));
 			$dataTracking = array(
-				'desc_caa' => 'Data disetujui manager sebesar '.$persetujuan.', menunggu persetujuan ketua',
+				'desc_caa' => 'Data disetujui manager sebesar ' . $persetujuan . ', menunggu persetujuan ketua',
 				'create_date_caa' => date('Y-m-d H:i:s'),
 				'status_caa' => 1,
 			);
 
-			$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
+			$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
 			/*TO AO*/
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Adi suyadi') {
-				$toemail = 'adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Budiawan') {
-				$toemail = 'budiawan.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Rediana Saputra') {
-				$toemail = 'redianasaputra4@gmail.com';//TO AO
-			}else if ($ao_to_email == 'M.Yakub') {
-				$toemail = 'mu.yakub99@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Lukman') {
-				$toemail = 'lukmanubay16@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Putra Nia') {
-				$toemail = 'putrania1972@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Amirudin') {
-				$toemail = 'muhamadamirudin78@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Bambang Setiawan') {
-				$toemail = 'Faiyzajavier@gmail.com';//TO AO
+				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Adi suyadi') {
+				$toemail = 'adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Budiawan') {
+				$toemail = 'budiawan.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Rediana Saputra') {
+				$toemail = 'redianasaputra4@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'M.Yakub') {
+				$toemail = 'mu.yakub99@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Lukman') {
+				$toemail = 'lukmanubay16@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Putra Nia') {
+				$toemail = 'putrania1972@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Amirudin') {
+				$toemail = 'muhamadamirudin78@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Bambang Setiawan') {
+				$toemail = 'Faiyzajavier@gmail.com'; //TO AO
 			}
-	       	$subject = 'INFO PERSETUJUAN';
-	       	$message = "
+			$subject = 'INFO PERSETUJUAN';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -4516,12 +4510,12 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-			$this->sendEmail($toemail,$subject,$message);
+			$this->sendEmail($toemail, $subject, $message);
 			/*________________________________________*/
 			/*TO KETUA*/
-			$toemail = 'heinrichricky@gmail.com';//EMAIL KETUA
-	       	$subject = 'PERSETUJUAN';
-	       	$message = "
+			$toemail = 'heinrichricky@gmail.com'; //EMAIL KETUA
+			$subject = 'PERSETUJUAN';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -4541,9 +4535,9 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-			$this->sendEmail($toemail,$subject,$message);
+			$this->sendEmail($toemail, $subject, $message);
 			/*_____________________________________*/
-		}else{
+		} else {
 			$DataApproval = array(
 				'id_order' => $this->input->post('id_order'),
 				'user_id' => $this->session->userdata('id'),
@@ -4552,16 +4546,16 @@ class Home extends CI_Controller {
 				'syarat' => nl2br(stripslashes($this->input->post('syarat'))),
 				'notes' => nl2br(stripslashes($this->input->post('notes'))),
 				'status_app' => '1',
-				'plafon' => str_replace(".","",$this->input->post('plafond')),
+				'plafon' => str_replace(".", "", $this->input->post('plafond')),
 				'tenor' => $this->input->post('tenor'),
 				'tgl_app' => date('Y-m-d H:i:s'),
 				'flg_notif' => 0
 			);
 			$whereTrack = array('id_order' => $this->input->post('id_order'));
-			$persetujuan = $this->input->post('plafond').' - '.$this->input->post('tenor').' Bulan';
+			$persetujuan = $this->input->post('plafond') . ' - ' . $this->input->post('tenor') . ' Bulan';
 
 			$dataTracking = array(
-				'desc_caa' => 'Data disetujui ketua sebesar '.$persetujuan,
+				'desc_caa' => 'Data disetujui ketua sebesar ' . $persetujuan,
 				'create_date_caa' => date('Y-m-d H:i:s'),
 				'status_caa' => 2,
 				'desc_akad' => 'Proses akad',
@@ -4574,26 +4568,28 @@ class Home extends CI_Controller {
 			$notes = $this->input->post('notes');
 
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Adi suyadi') {
-				$toemail = 'adisuyadi.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Budiawan') {
-				$toemail = 'budiawan.kdpms@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Rediana Saputra') {
-				$toemail = 'redianasaputra4@gmail.com';//TO AO
-			}else if ($ao_to_email == 'M.Yakub') {
-				$toemail = 'mu.yakub99@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Lukman') {
-				$toemail = 'lukmanubay16@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Putra Nia') {
-				$toemail = 'putrania1972@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Amirudin') {
-				$toemail = 'muhamadamirudin78@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Bambang Setiawan') {
-				$toemail = 'Faiyzajavier@gmail.com';//TO AO
+				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Adi suyadi') {
+				$toemail = 'adisuyadi.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Budiawan') {
+				$toemail = 'budiawan.kdpms@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Rediana Saputra') {
+				$toemail = 'redianasaputra4@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'M.Yakub') {
+				$toemail = 'mu.yakub99@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Lukman') {
+				$toemail = 'lukmanubay16@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Putra Nia') {
+				$toemail = 'putrania1972@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Amirudin') {
+				$toemail = 'muhamadamirudin78@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Bambang Setiawan') {
+				$toemail = 'Faiyzajavier@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Babang Sabarudin') {
+				$toemail = 'bams.watanabe@gmail.com'; //TO AO
 			}
-	       	$subject = 'INFO PERSETUJUAN';
-	       	$message = "
+			$subject = 'INFO PERSETUJUAN';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -4615,7 +4611,7 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-			$this->sendEmail($toemail,$subject,$message);
+			$this->sendEmail($toemail, $subject, $message);
 			$toemaillegal = 'ardimardianuh@gmail.com,mulyanapermana.mp@gmail.com';
 			$subject = 'LEGAL';
 			$message = "
@@ -4637,59 +4633,59 @@ class Home extends CI_Controller {
 					</center>
 				</div>
 			";
-			$this->sendEmail($toemaillegal,$subject,$message);
+			$this->sendEmail($toemaillegal, $subject, $message);
 			/*________________________________________*/
 
-			$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
+			$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
 
 			$update = array('status_app' => '1');
-			$statCaa = $this->business->update_data('los_caa',$update,$where);
+			$statCaa = $this->business->update_data('los_caa', $update, $where);
 		}
 
 		$tgllastapprove = array('tgl_last_app' => date('Y-m-d H:i:s'));
-		$this->business->update_data('los_caa',$tgllastapprove,$where);
+		$this->business->update_data('los_caa', $tgllastapprove, $where);
 
-		$queryCaaAproval = $this->business->add_data('los_caa_approval',$DataApproval);
+		$queryCaaAproval = $this->business->add_data('los_caa_approval', $DataApproval);
 
 		if ($queryCaaAproval) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function getDataApproval($value='')
+	public function getDataApproval($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$user_id = $this->session->userdata('id');
 		$where = array('id_order' => $id_order, 'user_id' => $user_id);
-		$data = $this->business->get_where('los_caa_approval',null,null,$where)->row();
+		$data = $this->business->get_where('los_caa_approval', null, null, $where)->row();
 		echo json_encode($data);
 	}
 
-	public function ChangeApproval($value='')
+	public function ChangeApproval($value = '')
 	{
 		$where = array(
 			'id_order' => $this->input->post('id_order'),
 			'user_id' => $this->session->userdata('id')
 		);
-		
+
 		$DataApproval = array(
 			'alasan' => $this->input->post('alasan_bag_edit'),
 			'syarat' => $this->input->post('syarat_bag_edit'),
 			'notes' => $this->input->post('notes_bag_edit'),
-			'plafon' => str_replace(".","",$this->input->post('plafond')),
+			'plafon' => str_replace(".", "", $this->input->post('plafond')),
 			'tenor' => $this->input->post('tenor_bag_edit'),
 		);
 
-		if ($this->business->update_data('los_caa_approval',$DataApproval,$where)) {
+		if ($this->business->update_data('los_caa_approval', $DataApproval, $where)) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function AddCaaReject($value='')
+	public function AddCaaReject($value = '')
 	{
 		$DataReject = array(
 			'id_order' => $this->input->post('id_order'),
@@ -4715,26 +4711,26 @@ class Home extends CI_Controller {
 			);
 
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Adi suyadi') {
-				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Budiawan') {
-				$toemail = 'budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Rediana Saputra') {
-				$toemail = 'redianasaputra4@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'M.Yakub') {
-				$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Lukman') {
-				$toemail = 'lukmanubay16@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Putra Nia') {
-				$toemail = 'putrania1972@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Amirudin') {
-				$toemail = 'muhamadamirudin78@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Bambang Setiawan') {
-				$toemail = 'Faiyzajavier@gmail.com';//TO AO
+				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Adi suyadi') {
+				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Budiawan') {
+				$toemail = 'budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Rediana Saputra') {
+				$toemail = 'redianasaputra4@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'M.Yakub') {
+				$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Lukman') {
+				$toemail = 'lukmanubay16@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Putra Nia') {
+				$toemail = 'putrania1972@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Amirudin') {
+				$toemail = 'muhamadamirudin78@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Bambang Setiawan') {
+				$toemail = 'Faiyzajavier@gmail.com'; //TO AO
 			}
-	       	$subject = 'INFO PENOLAKAN';
-	       	$message = "
+			$subject = 'INFO PENOLAKAN';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -4752,10 +4748,10 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-			$this->sendEmail($toemail,$subject,$message);
+			$this->sendEmail($toemail, $subject, $message);
 
-			$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
-		}else{
+			$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
+		} else {
 			$whereTrack = array('id_order' => $this->input->post('id_order'));
 			$dataTracking = array(
 				'desc_caa' => 'Data di setujui manager dan di tolak ketua',
@@ -4764,26 +4760,26 @@ class Home extends CI_Controller {
 			);
 
 			if ($ao_to_email == 'Kantor') {
-				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Adi suyadi') {
-				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Budiawan') {
-				$toemail = 'budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Rediana Saputra') {
-				$toemail = 'redianasaputra4@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'M.Yakub') {
-				$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Lukman') {
-				$toemail = 'lukmanubay16@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Putra Nia') {
-				$toemail = 'putrania1972@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Amirudin') {
-				$toemail = 'muhamadamirudin78@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com';//TO AO
-			}else if ($ao_to_email == 'Bambang Setiawan') {
-				$toemail = 'Faiyzajavier@gmail.com';//TO AO
+				$toemail = 'ardimardianuh@gmail.com, fahmidion1@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Adi suyadi') {
+				$toemail = 'adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Budiawan') {
+				$toemail = 'budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Rediana Saputra') {
+				$toemail = 'redianasaputra4@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'M.Yakub') {
+				$toemail = 'mu.yakub99@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Lukman') {
+				$toemail = 'lukmanubay16@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Putra Nia') {
+				$toemail = 'putrania1972@gmail.com, adisuyadi.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Amirudin') {
+				$toemail = 'muhamadamirudin78@gmail.com, budiawan.kdpms@gmail.com, Heinrichricky@gmail.com'; //TO AO
+			} else if ($ao_to_email == 'Bambang Setiawan') {
+				$toemail = 'Faiyzajavier@gmail.com'; //TO AO
 			}
-	       	$subject = 'INFO PENOLAKAN';
-	       	$message = "
+			$subject = 'INFO PENOLAKAN';
+			$message = "
 		    <div style='padding:2%;background-color:white;'>
 			<center><img src='http://103.31.232.30/webtools-kdpms/assets/images/bussines.png' margin-left:2%;></center>
 			</div>
@@ -4801,20 +4797,20 @@ class Home extends CI_Controller {
 				</center>
 			</div>
 		    ";
-			$this->sendEmail($toemail,$subject,$message);
+			$this->sendEmail($toemail, $subject, $message);
 
-			$this->business->update_data('los_order_tracking',$dataTracking,$whereTrack);
+			$this->business->update_data('los_order_tracking', $dataTracking, $whereTrack);
 		}
 
 		$where = array('id_order' => $this->input->post('id_order'));
-		$update = array('status_app' => '2','tgl_last_app' => date('Y-m-d H:i:s'));
+		$update = array('status_app' => '2', 'tgl_last_app' => date('Y-m-d H:i:s'));
 
-		$statCaa = $this->business->update_data('los_caa',$update,$where);
-		$queryReject = $this->business->add_data('los_caa_approval',$DataReject);
+		$statCaa = $this->business->update_data('los_caa', $update, $where);
+		$queryReject = $this->business->add_data('los_caa_approval', $DataReject);
 
 		if ($queryReject && $statCaa) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
@@ -4822,131 +4818,131 @@ class Home extends CI_Controller {
 	public function checkApproveManager($id_order)
 	{
 		$where = array('id_order' => $id_order, 'status_app' => '1', 'jabatan' => 'manager');
-		$data = $this->business->get_where('los_caa_approval',null,null,$where)->result();
+		$data = $this->business->get_where('los_caa_approval', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
 	public function checkRejectManager($id_order)
 	{
 		$where = array('id_order' => $id_order, 'status_app' => '2', 'jabatan' => 'manager');
-		$data = $this->business->get_where('los_caa_approval',null,null,$where)->result();
+		$data = $this->business->get_where('los_caa_approval', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
 	public function checkApproveKetua($id_order)
 	{
 		$where = array('id_order' => $id_order, 'status_app' => '1', 'jabatan' => 'ketua');
-		$data = $this->business->get_where('los_caa_approval',null,null,$where)->result();
+		$data = $this->business->get_where('los_caa_approval', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
 	public function checkRejectKetua($id_order)
 	{
 		$where = array('id_order' => $id_order, 'status_app' => '2', 'jabatan' => 'ketua');
-		$data = $this->business->get_where('los_caa_approval',null,null,$where)->result();
+		$data = $this->business->get_where('los_caa_approval', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
 	public function DataApprove($id_order)
 	{
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_caa_approval',null,null,$where)->result();
+		$data = $this->business->get_where('los_caa_approval', null, null, $where)->result();
 		echo json_encode($data);
 	}
 
-	public function get_DetailCAA($value='')
+	public function get_DetailCAA($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_caa',null,null,$where)->result();
-		$lengh = $this->business->get_where('los_caa',null,null,$where)->num_rows();
+		$data = $this->business->get_where('los_caa', null, null, $where)->result();
+		$lengh = $this->business->get_where('los_caa', null, null, $where)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
 
 	/*LEGAL - OFFERING LATTER*/
-	public function CaaApprovalOfferingLatter($value='')
+	public function CaaApprovalOfferingLatter($value = '')
 	{
 		$data = $this->business->CAAOfferingLatter()->result();
 		$lengh = $this->business->CAAOfferingLatter()->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function checkOrderInOffering($value='')
+	public function checkOrderInOffering($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_offering_letter',null,null,$where)->num_rows();
+		$data = $this->business->get_where('los_offering_letter', null, null, $where)->num_rows();
 		echo json_encode(array('amount' => $data));
 	}
 
-	public function OfferingLatter($value='')
+	public function OfferingLatter($value = '')
 	{
 		$startlimit = $this->uri->segment(3);
 		$areakerja = $this->uri->segment(4);
 		$keysearch = $this->uri->segment(5);
-		$data = $this->business->OfferingLatter($startlimit,$areakerja,$keysearch)->result();
-		$lengh = $this->business->OfferingLatter($startlimit,$areakerja,$keysearch)->num_rows();
+		$data = $this->business->OfferingLatter($startlimit, $areakerja, $keysearch)->result();
+		$lengh = $this->business->OfferingLatter($startlimit, $areakerja, $keysearch)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function searchOffering($value='')
+	public function searchOffering($value = '')
 	{
 		$startlimit = 0;
 		$areakerja = $this->input->post('areakerja');
 		$keysearch = $this->input->post('keyword');
-		$data = $this->business->OfferingLatter($startlimit,$areakerja,$keysearch)->result();
-		$lengh = $this->business->OfferingLatter($startlimit,$areakerja,$keysearch)->num_rows();
+		$data = $this->business->OfferingLatter($startlimit, $areakerja, $keysearch)->result();
+		$lengh = $this->business->OfferingLatter($startlimit, $areakerja, $keysearch)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function get_DetailOffering($value='')
+	public function get_DetailOffering($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_offering_letter',null,null,$where)->result();
-		$lengh = $this->business->get_where('los_offering_letter',null,null,$where)->num_rows();
+		$data = $this->business->get_where('los_offering_letter', null, null, $where)->result();
+		$lengh = $this->business->get_where('los_offering_letter', null, null, $where)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function get_DetailBiaya($value='')
+	public function get_DetailBiaya($value = '')
 	{
 		$id_order = $this->uri->segment(3);
 		$where = array('id_order' => $id_order);
-		$data = $this->business->get_where('los_lpdk_biaya',null,null,$where)->result();
-		$lengh = $this->business->get_where('los_lpdk_biaya',null,null,$where)->num_rows();
+		$data = $this->business->get_where('los_lpdk_biaya', null, null, $where)->result();
+		$lengh = $this->business->get_where('los_lpdk_biaya', null, null, $where)->num_rows();
 		if ($lengh == 0) {
 			echo json_encode(array('amount' => $lengh));
-		}else{
+		} else {
 			echo json_encode($data);
 		}
 	}
 
-	public function saveAddOffering($value='')
+	public function saveAddOffering($value = '')
 	{
 
 		$tanggalTahun = date('Y-m-d');
-		$split 		  = explode('-',$tanggalTahun);
+		$split 		  = explode('-', $tanggalTahun);
 		$bulan 		  = $split[1];
 		$tahun 		  = $split[0];
 		$bulanRomawi  = $this->getBulanRomawi($bulan);
@@ -4955,23 +4951,24 @@ class Home extends CI_Controller {
 		$jumdatalast = $this->business->getNOofferingLastData()->num_rows();
 		if ($jumdatalast > 0) {
 			$Nolast 	 = $this->business->getNOofferingLastData()->row();
-			$tahunData	 = explode('-',$Nolast->tgl_buat)[0];
-			$NolastApk   = explode('/',$Nolast->nomor)[0];
+			$tahunData	 = explode('-', $Nolast->tgl_buat)[0];
+			$NolastApk   = explode('/', $Nolast->nomor)[0];
 			if ($tahunData != $tahun) {
 				$nofix = '000001';
-			}else if ($tahunData == $tahunData) {
+			} else if ($tahunData == $tahunData) {
 				$no = $NolastApk + 1;
 				$nodef = '1000000';
 				$nosub = $nodef + $no;
-				$nofix = substr($nosub,1,7);
-			}else{
-				echo "ada yang ga beress";die();
+				$nofix = substr($nosub, 1, 7);
+			} else {
+				echo "ada yang ga beress";
+				die();
 			}
-		}else{
+		} else {
 			$nofix = '000001';
 		}
 
-		$nomor  = $nofix.'/KDPMS-'.$nokantor.'/'.$bulanRomawi.'/'.$tahun;
+		$nomor  = $nofix . '/KDPMS-' . $nokantor . '/' . $bulanRomawi . '/' . $tahun;
 		$dataOffering = array(
 			'id_order' => $this->input->post('id_order'),
 			'nomor' => $nomor,
@@ -4993,7 +4990,7 @@ class Home extends CI_Controller {
 			'tgl_buat' => date('Y-m-d H:i:s')
 		);
 
-		$BiayaBiaya =array(
+		$BiayaBiaya = array(
 			'id_order' => $this->input->post('id_order'),
 			'provisi' => $this->input->post('provisi'),
 			'admin_kredit' => $this->input->post('admin_kredit'),
@@ -5007,17 +5004,18 @@ class Home extends CI_Controller {
 			'biaya_matrai' => $this->input->post('biaya_matrai'),
 		);
 
-		$queryOffering = $this->business->add_data('los_lpdk_biaya',$BiayaBiaya);
-		$queryBiaya = $this->business->add_data('los_offering_letter',$dataOffering);
+		$queryOffering = $this->business->add_data('los_lpdk_biaya', $BiayaBiaya);
+		$queryBiaya = $this->business->add_data('los_offering_letter', $dataOffering);
 
 		if ($queryOffering && $queryBiaya) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
 
-	public function saveEditOffering(){
+	public function saveEditOffering()
+	{
 		$where = array(
 			'id_order' => $this->input->post('id_order'),
 		);
@@ -5044,7 +5042,7 @@ class Home extends CI_Controller {
 			'tgl_buat' => date('Y-m-d H:i:s')
 		);
 
-		$BiayaBiaya =array(
+		$BiayaBiaya = array(
 			'id_order' => $this->input->post('id_order'),
 			'provisi' => $this->input->post('provisi'),
 			'admin_kredit' => $this->input->post('admin_kredit'),
@@ -5057,12 +5055,12 @@ class Home extends CI_Controller {
 			'biaya_lain_lain' => $this->input->post('lain_lain')
 		);
 
-		$queryOffering = $this->business->update_data('los_offering_letter',$dataOffering,$where);
-		$queryBiaya = $this->business->update_data('los_lpdk_biaya',$BiayaBiaya,$where);
+		$queryOffering = $this->business->update_data('los_offering_letter', $dataOffering, $where);
+		$queryBiaya = $this->business->update_data('los_lpdk_biaya', $BiayaBiaya, $where);
 
 		if ($queryOffering && $queryBiaya) {
 			echo json_encode(array('msg' => 'success'));
-		}else{
+		} else {
 			echo json_encode(array('msg' => 'failed'));
 		}
 	}
@@ -5107,39 +5105,39 @@ class Home extends CI_Controller {
 
 	public function changeDate($date)
 	{
-		$dateex = explode('-',$date);
+		$dateex = explode('-', $date);
 		$return = '';
 		switch ($dateex[1]) {
 			case '01':
-				return $return = $dateex[2]." Januari ".$dateex[0];
+				return $return = $dateex[2] . " Januari " . $dateex[0];
 			case '02':
-				return $return = $dateex[2]." Februari ".$dateex[0];
+				return $return = $dateex[2] . " Februari " . $dateex[0];
 			case '03':
-				return $return = $dateex[2]." Maret ".$dateex[0];
+				return $return = $dateex[2] . " Maret " . $dateex[0];
 			case '04':
-				return $return = $dateex[2]." April ".$dateex[0];
+				return $return = $dateex[2] . " April " . $dateex[0];
 			case '05':
-				return $return = $dateex[2]." Mei ".$dateex[0];
+				return $return = $dateex[2] . " Mei " . $dateex[0];
 			case '06':
-				return $return = $dateex[2]." Juni ".$dateex[0];
+				return $return = $dateex[2] . " Juni " . $dateex[0];
 				break;
 			case '07':
-				return $return = $dateex[2]." Juli ".$dateex[0];
+				return $return = $dateex[2] . " Juli " . $dateex[0];
 				break;
 			case '08':
-				return $return = $dateex[2]." Agustus ".$dateex[0];
+				return $return = $dateex[2] . " Agustus " . $dateex[0];
 				break;
 			case '09':
-				return $return = $dateex[2]." September ".$dateex[0];
+				return $return = $dateex[2] . " September " . $dateex[0];
 				break;
 			case '10':
-				return $return = $dateex[2]." Oktober ".$dateex[0];
+				return $return = $dateex[2] . " Oktober " . $dateex[0];
 				break;
 			case '11':
-				return $return = $dateex[2]." November ".$dateex[0];
+				return $return = $dateex[2] . " November " . $dateex[0];
 				break;
 			default:
-				return $return = $dateex[2]." Desember ".$dateex[0];
+				return $return = $dateex[2] . " Desember " . $dateex[0];
 				break;
 		}
 	}
